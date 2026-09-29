@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Manrope:wght@300;400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+:root {
+  --ink: #16374c;
+  --deep: #073d59;
+  --teal: #006c93;
+  --mint: #e0f3fc;
+  --lime: #bfeaff;
+  --cream: #f1f7fc;
+  --paper: #ffffff;
+  --coral: #bc1169;
+  --cyan: #05a5ea;
+  --pink: #e32a8c;
+  --line: rgba(22, 55, 76, 0.15);
+  --shadow: 0 24px 70px rgba(7, 61, 89, 0.12);
+  --shadow-sm: 0 4px 20px rgba(7, 61, 89, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+::selection {
+  background: var(--coral);
+  color: #fff;
+}
+
+/* Subtle fractal noise texture from index.html */
+.noise-texture {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+/* Primary Eyebrow badge */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--teal);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 2px;
+  background: var(--coral);
+  display: inline-block;
+}
+
+/* Custom design button styles */
+.btn-primary {
+  background: linear-gradient(135deg, var(--coral) 0%, #d41477 100%);
+  color: white;
+  box-shadow: 0 10px 25px rgba(188, 17, 105, 0.28);
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(188, 17, 105, 0.35);
+}
+
+.btn-teal {
+  background: linear-gradient(135deg, var(--teal) 0%, var(--deep) 100%);
+  color: white;
+  box-shadow: 0 10px 25px rgba(0, 108, 147, 0.24);
+  transition: all 0.25s ease;
+}
+
+.btn-teal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 108, 147, 0.32);
+}
+
+.btn-outline {
+  border: 1.5px solid var(--line);
+  color: var(--deep);
+  background: white;
+  transition: all 0.25s ease;
+}
+
+.btn-outline:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: var(--cream);
+  transform: translateY(-2px);
+}
+
+/* Glassmorphism cards */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(22, 55, 76, 0.1);
+  box-shadow: var(--shadow);
+}
+
+/* Infinite Marquee for Insurance Providers */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* WYSIWYG Content Rendering */
+.wysiwyg-content h1 { font-size: 2rem; font-weight: 800; margin-top: 1.5rem; margin-bottom: 0.75rem; color: var(--deep); }
+.wysiwyg-content h2 { font-size: 1.6rem; font-weight: 700; margin-top: 1.25rem; margin-bottom: 0.5rem; color: var(--deep); }
+.wysiwyg-content h3 { font-size: 1.3rem; font-weight: 700; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--teal); }
+.wysiwyg-content p { line-height: 1.75; margin-bottom: 1rem; color: #425b6c; font-size: 1.05rem; }
+.wysiwyg-content ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; color: #425b6c; }
+.wysiwyg-content ol { list-style-type: decimal; margin-left: 1.5rem; margin-bottom: 1rem; color: #425b6c; }
+.wysiwyg-content li { margin-bottom: 0.35rem; }
+.wysiwyg-content blockquote { border-left: 4px solid var(--coral); padding-left: 1rem; margin-left: 0; margin-right: 0; font-style: italic; color: #375c74; background: #fdf2f7; padding-top: 0.5rem; padding-bottom: 0.5rem; border-radius: 0 8px 8px 0; }
+.wysiwyg-content table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+.wysiwyg-content th, .wysiwyg-content td { border: 1px solid var(--line); padding: 10px 14px; text-align: left; }
+.wysiwyg-content th { background: var(--cream); font-weight: 700; color: var(--deep); }
+.wysiwyg-content a { color: var(--cyan); text-decoration: underline; }
+.wysiwyg-content img { max-width: 100%; border-radius: 12px; margin: 1.25rem 0; box-shadow: var(--shadow-sm); }

@@ -1,0 +1,330 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Sreemantha Hospital Digital Platform API",
+    "version": "1.0.0",
+    "description": "Comprehensive REST API for Sreemantha Fertility, Maternity, and Pediatric Hospital Khammam. Includes full content management, operational settings, dynamic collections, and patient booking flows.",
+    "contact": {
+      "name": "Sreemantha Digital Team",
+      "email": "care@sreemanthahospital.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Primary API gateway"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Argon2-authenticated JWT token"
+      }
+    },
+    "schemas": {
+      "Facility": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "slug": { "type": "string" },
+          "name": { "type": "string" },
+          "short_description": { "type": "string" },
+          "description": { "type": "string" },
+          "equipment": { "type": "array", "items": { "type": "string" } },
+          "image_url": { "type": "string" },
+          "status": { "type": "string", "enum": ["published", "draft"] },
+          "display_order": { "type": "integer" }
+        }
+      },
+      "Specialty": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "slug": { "type": "string" },
+          "title": { "type": "string" },
+          "category": { "type": "string" },
+          "short_description": { "type": "string" },
+          "overview": { "type": "string" },
+          "icon": { "type": "string" },
+          "image_url": { "type": "string" },
+          "conditions": { "type": "array", "items": { "type": "string" } },
+          "display_order": { "type": "integer" },
+          "status": { "type": "string", "enum": ["published", "draft"] }
+        }
+      },
+      "Treatment": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "slug": { "type": "string" },
+          "title": { "type": "string" },
+          "category": { "type": "string" },
+          "specialty_slug": { "type": "string" },
+          "short_description": { "type": "string" },
+          "overview": { "type": "string" },
+          "how_it_works": { "type": "array", "items": { "type": "string" } },
+          "who_requires": { "type": "array", "items": { "type": "string" } },
+          "preparation": { "type": "string" },
+          "aftercare": { "type": "string" },
+          "typical_duration": { "type": "string" },
+          "success_rate": { "type": "string" },
+          "image_url": { "type": "string" },
+          "featured": { "type": "integer" },
+          "status": { "type": "string", "enum": ["published", "draft"] }
+        }
+      },
+      "Doctor": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "slug": { "type": "string" },
+          "name": { "type": "string" },
+          "designation": { "type": "string" },
+          "department": { "type": "string" },
+          "qualifications": { "type": "string" },
+          "experience_years": { "type": "integer" },
+          "languages": { "type": "array", "items": { "type": "string" } },
+          "short_bio": { "type": "string" },
+          "full_bio": { "type": "string" },
+          "education": { "type": "array", "items": { "type": "string" } },
+          "certifications": { "type": "array", "items": { "type": "string" } },
+          "opd_timings": { "type": "string" },
+          "photo_url": { "type": "string" },
+          "featured": { "type": "integer" },
+          "display_order": { "type": "integer" },
+          "status": { "type": "string", "enum": ["published", "draft"] }
+        }
+      },
+      "GalleryItem": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "title": { "type": "string" },
+          "category": { "type": "string" },
+          "media_type": { "type": "string", "enum": ["image", "video", "youtube", "instagram", "facebook", "embed"] },
+          "media_url": { "type": "string" },
+          "embed_code": { "type": "string" },
+          "thumbnail_url": { "type": "string" },
+          "caption": { "type": "string" },
+          "display_order": { "type": "integer" }
+        }
+      },
+      "Insight": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "slug": { "type": "string" },
+          "title": { "type": "string" },
+          "category": { "type": "string" },
+          "author": { "type": "string" },
+          "read_time": { "type": "string" },
+          "summary": { "type": "string" },
+          "content": { "type": "string" },
+          "image_url": { "type": "string" },
+          "published_at": { "type": "string", "format": "date" },
+          "featured": { "type": "integer" },
+          "status": { "type": "string", "enum": ["published", "draft"] }
+        }
+      },
+      "InsuranceProvider": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "cashless_available": { "type": "integer" },
+          "claim_assistance_info": { "type": "string" },
+          "logo_url": { "type": "string" },
+          "display_order": { "type": "integer" },
+          "status": { "type": "string", "enum": ["active", "inactive"] }
+        }
+      },
+      "AppointmentRequest": {
+        "type": "object",
+        "required": ["patient_name", "phone"],
+        "properties": {
+          "patient_name": { "type": "string" },
+          "phone": { "type": "string" },
+          "email": { "type": "string" },
+          "department": { "type": "string" },
+          "doctor_name": { "type": "string" },
+          "preferred_date": { "type": "string", "format": "date" },
+          "preferred_time": { "type": "string" },
+          "reason": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health check for Render cloud and monitoring",
+        "responses": {
+          "200": { "description": "Healthy service" }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Authenticate user using Argon2 and JWT",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Token and user details returned" },
+          "401": { "description": "Invalid credentials" }
+        }
+      }
+    },
+    "/facilities": {
+      "get": {
+        "summary": "List facilities with optional status/search filters",
+        "responses": { "200": { "description": "List of facilities" } }
+      },
+      "post": {
+        "summary": "Create facility (staff/admin)",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "201": { "description": "Facility created" } }
+      }
+    },
+    "/facilities/{slug}": {
+      "get": {
+        "summary": "Get facility details by slug",
+        "parameters": [{ "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Facility detail" } }
+      }
+    },
+    "/specialties": {
+      "get": {
+        "summary": "List medical specialties",
+        "responses": { "200": { "description": "List of specialties" } }
+      },
+      "post": {
+        "summary": "Create specialty",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "201": { "description": "Specialty created" } }
+      }
+    },
+    "/specialties/{slug}": {
+      "get": {
+        "summary": "Get specialty detail and related treatments",
+        "parameters": [{ "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Specialty detail" } }
+      }
+    },
+    "/treatments": {
+      "get": {
+        "summary": "List clinical treatments and services",
+        "responses": { "200": { "description": "List of treatments" } }
+      },
+      "post": {
+        "summary": "Create clinical treatment",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "201": { "description": "Treatment created" } }
+      }
+    },
+    "/treatments/{slug}": {
+      "get": {
+        "summary": "Get treatment detail with preparation, recovery, and doctors",
+        "parameters": [{ "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Treatment detail" } }
+      }
+    },
+    "/doctors": {
+      "get": {
+        "summary": "List doctors with department filter",
+        "responses": { "200": { "description": "List of doctors" } }
+      },
+      "post": {
+        "summary": "Create doctor profile",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "201": { "description": "Doctor profile created" } }
+      }
+    },
+    "/doctors/{slug}": {
+      "get": {
+        "summary": "Get doctor profile and clinical expertise",
+        "parameters": [{ "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Doctor profile" } }
+      }
+    },
+    "/gallery": {
+      "get": {
+        "summary": "List gallery media (images, videos, embeds)",
+        "responses": { "200": { "description": "Gallery items" } }
+      },
+      "post": {
+        "summary": "Add gallery item (upload or iframe embed)",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "201": { "description": "Gallery item added" } }
+      }
+    },
+    "/insights": {
+      "get": {
+        "summary": "List health insights and articles",
+        "responses": { "200": { "description": "Articles list" } }
+      },
+      "post": {
+        "summary": "Create insight article",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "201": { "description": "Article created" } }
+      }
+    },
+    "/insights/{slug}": {
+      "get": {
+        "summary": "Get insight article by slug",
+        "parameters": [{ "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Article detail" } }
+      }
+    },
+    "/insurance": {
+      "get": {
+        "summary": "List active insurance providers for sliding strip and cashless support",
+        "responses": { "200": { "description": "Providers list" } }
+      }
+    },
+    "/appointments": {
+      "post": {
+        "summary": "Submit public appointment request",
+        "responses": { "201": { "description": "Appointment request submitted" } }
+      },
+      "get": {
+        "summary": "View appointment requests (staff/admin)",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "200": { "description": "Appointments list" } }
+      }
+    },
+    "/enquiries": {
+      "post": {
+        "summary": "Submit public contact enquiry",
+        "responses": { "201": { "description": "Enquiry submitted" } }
+      },
+      "get": {
+        "summary": "View contact enquiries (staff/admin)",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "200": { "description": "Enquiries list" } }
+      }
+    },
+    "/settings": {
+      "get": {
+        "summary": "Get hospital contact, social, and operating settings",
+        "responses": { "200": { "description": "Settings dictionary" } }
+      }
+    }
+  }
+}
