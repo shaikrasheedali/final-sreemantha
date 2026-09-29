@@ -121,7 +121,7 @@ export const AdminUsersPage: React.FC = () => {
                   type="text"
                   required
                   value={formData.username}
-                  onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, username: e.target.value })}
                   placeholder="e.g. dr_priya"
                   className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white"
                 />
@@ -134,7 +134,7 @@ export const AdminUsersPage: React.FC = () => {
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Dr. Priya Rao"
                   className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white"
                 />
@@ -149,7 +149,7 @@ export const AdminUsersPage: React.FC = () => {
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="e.g. priya@sreemanthahospital.com"
                   className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white"
                 />
@@ -163,7 +163,7 @@ export const AdminUsersPage: React.FC = () => {
                   type="password"
                   required
                   value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: e.target.value })}
                   placeholder="Strong password"
                   className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white"
                 />
@@ -176,7 +176,7 @@ export const AdminUsersPage: React.FC = () => {
               </label>
               <select
                 value={formData.role}
-                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, role: e.target.value })}
                 className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white"
               >
                 <option value="staff">Staff (Clinical Content Editor)</option>
@@ -217,7 +217,7 @@ export const AdminUsersPage: React.FC = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-700/60">
-                {users.map((u) => (
+                {users.map((u: UserType) => (
                   <tr key={u.id} className="hover:bg-slate-700/30 transition-colors">
                     <td className="px-6 py-4">
                       <div className="font-bold text-white text-xs">{u.name || u.username}</div>
