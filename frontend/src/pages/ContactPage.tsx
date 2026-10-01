@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import {
-  MapPin, Phone, Mail, Clock, Send, CheckCircle2,
-  AlertCircle, MessageSquare, ShieldCheck
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Send,
+  Check,
+  AlertCircle,
+  ShieldCheck,
+  ArrowUpRight,
+  MessageCircle,
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { useSettings } from '../context/SettingsContext';
@@ -9,13 +17,20 @@ import { api } from '../utils/api';
 
 export const ContactPage: React.FC = () => {
   const { settings } = useSettings();
+  const info = settings.hospital_info || {};
+  const phone = info.phone || '+91 96667 81779';
+  const emergency = info.emergency_hotline || '+91 88007 73362';
+  const email = info.email || 'care@sreemanthahospital.com';
+  const address = info.address || 'Priyadarshini Degree College Road, Nehru Nagar, Khammam, Telangana 507001';
+  const phoneHref = `tel:${phone.replace(/[^+\d]/g, '')}`;
+  const emergencyHref = `tel:${emergency.replace(/[^+\d]/g, '')}`;
 
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
-    subject: 'General Inquiry',
-    message: ''
+    subject: 'General Consultation Inquiry',
+    message: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -24,8 +39,8 @@ export const ContactPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone || !formData.message) {
-      setError('Please provide your name, contact phone number, and query message.');
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.message.trim()) {
+      setError('Please provide your name, phone number, and inquiry message.');
       return;
     }
 
@@ -38,246 +53,261 @@ export const ContactPage: React.FC = () => {
         name: '',
         phone: '',
         email: '',
-        subject: 'General Inquiry',
-        message: ''
+        subject: 'General Consultation Inquiry',
+        message: '',
       });
     } catch (err: any) {
-      console.error('Contact enquiry error:', err);
-      setError(err?.message || 'Failed to submit enquiry. Please call us directly.');
+      console.error('Contact inquiry error:', err);
+      setError(err?.message || 'Unable to submit your inquiry at this moment. Please call us directly.');
     } finally {
       setLoading(false);
     }
   };
 
-  const hospitalInfo = settings?.hospital_info || {};
-  const phone = hospitalInfo.phone || settings?.contact_phone || '+91 96667 81779';
-  const whatsapp = hospitalInfo.whatsapp || settings?.contact_whatsapp || '+91 96667 81779';
-  const email = hospitalInfo.email || settings?.contact_email || 'care@sreemanthahospital.com';
-  const address = hospitalInfo.address || settings?.address || 'Beside Priyadarshini Degree College, Nehru Nagar, Khammam, Telangana 507002';
-
   return (
-    <div className="py-12 bg-slate-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Breadcrumbs items={[{ label: 'Contact Us' }]} />
+    <div className="sr-section" style={{ paddingTop: 40 }}>
+      <div className="sr-container">
+        <Breadcrumbs items={[{ label: 'Contact & Location' }]} />
 
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="eyebrow mb-2">Connect With Our Team</span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#073d59] font-heading">
-            Get in Touch with Sreemantha Hospital
-          </h1>
-          <p className="text-sm text-[#637371] mt-2 leading-relaxed">
-            Have questions about IVF treatment plans, prenatal checkups, pediatric admissions, or cashless insurance? Reach out to our front desk or visit our facility in Khammam.
+        {/* Heading */}
+        <div className="sr-heading-row mb-12">
+          <div>
+            <span className="sr-kicker">Start a Conversation</span>
+            <h1 className="sr-display sr-heading mt-2">
+              We’re here to listen<br />
+              and <em>answer your questions.</em>
+            </h1>
+          </div>
+          <p className="sr-copy max-w-md">
+            Have a question about fertility options, maternity admission, insurance cashless approval, or pediatric care? Our team is always ready to guide you.
           </p>
         </div>
 
-        {/* 3-Column Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#006c93]/10 text-[#006c93] flex items-center justify-center shrink-0">
-              <Phone className="w-6 h-6" />
+        {/* 4 Contact Information Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-full bg-[#e8eee5] flex items-center justify-center text-[#183f3d] mb-4">
+                <Phone size={18} />
+              </div>
+              <h3 className="text-sm font-semibold text-[#183f3d] mb-1">Direct Helplines</h3>
+              <p className="sr-copy text-xs mb-3">Appointments &amp; general enquiries</p>
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-900 font-heading">Call & Helplines</h3>
-              <p className="text-xs text-slate-500 mt-1">24/7 Casualty & OPD Reception</p>
-              <a href={`tel:${phone.replace(/\s+/g, '')}`} className="block text-xs font-bold text-[#006c93] mt-2 hover:underline">
+              <a href={phoneHref} className="text-sm font-bold text-[#183f3d] hover:text-[#8f4160] transition block">
                 {phone}
               </a>
-              <a
-                href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}?text=Hello%20Sreemantha%20Hospital,%20I%20have%20an%20inquiry.`}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block text-[11px] font-semibold text-emerald-600 mt-1 hover:underline"
-              >
-                Chat on WhatsApp →
-              </a>
+              <span className="text-[10px] text-[#596966]">Mon – Sat: 9 AM to 8 PM</span>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#fa7830]/10 text-[#fa7830] flex items-center justify-center shrink-0">
-              <Mail className="w-6 h-6" />
+          <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-full bg-[#f4e7e9] flex items-center justify-center text-[#8f4160] mb-4">
+                <ShieldCheck size={18} />
+              </div>
+              <h3 className="text-sm font-semibold text-[#183f3d] mb-1">24/7 Emergency Care</h3>
+              <p className="sr-copy text-xs mb-3">Labor, casualty &amp; Level-III NICU</p>
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-900 font-heading">Email Inquiries</h3>
-              <p className="text-xs text-slate-500 mt-1">Corporate & Patient Communications</p>
-              <a href={`mailto:${email}`} className="block text-xs font-bold text-[#006c93] mt-2 hover:underline">
+              <a href={emergencyHref} className="text-sm font-bold text-[#8f4160] hover:underline transition block">
+                {emergency}
+              </a>
+              <span className="text-[10px] text-[#596966]">Available 24 Hours / 365 Days</span>
+            </div>
+          </div>
+
+          <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-full bg-[#e8eee5] flex items-center justify-center text-[#183f3d] mb-4">
+                <Mail size={18} />
+              </div>
+              <h3 className="text-sm font-semibold text-[#183f3d] mb-1">Email Correspondence</h3>
+              <p className="sr-copy text-xs mb-3">Patient queries &amp; medical records</p>
+            </div>
+            <div>
+              <a href={`mailto:${email}`} className="text-xs font-semibold text-[#183f3d] hover:text-[#8f4160] transition truncate block">
                 {email}
               </a>
-              <span className="text-[11px] text-slate-400 block mt-1">Responses within 24 business hours</span>
+              <span className="text-[10px] text-[#596966]">Responses within 24 hours</span>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-100/60 text-emerald-700 flex items-center justify-center shrink-0">
-              <Clock className="w-6 h-6" />
+          <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-full bg-[#e8eee5] flex items-center justify-center text-[#183f3d] mb-4">
+                <Clock size={18} />
+              </div>
+              <h3 className="text-sm font-semibold text-[#183f3d] mb-1">Visiting Hours</h3>
+              <p className="sr-copy text-xs mb-3">Inpatient &amp; maternity wards</p>
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-900 font-heading">Working Hours</h3>
-              <p className="text-xs text-slate-500 mt-1">OPD: Mon – Sat: 10:00 AM – 8:30 PM</p>
-              <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Emergency & NICU: 24/7
-              </div>
+              <span className="text-xs font-bold text-[#183f3d] block">
+                04:00 PM – 07:00 PM
+              </span>
+              <span className="text-[10px] text-[#596966]">Attendant passes provided</span>
             </div>
           </div>
         </div>
 
         {/* Form and Map Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Contact Enquiry Form */}
-          <div className="lg:col-span-6 bg-white p-6 sm:p-10 rounded-3xl border border-slate-200/80 shadow-md">
-            <div className="mb-6">
-              <h2 className="text-xl font-bold text-[#073d59] font-heading">Send Us a Message</h2>
-              <p className="text-xs text-slate-500 mt-1">
-                Fill out the form below and our patient care team will get back to you promptly.
-              </p>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
+          {/* Enquiry Form */}
+          <div className="lg:col-span-7">
+            <div className="p-8 sm:p-12 rounded-2xl bg-[#fffefb] border border-[#e0e5dd]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-2">
+                Send a Message
+              </span>
+              <h2 className="sr-display text-2xl mb-6 text-[#183f3d]">
+                Ask our clinical coordinator
+              </h2>
 
-            {success ? (
-              <div className="p-8 text-center bg-emerald-50 rounded-2xl border border-emerald-200">
-                <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto mb-3" />
-                <h3 className="text-base font-bold text-emerald-900">Enquiry Received</h3>
-                <p className="text-xs text-emerald-700 mt-1 mb-4 leading-relaxed">
-                  Thank you for reaching out. We have logged your enquiry and our support staff will call or email you shortly.
-                </p>
-                <button
-                  onClick={() => setSuccess(false)}
-                  className="px-4 py-2 rounded-full bg-emerald-600 text-white text-xs font-bold"
-                >
-                  Send Another Message
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {error && (
-                  <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
-                    <span>{error}</span>
+              {success ? (
+                <div className="p-8 rounded-xl bg-[#faf8f3] border border-[#cbd7c6] text-center space-y-4">
+                  <div className="w-12 h-12 rounded-full bg-[#e8eee5] text-[#183f3d] flex items-center justify-center mx-auto">
+                    <Check size={24} />
                   </div>
-                )}
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Your Name <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g. Anjali Sharma"
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-[#006c93] focus:outline-none"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Phone Number <span className="text-rose-500">*</span>
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="e.g. 9666781779"
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-[#006c93] focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="e.g. anjali@example.com"
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-[#006c93] focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Topic / Subject
-                  </label>
-                  <select
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-[#006c93] focus:outline-none bg-white"
+                  <h3 className="font-serif text-xl text-[#183f3d]">Message Received</h3>
+                  <p className="sr-copy text-xs max-w-sm mx-auto">
+                    Thank you. Your message has been routed to our patient care desk. We will get back to you shortly.
+                  </p>
+                  <button
+                    onClick={() => setSuccess(false)}
+                    className="sr-button sr-button--outline text-xs mt-2"
                   >
-                    <option value="General Inquiry">General Hospital Inquiry</option>
-                    <option value="Fertility / IVF Counseling">Fertility / IVF Counseling</option>
-                    <option value="Obstetrics & Maternity Packages">Obstetrics & Maternity Packages</option>
-                    <option value="Pediatrics & NICU Admission">Pediatrics & NICU Admission</option>
-                    <option value="Insurance Cashless Queries">Insurance Cashless Queries</option>
-                    <option value="Feedback / Complaints">Feedback / Complaints</option>
-                  </select>
+                    Send another inquiry
+                  </button>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  {error && (
+                    <div className="p-3.5 rounded-lg bg-[#f9e9ec] border border-[#f0c2cd] text-[#8f4160] text-xs font-semibold flex items-center gap-2">
+                      <AlertCircle size={15} />
+                      <span>{error}</span>
+                    </div>
+                  )}
 
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Your Message <span className="text-rose-500">*</span>
-                  </label>
-                  <textarea
-                    rows={4}
-                    required
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Tell us how we can help you..."
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-[#006c93] focus:outline-none"
-                  />
-                </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="sr-label">Your Name *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Ramesh Reddy"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="sr-input"
+                      />
+                    </div>
+                    <div>
+                      <label className="sr-label">Phone Number *</label>
+                      <input
+                        type="tel"
+                        required
+                        placeholder="e.g. +91 96667 81779"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="sr-input"
+                      />
+                    </div>
+                  </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-3 px-6 rounded-xl bg-[#006c93] hover:bg-[#073d59] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
-                >
-                  {loading ? 'Sending...' : 'Send Message'} <Send className="w-4 h-4" />
-                </button>
-              </form>
-            )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="sr-label">Email Address (Optional)</label>
+                      <input
+                        type="email"
+                        placeholder="e.g. ramesh@example.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="sr-input"
+                      />
+                    </div>
+                    <div>
+                      <label className="sr-label">Area of Interest</label>
+                      <select
+                        value={formData.subject}
+                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                        className="sr-select"
+                      >
+                        <option value="Fertility & IVF Inquiry">Fertility &amp; IVF Inquiry</option>
+                        <option value="Maternity Admission & Delivery Packages">Maternity &amp; Delivery Packages</option>
+                        <option value="Level-III NICU & Pediatric Inquiry">NICU &amp; Pediatric Care</option>
+                        <option value="Cashless Insurance TPA Help">Cashless Insurance Desk</option>
+                        <option value="General Consultation Inquiry">General Consultation Inquiry</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="sr-label">Your Message or Question *</label>
+                    <textarea
+                      rows={4}
+                      required
+                      placeholder="Please let us know your requirements or medical queries..."
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="sr-textarea"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="sr-button w-full sm:w-auto"
+                  >
+                    <Send size={15} />
+                    {loading ? 'Submitting inquiry...' : 'Send inquiry message'}
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
 
-          {/* Location & Map */}
-          <div className="lg:col-span-6 flex flex-col space-y-6">
-            <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-md flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex items-start gap-3 mb-4">
-                  <MapPin className="w-6 h-6 text-[#fa7830] shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="text-base font-bold text-slate-900 font-heading">Hospital Location</h3>
-                    <p className="text-xs text-slate-600 mt-1 leading-relaxed">{address}</p>
-                    <p className="text-[11px] text-slate-400 mt-1">Landmark: Beside Priyadarshini Degree & PG College, Nehru Nagar</p>
-                  </div>
-                </div>
-
-                {/* Google Map Embed */}
-                <div className="rounded-2xl overflow-hidden border border-slate-200 h-64 sm:h-72 w-full mt-4">
-                  <iframe
-                    title="Sreemantha Hospital Khammam Location Map"
-                    src="https://maps.google.com/maps?q=Priyadarshini+Degree+College+Nehru+Nagar+Khammam+Telangana&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    allowFullScreen
-                  />
-                </div>
+          {/* Location & Map Card */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="p-8 rounded-2xl bg-[#fffefb] border border-[#e0e5dd] space-y-5">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8f4160]">
+                <MapPin size={16} />
+                Facility Location
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                <span>Parking: Ample 2-wheeler & 4-wheeler available</span>
+              <div>
+                <h3 className="font-serif text-xl text-[#183f3d] mb-2">
+                  Sreemantha Hospital, Khammam
+                </h3>
+                <p className="sr-copy text-xs leading-relaxed">
+                  {address}
+                </p>
+                <p className="text-[11px] text-[#596966] mt-2">
+                  Landmark: Beside Priyadarshini Degree College, Nehru Nagar.
+                </p>
+              </div>
+
+              {/* Map embed / link */}
+              <div className="rounded-xl overflow-hidden border border-[#e0e5dd] h-56 bg-[#e8eee5] relative flex items-center justify-center">
+                <iframe
+                  title="Sreemantha Hospital Khammam Location Map"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3809.5262744781446!2d80.1487661!3d17.2415177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3459c3bf79a059%3A0xe6bf446cf055c5df!2sSreemantha%20Hospital!5e0!3m2!1sen!2sin!4v1700000000000"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+
+              <div className="pt-2">
                 <a
-                  href="https://maps.google.com/maps?q=Priyadarshini+Degree+College+Nehru+Nagar+Khammam+Telangana"
+                  href="https://maps.google.com/?q=Sreemantha+Hospital+Khammam"
                   target="_blank"
-                  rel="noreferrer"
-                  className="font-bold text-[#006c93] hover:underline"
+                  rel="noopener noreferrer"
+                  className="sr-button sr-button--outline text-xs w-full justify-center"
                 >
-                  Open in Google Maps →
+                  <MapPin size={14} />
+                  Open in Google Maps
+                  <ArrowUpRight size={14} />
                 </a>
               </div>
             </div>

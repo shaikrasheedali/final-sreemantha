@@ -13,7 +13,6 @@ export const InitialLoader: React.FC<{ onComplete?: () => void }> = ({ onComplet
   useEffect(() => {
     if (!visible) return;
 
-    // Show the SVG loading animation on initial entry
     const timer = setTimeout(() => {
       setFading(true);
       setTimeout(() => {
@@ -22,8 +21,8 @@ export const InitialLoader: React.FC<{ onComplete?: () => void }> = ({ onComplet
           sessionStorage.setItem('sreemantha_intro_shown', 'true');
         } catch {}
         if (onComplete) onComplete();
-      }, 450);
-    }, 1200);
+      }, 400);
+    }, 900);
 
     return () => clearTimeout(timer);
   }, [visible, onComplete]);
@@ -32,24 +31,24 @@ export const InitialLoader: React.FC<{ onComplete?: () => void }> = ({ onComplet
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center transition-opacity duration-500 bg-[#faf8f3] ${
         fading ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
-      style={{
-        background: 'radial-gradient(ellipse at 50% 42%, #fff 10%, #effaff 65%, #fdf1f8)',
-      }}
       role="status"
       aria-label="Loading Sreemantha Hospital"
     >
-      <div className="w-[90vw] max-w-[780px] flex items-center justify-center">
+      <div className="w-16 h-16 rounded-full bg-[#e8eee5] p-3 flex items-center justify-center border border-[#cbd7c6] mb-4 animate-pulse">
         <img
-          src="/initial-loader.svg"
-          alt="Loading Sreemantha Hospital"
-          className="w-full h-auto"
+          src="/favicon.svg"
+          alt="Sreemantha Hospital Emblem"
+          className="w-full h-full object-contain"
         />
       </div>
-      <p className="text-xs sm:text-sm font-medium text-[#375c74] mt-3 tracking-wide animate-pulse">
-        Getting ready to care for you…
+      <h2 className="font-serif text-xl text-[#183f3d] tracking-tight">
+        Sreemantha Hospital
+      </h2>
+      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#8f4160] mt-1.5">
+        Care, with a human touch
       </p>
     </div>
   );

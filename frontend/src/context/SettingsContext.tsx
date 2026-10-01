@@ -6,9 +6,11 @@ interface SettingsContextType {
   settings: HospitalSettings;
   isLoading: boolean;
   refreshSettings: () => Promise<void>;
+  updateFaviconInHead: (url: string) => void;
 }
 
 const defaultSettings: HospitalSettings = {
+  favicon_url: '/favicon.svg',
   hospital_info: {
     hospital_name: 'Sreemantha IVF and Child Care Hospital',
     tagline: 'Bringing the Joy of Parenthood to Your Life',
@@ -20,6 +22,7 @@ const defaultSettings: HospitalSettings = {
     email: 'care@sreemanthahospital.com',
     display_hotline: '+91 96667 81779',
     emergency_hotline: '+91 88007 73362',
+    favicon_url: '/favicon.svg',
     stats: [
       { label: 'IVF Success Rate', value: '98%' },
       { label: 'Happy Families', value: '15,000+' },
@@ -79,9 +82,37 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
+  const updateFaviconInHead = (url: string) => {
+    if (!url) return;
+    const isSvg = url.endsWith('.svg') || url.includes('.svg');
+    const svgIcon = document.getElementById('dynamic-favicon-svg') as HTMLLinkElement | null;
+    if (svgIcon) {
+      svgIcon.href = url;
+    }
+    const icon32 = document.getElementById('dynamic-favicon-32') as HTMLLinkElement | null;
+    if (icon32) {
+      icon32.href = isSvg ? url : url;
+    }
+    const icon16 = document.getElementById('dynamic-favicon-16') as HTMLLinkElement | null;
+    if (icon16) {
+      icon16.href = isSvg ? url : url;
+    }
+    const shortcut = document.querySelector("link[rel*='icon']") as HTMLLinkElement | null;
+    if (shortcut) {
+      shortcut.href = url;
+    }
+  };
+
   useEffect(() => {
     fetchSettings();
   }, []);
+
+  useEffect(() => {
+    const customFavicon = settings.hospital_info?.favicon_url || settings.favicon_url;
+    if (customFavicon) {
+      updateFaviconInHead(customFavicon);
+    }
+  }, [settings]);
 
   return (
     <SettingsContext.Provider
@@ -89,6 +120,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         settings,
         isLoading,
         refreshSettings: fetchSettings,
+        updateFaviconInHead,
       }}
     >
       {children}

@@ -29,7 +29,6 @@ export const GalleryModal: React.FC<GalleryModalProps> = ({ item, onClose }) => 
   const isInstagram = item.media_type === 'instagram' || /instagram\.com/i.test(item.media_url);
   const isFacebook = item.media_type === 'facebook' || /facebook\.com/i.test(item.media_url);
 
-  // Helper to extract YouTube ID
   const getYouTubeEmbedUrl = (url: string) => {
     let videoId = '';
     if (url.includes('youtu.be/')) {
@@ -43,45 +42,42 @@ export const GalleryModal: React.FC<GalleryModalProps> = ({ item, onClose }) => 
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn"
       onClick={onClose}
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-label={item.title}
-        className="relative bg-[#073d59] border border-white/20 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col"
+        className="relative bg-[#183f3d] border border-[#2b5956] rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#073d59]/90 text-white">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#2b5956] bg-[#183f3d] text-white">
           <div className="flex items-center gap-3">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#05a5ea]/20 text-[#05a5ea] border border-[#05a5ea]/30">
-              {item.category}
-            </span>
-            <h3 className="text-base font-bold truncate max-w-md font-heading text-white">
+            {item.category && (
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#e8eee5] text-[#183f3d]">
+                {item.category}
+              </span>
+            )}
+            <h3 className="font-serif text-base text-[#fffdf5] truncate max-w-md">
               {item.title}
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition"
-            aria-label="Close modal"
             title="Close (Esc)"
+            className="p-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition cursor-pointer"
+            aria-label="Close Preview"
           >
-            <X className="w-5 h-5" />
+            <X size={18} />
           </button>
         </div>
 
-        {/* Media Content Display */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex items-center justify-center bg-black/40">
-          {item.embed_code ? (
-            <div
-              className="w-full flex justify-center aspect-video max-h-[60vh]"
-              dangerouslySetInnerHTML={{ __html: item.embed_code }}
-            />
-          ) : isYouTube ? (
-            <div className="w-full aspect-video rounded-2xl overflow-hidden shadow-lg border border-white/10">
+        {/* Media Container */}
+        <div className="flex-1 bg-black/60 flex items-center justify-center overflow-auto p-4 min-h-[300px] max-h-[68vh]">
+          {isYouTube ? (
+            <div className="w-full aspect-video rounded-xl overflow-hidden shadow-lg">
               <iframe
                 src={getYouTubeEmbedUrl(item.media_url)}
                 title={item.title}
@@ -90,54 +86,28 @@ export const GalleryModal: React.FC<GalleryModalProps> = ({ item, onClose }) => 
                 allowFullScreen
               />
             </div>
-          ) : isInstagram ? (
-            <div className="w-full max-w-md h-[480px] rounded-2xl overflow-hidden bg-white">
-              <iframe
-                src={`${item.media_url.replace(/\/$/, '')}/embed`}
-                className="w-full h-full border-0"
-                title={item.title}
-              />
-            </div>
-          ) : isFacebook ? (
-            <div className="w-full max-w-lg aspect-video rounded-2xl overflow-hidden bg-white">
-              <iframe
-                src={`https://www.facebook.com/plugins/video.php?height=476&href=${encodeURIComponent(item.media_url)}&show_text=false&width=476&t=0`}
-                className="w-full h-full border-0"
-                title={item.title}
-                allowFullScreen
-              />
-            </div>
           ) : isVideo ? (
             <video
               src={item.media_url}
               controls
               autoPlay
-              className="max-h-[65vh] w-auto max-w-full rounded-2xl shadow-xl"
-            />
+              className="max-h-[60vh] max-w-full rounded-xl shadow-lg"
+            >
+              Your browser does not support HTML5 video.
+            </video>
           ) : (
             <img
               src={item.media_url}
               alt={item.title}
-              className="max-h-[65vh] w-auto max-w-full object-contain rounded-2xl shadow-xl"
+              className="max-h-[62vh] max-w-full object-contain rounded-xl shadow-lg"
             />
           )}
         </div>
 
-        {/* Caption & Metadata Footer */}
+        {/* Caption bar */}
         {item.caption && (
-          <div className="px-6 py-4 bg-[#073d59] border-t border-white/10 text-slate-300 text-xs sm:text-sm leading-relaxed flex items-center justify-between">
-            <p className="flex-1 pr-4">{item.caption}</p>
-            {item.media_url.startsWith('http') && (
-              <a
-                href={item.media_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-[#05a5ea] hover:underline flex items-center gap-1 shrink-0 font-medium"
-              >
-                <span>Original Link</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            )}
+          <div className="px-6 py-3 border-t border-[#2b5956] bg-[#143634] text-xs text-[#d3dfdb]">
+            <p className="m-0 leading-relaxed">{item.caption}</p>
           </div>
         )}
       </div>

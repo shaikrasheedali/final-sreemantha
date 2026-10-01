@@ -14,14 +14,16 @@ export const FloatingContactButtons: React.FC = () => {
 
   const waEnabled = waBtn?.enabled ?? true;
   const waNumber = (waBtn?.number || '919666781779').replace(/\D/g, '');
-  const waMsg = encodeURIComponent(waBtn?.default_message || 'Hello Sreemantha Hospital, I would like to enquire about fertility and maternity care.');
+  const waMsg = encodeURIComponent(
+    waBtn?.default_message || 'Hello Sreemantha Hospital, I would like to book a consultation.'
+  );
   const waLabel = waBtn?.label || 'WhatsApp';
 
   return (
     <div
-      className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-3 pointer-events-auto"
+      className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-2.5 pointer-events-auto"
       role="region"
-      aria-label="Instant Contact Options"
+      aria-label="Patient Quick Assistance"
     >
       {/* WhatsApp Button */}
       {waEnabled && (
@@ -29,13 +31,11 @@ export const FloatingContactButtons: React.FC = () => {
           href={`https://wa.me/${waNumber}?text=${waMsg}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2.5 bg-[#25D366] hover:bg-[#20ba59] text-white pl-3.5 pr-4 py-2.5 rounded-full shadow-2xl hover:scale-105 hover:shadow-emerald-500/40 transition-all duration-300 group"
+          className="flex items-center gap-2 bg-[#1f7a55] hover:bg-[#165a3f] text-white px-3.5 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all text-decoration-none"
           title="Chat with Patient Care on WhatsApp"
         >
-          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-            <MessageCircle className="w-4 h-4 fill-white text-[#25D366]" />
-          </div>
-          <span className="text-xs font-bold tracking-wide hidden sm:inline whitespace-nowrap">
+          <MessageCircle size={16} className="text-white fill-white" />
+          <span className="text-[12px] font-semibold hidden sm:inline whitespace-nowrap">
             {waLabel}
           </span>
         </a>
@@ -45,13 +45,11 @@ export const FloatingContactButtons: React.FC = () => {
       {phoneEnabled && (
         <a
           href={`tel:${phoneNumber}`}
-          className="flex items-center gap-2.5 bg-[#006c93] hover:bg-[#073d59] text-white pl-3.5 pr-4 py-2.5 rounded-full shadow-2xl hover:scale-105 hover:shadow-cyan-500/40 transition-all duration-300 group"
+          className="flex items-center gap-2 bg-[#183f3d] hover:bg-[#285854] text-white px-3.5 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all text-decoration-none"
           title={`Call Sreemantha Hospital at ${phoneNumber}`}
         >
-          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-            <Phone className="w-4 h-4 text-white" />
-          </div>
-          <span className="text-xs font-bold tracking-wide hidden sm:inline whitespace-nowrap">
+          <Phone size={15} className="text-white" />
+          <span className="text-[12px] font-semibold hidden sm:inline whitespace-nowrap">
             {phoneLabel}
           </span>
         </a>

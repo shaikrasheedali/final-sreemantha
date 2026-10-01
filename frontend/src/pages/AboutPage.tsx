@@ -1,127 +1,240 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, Award, Heart, Users, Activity, CheckCircle, ArrowRight } from 'lucide-react';
+import {
+  Heart,
+  Sparkles,
+  ShieldCheck,
+  Check,
+  Calendar,
+  Phone,
+  ArrowRight,
+  ArrowUpRight,
+  Baby,
+  Stethoscope,
+  Building2,
+  Award,
+} from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { useSettings } from '../context/SettingsContext';
 
 export const AboutPage: React.FC = () => {
+  const { settings } = useSettings();
+  const info = settings.hospital_info || {};
+  const phone = info.phone || '+91 96667 81779';
+  const phoneHref = `tel:${phone.replace(/[^+\d]/g, '')}`;
+
   return (
-    <div className="py-12 bg-slate-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Breadcrumbs items={[{ label: 'About Us' }]} />
+    <div className="sr-section" style={{ paddingTop: 40 }}>
+      <div className="sr-container">
+        <Breadcrumbs items={[{ label: 'About Sreemantha' }]} />
 
-        {/* Hero */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-200 mb-12">
-          <span className="eyebrow mb-3">Institutional Overview</span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#073d59] font-heading mb-6 max-w-3xl">
-            Sreemantha Hospital: A Benchmark in Fertility, Maternal & Pediatric Excellence
-          </h1>
-          <p className="text-base text-[#637371] leading-relaxed max-w-4xl mb-6">
-            Situated on Priyadarshini Degree College Road in Nehru Nagar, Khammam, Sreemantha Hospital was founded with a singular purpose: to deliver compassionate, technologically advanced, and evidence-based clinical care for families at every stage of their reproductive and parenting journey.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-slate-100">
-            <div>
-              <span className="text-2xl font-black text-[#bc1169] block font-heading">15,000+</span>
-              <span className="text-xs text-slate-500 font-medium">Successful Deliveries & IVF</span>
-            </div>
-            <div>
-              <span className="text-2xl font-black text-[#006c93] block font-heading">98%</span>
-              <span className="text-xs text-slate-500 font-medium">Cumulative IVF Success</span>
-            </div>
-            <div>
-              <span className="text-2xl font-black text-emerald-600 block font-heading">24/7</span>
-              <span className="text-xs text-slate-500 font-medium">Level-III Neonatal ICU</span>
-            </div>
-            <div>
-              <span className="text-2xl font-black text-amber-600 block font-heading">100%</span>
-              <span className="text-xs text-slate-500 font-medium">Cashless TPA Support</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Mission, Vision & Values */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-[#006c93]/10 text-[#006c93] flex items-center justify-center mb-5">
-                <Heart className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-[#073d59] font-heading mb-3">Our Mission</h3>
-              <p className="text-sm text-[#637371] leading-relaxed">
-                To provide compassionate, comprehensive, and patient-centered reproductive medicine, obstetrics, and pediatric care with the highest ethical and clinical standards.
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-[#bc1169]/10 text-[#bc1169] flex items-center justify-center mb-5">
-                <Award className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-[#073d59] font-heading mb-3">Our Vision</h3>
-              <p className="text-sm text-[#637371] leading-relaxed">
-                To be the most trusted and innovative center of excellence for fertility solutions, maternal health, and neonatal survival in the region.
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center mb-5">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-[#073d59] font-heading mb-3">Our Core Values</h3>
-              <ul className="text-xs text-[#637371] space-y-2 mt-2">
-                <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-emerald-500" /> Integrity & Transparent Ethics</li>
-                <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-emerald-500" /> Patient-First Compassion</li>
-                <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-emerald-500" /> Advanced Embryology Standards</li>
-                <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-emerald-500" /> Continuous Clinical Training</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Infrastructure Highlights */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-200 mb-12">
-          <span className="eyebrow mb-3">World-Class Infrastructure</span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#073d59] font-heading mb-6">
-            Equipped with Cutting-Edge Medical Technology
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-[#637371] leading-relaxed">
-            <div>
-              <h4 className="text-base font-bold text-[#073d59] font-heading mb-2">Clean-Room Embryology Lab</h4>
-              <p className="mb-4">
-                Our IVF laboratory features medical-grade positive air pressure, HEPA VOC air purification systems, and micromanipulator ICSI workstations that replicate the natural womb environment for optimal blastocyst formation.
-              </p>
-              <h4 className="text-base font-bold text-[#073d59] font-heading mb-2">Level-III Neonatal Intensive Care</h4>
-              <p>
-                Equipped with infant ventilators, double-surface phototherapy, multi-parameter vital monitors, and radiant warmers for the care of extremely low-birth-weight babies.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-base font-bold text-[#073d59] font-heading mb-2">Modular Laparoscopic Operation Theatres</h4>
-              <p className="mb-4">
-                Advanced surgical suites with 4K Karl Storz laparoscopy towers, harmonic scalpels, and specialized fetal monitoring systems for safe cesarean and gynecological surgeries.
-              </p>
-              <h4 className="text-base font-bold text-[#073d59] font-heading mb-2">Deluxe Maternity Suites & Daycare</h4>
-              <p>
-                Spacious, hygienic, private labor delivery recovery (LDR) rooms designed to provide privacy, quiet, and comfort for the new mother and baby.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* CTA banner */}
-        <div className="bg-gradient-to-r from-[#006c93] to-[#bc1169] text-white p-8 rounded-3xl shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+        {/* 1. Hero Overview */}
+        <div className="sr-heading-row mb-12">
           <div>
-            <h3 className="text-2xl font-bold font-heading mb-1">Meet Our Specialists</h3>
-            <p className="text-xs sm:text-sm text-slate-200">Book an appointment or visit Sreemantha Hospital in Khammam today.</p>
+            <span className="sr-kicker">Our Story &amp; Purpose</span>
+            <h1 className="sr-display sr-heading mt-3">
+              Where scientific precision<br />
+              meets <em>heartfelt understanding.</em>
+            </h1>
           </div>
-          <Link
-            to="/doctors"
-            className="bg-white text-[#073d59] px-6 py-3 rounded-full font-bold text-sm shadow-md hover:scale-105 transition shrink-0"
-          >
-            Consult Our Doctors →
-          </Link>
+          <p className="sr-copy max-w-md">
+            Founded with the belief that starting a family is among life’s most profound milestones, Sreemantha Hospital in Khammam brings together reproductive science, maternal care and neonatology under one roof.
+          </p>
+        </div>
+
+        {/* Hero Visual Banner */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-24">
+          <div className="lg:col-span-7">
+            <div className="sr-media rounded-3xl overflow-hidden shadow-sm h-[420px] sm:h-[480px]">
+              <img
+                src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=1200&auto=format&fit=crop&q=85"
+                alt="Sreemantha Hospital clinical leadership and care team"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div className="lg:col-span-5 flex flex-col justify-between p-6 sm:p-10 rounded-2xl bg-[#e8eee5] border border-[#cbd7c6]">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-2">
+                A Khammam Benchmark
+              </span>
+              <h2 className="sr-display text-3xl mb-4 text-[#183f3d]">
+                Care centered around you, not just protocols.
+              </h2>
+              <p className="sr-copy text-sm leading-relaxed mb-6">
+                From our cleanroom embryology labs to our round-the-clock Level-III NICU, every space is designed to give you medical reassurance and gentle emotional comfort.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 pt-6 border-t border-[#cbd7c6]">
+              <div>
+                <span className="font-serif text-3xl text-[#183f3d] font-bold block">15,000+</span>
+                <span className="text-[11px] text-[#596966] font-medium">Families Assisted</span>
+              </div>
+              <div>
+                <span className="font-serif text-3xl text-[#8f4160] font-bold block">98%</span>
+                <span className="text-[11px] text-[#596966] font-medium">IVF Cumulative Success</span>
+              </div>
+              <div>
+                <span className="font-serif text-3xl text-[#183f3d] font-bold block">24/7</span>
+                <span className="text-[11px] text-[#596966] font-medium">Level-III NICU</span>
+              </div>
+              <div>
+                <span className="font-serif text-3xl text-[#8f4160] font-bold block">18+</span>
+                <span className="text-[11px] text-[#596966] font-medium">Years of Leadership</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. Core Pillars / Values */}
+        <div className="mb-24">
+          <div className="sr-heading-row">
+            <div>
+              <span className="sr-kicker">Guiding Principles</span>
+              <h2 className="sr-display sr-heading mt-2">
+                The values that shape<br />
+                <em>every decision we make.</em>
+              </h2>
+            </div>
+            <Link to="/doctors" className="sr-text-link">
+              Meet our team
+              <ArrowUpRight size={16} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-8 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-col justify-between">
+              <div>
+                <span className="font-serif text-3xl text-[#8a9b90] block mb-4">01</span>
+                <h3 className="text-xl font-medium text-[#183f3d] mb-3">Honest, Clear Answers</h3>
+                <p className="sr-copy text-sm">
+                  We demystify fertility and maternal health. You will always know why a test is recommended, what your options are, and what the realistic outcomes entail.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-col justify-between">
+              <div>
+                <span className="font-serif text-3xl text-[#8a9b90] block mb-4">02</span>
+                <h3 className="text-xl font-medium text-[#183f3d] mb-3">Uncompromising Lab Rigor</h3>
+                <p className="sr-copy text-sm">
+                  Our cleanroom embryology suite maintains HEPA filtration, strict temperature gradients, and micromanipulation technology to give every embryo the optimal beginning.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-col justify-between">
+              <div>
+                <span className="font-serif text-3xl text-[#8a9b90] block mb-4">03</span>
+                <h3 className="text-xl font-medium text-[#183f3d] mb-3">Warmth at Every Step</h3>
+                <p className="sr-copy text-sm">
+                  No couple is just a case number. Whether you are navigating your first fertility consultation or welcoming your baby, our nursing and medical team listens with empathy.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 3. Clinical Leadership & Standards */}
+        <div className="p-8 sm:p-14 rounded-2xl bg-[#183f3d] text-[#f8f5ec] mb-24 relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-8">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-3">
+                Clinical Philosophy
+              </span>
+              <blockquote className="font-serif text-2xl sm:text-3xl leading-snug text-[#fffdf5] mb-6">
+                “Advanced medical technology only fulfills its true purpose when paired with deep human empathy. Our commitment in Khammam is to provide every family with the highest international clinical standards, right close to home.”
+              </blockquote>
+              <div>
+                <strong className="text-base text-white block">Dr. S. Sreemantha Rao</strong>
+                <span className="text-xs text-[#d0ddc2]">
+                  Managing Director &amp; Chief Fertility Specialist · Sreemantha Hospital
+                </span>
+              </div>
+            </div>
+            <div className="lg:col-span-4 flex flex-col gap-3">
+              <div className="p-4 rounded-lg bg-[#224b48] border border-[#305f5c]">
+                <div className="flex items-center gap-2 text-[#d0ddc2] text-xs font-semibold uppercase tracking-wider mb-1">
+                  <ShieldCheck size={16} /> Certified Quality
+                </div>
+                <p className="text-xs text-[#d3dfdb] m-0">
+                  NABH-oriented protocols, sterile air handling, continuous embryology monitoring.
+                </p>
+              </div>
+              <div className="p-4 rounded-lg bg-[#224b48] border border-[#305f5c]">
+                <div className="flex items-center gap-2 text-[#d0ddc2] text-xs font-semibold uppercase tracking-wider mb-1">
+                  <Baby size={16} /> Level-III NICU Care
+                </div>
+                <p className="text-xs text-[#d3dfdb] m-0">
+                  Advanced neonatal ventilators, LED phototherapy, and dedicated neonatologists 24/7.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 4. Milestone Timeline */}
+        <div className="mb-24">
+          <span className="sr-kicker">Our Journey</span>
+          <h2 className="sr-display sr-heading mt-2 mb-10">
+            Milestones of trust<br />
+            <em>across two decades.</em>
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
+              <span className="text-xs font-bold text-[#8f4160] tracking-wider block mb-2">2008</span>
+              <h3 className="text-base font-semibold text-[#183f3d] mb-2">Foundation</h3>
+              <p className="sr-copy text-xs">
+                Inaugurated dedicated women and maternal health clinic in Khammam with a focus on high-risk obstetrics.
+              </p>
+            </div>
+            <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
+              <span className="text-xs font-bold text-[#8f4160] tracking-wider block mb-2">2014</span>
+              <h3 className="text-base font-semibold text-[#183f3d] mb-2">Cleanroom IVF Suite</h3>
+              <p className="sr-copy text-xs">
+                Commissioned advanced cleanroom embryology lab with laser hatching, ICSI, and vitrification.
+              </p>
+            </div>
+            <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
+              <span className="text-xs font-bold text-[#8f4160] tracking-wider block mb-2">2019</span>
+              <h3 className="text-base font-semibold text-[#183f3d] mb-2">Level-III NICU</h3>
+              <p className="sr-copy text-xs">
+                Expanded state-of-the-art Neonatal Intensive Care Unit supporting extremely premature and critical newborns.
+              </p>
+            </div>
+            <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
+              <span className="text-xs font-bold text-[#8f4160] tracking-wider block mb-2">Today</span>
+              <h3 className="text-base font-semibold text-[#183f3d] mb-2">15,000+ Journeys</h3>
+              <p className="sr-copy text-xs">
+                Recognized as the region’s premier fertility, maternity, and pediatric healthcare center.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* 5. Final CTA Banner */}
+        <div className="p-12 sm:p-16 rounded-2xl bg-[#e8eee5] border border-[#cbd7c6] text-center">
+          <span className="sr-kicker">Start your conversation</span>
+          <h2 className="sr-display sr-heading mt-3 mb-4">
+            We are here to listen<br />
+            and <em>guide you forward.</em>
+          </h2>
+          <p className="sr-copy max-w-xl mx-auto mb-8">
+            Whether you are considering fertility guidance, seeking maternal care, or looking for expert pediatric advice, our doctors are ready to meet you.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link to="/book-appointment" className="sr-button">
+              <Calendar size={17} />
+              Book a consultation
+              <ArrowUpRight size={16} />
+            </Link>
+            <a href={phoneHref} className="sr-button sr-button--outline">
+              <Phone size={16} />
+              Call us at {phone}
+            </a>
+          </div>
         </div>
       </div>
     </div>

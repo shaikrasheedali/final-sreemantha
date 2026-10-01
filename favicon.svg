@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 640 640">
+  <defs>
+    <linearGradient id="outline" x1="120" y1="50" x2="440" y2="550" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#05a3ea"/>
+      <stop offset="1" stop-color="#0799ce"/>
+    </linearGradient>
+    <linearGradient id="pink" x1="400" y1="245" x2="230" y2="550" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f075b5"/>
+      <stop offset="1" stop-color="#f584b8"/>
+    </linearGradient>
+    <linearGradient id="cradle" x1="185" y1="300" x2="280" y2="440" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#35b5e4"/>
+      <stop offset="1" stop-color="#0499cc"/>
+    </linearGradient>
+    <radialGradient id="pearl" cx="57%" cy="36%" r="66%">
+      <stop stop-color="#f4fcff"/>
+      <stop offset="0.22" stop-color="#c6edf7"/>
+      <stop offset="0.53" stop-color="#79cde9"/>
+      <stop offset="0.82" stop-color="#30afda"/>
+      <stop offset="1" stop-color="#129aca"/>
+    </radialGradient>
+  </defs>
+  <g transform="translate(73 33)" stroke="url(#outline)" stroke-width="14" stroke-linejoin="round" stroke-linecap="round">
+    <path fill="#fff" d="M44 385 C29 390 20 376 30 361 L269 45 C283 25 307 18 327 30 C351 44 354 70 347 108 C387 150 423 194 452 247 C486 305 488 383 465 445 C439 517 378 555 294 555 C246 555 209 544 181 519 C129 480 110 408 128 312 L55 376 Q49 382 44 385Z"/>
+    <path fill="url(#pink)" d="M426 204 C443 307 399 393 288 432 C250 446 215 441 184 419 C165 465 176 510 207 535 C231 549 261 555 294 555 C378 555 439 517 465 445 C488 383 486 305 452 247 Q440 224 426 204Z"/>
+    <path fill="#fff" d="M211 254 C218 204 270 175 326 131 C354 177 368 229 369 283 C370 341 345 390 288 432 C329 403 344 350 313 310 C304 273 268 244 232 252 Q220 252 211 254Z"/>
+    <path fill="url(#cradle)" d="M169 303 C189 269 224 257 263 269 C293 278 312 297 314 311 C338 332 338 365 324 393 C306 425 274 440 241 437 C199 435 171 414 162 380 C152 351 156 324 169 303Z"/>
+    <path fill="#079dd0" stroke="none" d="M178 322 C174 368 198 400 238 406 C273 410 303 389 310 357 C312 395 281 422 245 422 C202 422 173 397 169 365 Q166 342 178 322Z"/>
+    <path fill="url(#pearl)" stroke="#159fd1" stroke-width="8" d="M310 321 C309 278 276 254 239 256 C200 257 174 286 175 323 C176 356 201 382 238 384 C277 386 309 361 310 321Z"/>
+  </g>
+</svg>

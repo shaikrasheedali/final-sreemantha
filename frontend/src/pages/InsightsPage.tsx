@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, ArrowRight, BookOpen, Calendar, User, Clock, Tag } from 'lucide-react';
+import { Search, ArrowUpRight, BookOpen, Clock, Calendar } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { Insight } from '../types';
 import { api } from '../utils/api';
@@ -11,7 +11,7 @@ export const InsightsPage: React.FC = () => {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const categories = ['All', 'Fertility', "Women's Health", 'Pregnancy Care', 'Pediatrics & Neonatology', 'Patient Education'];
+  const categories = ['All', 'Fertility', 'Maternity', 'Pediatrics', 'Women’s Health'];
 
   useEffect(() => {
     async function fetchInsights() {
@@ -36,176 +36,174 @@ export const InsightsPage: React.FC = () => {
   const listInsights = featured ? insights.filter((i) => i.id !== featured.id) : insights;
 
   return (
-    <div className="py-12 bg-slate-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Breadcrumbs items={[{ label: 'Insights & Patient Education' }]} />
+    <div className="sr-section" style={{ paddingTop: 40 }}>
+      <div className="sr-container">
+        <Breadcrumbs items={[{ label: 'Health Journal' }]} />
 
-        {/* Page Header */}
-        <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        {/* Heading Row */}
+        <div className="sr-heading-row">
           <div>
-            <span className="eyebrow mb-2">Evidence-Based Medical Articles</span>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-[#073d59] font-heading">
-              Healthcare Insights & Patient Guides
+            <span className="sr-kicker">A little knowledge. A little reassurance.</span>
+            <h1 className="sr-display sr-heading mt-2">
+              Health Insights &amp; Journal,<br />
+              <em>thoughtful answers.</em>
             </h1>
-            <p className="text-sm text-[#637371] max-w-2xl mt-2 leading-relaxed">
-              Curated medical insights, fertility guidelines, pregnancy care advice, and pediatric wellness articles authored by the clinical faculty at Sreemantha Hospital.
-            </p>
+          </div>
+          <p className="sr-copy max-w-md">
+            Medical perspectives, patient stories, and clinical guidance written by our reproductive specialists, obstetricians, and pediatricians in Khammam.
+          </p>
+        </div>
+
+        {/* Filters and Search Bar */}
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-10 pb-6 border-b border-[#e0e5dd]">
+          <div className="flex flex-wrap items-center gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setCategory(cat)}
+                className={`px-4 py-2 rounded-full text-xs font-semibold transition cursor-pointer ${
+                  category === cat
+                    ? 'bg-[#183f3d] text-white'
+                    : 'bg-[#fffefb] text-[#596966] border border-[#e0e5dd] hover:border-[#183f3d]'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
 
-          {/* Search */}
           <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search size={15} className="text-[#596966] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search health insights..."
+              placeholder="Search articles..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-white pl-10 pr-4 py-2.5 rounded-full text-xs border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#006c93]"
+              className="sr-input pl-10 text-xs rounded-full"
             />
           </div>
         </div>
 
-        {/* Categories */}
-        <div className="flex flex-wrap items-center gap-2 mb-10">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
-                category === cat
-                  ? 'bg-[#006c93] text-white shadow-md'
-                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-80 bg-white rounded-3xl animate-pulse border border-slate-200" />
+          <div className="sr-grid sr-grid--three">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="sr-skeleton">
+                <div className="sr-skeleton-image" />
+                <div className="sr-skeleton-line" />
+                <div className="sr-skeleton-line" />
+              </div>
             ))}
           </div>
         ) : insights.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-            <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <h3 className="text-lg font-bold text-slate-800">No articles found</h3>
-            <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-              We couldn't find any articles matching your search query.
-            </p>
+          <div className="sr-empty">
+            <div>
+              <h3>No articles found</h3>
+              <p>Try clearing your search query or selecting a different health topic.</p>
+            </div>
+            <button
+              onClick={() => {
+                setCategory('All');
+                setSearch('');
+              }}
+              className="sr-button sr-button--outline text-xs"
+            >
+              Reset filter
+            </button>
           </div>
         ) : (
-          <div className="space-y-10">
-            {/* Featured Hero Article */}
-            {featured && !search && category === 'All' && (
-              <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 group">
-                <div className="lg:col-span-7 h-72 sm:h-96 lg:h-auto relative overflow-hidden bg-slate-100">
-                  <img
-                    src={featured.hero_image || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80'}
-                    alt={featured.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span className="absolute top-4 left-4 bg-[#fa7830] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                    Featured Insight
-                  </span>
+          <div className="space-y-12">
+            {/* Featured Story */}
+            {featured && (
+              <Link
+                to={`/insights/${featured.slug}`}
+                className="sr-card grid grid-cols-1 lg:grid-cols-12 overflow-hidden text-decoration-none text-inherit group"
+                style={{ padding: 0 }}
+              >
+                <div className="lg:col-span-7 sr-media" style={{ minHeight: 340 }}>
+                  {featured.image_url ? (
+                    <img src={featured.image_url} alt={featured.title} loading="eager" />
+                  ) : (
+                    <div className="sr-image-placeholder">
+                      <BookOpen size={48} />
+                    </div>
+                  )}
                 </div>
 
-                <div className="lg:col-span-5 p-8 sm:p-10 flex flex-col justify-between">
+                <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-between bg-[#fffefb]">
                   <div>
-                    <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
-                      <span className="text-[#006c93] font-bold uppercase tracking-wider text-[11px]">
-                        {featured.category || "Women's Health"}
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="sr-card-category" style={{ margin: 0 }}>
+                        {featured.category || 'Featured Article'}
                       </span>
-                      <span>•</span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-slate-400" /> {featured.read_time || '5 min read'}
-                      </span>
+                      {featured.read_time && (
+                        <span className="text-[11px] text-[#596966] flex items-center gap-1">
+                          <Clock size={12} />
+                          {featured.read_time}
+                        </span>
+                      )}
                     </div>
 
-                    <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 group-hover:text-[#006c93] transition-colors font-heading leading-tight mb-4">
+                    <h2 className="font-serif text-2xl sm:text-3xl text-[#183f3d] font-normal leading-snug group-hover:text-[#8f4160] transition mb-4">
                       {featured.title}
                     </h2>
 
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-4 mb-6">
-                      {featured.excerpt || featured.content?.replace(/<[^>]+>/g, '').slice(0, 180) + '...'}
+                    <p className="sr-copy text-sm leading-relaxed mb-6">
+                      {featured.summary || featured.excerpt}
                     </p>
                   </div>
 
-                  <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-xs text-slate-600">
-                      <div className="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 text-[10px]">
-                        {featured.author ? featured.author.charAt(0) : 'S'}
-                      </div>
-                      <span className="font-medium">{featured.author || 'Clinical Faculty'}</span>
-                    </div>
-
-                    <Link
-                      to={`/insights/${featured.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-[#006c93] group-hover:text-[#073d59]"
-                    >
-                      Read Full Article <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </div>
+                  <span className="sr-card-footer pt-6 border-t border-[#e0e5dd] text-xs">
+                    <span>By {featured.author || 'Sreemantha Clinical Team'}</span>
+                    <span className="flex items-center gap-1 font-semibold text-[#8f4160]">
+                      Read article <ArrowUpRight size={14} />
+                    </span>
+                  </span>
                 </div>
-              </div>
+              </Link>
             )}
 
-            {/* Articles Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {listInsights.map((article) => (
-                <div
-                  key={article.id}
-                  className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group"
-                >
-                  <div className="relative h-52 overflow-hidden bg-slate-100">
-                    <img
-                      src={article.hero_image || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80'}
-                      alt={article.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <span className="absolute top-4 left-4 bg-white/95 backdrop-blur-md text-[#006c93] px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase shadow-sm">
-                      {article.category || 'Clinical Guide'}
-                    </span>
-                  </div>
-
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>
-                          {article.created_at ? new Date(article.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent'}
-                        </span>
-                        <span>•</span>
-                        <span>{article.read_time || '4 min read'}</span>
-                      </div>
-
-                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#006c93] transition-colors font-heading mb-2 line-clamp-2">
-                        {article.title}
+            {/* Stories Grid */}
+            {listInsights.length > 0 && (
+              <div className="sr-grid sr-grid--three">
+                {listInsights.map((insight) => (
+                  <Link
+                    key={insight.id}
+                    to={`/insights/${insight.slug}`}
+                    className="sr-card"
+                  >
+                    <div className="sr-media" style={{ height: 210 }}>
+                      {insight.image_url ? (
+                        <img src={insight.image_url} alt={insight.title} loading="lazy" />
+                      ) : (
+                        <div className="sr-image-placeholder">
+                          <BookOpen size={36} />
+                        </div>
+                      )}
+                    </div>
+                    <div className="sr-card-body">
+                      {insight.category && (
+                        <span className="sr-card-category">{insight.category}</span>
+                      )}
+                      <h3 className="font-serif text-xl font-normal leading-snug text-[#183f3d]">
+                        {insight.title}
                       </h3>
-
-                      <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed mb-4">
-                        {article.excerpt || article.content?.replace(/<[^>]+>/g, '').slice(0, 130) + '...'}
+                      <p className="sr-copy sr-clamp text-xs mt-3">
+                        {insight.summary || insight.excerpt}
                       </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between mt-auto">
-                      <span className="text-[11px] text-slate-500 font-medium">
-                        By {article.author || 'Sreemantha Team'}
+                      <span className="sr-card-footer mt-auto pt-5 border-t border-[#e0e5dd]">
+                        <span className="text-[11px] text-[#596966] flex items-center gap-1">
+                          {insight.read_time && <><Clock size={12} /> {insight.read_time}</>}
+                        </span>
+                        <span className="flex items-center gap-1 text-[11px] font-semibold text-[#8f4160]">
+                          Read story <ArrowUpRight size={13} />
+                        </span>
                       </span>
-                      <Link
-                        to={`/insights/${article.slug}`}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#006c93] group-hover:text-[#073d59]"
-                      >
-                        Read <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                      </Link>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>

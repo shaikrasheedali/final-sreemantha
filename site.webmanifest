@@ -1,0 +1,26 @@
+{
+  "name": "Sreemantha Hospital",
+  "short_name": "Sreemantha",
+  "description": "Sreemantha IVF, Women & Child Care Hospital - Khammam",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#183f3d",
+  "background_color": "#faf8f3",
+  "display": "standalone",
+  "start_url": "/"
+}

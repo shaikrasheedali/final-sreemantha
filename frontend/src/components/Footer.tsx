@@ -1,102 +1,126 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, ArrowRight, ShieldCheck, Heart, ArrowUpRight } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
 
 export const Footer: React.FC = () => {
   const { settings } = useSettings();
   const info = settings.hospital_info || {};
+  const phone = info.phone || '+91 96667 81779';
+  const emergency = info.emergency_hotline || '+91 88007 73362';
+  const phoneHref = `tel:${phone.replace(/[^+\d]/g, '')}`;
+  const emergencyHref = `tel:${emergency.replace(/[^+\d]/g, '')}`;
+  const activeFavicon = info.favicon_url || settings.favicon_url || '/favicon.svg';
 
   return (
-    <footer className="bg-[#073d59] text-white pt-16 pb-8 border-t border-white/10 relative overflow-hidden">
-      {/* Background glow decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#006c93]/30 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#bc1169]/15 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
+    <footer className="bg-[#183f3d] text-[#f8f5ec] pt-20 pb-10 border-t border-[#265350] relative overflow-hidden">
+      <div className="sr-container relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 pb-14 border-b border-[#2d5c58]">
           {/* Brand Info */}
           <div className="lg:col-span-2">
-            <Link to="/" className="inline-block mb-4">
-              <img
-                src="/logo.svg"
-                alt="Sreemantha Hospital"
-                className="h-12 w-auto bg-white/90 p-1.5 rounded-xl shadow-md"
-              />
+            <Link to="/" className="inline-flex items-center gap-3 mb-5 text-decoration-none">
+              <div className="w-10 h-10 rounded-full bg-[#e8eee5] p-1.5 flex items-center justify-center border border-[#cbd7c6] shrink-0">
+                <img
+                  src={activeFavicon}
+                  alt="Sreemantha Hospital Emblem"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-serif text-[22px] leading-tight text-[#fffdf5] tracking-tight">
+                  Sreemantha
+                </span>
+                <span className="text-[9px] uppercase tracking-[0.18em] text-[#d0ddc2] font-bold">
+                  Hospital · Khammam
+                </span>
+              </div>
             </Link>
-            <p className="text-slate-300 text-sm leading-relaxed max-w-sm mb-6">
+
+            <p className="text-[#d3dfdb] text-sm leading-relaxed max-w-sm mb-6">
               {info.subtitle ||
-                'Leading fertility, reproductive medicine, maternity, neonatal and pediatric care center in Khammam. Providing compassionate healthcare with cutting-edge medical technology.'}
+                'Thoughtful fertility, maternity and newborn care in Khammam. Putting warmth, science and understanding at the heart of every step.'}
             </p>
 
-            <div className="flex flex-col gap-2.5 text-xs text-slate-200">
+            <div className="flex flex-col gap-3 text-xs text-[#d3dfdb]">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#05a5ea] shrink-0 mt-0.5" />
-                <span>{info.address || 'Priyadarshini Degree/College Road, Nehru Nagar, Khammam, Telangana 507001'}</span>
+                <MapPin size={15} className="text-[#d0ddc2] shrink-0 mt-0.5" />
+                <span>{info.address || 'Priyadarshini Degree College Road, Nehru Nagar, Khammam, Telangana 507001'}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#e32a8c] shrink-0" />
-                <span>Appointments: {info.phone || '+91 96667 81779'}</span>
+                <Phone size={15} className="text-[#d0ddc2] shrink-0" />
+                <span>Consultations: <a href={phoneHref} className="hover:text-white transition underline-offset-2 hover:underline">{phone}</a></span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-cyan-300 shrink-0" />
+                <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#f075b5] shrink-0 animate-pulse" />
+                <span>Emergency 24/7 Helpline: <a href={emergencyHref} className="hover:text-white transition font-medium">{emergency}</a></span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <Mail size={15} className="text-[#d0ddc2] shrink-0" />
                 <span>{info.email || 'care@sreemanthahospital.com'}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Clock className="w-4 h-4 text-emerald-300 shrink-0" />
-                <span>Emergency Care & NICU: Open 24 Hours / 7 Days</span>
+                <Clock size={15} className="text-[#d0ddc2] shrink-0" />
+                <span>OPD: 9:00 AM – 8:00 PM | Casualty &amp; NICU: 24 Hours</span>
               </div>
             </div>
           </div>
 
-          {/* Quick Navigation */}
+          {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-cyan-200 mb-4 font-heading">
-              Quick Links
-            </h4>
-            <ul className="space-y-2 text-xs text-slate-300">
-              <li><Link to="/" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight className="w-3 h-3 text-[#05a5ea]" /> Home</Link></li>
-              <li><Link to="/about" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight className="w-3 h-3 text-[#05a5ea]" /> About Us</Link></li>
-              <li><Link to="/facilities" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight className="w-3 h-3 text-[#05a5ea]" /> Hospital Facilities</Link></li>
-              <li><Link to="/specialties" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight className="w-3 h-3 text-[#05a5ea]" /> Specialties</Link></li>
-              <li><Link to="/treatments" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight className="w-3 h-3 text-[#05a5ea]" /> Treatments & Services</Link></li>
-              <li><Link to="/doctors" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight className="w-3 h-3 text-[#05a5ea]" /> Medical Specialists</Link></li>
-              <li><Link to="/gallery" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight className="w-3 h-3 text-[#05a5ea]" /> Photo & Video Gallery</Link></li>
-              <li><Link to="/insights" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight className="w-3 h-3 text-[#05a5ea]" /> Health Insights & Blog</Link></li>
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-4">
+              Explore Care
+            </span>
+            <ul className="space-y-2.5 text-xs text-[#d3dfdb] list-none p-0 m-0">
+              <li><Link to="/" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight size={12} className="text-[#8f4160]" /> Home</Link></li>
+              <li><Link to="/about" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight size={12} className="text-[#8f4160]" /> About Sreemantha</Link></li>
+              <li><Link to="/specialties" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight size={12} className="text-[#8f4160]" /> Clinical Specialties</Link></li>
+              <li><Link to="/treatments" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight size={12} className="text-[#8f4160]" /> Treatments &amp; Procedures</Link></li>
+              <li><Link to="/doctors" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight size={12} className="text-[#8f4160]" /> Meet our Specialists</Link></li>
+              <li><Link to="/facilities" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight size={12} className="text-[#8f4160]" /> Hospital Spaces &amp; Labs</Link></li>
+              <li><Link to="/gallery" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight size={12} className="text-[#8f4160]" /> Visual Gallery</Link></li>
+              <li><Link to="/insights" className="hover:text-white transition flex items-center gap-1.5"><ArrowRight size={12} className="text-[#8f4160]" /> Health Journal</Link></li>
             </ul>
           </div>
 
-          {/* Clinical Departments */}
+          {/* Specialties */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-pink-300 mb-4 font-heading">
-              Departments
-            </h4>
-            <ul className="space-y-2 text-xs text-slate-300">
-              <li><Link to="/specialties/fertility-ivf" className="hover:text-white transition">Fertility & Advanced IVF</Link></li>
-              <li><Link to="/specialties/obstetrics-gynecology" className="hover:text-white transition">High-Risk Obstetrics</Link></li>
-              <li><Link to="/specialties/pediatrics-neonatology" className="hover:text-white transition">Pediatrics & Level-III NICU</Link></li>
-              <li><Link to="/specialties/fetal-medicine" className="hover:text-white transition">Fetal Medicine & Diagnostics</Link></li>
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-4">
+              Key Focus Areas
+            </span>
+            <ul className="space-y-2.5 text-xs text-[#d3dfdb] list-none p-0 m-0">
+              <li><Link to="/specialties/fertility-reproductive-medicine" className="hover:text-white transition">IVF &amp; Reproductive Medicine</Link></li>
+              <li><Link to="/specialties/obstetrics-high-risk-pregnancy" className="hover:text-white transition">Obstetrics &amp; High-Risk Care</Link></li>
+              <li><Link to="/specialties/pediatrics-neonatal-care" className="hover:text-white transition">Pediatrics &amp; Level-III NICU</Link></li>
+              <li><Link to="/specialties/advanced-gynecology-laparoscopy" className="hover:text-white transition">Advanced Laparoscopy</Link></li>
               <li><Link to="/facilities/cleanroom-embryology-lab" className="hover:text-white transition">Cleanroom Embryology Lab</Link></li>
-              <li><Link to="/facilities/modular-operation-theatre" className="hover:text-white transition">Laparoscopic OT</Link></li>
+              <li><Link to="/facilities/level-iii-nicu" className="hover:text-white transition">24/7 Neonatal Intensive Care</Link></li>
             </ul>
           </div>
 
-          {/* Patient Care & Legal */}
+          {/* Patient Care & Helplines */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-emerald-300 mb-4 font-heading">
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-4">
               Patient Care
-            </h4>
-            <ul className="space-y-2 text-xs text-slate-300">
-              <li><Link to="/book-appointment" className="hover:text-white font-medium text-cyan-200 transition">Book Doctor Appointment</Link></li>
-              <li><Link to="/contact" className="hover:text-white transition">Hospital Route & Contact</Link></li>
-              <li><span className="text-slate-400">Cashless Insurance TPA Desk</span></li>
+            </span>
+            <ul className="space-y-3 text-xs text-[#d3dfdb] list-none p-0 m-0">
+              <li>
+                <Link
+                  to="/book-appointment"
+                  className="inline-flex items-center gap-1.5 text-white font-medium hover:text-[#d0ddc2] transition"
+                >
+                  <span>Book Consultation</span>
+                  <ArrowUpRight size={12} />
+                </Link>
+              </li>
+              <li><Link to="/contact" className="hover:text-white transition">Hospital Route &amp; Timings</Link></li>
+              <li><span className="text-[#96aaa4]">Cashless Insurance TPA Desk 24/7</span></li>
               <li className="pt-3">
                 <Link
                   to="/staff-login"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#244f4d] hover:bg-[#2e6260] text-white text-[11px] font-medium transition"
                 >
-                  <ShieldCheck className="w-3.5 h-3.5 text-pink-400" />
-                  Staff Portal Login
+                  <ShieldCheck size={13} className="text-[#d0ddc2]" />
+                  Staff Portal
                 </Link>
               </li>
             </ul>
@@ -104,11 +128,11 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-400 gap-3">
+        <div className="pt-7 flex flex-col sm:flex-row justify-between items-center text-xs text-[#9fb3ad] gap-3">
           <p>© {new Date().getFullYear()} Sreemantha IVF and Child Care Hospital. All rights reserved.</p>
           <div className="flex items-center gap-2">
             <span>Delivering care with</span>
-            <Heart className="w-3.5 h-3.5 text-[#e32a8c] fill-[#e32a8c]" />
+            <Heart size={13} className="text-[#f075b5] fill-[#f075b5]" />
             <span>in Khammam, Telangana</span>
           </div>
         </div>

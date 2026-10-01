@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, Phone, CheckCircle2, ArrowRight } from 'lucide-react';
+import {
+  Calendar,
+  Phone,
+  Check,
+  ArrowRight,
+  ArrowUpRight,
+  Stethoscope,
+  ShieldCheck,
+} from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RichContentRenderer } from '../components/RichContentRenderer';
 import { Specialty, Treatment } from '../types';
@@ -14,6 +22,7 @@ export const SpecialtyDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const { settings } = useSettings();
   const phone = settings.hospital_info?.phone || '+91 96667 81779';
+  const phoneHref = `tel:${phone.replace(/[^+\d]/g, '')}`;
 
   useEffect(() => {
     async function fetchDetail() {
@@ -33,23 +42,37 @@ export const SpecialtyDetailPage: React.FC = () => {
   }, [slug]);
 
   if (loading) {
-    return <div className="py-24 text-center text-slate-500 font-medium">Loading specialty details...</div>;
-  }
-
-  if (!specialty) {
     return (
-      <div className="py-24 text-center">
-        <h2 className="text-xl font-bold text-[#073d59]">Specialty Not Found</h2>
-        <Link to="/specialties" className="text-sm font-semibold text-[#006c93] underline mt-3 inline-block">
-          ← Back to All Specialties
-        </Link>
+      <div className="sr-section text-center">
+        <div className="sr-container">
+          <p className="sr-copy">Loading specialty details...</p>
+        </div>
       </div>
     );
   }
 
+  if (!specialty) {
+    return (
+      <div className="sr-section text-center">
+        <div className="sr-container">
+          <h2 className="sr-display text-2xl mb-4">Specialty Not Found</h2>
+          <Link to="/specialties" className="sr-button sr-button--outline text-xs">
+            Return to all specialties
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const conditionsList: string[] = Array.isArray(specialty.conditions)
+    ? specialty.conditions
+    : typeof specialty.conditions === 'string'
+    ? specialty.conditions.split(',').map((c) => c.trim()).filter(Boolean)
+    : [];
+
   return (
-    <div className="py-12 bg-slate-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="sr-section" style={{ paddingTop: 40 }}>
+      <div className="sr-container">
         <Breadcrumbs
           items={[
             { label: 'Specialties', path: '/specialties' },
@@ -57,130 +80,154 @@ export const SpecialtyDetailPage: React.FC = () => {
           ]}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        {/* Hero Banner */}
+        <div className="mb-14">
+          <span className="sr-kicker">
+            {specialty.category || 'Clinical Specialty'} · Sreemantha Hospital
+          </span>
+          <h1 className="sr-display sr-heading mt-3 mb-6">
+            {specialty.title}
+          </h1>
+          <p className="sr-copy max-w-3xl text-lg leading-relaxed">
+            {specialty.short_description || specialty.overview}
+          </p>
+        </div>
+
+        {/* Media Banner */}
+        {specialty.image_url && (
+          <div className="sr-media rounded-2xl h-[360px] sm:h-[450px] mb-16 overflow-hidden">
+            <img src={specialty.image_url} alt={specialty.title} className="w-full h-full object-cover" />
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
           {/* Main Content Column */}
-          <div className="lg:col-span-8">
-            <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm p-6 sm:p-10 mb-8">
-              <span className="eyebrow mb-2">{specialty.category}</span>
-              <h1 className="text-2xl sm:text-4xl font-extrabold text-[#073d59] font-heading mb-4">
-                {specialty.title}
-              </h1>
-              <p className="text-sm sm:text-base text-[#637371] leading-relaxed mb-6">
-                {specialty.short_description}
-              </p>
-
-              {/* Hero Image */}
-              <div className="rounded-2xl overflow-hidden mb-8 max-h-[420px] shadow-md">
-                <img
-                  src={specialty.image_url || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&auto=format&fit=crop&q=80'}
-                  alt={specialty.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Conditions Addressed */}
-              {(() => {
-                const condList: string[] = Array.isArray(specialty.conditions)
-                  ? (specialty.conditions as string[])
-                  : typeof specialty.conditions === 'string'
-                  ? (specialty.conditions as string).split(',').map((s) => s.trim())
-                  : [];
-                return condList.length > 0 ? (
-                  <div className="mb-8 p-6 rounded-2xl bg-[#fdf1f8] border border-pink-200">
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-[#bc1169] mb-3 font-heading">
-                      Conditions Evaluated & Addressed
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      {condList.map((cond: string, idx: number) => (
-                        <div key={idx} className="flex items-center gap-2 text-xs text-[#073d59] font-semibold">
-                          <CheckCircle2 className="w-4 h-4 text-[#bc1169] shrink-0" />
-                          <span>{cond}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : null;
-              })()}
-
-              {/* Clinical Overview */}
-              <div>
-                <h3 className="text-xl font-bold text-[#073d59] mb-4 font-heading border-b border-slate-100 pb-2">
-                  Comprehensive Specialty Overview
-                </h3>
-                <RichContentRenderer content={specialty.overview || specialty.short_description} />
-              </div>
-
-              {/* Associated Treatments */}
-              {relatedTreatments.length > 0 && (
-                <div className="mt-10 pt-8 border-t border-slate-100">
-                  <h3 className="text-lg font-bold text-[#073d59] mb-4 font-heading">
-                    Associated Treatments & Services
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {relatedTreatments.map((t) => (
-                      <Link
-                        key={t.id}
-                        to={`/treatments/${t.slug}`}
-                        className="p-4 rounded-xl border border-slate-200 hover:border-[#006c93] hover:shadow-md transition flex flex-col justify-between group"
-                      >
-                        <div>
-                          <h4 className="text-sm font-bold text-[#073d59] group-hover:text-[#006c93] font-heading">
-                            {t.title}
-                          </h4>
-                          <p className="text-xs text-[#637371] mt-1 line-clamp-2">
-                            {t.short_description}
-                          </p>
-                        </div>
-                        <span className="text-[11px] font-bold text-[#006c93] mt-3 flex items-center gap-1">
-                          View Treatment <ArrowRight className="w-3 h-3" />
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
+          <div className="lg:col-span-8 space-y-12">
+            {/* Overview / Body Content */}
+            <div className="p-8 sm:p-10 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-3">
+                Clinical Overview
+              </span>
+              <h2 className="sr-display text-2xl mb-6 text-[#183f3d]">
+                Care philosophy &amp; clinical approach
+              </h2>
+              {specialty.content ? (
+                <div className="sr-copy space-y-4">
+                  <RichContentRenderer content={specialty.content} />
                 </div>
+              ) : (
+                <p className="sr-copy leading-relaxed">
+                  {specialty.overview ||
+                    'Our dedicated department brings together specialist physicians, state-of-the-art diagnostic imaging, and compassionate nursing care to ensure you receive clear answers and personalized clinical treatment.'}
+                </p>
               )}
             </div>
 
-            <Link
-              to="/specialties"
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#006c93] hover:underline"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to All Specialties</span>
-            </Link>
+            {/* Conditions Treated */}
+            {conditionsList.length > 0 && (
+              <div className="p-8 sm:p-10 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-3">
+                  Clinical Scope
+                </span>
+                <h3 className="sr-display text-2xl mb-6 text-[#183f3d]">
+                  Conditions &amp; indications addressed
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  {conditionsList.map((cond, idx) => (
+                    <div key={idx} className="flex items-center gap-2.5 text-xs text-[#183f3d] font-medium">
+                      <div className="w-5 h-5 rounded-full bg-[#e8eee5] flex items-center justify-center text-[#183f3d] shrink-0">
+                        <Check size={12} />
+                      </div>
+                      <span>{cond}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Related Treatments / Procedures */}
+            {relatedTreatments.length > 0 && (
+              <div>
+                <div className="sr-heading-row mb-6">
+                  <div>
+                    <span className="sr-kicker">Comprehensive Options</span>
+                    <h3 className="sr-display text-2xl mt-1 text-[#183f3d]">
+                      Associated treatments &amp; procedures
+                    </h3>
+                  </div>
+                  <Link to="/treatments" className="sr-text-link">
+                    All treatments
+                    <ArrowUpRight size={15} />
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {relatedTreatments.map((t, idx) => (
+                    <Link
+                      key={t.id}
+                      to={`/treatments/${t.slug}`}
+                      className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd] hover:border-[#183f3d] hover:shadow-md transition flex flex-col justify-between text-decoration-none text-inherit group"
+                    >
+                      <div>
+                        <span className="font-serif text-xl text-[#8a9b90] block mb-2">
+                          {String(idx + 1).padStart(2, '0')}
+                        </span>
+                        <h4 className="text-base font-semibold text-[#183f3d] group-hover:text-[#8f4160] transition mb-2">
+                          {t.title}
+                        </h4>
+                        <p className="sr-copy text-xs line-clamp-2 mb-4">
+                          {t.short_description || t.overview}
+                        </p>
+                      </div>
+                      <span className="text-[11px] font-semibold text-[#183f3d] flex items-center gap-1 mt-auto">
+                        Understand options <ArrowUpRight size={13} />
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Right Sidebar Action Card */}
-          <div className="lg:col-span-4">
-            <div className="sticky top-28 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md flex flex-col gap-6">
-              <div>
-                <span className="text-[11px] font-bold text-[#006c93] uppercase tracking-wider block mb-1">
-                  Consultation
-                </span>
-                <h3 className="text-lg font-bold text-[#073d59] font-heading">
-                  Schedule Specialist Visit
-                </h3>
-                <p className="text-xs text-[#637371] mt-1 leading-relaxed">
-                  Book an in-person consultation with our senior specialists at Nehru Nagar, Khammam.
-                </p>
-              </div>
-
+          {/* Right Sidebar CTA & Doctor Booking */}
+          <div className="lg:col-span-4 sticky top-28 space-y-6">
+            <div className="p-8 rounded-xl bg-[#183f3d] text-white">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-2">
+                Specialist Consultation
+              </span>
+              <h3 className="font-serif text-2xl text-white mb-3">
+                Discuss your care with our doctors
+              </h3>
+              <p className="text-xs text-[#d3dfdb] leading-relaxed mb-6">
+                Receive personalized guidance, clinical evaluation, and an open conversation about the best next steps.
+              </p>
               <div className="flex flex-col gap-3">
                 <Link
-                  to="/book-appointment"
-                  className="btn-primary py-3 rounded-full text-center text-sm font-bold flex items-center justify-center gap-2"
+                  to={`/book-appointment?department=${encodeURIComponent(specialty.title)}`}
+                  className="sr-button sr-button--light text-xs w-full justify-center"
                 >
-                  <Calendar className="w-4 h-4" />
-                  <span>Book Appointment</span>
+                  <Calendar size={15} />
+                  Book appointment
+                  <ArrowUpRight size={14} />
                 </Link>
                 <a
-                  href={`tel:${phone.replace(/\s+/g, '')}`}
-                  className="btn-outline py-3 rounded-full text-center text-xs font-semibold flex items-center justify-center gap-2"
+                  href={phoneHref}
+                  className="sr-button sr-button--outline text-xs w-full justify-center border-[#dce1d7] text-white hover:bg-[#285854]"
                 >
-                  <Phone className="w-4 h-4 text-[#006c93]" />
-                  <span>Call: {phone}</span>
+                  <Phone size={14} />
+                  Call: {phone}
                 </a>
               </div>
+            </div>
+
+            <div className="p-6 rounded-xl bg-[#e8eee5] border border-[#cbd7c6]">
+              <div className="flex items-center gap-2 text-[#183f3d] text-xs font-bold uppercase tracking-wider mb-2">
+                <ShieldCheck size={16} className="text-[#8f4160]" />
+                NABH Standards
+              </div>
+              <p className="sr-copy text-xs leading-relaxed m-0">
+                All consultations and protocols in our {specialty.title} division follow strict quality benchmarks and sterile hygiene regulations.
+              </p>
             </div>
           </div>
         </div>

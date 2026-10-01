@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Building, Activity, Stethoscope, Users,
-  Image as ImageIcon, BookOpen, Calendar, MessageSquare,
-  ArrowRight, ShieldCheck, Clock, CheckCircle2, AlertCircle
+  Building,
+  Activity,
+  Stethoscope,
+  Users,
+  Image as ImageIcon,
+  BookOpen,
+  Calendar,
+  MessageSquare,
+  ArrowRight,
+  ShieldCheck,
+  Clock,
+  Sparkles,
+  ArrowUpRight,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../utils/api';
@@ -28,81 +38,78 @@ export const AdminDashboardPage: React.FC = () => {
   }, []);
 
   const statCards = [
-    { title: 'Facilities', count: stats?.counts?.facilities || 0, icon: Building, color: 'text-sky-400', link: '/admin/facilities' },
-    { title: 'Specialties', count: stats?.counts?.specialties || 0, icon: Activity, color: 'text-emerald-400', link: '/admin/specialties' },
-    { title: 'Treatments', count: stats?.counts?.treatments || 0, icon: Stethoscope, color: 'text-amber-400', link: '/admin/treatments' },
-    { title: 'Doctors', count: stats?.counts?.doctors || 0, icon: Users, color: 'text-purple-400', link: '/admin/doctors' },
-    { title: 'Gallery Items', count: stats?.counts?.gallery || 0, icon: ImageIcon, color: 'text-pink-400', link: '/admin/gallery' },
-    { title: 'Insights / Blogs', count: stats?.counts?.insights || 0, icon: BookOpen, color: 'text-blue-400', link: '/admin/insights' },
-    { title: 'Appointments', count: stats?.counts?.appointments || 0, icon: Calendar, color: 'text-orange-400', link: '/admin/appointments' },
-    { title: 'Contact Enquiries', count: stats?.counts?.enquiries || 0, icon: MessageSquare, color: 'text-teal-400', link: '/admin/enquiries' },
+    { title: 'Clinical Facilities', count: stats?.counts?.facilities || 0, icon: Building, link: '/admin/facilities' },
+    { title: 'Medical Specialties', count: stats?.counts?.specialties || 0, icon: Activity, link: '/admin/specialties' },
+    { title: 'Treatments & Protocols', count: stats?.counts?.treatments || 0, icon: Stethoscope, link: '/admin/treatments' },
+    { title: 'Doctors & Specialists', count: stats?.counts?.doctors || 0, icon: Users, link: '/admin/doctors' },
+    { title: 'Gallery Media', count: stats?.counts?.gallery || 0, icon: ImageIcon, link: '/admin/gallery' },
+    { title: 'Health Journal (Blog)', count: stats?.counts?.insights || 0, icon: BookOpen, link: '/admin/insights' },
+    { title: 'Appointments Booked', count: stats?.counts?.appointments || 0, icon: Calendar, link: '/admin/appointments' },
+    { title: 'Patient Enquiries', count: stats?.counts?.enquiries || 0, icon: MessageSquare, link: '/admin/enquiries' },
   ];
 
   return (
-    <div className="p-6 sm:p-10 max-w-7xl mx-auto space-y-10">
+    <div className="p-6 sm:p-10 max-w-7xl mx-auto space-y-8">
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-[#073d59] p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-[#183f3d] text-white p-8 sm:p-10 rounded-2xl border border-[#2b5a57] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#fa7830] block mb-1">
-            Clinical Portal & Content Management
+          <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-1">
+            Clinical Administration &amp; Hospital CMS
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white font-heading">
-            Welcome back, {user?.name || user?.username}!
+          <h1 className="text-2xl sm:text-3xl font-serif text-white font-normal">
+            Welcome back, {user?.name || user?.username}
           </h1>
-          <p className="text-xs text-slate-300 mt-1">
-            Role: <span className="capitalize font-semibold text-emerald-400">{user?.role}</span> • Sreemantha Hospital, Khammam
+          <p className="text-xs text-[#d3dfdb] mt-1.5">
+            Role: <span className="capitalize font-semibold text-[#d0ddc2]">{user?.role}</span> · Sreemantha Hospital, Khammam
           </p>
         </div>
 
-        {/* Quick action buttons */}
         <div className="flex flex-wrap gap-2.5">
           <Link
-            to="/admin/treatments"
-            className="px-4 py-2 rounded-xl bg-[#006c93] hover:bg-[#073d59] text-white text-xs font-bold transition-all shadow-md"
+            to="/admin/settings"
+            className="sr-button sr-button--light text-xs"
           >
-            + Add Treatment
+            <Sparkles size={14} /> Favicon &amp; Settings
           </Link>
           <Link
-            to="/admin/doctors"
-            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition-all"
+            to="/admin/appointments"
+            className="sr-button sr-button--outline text-xs text-white border-[#dce1d7] hover:bg-[#285854]"
           >
-            + Add Doctor
-          </Link>
-          <Link
-            to="/admin/gallery"
-            className="px-4 py-2 rounded-xl bg-[#fa7830] hover:bg-[#e06622] text-white text-xs font-bold transition-all"
-          >
-            + Upload Media
+            <Calendar size={14} /> View Appointments
           </Link>
         </div>
       </div>
 
-      {/* Grid of Stats Cards */}
+      {/* Collection Stats Grid */}
       <div>
-        <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">
-          Hospital Platform Overview
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {statCards.map((c, i) => {
-            const Icon = c.icon;
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-[#183f3d]">
+            Hospital Platform Overview
+          </h2>
+          <span className="text-xs text-[#596966]">Live Database Counters</span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {statCards.map((card, i) => {
+            const Icon = card.icon;
             return (
               <Link
                 key={i}
-                to={c.link}
-                className="bg-slate-800/80 hover:bg-slate-800 p-5 rounded-2xl border border-slate-700/80 transition-all hover:border-slate-600 group"
+                to={card.link}
+                className="p-5 rounded-xl bg-[#fffefb] border border-[#e0e5dd] hover:border-[#183f3d] hover:shadow-sm transition text-decoration-none group"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs text-slate-400 font-medium">{c.title}</span>
-                  <Icon className={`w-5 h-5 ${c.color} group-hover:scale-110 transition-transform`} />
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#e8eee5] flex items-center justify-center text-[#183f3d]">
+                    <Icon size={16} />
+                  </div>
+                  <ArrowUpRight size={14} className="text-slate-400 group-hover:text-[#8f4160] transition" />
                 </div>
-                <div className="flex items-baseline justify-between">
-                  <span className="text-2xl font-extrabold text-white">
-                    {loading ? '...' : c.count}
-                  </span>
-                  <span className="text-[11px] text-slate-500 group-hover:text-slate-300 flex items-center gap-0.5">
-                    Manage <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                  </span>
-                </div>
+                <span className="font-serif text-2xl font-bold text-[#183f3d] block">
+                  {loading ? '…' : card.count}
+                </span>
+                <span className="text-xs text-[#596966] font-medium block mt-0.5">
+                  {card.title}
+                </span>
               </Link>
             );
           })}
@@ -110,74 +117,64 @@ export const AdminDashboardPage: React.FC = () => {
       </div>
 
       {/* Recent Activity Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Recent Appointment Requests */}
-        <div className="bg-slate-800/80 rounded-3xl p-6 border border-slate-700/80 shadow-md">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-700 mb-4">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-[#fa7830]" /> Recent Appointment Requests
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Recent Appointments */}
+        <div className="p-6 rounded-2xl bg-[#fffefb] border border-[#e0e5dd] space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-[#e0e5dd]">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#183f3d] flex items-center gap-2">
+              <Calendar size={15} className="text-[#8f4160]" /> Recent Patient Bookings
             </h3>
-            <Link to="/admin/appointments" className="text-xs text-[#006c93] hover:underline font-bold">
-              View All →
+            <Link to="/admin/appointments" className="text-xs font-semibold text-[#8f4160] hover:underline">
+              View all →
             </Link>
           </div>
 
-          {stats?.recentAppointments?.length ? (
-            <div className="space-y-3">
-              {stats.recentAppointments.slice(0, 5).map((app: any) => (
-                <div key={app.id} className="p-3 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-between">
+          {stats?.recentAppointments && stats.recentAppointments.length > 0 ? (
+            <div className="space-y-2.5">
+              {stats.recentAppointments.slice(0, 5).map((apt: any) => (
+                <div key={apt.id} className="p-3 rounded-lg bg-[#faf8f3] border border-[#e0e5dd] flex items-center justify-between text-xs">
                   <div>
-                    <h4 className="text-xs font-bold text-white">{app.name}</h4>
-                    <p className="text-[11px] text-slate-400">{app.department} • {app.phone}</p>
+                    <strong className="text-[#183f3d] block">{apt.name}</strong>
+                    <span className="text-[11px] text-[#596966]">{apt.department || 'Consultation'} · {apt.phone}</span>
                   </div>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full capitalize ${
-                    app.status === 'confirmed'
-                      ? 'bg-emerald-500/20 text-emerald-300'
-                      : app.status === 'contacted'
-                      ? 'bg-sky-500/20 text-sky-300'
-                      : 'bg-amber-500/20 text-amber-300'
-                  }`}>
-                    {app.status || 'new'}
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider bg-[#e8eee5] text-[#183f3d]">
+                    {apt.status || 'new'}
                   </span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-xs text-slate-500 py-6 text-center">No recent appointment requests.</p>
+            <p className="text-xs text-[#596966] py-6 text-center">No recent appointments to display.</p>
           )}
         </div>
 
         {/* Recent Enquiries */}
-        <div className="bg-slate-800/80 rounded-3xl p-6 border border-slate-700/80 shadow-md">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-700 mb-4">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <MessageSquare className="w-4 h-4 text-emerald-400" /> Recent Contact Inquiries
+        <div className="p-6 rounded-2xl bg-[#fffefb] border border-[#e0e5dd] space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-[#e0e5dd]">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#183f3d] flex items-center gap-2">
+              <MessageSquare size={15} className="text-[#8f4160]" /> Inquiries &amp; Messages
             </h3>
-            <Link to="/admin/enquiries" className="text-xs text-[#006c93] hover:underline font-bold">
-              View All →
+            <Link to="/admin/enquiries" className="text-xs font-semibold text-[#8f4160] hover:underline">
+              View all →
             </Link>
           </div>
 
-          {stats?.recentEnquiries?.length ? (
-            <div className="space-y-3">
+          {stats?.recentEnquiries && stats.recentEnquiries.length > 0 ? (
+            <div className="space-y-2.5">
               {stats.recentEnquiries.slice(0, 5).map((enq: any) => (
-                <div key={enq.id} className="p-3 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-between">
+                <div key={enq.id} className="p-3 rounded-lg bg-[#faf8f3] border border-[#e0e5dd] flex items-center justify-between text-xs">
                   <div>
-                    <h4 className="text-xs font-bold text-white">{enq.name}</h4>
-                    <p className="text-[11px] text-slate-400">{enq.subject || 'General'} • {enq.phone}</p>
+                    <strong className="text-[#183f3d] block">{enq.name}</strong>
+                    <span className="text-[11px] text-[#596966] truncate max-w-xs block">{enq.subject || enq.message}</span>
                   </div>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full capitalize ${
-                    enq.status === 'responded'
-                      ? 'bg-emerald-500/20 text-emerald-300'
-                      : 'bg-amber-500/20 text-amber-300'
-                  }`}>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider bg-[#f4e7e9] text-[#8f4160]">
                     {enq.status || 'new'}
                   </span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-xs text-slate-500 py-6 text-center">No recent contact inquiries.</p>
+            <p className="text-xs text-[#596966] py-6 text-center">No recent inquiries to display.</p>
           )}
         </div>
       </div>

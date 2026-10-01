@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
-  Calendar, Clock, User, Share2, ArrowLeft,
-  ShieldAlert, BookOpen, ChevronRight, Stethoscope
+  Calendar,
+  Clock,
+  User,
+  ArrowRight,
+  ArrowUpRight,
+  BookOpen,
+  Share2,
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RichContentRenderer } from '../components/RichContentRenderer';
@@ -12,12 +17,11 @@ import { api } from '../utils/api';
 export const InsightDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [insight, setInsight] = useState<Insight | null>(null);
-  const [recentInsights, setRecentInsights] = useState<Insight[]>([]);
+  const [related, setRelated] = useState<Insight[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function loadInsight() {
+    async function loadData() {
       if (!slug) return;
       try {
         setLoading(true);
@@ -25,49 +29,40 @@ export const InsightDetailPage: React.FC = () => {
         if (res.insight) {
           setInsight(res.insight);
           if (res.related) {
-            setRecentInsights(res.related);
+            setRelated(res.related);
           } else {
-            const allRes = await api.get<{ insights: Insight[] }>('/insights');
-            if (allRes.insights) setRecentInsights(allRes.insights.filter((i) => i.slug !== slug).slice(0, 3));
+            const allRes = await api.get<{ insights: Insight[] }>('/insights?limit=3');
+            if (allRes.insights) {
+              setRelated(allRes.insights.filter((i) => i.slug !== slug).slice(0, 3));
+            }
           }
-        } else {
-          setError('Article not found.');
         }
       } catch (err) {
-        console.error('Failed to load insight:', err);
-        setError('Unable to load this article at the moment.');
+        console.error('Failed to load insight detail:', err);
       } finally {
         setLoading(false);
       }
     }
-    loadInsight();
+    loadData();
   }, [slug]);
 
   if (loading) {
     return (
-      <div className="py-20 bg-slate-50 min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[#006c93] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-xs text-slate-500 font-medium">Loading medical insight...</p>
+      <div className="sr-section text-center">
+        <div className="sr-container">
+          <p className="sr-copy">Loading article...</p>
         </div>
       </div>
     );
   }
 
-  if (error || !insight) {
+  if (!insight) {
     return (
-      <div className="py-20 bg-slate-50 min-h-screen">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <ShieldAlert className="w-16 h-16 text-rose-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-slate-800">Article Not Found</h2>
-          <p className="text-sm text-slate-600 mt-2 mb-6">
-            The requested medical insight or blog post does not exist or may have been unpublished.
-          </p>
-          <Link
-            to="/insights"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#006c93] text-white text-xs font-bold"
-          >
-            <ArrowLeft className="w-4 h-4" /> Return to Insights
+      <div className="sr-section text-center">
+        <div className="sr-container">
+          <h2 className="sr-display text-2xl mb-4">Article Not Found</h2>
+          <Link to="/insights" className="sr-button sr-button--outline text-xs">
+            Return to Health Journal
           </Link>
         </div>
       </div>
@@ -75,114 +70,149 @@ export const InsightDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="py-12 bg-slate-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="sr-section" style={{ paddingTop: 40 }}>
+      <div className="sr-container max-w-4xl">
         <Breadcrumbs
           items={[
-            { label: 'Insights', path: '/insights' },
-            { label: insight.title }
+            { label: 'Health Journal', path: '/insights' },
+            { label: insight.title },
           ]}
         />
 
         {/* Article Header */}
-        <div className="max-w-4xl mx-auto mb-10 text-center">
-          <span className="inline-block px-3.5 py-1 rounded-full bg-[#006c93]/10 text-[#006c93] text-xs font-bold uppercase tracking-wider mb-4">
-            {insight.category || 'Clinical Article'}
-          </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#073d59] font-heading leading-tight mb-6">
+        <div className="mb-10">
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <span className="sr-kicker">
+              {insight.category || 'Health Guidance'}
+            </span>
+            {insight.read_time && (
+              <span className="sr-pill text-xs">
+                <Clock size={12} className="text-[#8f4160]" />
+                {insight.read_time}
+              </span>
+            )}
+          </div>
+
+          <h1 className="sr-display sr-heading mt-2 mb-6">
             {insight.title}
           </h1>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-slate-500">
-            <div className="flex items-center gap-1.5 font-medium text-slate-700">
-              <User className="w-4 h-4 text-[#006c93]" /> {insight.author || 'Clinical Faculty'}
-            </div>
-            <span>•</span>
-            <div className="flex items-center gap-1.5">
-              <Calendar className="w-4 h-4 text-slate-400" />
-              {insight.created_at
-                ? new Date(insight.created_at).toLocaleDateString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric'
-                  })
-                : 'Recent'}
-            </div>
-            <span>•</span>
-            <div className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4 text-slate-400" /> {insight.read_time || '5 min read'}
-            </div>
-          </div>
-        </div>
-
-        {/* Hero Image */}
-        {insight.hero_image && (
-          <div className="max-w-4xl mx-auto rounded-3xl overflow-hidden mb-12 shadow-md">
-            <img
-              src={insight.hero_image}
-              alt={insight.title}
-              className="w-full h-80 sm:h-96 md:h-[450px] object-cover"
-            />
-          </div>
-        )}
-
-        {/* Article Body */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-6xl mx-auto">
-          <div className="lg:col-span-8 bg-white p-6 sm:p-10 rounded-3xl border border-slate-200/80 shadow-sm">
-            <RichContentRenderer content={insight.content} />
-
-            {/* Medical Disclaimer Box */}
-            <div className="mt-12 p-5 bg-amber-50/70 border border-amber-200/60 rounded-2xl text-[11px] text-amber-900 leading-relaxed flex items-start gap-3">
-              <Stethoscope className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
-              <div>
-                <strong className="block font-bold mb-0.5">Medical Information Disclaimer</strong>
-                This article is prepared for educational and patient informational purposes only. It should not be used as a substitute for professional medical diagnosis or clinical treatment. Always consult qualified doctors at Sreemantha Hospital for specific medical advice.
-              </div>
-            </div>
-          </div>
-
-          {/* Sidebar */}
-          <div className="lg:col-span-4 space-y-6">
-            {/* Consultation CTA */}
-            <div className="bg-gradient-to-br from-[#073d59] to-[#006c93] p-6 rounded-3xl text-white shadow-lg">
-              <h3 className="text-base font-bold font-heading mb-2">Have specific medical questions?</h3>
-              <p className="text-slate-200 text-xs leading-relaxed mb-4">
-                Schedule a one-on-one consultation with our specialists in Khammam to discuss your personalized treatment options.
-              </p>
-              <Link
-                to="/book-appointment"
-                className="block text-center py-2.5 px-4 rounded-xl bg-[#fa7830] hover:bg-[#e06622] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md"
-              >
-                Book Consultation
-              </Link>
-            </div>
-
-            {/* Recent Articles */}
-            {recentInsights.length > 0 && (
-              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
-                <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4 pb-2 border-b border-slate-100 flex items-center gap-1.5">
-                  <BookOpen className="w-4 h-4 text-[#006c93]" /> Related Insights
-                </h4>
-                <div className="space-y-4">
-                  {recentInsights.map((r) => (
-                    <Link
-                      key={r.id}
-                      to={`/insights/${r.slug}`}
-                      className="group block pb-3 border-b border-slate-100 last:border-0"
-                    >
-                      <span className="text-[10px] font-bold text-[#006c93] uppercase tracking-wide">
-                        {r.category}
-                      </span>
-                      <h5 className="text-xs font-bold text-slate-800 group-hover:text-[#006c93] transition-colors line-clamp-2 mt-0.5">
-                        {r.title}
-                      </h5>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+          <div className="flex items-center gap-4 text-xs text-[#596966] pt-4 border-t border-[#e0e5dd]">
+            <span className="flex items-center gap-1.5 font-medium text-[#183f3d]">
+              <User size={13} className="text-[#8f4160]" />
+              By {insight.author || 'Sreemantha Clinical Faculty'}
+            </span>
+            {insight.published_at && (
+              <span className="flex items-center gap-1.5">
+                <Calendar size={13} />
+                {new Date(insight.published_at).toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
+              </span>
             )}
           </div>
         </div>
+
+        {/* Hero image if available */}
+        {insight.image_url && (
+          <div className="sr-media rounded-2xl h-[360px] sm:h-[460px] mb-12 overflow-hidden shadow-sm">
+            <img src={insight.image_url} alt={insight.title} className="w-full h-full object-cover" />
+          </div>
+        )}
+
+        {/* Summary Lead */}
+        {(insight.summary || insight.excerpt) && (
+          <div className="p-6 sm:p-8 rounded-xl bg-[#e8eee5] border border-[#cbd7c6] mb-10">
+            <p className="sr-display text-lg text-[#183f3d] leading-relaxed m-0 italic font-normal">
+              “{insight.summary || insight.excerpt}”
+            </p>
+          </div>
+        )}
+
+        {/* Longform Article Content */}
+        <article className="p-8 sm:p-12 rounded-xl bg-[#fffefb] border border-[#e0e5dd] mb-16">
+          {insight.content ? (
+            <div className="sr-copy space-y-6 text-base leading-relaxed text-[#183f3d]">
+              <RichContentRenderer content={insight.content} />
+            </div>
+          ) : (
+            <p className="sr-copy leading-relaxed text-base">
+              {insight.summary}
+            </p>
+          )}
+
+          {/* Medical Disclaimer */}
+          <div className="mt-12 pt-6 border-t border-[#e0e5dd] text-[11px] text-[#596966] leading-relaxed">
+            <strong>Medical Note:</strong> This guide provides general health information and is authored for educational purposes. It does not replace an in-person clinical consultation. Please consult a qualified specialist at Sreemantha Hospital for personalized medical evaluation.
+          </div>
+        </article>
+
+        {/* Consultation Callout */}
+        <div className="p-8 sm:p-10 rounded-2xl bg-[#183f3d] text-white flex flex-col sm:flex-row items-center justify-between gap-6 mb-20">
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-1">
+              Have questions about your care?
+            </span>
+            <h3 className="font-serif text-2xl text-white">
+              Speak with our senior specialists
+            </h3>
+            <p className="text-xs text-[#d3dfdb] mt-1 m-0">
+              Personalized fertility, maternity and neonatal evaluations in Khammam.
+            </p>
+          </div>
+          <Link to="/book-appointment" className="sr-button sr-button--light shrink-0">
+            <Calendar size={15} />
+            Book consultation
+          </Link>
+        </div>
+
+        {/* Related Articles */}
+        {related.length > 0 && (
+          <div>
+            <div className="sr-heading-row mb-6">
+              <div>
+                <span className="sr-kicker">Continue Reading</span>
+                <h3 className="sr-display text-2xl mt-1 text-[#183f3d]">
+                  Related articles &amp; guides
+                </h3>
+              </div>
+              <Link to="/insights" className="sr-text-link">
+                All articles
+                <ArrowUpRight size={15} />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {related.map((item) => (
+                <Link
+                  key={item.id}
+                  to={`/insights/${item.slug}`}
+                  className="sr-card"
+                >
+                  <div className="sr-media" style={{ height: 160 }}>
+                    {item.image_url ? (
+                      <img src={item.image_url} alt={item.title} />
+                    ) : (
+                      <div className="sr-image-placeholder">
+                        <BookOpen size={28} />
+                      </div>
+                    )}
+                  </div>
+                  <div className="sr-card-body" style={{ padding: 18 }}>
+                    <h4 className="font-serif text-base font-normal leading-snug text-[#183f3d] line-clamp-2">
+                      {item.title}
+                    </h4>
+                    <span className="sr-card-footer mt-auto pt-4 border-t border-[#e0e5dd] text-[11px] text-[#8f4160]">
+                      Read story <ArrowUpRight size={12} />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
