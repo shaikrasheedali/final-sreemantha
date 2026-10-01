@@ -189,46 +189,54 @@ export const ContactPage: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="sr-label">Your Name *</label>
+                      <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                        Your Name *
+                      </label>
                       <input
                         type="text"
                         required
                         placeholder="e.g. Ramesh Reddy"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="sr-input"
+                        className="sr-input w-full px-4 py-3 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] text-sm shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
                       />
                     </div>
                     <div>
-                      <label className="sr-label">Phone Number *</label>
+                      <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                        Phone Number *
+                      </label>
                       <input
                         type="tel"
                         required
                         placeholder="e.g. +91 96667 81779"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="sr-input"
+                        className="sr-input w-full px-4 py-3 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] text-sm shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="sr-label">Email Address (Optional)</label>
+                      <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                        Email Address (Optional)
+                      </label>
                       <input
                         type="email"
                         placeholder="e.g. ramesh@example.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="sr-input"
+                        className="sr-input w-full px-4 py-3 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] text-sm shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
                       />
                     </div>
                     <div>
-                      <label className="sr-label">Area of Interest</label>
+                      <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                        Area of Interest
+                      </label>
                       <select
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                        className="sr-select"
+                        className="sr-select w-full px-4 py-3 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] text-sm shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none cursor-pointer block"
                       >
                         <option value="Fertility & IVF Inquiry">Fertility &amp; IVF Inquiry</option>
                         <option value="Maternity Admission & Delivery Packages">Maternity &amp; Delivery Packages</option>
@@ -240,21 +248,23 @@ export const ContactPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="sr-label">Your Message or Question *</label>
+                    <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                      Your Message or Question *
+                    </label>
                     <textarea
                       rows={4}
                       required
                       placeholder="Please let us know your requirements or medical queries..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="sr-textarea"
+                      className="sr-textarea w-full px-4 py-3 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] text-sm shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none resize-y block"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="sr-button w-full sm:w-auto"
+                    className="sr-button btn btn-primary w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-sm text-white shadow-md flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Send size={15} />
                     {loading ? 'Submitting inquiry...' : 'Send inquiry message'}

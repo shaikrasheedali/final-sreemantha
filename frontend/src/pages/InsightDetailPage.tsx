@@ -158,7 +158,7 @@ export const InsightDetailPage: React.FC = () => {
             <h3 className="font-serif text-2xl text-white">
               Speak with our senior specialists
             </h3>
-            <p className="text-xs text-[var(--mint)] mt-1 m-0">
+            <p className="text-xs text-white mt-1 m-0 font-medium opacity-95" style={{ color: '#ffffff' }}>
               Personalized fertility, maternity and neonatal evaluations in Khammam.
             </p>
           </div>

@@ -127,7 +127,7 @@ export const FacilitiesPage: React.FC = () => {
                   <h3 className="font-display text-2xl sm:text-3xl text-white font-bold mt-12 mb-2 leading-snug">
                     {facility.name}
                   </h3>
-                  <p className="text-xs text-[var(--mint)] leading-relaxed line-clamp-2 max-w-md m-0 opacity-95">
+                  <p className="text-xs sm:text-sm font-medium leading-relaxed line-clamp-2 max-w-md m-0 text-white drop-shadow-sm" style={{ color: '#ffffff' }}>
                     {facility.short_description || facility.description}
                   </p>
                 </div>

@@ -129,81 +129,83 @@ export const AdminSettingsPage: React.FC = () => {
   }
 
   return (
-    <div className="p-6 sm:p-10 max-w-5xl mx-auto space-y-8">
+    <div className="max-w-5xl mx-auto space-y-8">
       {notice && (
-        <div className="p-4 rounded-xl bg-[#1f7a55] text-[var(--ink)] text-xs font-semibold shadow-lg flex items-center gap-2">
-          <Check size={16} /> {notice}
+        <div className="p-4 rounded-xl bg-emerald-100 border border-emerald-300 text-emerald-900 text-sm font-semibold shadow-sm flex items-center gap-2">
+          <Check size={18} className="text-emerald-700" /> {notice}
         </div>
       )}
 
       {/* Header */}
       <div>
-        <span className="text-[10px] font-bold text-[var(--coral)] uppercase tracking-wider block mb-1">
+        <span className="text-xs font-bold text-[var(--coral)] uppercase tracking-wider block mb-1">
           Hospital Configuration &amp; Branding
         </span>
-        <h1 className="text-2xl sm:text-3xl font-serif text-[var(--ink)] font-normal">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink)] font-display">
           Hospital Settings &amp; Favicon Editor
         </h1>
-        <p className="text-xs text-[#5a7d92] mt-1">
+        <p className="text-sm text-[#5a7d92] mt-1">
           Manage your browser favicon, identity emblem, contact helplines, WhatsApp links, and hospital OPD details in real-time.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* 1. Favicon & Brand Identity Manager Section */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[rgba(22,55,76,0.12)] shadow-sm space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-[rgba(22,55,76,0.12)]">
-            <h2 className="text-sm font-bold text-[var(--ink)] uppercase tracking-wider flex items-center gap-2">
-              <Sparkles size={16} className="text-[var(--coral)]" /> Favicon &amp; Browser Head Identity
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[rgba(22,55,76,0.12)] shadow-xl space-y-6">
+          <div className="flex items-center justify-between pb-4 border-b border-[rgba(22,55,76,0.12)]">
+            <h2 className="text-base font-bold text-[var(--ink)] font-display flex items-center gap-2">
+              <Sparkles size={18} className="text-[var(--coral)]" /> Favicon &amp; Browser Head Identity
             </h2>
-            <span className="text-[11px] text-[#5a7d92]">Live Browser Sync</span>
+            <span className="inline-block text-xs font-bold px-3 py-1 rounded-full bg-[var(--mint)] text-[var(--teal)] border border-[var(--teal)]/20 uppercase tracking-wider">
+              Live Browser Sync
+            </span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Preview Box: Browser Tab & Mobile App Icons */}
             <div className="lg:col-span-5 space-y-4">
-              <span className="text-xs font-semibold text-[var(--ink)] block">
+              <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink)] block">
                 Live Simulated Previews
               </span>
 
               {/* Browser Tab Simulation */}
-              <div className="p-3.5 bg-[#f4f2e8] rounded-xl border border-[rgba(22,55,76,0.12)] shadow-inner space-y-2">
-                <div className="flex items-center gap-1.5 text-[10px] text-[#5a7d92]">
-                  <Laptop size={12} />
+              <div className="p-4 bg-[var(--cream)] rounded-2xl border border-[rgba(22,55,76,0.12)] space-y-2">
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-[#5a7d92]">
+                  <Laptop size={14} />
                   <span>Desktop Browser Tab</span>
                 </div>
-                <div className="bg-[var(--cream)] rounded-lg px-3 py-2 border border-[rgba(22,55,76,0.12)] flex items-center gap-2 max-w-sm shadow-sm">
-                  <div className="w-4 h-4 rounded-sm flex items-center justify-center shrink-0 overflow-hidden bg-white p-0.5 border border-[rgba(22,55,76,0.12)]">
+                <div className="bg-white rounded-xl px-3.5 py-2.5 border border-[rgba(22,55,76,0.12)] flex items-center gap-2.5 max-w-sm shadow-xs">
+                  <div className="w-5 h-5 rounded-md flex items-center justify-center shrink-0 overflow-hidden bg-white p-0.5 border border-[rgba(22,55,76,0.12)]">
                     <img
                       src={activeFavicon}
                       alt="Active Favicon"
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <span className="text-[11px] font-medium text-[var(--ink)] truncate">
+                  <span className="text-xs font-bold text-[var(--ink)] truncate">
                     {formData.hospital_info?.hospital_name || 'Sreemantha Hospital | Khammam'}
                   </span>
-                  <span className="ml-auto text-[10px] text-[#5a7d92]">×</span>
+                  <span className="ml-auto text-xs text-[#5a7d92]">×</span>
                 </div>
               </div>
 
               {/* Mobile Home Screen Simulation */}
-              <div className="p-3.5 bg-[#f4f2e8] rounded-xl border border-[rgba(22,55,76,0.12)] shadow-inner space-y-2">
-                <div className="flex items-center gap-1.5 text-[10px] text-[#5a7d92]">
-                  <Smartphone size={12} />
+              <div className="p-4 bg-[var(--cream)] rounded-2xl border border-[rgba(22,55,76,0.12)] space-y-2">
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-[#5a7d92]">
+                  <Smartphone size={14} />
                   <span>Mobile &amp; Apple Touch App Icon</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 rounded-2xl bg-white p-2 border border-[rgba(22,55,76,0.12)] shadow-md flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-16 h-16 rounded-2xl bg-white p-2.5 border border-[rgba(22,55,76,0.14)] shadow-md flex items-center justify-center shrink-0">
                     <img
                       src={activeFavicon}
                       alt="Mobile App Favicon Icon"
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <div className="text-xs">
-                    <strong className="text-[var(--ink)] block">Sreemantha</strong>
-                    <span className="text-[10px] text-[#5a7d92]">Home screen web app bookmark</span>
+                  <div>
+                    <strong className="text-sm font-bold text-[var(--ink)] block">Sreemantha</strong>
+                    <span className="text-xs text-[#5a7d92]">Home screen web app bookmark</span>
                   </div>
                 </div>
               </div>
@@ -211,12 +213,12 @@ export const AdminSettingsPage: React.FC = () => {
 
             {/* Right Upload & URL Options */}
             <div className="lg:col-span-7 space-y-4">
-              <span className="text-xs font-semibold text-[var(--ink)] block">
+              <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink)] block">
                 Change Favicon File or URL
               </span>
 
               {/* Upload Input */}
-              <div className="p-5 bg-[var(--cream)] rounded-xl border-2 border-dashed border-[rgba(22,55,76,0.12)] text-center space-y-3">
+              <div className="p-6 bg-[var(--cream)] rounded-2xl border-2 border-dashed border-[rgba(22,55,76,0.18)] text-center space-y-3">
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -225,26 +227,28 @@ export const AdminSettingsPage: React.FC = () => {
                   onChange={handleFaviconUpload}
                   className="hidden"
                 />
-                <div className="w-10 h-10 rounded-full bg-[var(--mint)] text-[var(--ink)] flex items-center justify-center mx-auto">
-                  <Upload size={18} />
+                <div className="w-12 h-12 rounded-full bg-[var(--mint)] text-[var(--teal)] flex items-center justify-center mx-auto shadow-xs">
+                  <Upload size={20} />
                 </div>
                 <div>
                   <label
                     htmlFor="favicon-file-input"
-                    className="sr-button sr-button--light text-xs py-2 px-4 cursor-pointer inline-flex items-center gap-1.5"
+                    className="btn btn-primary text-xs py-2.5 px-5 cursor-pointer inline-flex items-center gap-2 shadow-md"
                   >
                     {uploadingFavicon ? 'Uploading icon...' : 'Upload New Favicon File'}
                   </label>
-                  <p className="text-[10px] text-[#5a7d92] mt-1.5">
-                    Supports SVG, PNG, ICO, WEBP (SVG or 512x512 PNG recommended for high crispness).
+                  <p className="text-xs text-[#5a7d92] mt-2">
+                    Supports SVG, PNG, ICO, WEBP (SVG or 512x512 PNG recommended for maximum crispness).
                   </p>
                 </div>
               </div>
 
               {/* Direct URL input */}
               <div className="space-y-1.5">
-                <label className="sr-label">Or Custom Favicon URL</label>
-                <div className="flex gap-2">
+                <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                  Or Custom Favicon URL
+                </label>
+                <div className="flex gap-2.5">
                   <input
                     type="text"
                     value={formData.favicon_url || ''}
@@ -261,15 +265,15 @@ export const AdminSettingsPage: React.FC = () => {
                       updateFaviconInHead(url);
                     }}
                     placeholder="/favicon.svg"
-                    className="sr-input text-xs"
+                    className="sr-input text-sm w-full px-4 py-2.5 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
                   />
                   <button
                     type="button"
                     onClick={handleResetDefaultFavicon}
-                    className="sr-button sr-button--outline text-xs whitespace-nowrap shrink-0"
+                    className="btn btn-soft text-xs whitespace-nowrap shrink-0 flex items-center gap-1.5 font-bold"
                     title="Restore default /favicon.svg"
                   >
-                    <RotateCcw size={13} />
+                    <RotateCcw size={14} />
                     Reset Default
                   </button>
                 </div>
@@ -279,42 +283,50 @@ export const AdminSettingsPage: React.FC = () => {
         </div>
 
         {/* 2. Floating Contact Buttons Section */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[rgba(22,55,76,0.12)] shadow-sm space-y-6">
-          <h2 className="text-sm font-bold text-[var(--ink)] uppercase tracking-wider flex items-center gap-2 pb-3 border-b border-[rgba(22,55,76,0.12)]">
-            <Phone size={16} className="text-[var(--coral)]" /> Floating Contact Buttons (Bottom Corner)
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[rgba(22,55,76,0.12)] shadow-xl space-y-6">
+          <h2 className="text-base font-bold text-[var(--ink)] font-display flex items-center gap-2 pb-4 border-b border-[rgba(22,55,76,0.12)]">
+            <Phone size={18} className="text-[var(--coral)]" /> Floating Contact Buttons (Bottom Corner)
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="p-5 bg-[var(--cream)] rounded-xl border border-[rgba(22,55,76,0.12)] space-y-3">
-              <span className="text-xs font-bold text-[#1f7a55] block">WhatsApp Floating Button</span>
+            <div className="p-5 bg-[var(--cream)] rounded-2xl border border-[rgba(22,55,76,0.12)] space-y-3">
+              <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider block">
+                WhatsApp Floating Button
+              </span>
               <div>
-                <label className="sr-label">WhatsApp Number</label>
+                <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                  WhatsApp Number
+                </label>
                 <input
                   type="text"
                   value={formData.contact_whatsapp || '+91 96667 81779'}
                   onChange={(e) => setFormData({ ...formData, contact_whatsapp: e.target.value })}
                   placeholder="+91 96667 81779"
-                  className="sr-input text-xs"
+                  className="sr-input text-sm w-full px-4 py-2.5 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
                 />
               </div>
-              <p className="text-[10px] text-[#5a7d92]">
+              <p className="text-xs text-[#5a7d92]">
                 Target link: https://wa.me/919666781779
               </p>
             </div>
 
-            <div className="p-5 bg-[var(--cream)] rounded-xl border border-[rgba(22,55,76,0.12)] space-y-3">
-              <span className="text-xs font-bold text-[var(--ink)] block">Direct Phone Call Button</span>
+            <div className="p-5 bg-[var(--cream)] rounded-2xl border border-[rgba(22,55,76,0.12)] space-y-3">
+              <span className="text-xs font-bold text-[var(--coral)] uppercase tracking-wider block">
+                Direct Phone Call Button
+              </span>
               <div>
-                <label className="sr-label">Direct Phone Call Number</label>
+                <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                  Direct Phone Call Number
+                </label>
                 <input
                   type="text"
                   value={formData.contact_phone || '+91 96667 81779'}
                   onChange={(e) => setFormData({ ...formData, contact_phone: e.target.value })}
                   placeholder="+91 96667 81779"
-                  className="sr-input text-xs"
+                  className="sr-input text-sm w-full px-4 py-2.5 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
                 />
               </div>
-              <p className="text-[10px] text-[#5a7d92]">
+              <p className="text-xs text-[#5a7d92]">
                 Target link: tel:+919666781779
               </p>
             </div>
@@ -322,83 +334,97 @@ export const AdminSettingsPage: React.FC = () => {
         </div>
 
         {/* 3. General Hospital Details */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[rgba(22,55,76,0.12)] shadow-sm space-y-6">
-          <h2 className="text-sm font-bold text-[var(--ink)] uppercase tracking-wider flex items-center gap-2 pb-3 border-b border-[rgba(22,55,76,0.12)]">
-            <Globe size={16} className="text-[var(--ink)]" /> Hospital Identity &amp; Contact Details
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[rgba(22,55,76,0.12)] shadow-xl space-y-6">
+          <h2 className="text-base font-bold text-[var(--ink)] font-display flex items-center gap-2 pb-4 border-b border-[rgba(22,55,76,0.12)]">
+            <Globe size={18} className="text-[var(--teal)]" /> Hospital Identity &amp; Contact Details
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label className="sr-label">Hospital Full Name</label>
+              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                Hospital Full Name
+              </label>
               <input
                 type="text"
                 value={formData.hospital_name || 'Sreemantha Hospital'}
                 onChange={(e) => setFormData({ ...formData, hospital_name: e.target.value })}
-                className="sr-input text-xs"
+                className="sr-input text-sm w-full px-4 py-2.5 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
               />
             </div>
 
             <div>
-              <label className="sr-label">Hospital Tagline</label>
+              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                Hospital Tagline
+              </label>
               <input
                 type="text"
                 value={formData.hospital_tagline || 'Fertility, Women & Child Care'}
                 onChange={(e) => setFormData({ ...formData, hospital_tagline: e.target.value })}
-                className="sr-input text-xs"
+                className="sr-input text-sm w-full px-4 py-2.5 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label className="sr-label">Contact Email</label>
+              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                Contact Email
+              </label>
               <input
                 type="email"
                 value={formData.contact_email || 'care@sreemanthahospital.com'}
                 onChange={(e) => setFormData({ ...formData, contact_email: e.target.value })}
-                className="sr-input text-xs"
+                className="sr-input text-sm w-full px-4 py-2.5 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
               />
             </div>
 
             <div>
-              <label className="sr-label">Emergency 24/7 Helpline</label>
+              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                Emergency 24/7 Helpline
+              </label>
               <input
                 type="text"
                 value={formData.emergency_phone || '+91 88007 73362'}
                 onChange={(e) => setFormData({ ...formData, emergency_phone: e.target.value })}
-                className="sr-input text-xs"
+                className="sr-input text-sm w-full px-4 py-2.5 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
               />
             </div>
           </div>
 
           <div>
-            <label className="sr-label">Physical Address (Khammam Facility)</label>
+            <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+              Physical Address (Khammam Facility)
+            </label>
             <textarea
               rows={2}
               value={formData.address || 'Priyadarshini Degree College Road, Nehru Nagar, Khammam, Telangana 507001'}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              className="sr-textarea text-xs"
+              className="sr-textarea text-sm w-full px-4 py-3 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none resize-y block"
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label className="sr-label">OPD Working Hours</label>
+              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                OPD Working Hours
+              </label>
               <input
                 type="text"
                 value={formData.working_hours || 'Mon - Sat: 09:00 AM - 08:00 PM'}
                 onChange={(e) => setFormData({ ...formData, working_hours: e.target.value })}
-                className="sr-input text-xs"
+                className="sr-input text-sm w-full px-4 py-2.5 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
               />
             </div>
 
             <div>
-              <label className="sr-label">Emergency / Casualty Hours</label>
+              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                Emergency / Casualty Hours
+              </label>
               <input
                 type="text"
                 value={formData.emergency_hours || '24/7 All Days & Holidays'}
                 onChange={(e) => setFormData({ ...formData, emergency_hours: e.target.value })}
-                className="sr-input text-xs"
+                className="sr-input text-sm w-full px-4 py-2.5 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
               />
             </div>
           </div>
@@ -409,9 +435,9 @@ export const AdminSettingsPage: React.FC = () => {
           <button
             type="submit"
             disabled={saving}
-            className="sr-button"
+            className="btn btn-primary px-8 py-3.5 rounded-xl font-bold text-sm text-white shadow-lg flex items-center gap-2 cursor-pointer hover:shadow-xl transition-all"
           >
-            <Save size={16} />
+            <Save size={18} />
             {saving ? 'Saving changes...' : 'Save Configuration Changes'}
           </button>
         </div>

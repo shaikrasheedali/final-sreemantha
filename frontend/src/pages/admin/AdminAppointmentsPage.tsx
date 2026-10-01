@@ -126,44 +126,44 @@ export const AdminAppointmentsPage: React.FC = () => {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-[10px] font-bold border-b border-[rgba(22,55,76,0.1)]">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-xs font-bold border-b border-[rgba(22,55,76,0.1)]">
                 <tr>
-                  <th className="px-6 py-3.5">Patient Details</th>
-                  <th className="px-6 py-3.5">Department &amp; Doctor</th>
-                  <th className="px-6 py-3.5">Preferred Slot</th>
-                  <th className="px-6 py-3.5">Status</th>
-                  <th className="px-6 py-3.5 text-right">Action</th>
+                  <th className="px-6 py-4">Patient Details</th>
+                  <th className="px-6 py-4">Department &amp; Doctor</th>
+                  <th className="px-6 py-4">Preferred Slot</th>
+                  <th className="px-6 py-4">Status</th>
+                  <th className="px-6 py-4 text-right">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[rgba(22,55,76,0.06)]">
                 {filtered.map((a) => (
                   <tr key={a.id} className="hover:bg-[var(--cream)]/60 transition-colors">
                     <td className="px-6 py-4">
-                      <div className="font-bold text-[var(--ink)] text-xs">{a.name}</div>
-                      <div className="text-[11px] text-[#5a7d92] flex items-center gap-1 mt-0.5">
-                        <Phone className="w-3 h-3 text-[var(--teal)]" /> {a.phone}
+                      <div className="font-bold text-[var(--ink)] text-sm">{a.name}</div>
+                      <div className="text-xs text-[#5a7d92] flex items-center gap-1.5 mt-0.5">
+                        <Phone className="w-3.5 h-3.5 text-[var(--teal)]" /> {a.phone}
                       </div>
                       {a.email && (
-                        <div className="text-[10px] text-[#8ba2b1] flex items-center gap-1 mt-0.5">
-                          <Mail className="w-3 h-3" /> {a.email}
+                        <div className="text-xs text-[#8ba2b1] flex items-center gap-1.5 mt-0.5">
+                          <Mail className="w-3.5 h-3.5" /> {a.email}
                         </div>
                       )}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="font-semibold text-[var(--ink)]">{a.department}</div>
-                      <div className="text-[11px] text-[var(--teal)] font-medium mt-0.5">
+                      <div className="font-bold text-[var(--ink)] text-sm">{a.department}</div>
+                      <div className="text-xs text-[var(--teal)] font-medium mt-0.5">
                         {a.doctor ? `Dr. ${a.doctor}` : 'Any Specialist'}
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-[var(--ink)] font-medium">
+                      <div className="text-[var(--ink)] font-semibold text-sm">
                         {a.preferred_date ? new Date(a.preferred_date).toLocaleDateString() : 'ASAP'}
                       </div>
-                      <div className="text-[10px] text-[#8ba2b1]">{a.preferred_time}</div>
+                      <div className="text-xs text-[#8ba2b1] mt-0.5">{a.preferred_time}</div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full capitalize ${
+                      <span className={`inline-block text-xs font-bold px-3 py-1 rounded-full capitalize ${
                         a.status === 'confirmed'
                           ? 'bg-[var(--mint)] text-[var(--teal)] border border-[var(--teal)]/20'
                           : a.status === 'contacted'
@@ -178,7 +178,7 @@ export const AdminAppointmentsPage: React.FC = () => {
                     <td className="px-6 py-4 text-right">
                       <button
                         onClick={() => openModal(a)}
-                        className="btn btn-soft text-xs py-1.5 px-3"
+                        className="btn btn-soft text-xs font-bold py-1.5 px-3.5"
                       >
                         Manage
                       </button>

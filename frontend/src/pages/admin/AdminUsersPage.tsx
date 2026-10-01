@@ -95,9 +95,10 @@ export const AdminUsersPage: React.FC = () => {
         {!isCreating && (
           <button
             onClick={() => setIsCreating(true)}
-            className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#006c93] hover:bg-[#073d59] text-[var(--ink)] text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#006c93] hover:bg-[#073d59] text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            style={{ color: '#ffffff' }}
           >
-            <Plus className="w-4 h-4" /> Add User Account
+            <Plus className="w-4 h-4 text-white" /> Add User Account
           </button>
         )}
       </div>
@@ -206,36 +207,36 @@ export const AdminUsersPage: React.FC = () => {
       ) : (
         <div className="bg-white rounded-3xl border border-[rgba(22,55,76,0.12)] overflow-hidden shadow-xl">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-[10px] font-bold border-b border-[rgba(22,55,76,0.12)]">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-xs font-bold border-b border-[rgba(22,55,76,0.12)]">
                 <tr>
-                  <th className="px-6 py-3.5">User</th>
-                  <th className="px-6 py-3.5">Email</th>
-                  <th className="px-6 py-3.5">Role</th>
-                  <th className="px-6 py-3.5">Created</th>
-                  <th className="px-6 py-3.5 text-right">Action</th>
+                  <th className="px-6 py-4">User</th>
+                  <th className="px-6 py-4">Email</th>
+                  <th className="px-6 py-4">Role</th>
+                  <th className="px-6 py-4">Created</th>
+                  <th className="px-6 py-4 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-700/60">
+              <tbody className="divide-y divide-[rgba(22,55,76,0.08)]">
                 {users.map((u: UserType) => (
                   <tr key={u.id} className="hover:bg-[var(--cream)]/60 transition-colors">
                     <td className="px-6 py-4">
-                      <div className="font-bold text-[var(--ink)] text-xs">{u.name || u.username}</div>
-                      <span className="text-[10px] text-[#5a7d92]">@{u.username}</span>
+                      <div className="font-bold text-[var(--ink)] text-sm">{u.name || u.username}</div>
+                      <span className="text-xs text-[#5a7d92]">@{u.username}</span>
                     </td>
-                    <td className="px-6 py-4 text-[#5a7d92]">{u.email || '—'}</td>
+                    <td className="px-6 py-4 text-[var(--ink)] text-sm font-medium">{u.email || '—'}</td>
                     <td className="px-6 py-4">
-                      <span className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
+                      <span className={`inline-block text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider ${
                         u.role === 'superadmin'
-                          ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+                          ? 'bg-[#fcebf3] text-[var(--coral)] border border-[var(--coral)]/20'
                           : u.role === 'admin'
-                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                          : 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
+                          ? 'bg-[var(--mint)] text-[var(--teal)] border border-[var(--teal)]/20'
+                          : 'bg-sky-100 text-sky-800'
                       }`}>
                         {u.role}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-[#5a7d92] text-[11px]">
+                    <td className="px-6 py-4 text-[#5a7d92] text-xs">
                       {u.created_at ? new Date(u.created_at).toLocaleDateString() : 'System'}
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -243,9 +244,9 @@ export const AdminUsersPage: React.FC = () => {
                         <button
                           onClick={() => handleDelete(u.id, u.username)}
                           title="Delete user"
-                          className="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/30 text-rose-400 transition-colors cursor-pointer"
+                          className="p-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-[var(--coral)] transition-colors cursor-pointer"
                         >
-                          <Trash2 className="w-3.5 h-3.5" />
+                          <Trash2 className="w-4 h-4" />
                         </button>
                       )}
                     </td>

@@ -100,38 +100,38 @@ export const AdminEnquiriesPage: React.FC = () => {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-[10px] font-bold border-b border-[rgba(22,55,76,0.1)]">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-xs font-bold border-b border-[rgba(22,55,76,0.1)]">
                 <tr>
-                  <th className="px-6 py-3.5">Sender</th>
-                  <th className="px-6 py-3.5">Subject &amp; Message</th>
-                  <th className="px-6 py-3.5">Status</th>
-                  <th className="px-6 py-3.5">Received</th>
-                  <th className="px-6 py-3.5 text-right">Action</th>
+                  <th className="px-6 py-4">Sender</th>
+                  <th className="px-6 py-4">Subject &amp; Message</th>
+                  <th className="px-6 py-4">Status</th>
+                  <th className="px-6 py-4">Received</th>
+                  <th className="px-6 py-4 text-right">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[rgba(22,55,76,0.06)]">
                 {filtered.map((enq) => (
                   <tr key={enq.id} className="hover:bg-[var(--cream)]/60 transition-colors">
                     <td className="px-6 py-4">
-                      <div className="font-bold text-[var(--ink)] text-xs">{enq.name}</div>
-                      <div className="text-[11px] text-[#5a7d92] flex items-center gap-1 mt-0.5">
-                        <Phone className="w-3 h-3 text-[var(--teal)]" /> {enq.phone}
+                      <div className="font-bold text-[var(--ink)] text-sm">{enq.name}</div>
+                      <div className="text-xs text-[#5a7d92] flex items-center gap-1.5 mt-0.5">
+                        <Phone className="w-3.5 h-3.5 text-[var(--teal)]" /> {enq.phone}
                       </div>
                       {enq.email && (
-                        <div className="text-[10px] text-[#8ba2b1] flex items-center gap-1 mt-0.5">
-                          <Mail className="w-3 h-3" /> {enq.email}
+                        <div className="text-xs text-[#8ba2b1] flex items-center gap-1.5 mt-0.5">
+                          <Mail className="w-3.5 h-3.5" /> {enq.email}
                         </div>
                       )}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="font-semibold text-[var(--ink)]">{enq.subject || 'General Enquiry'}</div>
-                      <div className="text-[11px] text-[#5a7d92] line-clamp-1 mt-0.5">
+                      <div className="font-bold text-[var(--ink)] text-sm">{enq.subject || 'General Enquiry'}</div>
+                      <div className="text-xs text-[#5a7d92] line-clamp-1 mt-0.5">
                         {enq.message}
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full capitalize ${
+                      <span className={`inline-block text-xs font-bold px-3 py-1 rounded-full capitalize ${
                         enq.status === 'contacted'
                           ? 'bg-sky-100 text-sky-800'
                           : enq.status === 'closed'
@@ -141,7 +141,7 @@ export const AdminEnquiriesPage: React.FC = () => {
                         {enq.status || 'new'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-[#8ba2b1] text-[11px]">
+                    <td className="px-6 py-4 text-[#5a7d92] text-xs">
                       {enq.created_at ? new Date(enq.created_at).toLocaleDateString() : 'Recent'}
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -150,7 +150,7 @@ export const AdminEnquiriesPage: React.FC = () => {
                           setSelectedEnquiry(enq);
                           setStatus(enq.status || 'new');
                         }}
-                        className="btn btn-soft text-xs py-1.5 px-3"
+                        className="btn btn-soft text-xs font-bold py-1.5 px-3.5"
                       >
                         Review
                       </button>

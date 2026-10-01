@@ -190,9 +190,10 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
         {!isEditing && (
           <button
             onClick={handleCreateNew}
-            className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#006c93] hover:bg-[#073d59] text-[var(--ink)] text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#006c93] hover:bg-[#073d59] text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            style={{ color: '#ffffff' }}
           >
-            <Plus className="w-4 h-4" /> Add New {title.replace(/s$/i, '')}
+            <Plus className="w-4 h-4 text-white" /> Add New {title.replace(/s$/i, '')}
           </button>
         )}
       </div>
@@ -454,27 +455,27 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-[10px] font-bold border-b border-[rgba(22,55,76,0.12)]">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-xs font-bold border-b border-[rgba(22,55,76,0.12)]">
                   <tr>
-                    <th className="px-6 py-3.5">Name / Title</th>
-                    <th className="px-6 py-3.5">Category / Specialty</th>
-                    <th className="px-6 py-3.5">Status</th>
-                    <th className="px-6 py-3.5 text-right">Actions</th>
+                    <th className="px-6 py-4">Name / Title</th>
+                    <th className="px-6 py-4">Category / Specialty</th>
+                    <th className="px-6 py-4">Status</th>
+                    <th className="px-6 py-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-700/60">
+                <tbody className="divide-y divide-[rgba(22,55,76,0.08)]">
                   {filteredItems.map((item) => (
                     <tr key={item.id} className="hover:bg-[var(--cream)]/60 transition-colors">
                       <td className="px-6 py-4">
-                        <div className="font-bold text-[var(--ink)] text-xs">{item.title || item.name}</div>
-                        <span className="text-[10px] text-[#8ba2b1]">slug: /{type}/{item.slug}</span>
+                        <div className="font-bold text-[var(--ink)] text-sm">{item.title || item.name}</div>
+                        <span className="text-xs text-[#8ba2b1]">slug: /{type}/{item.slug}</span>
                       </td>
-                      <td className="px-6 py-4 text-[#5a7d92]">
+                      <td className="px-6 py-4 text-[var(--ink)] text-sm font-medium">
                         {item.category || item.specialty || 'General'}
                       </td>
                       <td className="px-6 py-4">
-                        <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 capitalize">
+                        <span className="inline-block text-xs font-bold px-3 py-1 rounded-full bg-[var(--mint)] text-[var(--teal)] border border-[var(--teal)]/20 capitalize">
                           {item.status || 'published'}
                         </span>
                       </td>
@@ -485,23 +486,23 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
                             target="_blank"
                             rel="noreferrer"
                             title="Preview on Public Website"
-                            className="p-1.5 rounded-lg bg-[var(--cream)] hover:bg-[var(--mint)] text-[#5a7d92] transition-colors"
+                            className="p-2 rounded-xl bg-[var(--cream)] hover:bg-[var(--mint)] text-[var(--teal)] transition-colors"
                           >
-                            <Eye className="w-3.5 h-3.5" />
+                            <Eye className="w-4 h-4" />
                           </a>
                           <button
                             onClick={() => handleEdit(item)}
                             title="Edit Record"
-                            className="p-1.5 rounded-lg bg-[#006c93]/20 hover:bg-[#006c93]/40 text-[#38bdf8] transition-colors cursor-pointer"
+                            className="p-2 rounded-xl bg-[#006c93]/10 hover:bg-[#006c93]/20 text-[#006c93] transition-colors cursor-pointer"
                           >
-                            <Edit3 className="w-3.5 h-3.5" />
+                            <Edit3 className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => setDeleteConfirmId(item.id)}
                             title="Delete Record"
-                            className="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/30 text-rose-400 transition-colors cursor-pointer"
+                            className="p-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-[var(--coral)] transition-colors cursor-pointer"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
+                            <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
                       </td>

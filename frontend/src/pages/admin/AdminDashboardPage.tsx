@@ -56,8 +56,8 @@ export const AdminDashboardPage: React.FC = () => {
           <h1 className="text-2xl sm:text-3xl font-display text-white font-bold tracking-tight">
             Welcome back, {user?.name || user?.username}
           </h1>
-          <p className="text-xs text-[var(--mint)] mt-1.5 opacity-90">
-            Role: <span className="capitalize font-semibold text-white">{user?.role}</span> · Sreemantha Hospital, Khammam
+          <p className="text-xs text-white/95 mt-1.5 font-medium" style={{ color: '#ffffff' }}>
+            Role: <span className="capitalize font-bold text-[var(--lime)]">{user?.role}</span> · Sreemantha Hospital, Khammam
           </p>
         </div>
 
@@ -127,21 +127,21 @@ export const AdminDashboardPage: React.FC = () => {
           </div>
 
           {stats?.recentAppointments && stats.recentAppointments.length > 0 ? (
-            <div className="space-y-2.5">
+            <div className="space-y-3">
               {stats.recentAppointments.slice(0, 5).map((apt: any) => (
-                <div key={apt.id} className="p-3.5 rounded-xl bg-[var(--cream)] border border-[rgba(22,55,76,0.08)] flex items-center justify-between text-xs">
+                <div key={apt.id} className="p-4 rounded-xl bg-[var(--cream)] border border-[rgba(22,55,76,0.08)] flex items-center justify-between text-sm hover:border-[var(--teal)]/40 transition-colors">
                   <div>
-                    <strong className="text-[var(--ink)] font-bold block">{apt.name}</strong>
-                    <span className="text-[11px] text-[#5a7d92]">{apt.department || 'Consultation'} · {apt.phone}</span>
+                    <strong className="text-[var(--ink)] font-bold text-base block">{apt.name}</strong>
+                    <span className="text-xs text-[#5a7d92] mt-0.5 block">{apt.department || 'Consultation'} · {apt.phone}</span>
                   </div>
-                  <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-[var(--mint)] text-[var(--teal)]">
+                  <span className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider bg-[var(--mint)] text-[var(--teal)] shrink-0">
                     {apt.status || 'new'}
                   </span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-xs text-[#5a7d92] py-6 text-center">No recent appointments to display.</p>
+            <p className="text-sm text-[#5a7d92] py-6 text-center">No recent appointments to display.</p>
           )}
         </div>
 
@@ -157,21 +157,21 @@ export const AdminDashboardPage: React.FC = () => {
           </div>
 
           {stats?.recentEnquiries && stats.recentEnquiries.length > 0 ? (
-            <div className="space-y-2.5">
+            <div className="space-y-3">
               {stats.recentEnquiries.slice(0, 5).map((enq: any) => (
-                <div key={enq.id} className="p-3.5 rounded-xl bg-[var(--cream)] border border-[rgba(22,55,76,0.08)] flex items-center justify-between text-xs">
+                <div key={enq.id} className="p-4 rounded-xl bg-[var(--cream)] border border-[rgba(22,55,76,0.08)] flex items-center justify-between text-sm hover:border-[var(--coral)]/40 transition-colors">
                   <div>
-                    <strong className="text-[var(--ink)] font-bold block">{enq.name}</strong>
-                    <span className="text-[11px] text-[#5a7d92] truncate max-w-xs block">{enq.subject || enq.message}</span>
+                    <strong className="text-[var(--ink)] font-bold text-base block">{enq.name}</strong>
+                    <span className="text-xs text-[#5a7d92] truncate max-w-xs block mt-0.5">{enq.subject || enq.message}</span>
                   </div>
-                  <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-[#fcebf3] text-[var(--coral)]">
+                  <span className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider bg-[#fcebf3] text-[var(--coral)] shrink-0">
                     {enq.status || 'new'}
                   </span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-xs text-[#5a7d92] py-6 text-center">No recent inquiries to display.</p>
+            <p className="text-sm text-[#5a7d92] py-6 text-center">No recent inquiries to display.</p>
           )}
         </div>
       </div>

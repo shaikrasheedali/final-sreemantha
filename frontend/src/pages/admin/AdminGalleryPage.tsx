@@ -197,9 +197,10 @@ export const AdminGalleryPage: React.FC = () => {
         {!isEditing && (
           <button
             onClick={handleCreateNew}
-            className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#fa7830] hover:bg-[#e06622] text-[var(--ink)] text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#fa7830] hover:bg-[#e06622] text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            style={{ color: '#ffffff' }}
           >
-            <Plus className="w-4 h-4" /> Add Gallery Media
+            <Plus className="w-4 h-4 text-white" /> Add Gallery Media
           </button>
         )}
       </div>
@@ -428,22 +429,22 @@ export const AdminGalleryPage: React.FC = () => {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-[10px] font-bold border-b border-[rgba(22,55,76,0.12)]">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-xs font-bold border-b border-[rgba(22,55,76,0.12)]">
                   <tr>
-                    <th className="px-6 py-3.5">Media</th>
-                    <th className="px-6 py-3.5">Title & Caption</th>
-                    <th className="px-6 py-3.5">Type & Category</th>
-                    <th className="px-6 py-3.5 text-right">Actions</th>
+                    <th className="px-6 py-4">Media</th>
+                    <th className="px-6 py-4">Title &amp; Caption</th>
+                    <th className="px-6 py-4">Type &amp; Category</th>
+                    <th className="px-6 py-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-700/60">
+                <tbody className="divide-y divide-[rgba(22,55,76,0.08)]">
                   {filteredItems.map((item) => (
                     <tr key={item.id} className="hover:bg-[var(--cream)]/60 transition-colors">
-                      <td className="px-6 py-3">
+                      <td className="px-6 py-3.5">
                         <div
                           onClick={() => setPreviewItem(item)}
-                          className="w-14 h-12 rounded-xl bg-[var(--cream)] overflow-hidden border border-[rgba(22,55,76,0.12)] cursor-pointer relative group shrink-0"
+                          className="w-16 h-14 rounded-xl bg-[var(--cream)] overflow-hidden border border-[rgba(22,55,76,0.12)] cursor-pointer relative group shrink-0"
                         >
                           <img
                             src={item.thumbnail_url || item.media_url}
@@ -451,44 +452,44 @@ export const AdminGalleryPage: React.FC = () => {
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform"
                           />
                           <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Eye className="w-3.5 h-3.5 text-white" />
+                            <Eye className="w-4 h-4 text-white" />
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-3 max-w-xs">
-                        <div className="font-bold text-[var(--ink)] truncate">{item.title}</div>
-                        <p className="text-[10px] text-[#5a7d92] truncate mt-0.5">{item.caption || 'No caption'}</p>
+                      <td className="px-6 py-3.5 max-w-xs">
+                        <div className="font-bold text-[var(--ink)] text-sm truncate">{item.title}</div>
+                        <p className="text-xs text-[#5a7d92] truncate mt-0.5">{item.caption || 'No caption'}</p>
                       </td>
-                      <td className="px-6 py-3">
+                      <td className="px-6 py-3.5">
                         <div className="flex items-center gap-2">
-                          <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--cream)] text-[#5a7d92] border border-[rgba(22,55,76,0.12)] text-[#5a7d92] uppercase">
+                          <span className="inline-block text-xs font-bold px-3 py-1 rounded-full bg-[var(--mint)] text-[var(--teal)] border border-[var(--teal)]/20 uppercase">
                             {item.media_type}
                           </span>
-                          <span className="text-[#5a7d92] text-xs">{item.category}</span>
+                          <span className="text-[var(--ink)] text-sm font-medium">{item.category}</span>
                         </div>
                       </td>
-                      <td className="px-6 py-3 text-right">
+                      <td className="px-6 py-3.5 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <button
                             onClick={() => setPreviewItem(item)}
                             title="Preview in Modal"
-                            className="p-1.5 rounded-lg bg-[var(--cream)] hover:bg-[var(--mint)] text-[#5a7d92] transition-colors cursor-pointer"
+                            className="p-2 rounded-xl bg-[var(--cream)] hover:bg-[var(--mint)] text-[var(--teal)] transition-colors cursor-pointer"
                           >
-                            <Eye className="w-3.5 h-3.5" />
+                            <Eye className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleEdit(item)}
                             title="Edit"
-                            className="p-1.5 rounded-lg bg-[#006c93]/20 hover:bg-[#006c93]/40 text-[#38bdf8] transition-colors cursor-pointer"
+                            className="p-2 rounded-xl bg-[#006c93]/10 hover:bg-[#006c93]/20 text-[#006c93] transition-colors cursor-pointer"
                           >
-                            <Edit3 className="w-3.5 h-3.5" />
+                            <Edit3 className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => setDeleteConfirmId(item.id)}
                             title="Delete"
-                            className="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/30 text-rose-400 transition-colors cursor-pointer"
+                            className="p-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-[var(--coral)] transition-colors cursor-pointer"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
+                            <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
                       </td>

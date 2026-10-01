@@ -74,7 +74,7 @@ export const Footer: React.FC = () => {
               </p>
             ) : (
               <form onSubmit={handleSubscribe}>
-                <div className="newsletter">
+                <div className="newsletter flex items-center bg-white/10 border border-white/20 rounded-xl p-1.5 pl-3.5 my-3 max-w-sm">
                   <input
                     aria-label="Your email address"
                     type="email"
@@ -82,9 +82,14 @@ export const Footer: React.FC = () => {
                     placeholder="Your email address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    className="bg-transparent border-none text-white text-xs placeholder:text-white/60 focus:outline-none flex-1 min-w-0"
                   />
-                  <button type="submit" aria-label="Subscribe">
-                    <ArrowRight size={18} />
+                  <button
+                    type="submit"
+                    aria-label="Subscribe"
+                    className="w-9 h-9 rounded-lg bg-[var(--coral)] text-white flex items-center justify-center shrink-0 hover:opacity-90 transition cursor-pointer"
+                  >
+                    <ArrowRight size={16} />
                   </button>
                 </div>
                 <label className="checkbox newsletter-consent">

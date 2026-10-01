@@ -48,37 +48,37 @@ export const AdminAuditLogsPage: React.FC = () => {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-[10px] font-bold border-b border-[rgba(22,55,76,0.12)]">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-xs font-bold border-b border-[rgba(22,55,76,0.12)]">
                 <tr>
-                  <th className="px-6 py-3.5">Action & Entity</th>
-                  <th className="px-6 py-3.5">User</th>
-                  <th className="px-6 py-3.5">Details</th>
-                  <th className="px-6 py-3.5 text-right">Timestamp</th>
+                  <th className="px-6 py-4">Action &amp; Entity</th>
+                  <th className="px-6 py-4">User</th>
+                  <th className="px-6 py-4">Details</th>
+                  <th className="px-6 py-4 text-right">Timestamp</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-700/60">
+              <tbody className="divide-y divide-[rgba(22,55,76,0.08)]">
                 {logs.map((log) => (
                   <tr key={log.id} className="hover:bg-[var(--cream)]/60 transition-colors">
                     <td className="px-6 py-4">
-                      <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--cream)] text-[var(--ink)] border border-[rgba(22,55,76,0.12)] uppercase mr-2">
+                      <span className="inline-block text-xs font-bold px-3 py-1 rounded-full bg-[var(--mint)] text-[var(--teal)] border border-[var(--teal)]/20 uppercase mr-2">
                         {log.action}
                       </span>
-                      <span className="font-semibold text-white capitalize">{log.entity_type}</span>
+                      <span className="font-bold text-[var(--ink)] text-sm capitalize">{log.entity_type}</span>
                       {log.entity_id && (
-                        <span className="text-[10px] text-[#5a7d92] ml-1.5">#{log.entity_id}</span>
+                        <span className="text-xs text-[#5a7d92] ml-1.5">#{log.entity_id}</span>
                       )}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-1.5 font-medium text-[#5a7d92]">
-                        <User className="w-3.5 h-3.5 text-[#5a7d92]" />
+                      <div className="flex items-center gap-1.5 font-medium text-[var(--ink)] text-sm">
+                        <User className="w-4 h-4 text-[var(--teal)]" />
                         <span>{log.username || `User #${log.user_id}`}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-[#5a7d92] max-w-xs truncate text-[11px]">
+                    <td className="px-6 py-4 text-[#5a7d92] max-w-xs truncate text-xs">
                       {typeof log.details === 'object' ? JSON.stringify(log.details) : log.details || '—'}
                     </td>
-                    <td className="px-6 py-4 text-right text-[#5a7d92] text-[11px]">
+                    <td className="px-6 py-4 text-right text-[#5a7d92] text-xs">
                       {log.created_at ? new Date(log.created_at).toLocaleString() : 'Recent'}
                     </td>
                   </tr>

@@ -146,15 +146,6 @@ export const AdminLayout: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="dash-main">
-        {/* Connection status banner matching design spec */}
-        <div className="connection-banner connected">
-          <span className="connection-dot" />
-          <strong>Sreemantha Live SQLite Platform</strong>
-          <span className="text-xs">
-            Argon2-secured CMS · Hospital Records &amp; Clinical Catalog Connected
-          </span>
-        </div>
-
         <Outlet />
       </main>
 

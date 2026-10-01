@@ -645,9 +645,13 @@ export const HomePage: React.FC = () => {
               Near Priyadarshini Degree College, Nehru Nagar, Wyra Road, Khammam · Open 24 hours
             </span>
           </div>
-          <a className="btn btn-light" href={emergencyHref}>
-            <PhoneCall size={16} />
-            <span>Call: {emergency}</span>
+          <a
+            className="btn btn-light !text-[var(--deep)] font-extrabold shadow-md hover:bg-[var(--lime)]"
+            href={emergencyHref}
+            style={{ color: '#073d59', backgroundColor: '#ffffff', fontWeight: 800 }}
+          >
+            <PhoneCall size={16} className="text-[var(--coral)]" />
+            <span style={{ color: '#073d59', fontWeight: 800 }}>Call: {emergency}</span>
           </a>
         </div>
       </aside>
