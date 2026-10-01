@@ -168,7 +168,7 @@ export const GalleryPage: React.FC = () => {
                     alt={item.title}
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                  <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white pointer-events-none">
                     {item.media_type === 'video' || item.media_type === 'youtube' ? (
                       <div className="w-12 h-12 rounded-full bg-white/80 text-[#183f3d] flex items-center justify-center pl-1 shadow-lg">
                         <Play size={22} fill="#183f3d" />

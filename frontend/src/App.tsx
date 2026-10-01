@@ -42,14 +42,14 @@ import { AdminAuditLogsPage } from './pages/admin/AdminAuditLogsPage';
 // Public Layout Wrapper
 const PublicLayout: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-[#faf8f3] text-[#183f3d]">
-      <InitialLoader />
+    <div className="flex flex-col min-h-screen bg-[var(--paper)] text-[var(--ink)] relative">
       <Navbar />
-      <main className="flex-1">
+      <main className="flex-1 public-page">
         <Outlet />
       </main>
       <Footer />
       <FloatingContactButtons />
+      <div className="noise" aria-hidden="true" />
     </div>
   );
 };
@@ -58,6 +58,7 @@ export const App: React.FC = () => {
   return (
     <AuthProvider>
       <SettingsProvider>
+        <InitialLoader />
         <BrowserRouter>
           <Routes>
             {/* Public Layout Routes */}
