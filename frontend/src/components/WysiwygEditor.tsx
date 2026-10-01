@@ -367,7 +367,7 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
           value={htmlValue}
           onChange={handleHtmlChange}
           style={{ minHeight }}
-          className="w-full p-4 font-mono text-xs text-slate-800 bg-slate-900 text-slate-100 focus:outline-none resize-y"
+          className="w-full p-4 font-mono text-xs text-[var(--ink)] bg-white border border-[rgba(22,55,76,0.15)] focus:outline-none resize-y"
           placeholder="Edit HTML directly..."
         />
       ) : (

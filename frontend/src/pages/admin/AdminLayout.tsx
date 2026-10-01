@@ -108,9 +108,7 @@ export const AdminLayout: React.FC = () => {
         </nav>
 
         {/* Bottom controls */}
-        <div className="side-spacer" />
-
-        <div className="space-y-1 pt-3 border-t border-[rgba(255,255,255,0.12)]">
+        <div className="mt-auto shrink-0 space-y-1 pt-3 border-t border-[rgba(255,255,255,0.12)]">
           <a
             href="/"
             target="_blank"

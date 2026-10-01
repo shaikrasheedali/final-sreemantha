@@ -110,24 +110,24 @@ export const FacilitiesPage: React.FC = () => {
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
-                    background: 'linear-gradient(180deg, rgba(24,63,61,0.1) 15%, rgba(16,45,44,0.75) 65%, rgba(16,45,44,0.95))',
+                    background: 'linear-gradient(180deg, rgba(7,61,89,0.1) 15%, rgba(7,61,89,0.75) 65%, rgba(7,61,89,0.95))',
                   }}
                 />
 
                 <div className="relative z-10 flex flex-col justify-end h-full p-8 min-h-[360px]">
                   <div className="flex items-center justify-between mb-auto">
-                    <span className="text-[11px] font-mono tracking-widest text-[var(--lime)] uppercase">
+                    <span className="text-[11px] font-mono tracking-widest text-[var(--lime)] uppercase font-bold">
                       OUR SPACES / {String(index + 1).padStart(2, '0')}
                     </span>
-                    <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-white group-hover:text-[var(--ink)] transition-colors">
+                    <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-[var(--pink)] group-hover:text-white transition-colors">
                       <ArrowUpRight size={16} />
                     </div>
                   </div>
 
-                  <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal mt-12 mb-2 leading-snug">
+                  <h3 className="font-display text-2xl sm:text-3xl text-white font-bold mt-12 mb-2 leading-snug">
                     {facility.name}
                   </h3>
-                  <p className="text-xs text-[#f1f4ef] leading-relaxed line-clamp-2 max-w-md m-0">
+                  <p className="text-xs text-[var(--mint)] leading-relaxed line-clamp-2 max-w-md m-0 opacity-95">
                     {facility.short_description || facility.description}
                   </p>
                 </div>

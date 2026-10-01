@@ -117,8 +117,8 @@ export const TreatmentsPage: React.FC = () => {
                 className="sr-card"
                 style={{ padding: '28px' }}
               >
-                <div className="flex items-center justify-between gap-2 mb-6">
-                  <span className="font-serif text-3xl text-[#8a9b90]" aria-hidden="true">
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <span className="font-display font-extrabold text-2xl text-[var(--coral)]" aria-hidden="true">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   {treatment.category && (
@@ -128,10 +128,10 @@ export const TreatmentsPage: React.FC = () => {
                   )}
                 </div>
 
-                <h3 className="text-xl font-medium text-[var(--ink)] mb-2">
+                <h3 className="text-xl font-bold text-[var(--ink)] font-display mb-2">
                   {treatment.title}
                 </h3>
-                <p className="sr-copy sr-clamp text-xs mb-4">
+                <p className="sr-copy sr-clamp text-sm mb-4">
                   {treatment.short_description || treatment.overview}
                 </p>
 

@@ -72,14 +72,14 @@ export const Navbar: React.FC = () => {
             <BrandLogo />
           </Link>
 
-          {/* Desktop Nav Links */}
-          <div className="nav-links">
+          {/* Desktop Nav Links (Single horizontal layer) */}
+          <div className="nav-links hidden xl:flex items-center gap-3.5 2xl:gap-6 whitespace-nowrap">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 aria-current={isActive(link.path) ? 'page' : undefined}
-                className="transition-colors hover:text-[var(--lime)]"
+                className="transition-colors hover:text-[var(--lime)] py-1 font-semibold text-xs 2xl:text-sm whitespace-nowrap"
               >
                 {link.name}
               </Link>
