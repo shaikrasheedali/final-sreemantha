@@ -261,6 +261,46 @@ describe('6. Admin Dashboard and CRUD Operations', () => {
     assert.strictEqual(res.status, 200);
   });
 
+  test('Admin can fetch media assets from MySQL database', async () => {
+    const res = await request(app)
+      .get('/api/media')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.strictEqual(res.status, 200);
+    assert.ok(Array.isArray(res.body.assets));
+  });
+
+  let testAssetId = null;
+  test('Admin can upload image and automatically convert to WebP', async () => {
+    const sharp = require('sharp');
+    const pngBuffer = await sharp({
+      create: {
+        width: 60,
+        height: 60,
+        channels: 4,
+        background: { r: 0, g: 108, b: 147, alpha: 1 },
+      },
+    }).png().toBuffer();
+
+    const res = await request(app)
+      .post('/api/media/upload')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .attach('file', pngBuffer, 'test-sample.png');
+
+    assert.strictEqual(res.status, 201);
+    assert.ok(res.body.asset);
+    assert.strictEqual(res.body.asset.mime_type, 'image/webp');
+    assert.ok(res.body.asset.url.endsWith('.webp'));
+    testAssetId = res.body.asset.id;
+  });
+
+  test('Admin can delete media asset', async () => {
+    if (!testAssetId) return;
+    const res = await request(app)
+      .delete(`/api/media/${testAssetId}`)
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.strictEqual(res.status, 200);
+  });
+
   after(async () => {
     try {
       await pool.end();

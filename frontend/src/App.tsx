@@ -38,6 +38,7 @@ import { AdminEnquiriesPage } from './pages/admin/AdminEnquiriesPage';
 import { AdminSettingsPage } from './pages/admin/AdminSettingsPage';
 import { AdminUsersPage } from './pages/admin/AdminUsersPage';
 import { AdminAuditLogsPage } from './pages/admin/AdminAuditLogsPage';
+import { AdminMediaAssetsPage } from './pages/admin/AdminMediaAssetsPage';
 
 // Public Layout Wrapper
 const PublicLayout: React.FC = () => {
@@ -147,6 +148,7 @@ export const App: React.FC = () => {
                 }
               />
               <Route path="gallery" element={<AdminGalleryPage />} />
+              <Route path="media" element={<AdminMediaAssetsPage />} />
               <Route path="appointments" element={<AdminAppointmentsPage />} />
               <Route path="enquiries" element={<AdminEnquiriesPage />} />
               <Route path="settings" element={<AdminSettingsPage />} />

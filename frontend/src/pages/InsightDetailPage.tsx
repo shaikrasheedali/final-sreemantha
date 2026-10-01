@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RichContentRenderer } from '../components/RichContentRenderer';
+import { DetailMediaCarousel } from '../components/DetailMediaCarousel';
 import { Insight } from '../types';
 import { api } from '../utils/api';
 
@@ -115,12 +116,11 @@ export const InsightDetailPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Hero image if available */}
-        {insight.image_url && (
-          <div className="sr-media rounded-2xl h-[360px] sm:h-[460px] mb-12 overflow-hidden shadow-sm">
-            <img src={insight.image_url} alt={insight.title} className="w-full h-full object-cover" />
-          </div>
-        )}
+        {/* Media 4:3 Showcase / Carousel */}
+        <DetailMediaCarousel
+          media={insight.image_url}
+          title={insight.title}
+        />
 
         {/* Summary Lead */}
         {(insight.summary || insight.excerpt) && (

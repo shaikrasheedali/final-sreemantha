@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RichContentRenderer } from '../components/RichContentRenderer';
+import { DetailMediaCarousel } from '../components/DetailMediaCarousel';
 import { Specialty, Treatment } from '../types';
 import { api } from '../utils/api';
 import { useSettings } from '../context/SettingsContext';
@@ -93,12 +94,11 @@ export const SpecialtyDetailPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Media Banner */}
-        {specialty.image_url && (
-          <div className="sr-media rounded-2xl h-[360px] sm:h-[450px] mb-16 overflow-hidden">
-            <img src={specialty.image_url} alt={specialty.title} className="w-full h-full object-cover" />
-          </div>
-        )}
+        {/* Media 4:3 Showcase / Carousel */}
+        <DetailMediaCarousel
+          media={specialty.image_url}
+          title={specialty.title}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
           {/* Main Content Column */}

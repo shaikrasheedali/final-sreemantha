@@ -42,6 +42,14 @@ app.use('/uploads', express.static(uploadDir));
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapiSpec));
 app.get('/api/docs.json', (req, res) => res.json(openapiSpec));
 
+// Ensure all API endpoints provide real-time database data without browser caching
+app.use('/api', (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
+
 // Mount main API router
 app.use('/api', apiRouter);
 

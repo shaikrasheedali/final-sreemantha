@@ -46,13 +46,14 @@ export const FacilitiesPage: React.FC = () => {
         {/* Search */}
         <div className="flex justify-end mb-10 pb-6 border-b border-[rgba(22,55,76,0.12)]">
           <div className="relative w-full md:w-80">
-            <Search size={15} className="text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search size={15} className="text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" />
             <input
               type="text"
               placeholder="Search hospital spaces..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="sr-input pl-10 text-xs rounded-full"
+              className="sr-input sr-search-input text-xs rounded-full"
+              style={{ paddingLeft: '44px' }}
             />
           </div>
         </div>

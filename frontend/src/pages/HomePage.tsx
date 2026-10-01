@@ -117,7 +117,6 @@ export const HomePage: React.FC = () => {
         <div className="hero-media">
           <img src={IMAGES.hero} alt="Sreemantha Hospital Specialist Care" />
         </div>
-        <div className="hero-orb" aria-hidden="true" />
         <div className="container">
           <div className="hero-copy">
             <div className="eyebrow hero-reveal">Care that grows with your family</div>

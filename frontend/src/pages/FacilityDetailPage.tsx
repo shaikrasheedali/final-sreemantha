@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RichContentRenderer } from '../components/RichContentRenderer';
+import { DetailMediaCarousel } from '../components/DetailMediaCarousel';
 import { Facility } from '../types';
 import { api } from '../utils/api';
 import { useSettings } from '../context/SettingsContext';
@@ -88,16 +89,11 @@ export const FacilityDetailPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Media Banner */}
-        {facility.image_url && (
-          <div className="sr-media rounded-2xl h-[380px] sm:h-[480px] mb-16 overflow-hidden">
-            <img
-              src={facility.image_url}
-              alt={facility.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        )}
+        {/* Media 4:3 Showcase / Carousel */}
+        <DetailMediaCarousel
+          media={facility.image_url}
+          title={facility.name || facility.title || 'Facility'}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
           {/* Main Info */}

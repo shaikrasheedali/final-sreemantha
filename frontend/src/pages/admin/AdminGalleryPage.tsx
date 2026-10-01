@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { YoutubeIcon, InstagramIcon, FacebookIcon } from '../../components/SocialIcons';
 import { GalleryModal } from '../../components/GalleryModal';
+import { MediaPickerModal } from '../../components/MediaPickerModal';
 import { GalleryItem } from '../../types';
 import { api } from '../../utils/api';
 
@@ -18,6 +19,7 @@ export const AdminGalleryPage: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<number | null>(null);
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
   // Form
@@ -288,18 +290,29 @@ export const AdminGalleryPage: React.FC = () => {
             {/* Upload or URL depending on type */}
             {(formData.media_type === 'image' || formData.media_type === 'video') && (
               <div className="p-4 bg-[var(--cream)]/80 rounded-2xl border border-[rgba(22,55,76,0.12)] space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-[#5a7d92]">File Upload</span>
-                  <label className="px-4 py-2 bg-white hover:bg-[var(--mint)] text-[var(--ink)] rounded-xl text-xs font-bold cursor-pointer transition-colors border border-slate-600 flex items-center gap-2">
-                    <Upload className="w-3.5 h-3.5" />
-                    <span>{uploading ? 'Uploading...' : 'Choose File from Computer'}</span>
-                    <input
-                      type="file"
-                      accept={formData.media_type === 'video' ? 'video/*' : 'image/*'}
-                      onChange={handleFileUpload}
-                      className="hidden"
-                    />
-                  </label>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-xs font-bold text-[#5a7d92]">File Upload &amp; Media Selection</span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsPickerOpen(true)}
+                      className="px-3.5 py-2 bg-[var(--cream)] hover:bg-[var(--mint)] text-[var(--teal)] rounded-xl text-xs font-bold cursor-pointer transition-colors border border-[rgba(22,55,76,0.15)] flex items-center gap-1.5"
+                    >
+                      <ImageIcon className="w-3.5 h-3.5 text-[var(--coral)]" />
+                      <span>Pick from Media Assets</span>
+                    </button>
+
+                    <label className="px-4 py-2 bg-white hover:bg-[var(--mint)] text-[var(--ink)] rounded-xl text-xs font-bold cursor-pointer transition-colors border border-slate-600 flex items-center gap-2">
+                      <Upload className="w-3.5 h-3.5" />
+                      <span>{uploading ? 'Uploading...' : 'Choose File from Computer'}</span>
+                      <input
+                        type="file"
+                        accept={formData.media_type === 'video' ? 'video/*' : 'image/*'}
+                        onChange={handleFileUpload}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
                 </div>
 
                 <div>
@@ -533,6 +546,19 @@ export const AdminGalleryPage: React.FC = () => {
 
       {/* Modal Preview */}
       <GalleryModal item={previewItem} onClose={() => setPreviewItem(null)} />
+
+      {/* Media Picker Modal */}
+      <MediaPickerModal
+        isOpen={isPickerOpen}
+        onClose={() => setIsPickerOpen(false)}
+        onSelect={(urls) => {
+          if (urls && urls[0]) {
+            setFormData({ ...formData, media_url: urls[0] });
+          }
+        }}
+        allowMultiple={false}
+        title="Pick Media for Gallery Item"
+      />
     </div>
   );
 };

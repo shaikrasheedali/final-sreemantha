@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Building2 } from 'lucide-react';
 import { InsuranceProvider } from '../types';
 import { api } from '../utils/api';
 
@@ -36,35 +36,49 @@ export const SlidingInsuranceStrip: React.FC = () => {
   const marqueeList = [...providers, ...providers];
 
   return (
-    <div className="w-full py-6 overflow-hidden relative">
-      <div className="container mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <ShieldCheck size={16} className="text-[var(--coral)]" />
-          <span className="text-xs font-bold uppercase tracking-wider text-[var(--ink)]">
-            Empanelled Insurance &amp; Cashless Partners
-          </span>
+    <div className="w-full py-16 sm:py-20 bg-[var(--cream)]/40 border-y border-[rgba(22,55,76,0.08)] overflow-hidden relative">
+      {/* Section Header with generous vertical spacing */}
+      <div className="container mb-10 sm:mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 border-b border-[rgba(22,55,76,0.08)]">
+          <div>
+            <div className="eyebrow mb-2">
+              <ShieldCheck size={16} className="text-[var(--coral)] inline-block mr-1.5" />
+              Cashless Healthcare Network
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--ink)] tracking-tight font-display">
+              Empanelled Insurance &amp; Cashless Partners
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-[rgba(22,55,76,0.12)] shadow-xs shrink-0 self-start md:self-auto">
+            <CheckCircle2 size={16} className="text-[var(--coral)] shrink-0" />
+            <span className="text-xs font-bold text-[var(--deep)] tracking-tight">
+              24/7 Cashless Desk &amp; Pre-Authorization Assistance
+            </span>
+          </div>
         </div>
-        <span className="text-xs text-[#5a7d92] flex items-center gap-1.5 font-medium">
-          <CheckCircle2 size={14} className="text-[var(--coral)]" />
-          24/7 Cashless Desk &amp; Pre-Authorization Assistance
-        </span>
       </div>
 
+      {/* Marquee Track with edge fade masks */}
       <div className="relative w-full overflow-hidden">
-        <div className="animate-marquee-track">
+        {/* Left & Right gradient fades for smooth marquee transition */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[var(--paper)] to-transparent z-10 hidden sm:block" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[var(--paper)] to-transparent z-10 hidden sm:block" />
+
+        <div className="animate-marquee-track py-3">
           {marqueeList.map((provider, idx) => (
             <div
               key={`${provider.id}-${idx}`}
-              className="flex items-center gap-4 bg-white px-6 py-4 rounded-2xl border border-[rgba(22,55,76,0.12)] shrink-0 shadow-xs hover:shadow-md hover:border-[var(--teal)] transition-all cursor-default min-w-[300px]"
+              className="flex items-center gap-4 bg-white px-7 py-5 rounded-2xl border border-[rgba(22,55,76,0.12)] shrink-0 shadow-xs hover:shadow-xl hover:border-[var(--teal)] transition-all cursor-default min-w-[320px] sm:min-w-[340px]"
             >
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[var(--mint)] to-white border border-[rgba(22,55,76,0.12)] flex items-center justify-center text-[var(--teal)] font-extrabold text-sm shrink-0 shadow-xs">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--mint)] to-white border border-[rgba(22,55,76,0.12)] flex items-center justify-center text-[var(--teal)] font-extrabold text-base shrink-0 shadow-xs">
                 {provider.name.charAt(0)}
               </div>
               <div className="flex flex-col min-w-0">
                 <span className="text-sm font-bold text-[var(--ink)] whitespace-nowrap tracking-tight">
                   {provider.name}
                 </span>
-                <span className="text-xs text-[#5a7d92] mt-0.5 truncate">
+                <span className="text-xs text-[#5a7d92] mt-1 font-medium truncate">
                   {provider.claim_assistance_info || provider.type || 'Cashless Inpatient Partner'}
                 </span>
               </div>

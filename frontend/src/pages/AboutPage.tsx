@@ -45,7 +45,7 @@ export const AboutPage: React.FC = () => {
         {/* Hero Visual Banner */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-24">
           <div className="lg:col-span-7">
-            <div className="sr-media rounded-3xl overflow-hidden shadow-sm h-[420px] sm:h-[480px]">
+            <div className="rounded-3xl overflow-hidden shadow-xl h-[480px] sm:h-[560px] relative bg-[var(--mint)] border border-[rgba(22,55,76,0.12)]">
               <img
                 src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=1200&auto=format&fit=crop&q=85"
                 alt="Sreemantha Hospital clinical leadership and care team"
@@ -154,19 +154,19 @@ export const AboutPage: React.FC = () => {
               </div>
             </div>
             <div className="lg:col-span-4 flex flex-col gap-3">
-              <div className="p-4 rounded-lg bg-[#224b48] border border-[#305f5c]">
+              <div className="p-4 rounded-xl bg-white/10 border border-white/20 backdrop-blur-xs">
                 <div className="flex items-center gap-2 text-[var(--lime)] text-xs font-semibold uppercase tracking-wider mb-1">
                   <ShieldCheck size={16} /> Certified Quality
                 </div>
-                <p className="text-xs text-[var(--mint)] m-0">
+                <p className="text-xs text-white leading-relaxed m-0 font-medium" style={{ color: '#ffffff' }}>
                   NABH-oriented protocols, sterile air handling, continuous embryology monitoring.
                 </p>
               </div>
-              <div className="p-4 rounded-lg bg-[#224b48] border border-[#305f5c]">
+              <div className="p-4 rounded-xl bg-white/10 border border-white/20 backdrop-blur-xs">
                 <div className="flex items-center gap-2 text-[var(--lime)] text-xs font-semibold uppercase tracking-wider mb-1">
                   <Baby size={16} /> Level-III NICU Care
                 </div>
-                <p className="text-xs text-[var(--mint)] m-0">
+                <p className="text-xs text-white leading-relaxed m-0 font-medium" style={{ color: '#ffffff' }}>
                   Advanced neonatal ventilators, LED phototherapy, and dedicated neonatologists 24/7.
                 </p>
               </div>

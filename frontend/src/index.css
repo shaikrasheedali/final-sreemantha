@@ -3969,8 +3969,8 @@ body,
   height: 32px !important;
 }
 .navbar {
-  height: 68px !important;
-  min-height: 68px !important;
+  height: 70px !important;
+  min-height: 70px !important;
 }
 .topbar .container {
   height: 32px !important;
@@ -3983,8 +3983,8 @@ body,
   align-items: center !important;
 }
 .navbar .container {
-  height: 68px !important;
-  min-height: 68px !important;
+  height: 70px !important;
+  min-height: 70px !important;
   width: 100% !important;
   max-width: 100% !important;
   padding-left: clamp(16px, 2.8vw, 44px) !important;
@@ -3996,11 +3996,17 @@ body,
   padding-bottom: 0 !important;
 }
 
-/* Hero Section: Navbar (100px) + Hero = 100vh viewport */
+/* Concentric Hero circles hidden per user request */
+.hero-orb {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Hero Section: Navbar (102px: 32px topbar + 70px navbar) + Hero = 100vh viewport */
 .hero {
-  height: calc(100vh - 100px) !important;
+  height: calc(100vh - 102px) !important;
   min-height: 520px !important;
-  max-height: calc(100vh - 100px) !important;
+  max-height: calc(100vh - 102px) !important;
   position: relative !important;
   overflow: hidden !important;
   display: flex !important;
@@ -4170,12 +4176,17 @@ select:focus {
   box-shadow: 0 20px 40px rgba(7, 61, 89, 0.12) !important;
 }
 
-.sr-media {
+.sr-card .sr-media {
   width: 100% !important;
   height: 220px !important;
   position: relative !important;
   overflow: hidden !important;
   background: var(--mint) !important;
+}
+.sr-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--mint);
 }
 .sr-media img {
   width: 100% !important;
@@ -4367,6 +4378,14 @@ select:focus {
   background-color: #ffffff !important;
 }
 
+/* Explicit search input styling to ensure search icons never overlap placeholder text */
+.sr-search-input,
+.sr-input.sr-search-input,
+input.sr-search-input {
+  padding-left: 44px !important;
+  padding-right: 16px !important;
+}
+
 .sr-button {
   display: inline-flex !important;
   align-items: center !important;
@@ -4457,5 +4476,10 @@ select:focus {
 }
 .newsletter button:hover {
   opacity: 0.9 !important;
+}
+
+.insurance-strip {
+  padding: 0 !important;
+  border-bottom: none !important;
 }
 
