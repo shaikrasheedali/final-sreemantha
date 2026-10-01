@@ -104,11 +104,11 @@ export const SpecialtyDetailPage: React.FC = () => {
           {/* Main Content Column */}
           <div className="lg:col-span-8 space-y-12">
             {/* Overview / Body Content */}
-            <div className="p-8 sm:p-10 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-3">
+            <div className="p-8 sm:p-10 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-3">
                 Clinical Overview
               </span>
-              <h2 className="sr-display text-2xl mb-6 text-[#183f3d]">
+              <h2 className="sr-display text-2xl mb-6 text-[var(--ink)]">
                 Care philosophy &amp; clinical approach
               </h2>
               {specialty.content ? (
@@ -125,17 +125,17 @@ export const SpecialtyDetailPage: React.FC = () => {
 
             {/* Conditions Treated */}
             {conditionsList.length > 0 && (
-              <div className="p-8 sm:p-10 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
-                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-3">
+              <div className="p-8 sm:p-10 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-3">
                   Clinical Scope
                 </span>
-                <h3 className="sr-display text-2xl mb-6 text-[#183f3d]">
+                <h3 className="sr-display text-2xl mb-6 text-[var(--ink)]">
                   Conditions &amp; indications addressed
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   {conditionsList.map((cond, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-xs text-[#183f3d] font-medium">
-                      <div className="w-5 h-5 rounded-full bg-[#e8eee5] flex items-center justify-center text-[#183f3d] shrink-0">
+                    <div key={idx} className="flex items-center gap-2.5 text-xs text-[var(--ink)] font-medium">
+                      <div className="w-5 h-5 rounded-full bg-[var(--mint)] flex items-center justify-center text-[var(--ink)] shrink-0">
                         <Check size={12} />
                       </div>
                       <span>{cond}</span>
@@ -151,7 +151,7 @@ export const SpecialtyDetailPage: React.FC = () => {
                 <div className="sr-heading-row mb-6">
                   <div>
                     <span className="sr-kicker">Comprehensive Options</span>
-                    <h3 className="sr-display text-2xl mt-1 text-[#183f3d]">
+                    <h3 className="sr-display text-2xl mt-1 text-[var(--ink)]">
                       Associated treatments &amp; procedures
                     </h3>
                   </div>
@@ -166,20 +166,20 @@ export const SpecialtyDetailPage: React.FC = () => {
                     <Link
                       key={t.id}
                       to={`/treatments/${t.slug}`}
-                      className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd] hover:border-[#183f3d] hover:shadow-md transition flex flex-col justify-between text-decoration-none text-inherit group"
+                      className="p-6 rounded-xl bg-white border border-[rgba(22,55,76,0.12)] hover:border-[var(--teal)] hover:shadow-md transition flex flex-col justify-between text-decoration-none text-inherit group"
                     >
                       <div>
                         <span className="font-serif text-xl text-[#8a9b90] block mb-2">
                           {String(idx + 1).padStart(2, '0')}
                         </span>
-                        <h4 className="text-base font-semibold text-[#183f3d] group-hover:text-[#8f4160] transition mb-2">
+                        <h4 className="text-base font-semibold text-[var(--ink)] group-hover:text-[var(--coral)] transition mb-2">
                           {t.title}
                         </h4>
                         <p className="sr-copy text-xs line-clamp-2 mb-4">
                           {t.short_description || t.overview}
                         </p>
                       </div>
-                      <span className="text-[11px] font-semibold text-[#183f3d] flex items-center gap-1 mt-auto">
+                      <span className="text-[11px] font-semibold text-[var(--ink)] flex items-center gap-1 mt-auto">
                         Understand options <ArrowUpRight size={13} />
                       </span>
                     </Link>
@@ -191,14 +191,14 @@ export const SpecialtyDetailPage: React.FC = () => {
 
           {/* Right Sidebar CTA & Doctor Booking */}
           <div className="lg:col-span-4 sticky top-28 space-y-6">
-            <div className="p-8 rounded-xl bg-[#183f3d] text-white">
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-2">
+            <div className="p-8 rounded-xl bg-[var(--deep)] text-white">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--lime)] block mb-2">
                 Specialist Consultation
               </span>
               <h3 className="font-serif text-2xl text-white mb-3">
                 Discuss your care with our doctors
               </h3>
-              <p className="text-xs text-[#d3dfdb] leading-relaxed mb-6">
+              <p className="text-xs text-[var(--mint)] leading-relaxed mb-6">
                 Receive personalized guidance, clinical evaluation, and an open conversation about the best next steps.
               </p>
               <div className="flex flex-col gap-3">
@@ -212,7 +212,7 @@ export const SpecialtyDetailPage: React.FC = () => {
                 </Link>
                 <a
                   href={phoneHref}
-                  className="sr-button sr-button--outline text-xs w-full justify-center border-[#dce1d7] text-white hover:bg-[#285854]"
+                  className="sr-button sr-button--outline text-xs w-full justify-center border-white/30 text-white hover:bg-white/10"
                 >
                   <Phone size={14} />
                   Call: {phone}
@@ -220,9 +220,9 @@ export const SpecialtyDetailPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-6 rounded-xl bg-[#e8eee5] border border-[#cbd7c6]">
-              <div className="flex items-center gap-2 text-[#183f3d] text-xs font-bold uppercase tracking-wider mb-2">
-                <ShieldCheck size={16} className="text-[#8f4160]" />
+            <div className="p-6 rounded-xl bg-[var(--mint)] border border-[rgba(22,55,76,0.12)]">
+              <div className="flex items-center gap-2 text-[var(--ink)] text-xs font-bold uppercase tracking-wider mb-2">
+                <ShieldCheck size={16} className="text-[var(--coral)]" />
                 NABH Standards
               </div>
               <p className="sr-copy text-xs leading-relaxed m-0">

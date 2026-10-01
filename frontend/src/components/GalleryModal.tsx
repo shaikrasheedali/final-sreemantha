@@ -49,14 +49,14 @@ export const GalleryModal: React.FC<GalleryModalProps> = ({ item, onClose }) => 
         role="dialog"
         aria-modal="true"
         aria-label={item.title}
-        className="relative bg-[#183f3d] border border-[#2b5956] rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col"
+        className="relative bg-[var(--deep)] border border-[#2b5956] rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#2b5956] bg-[#183f3d] text-white">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#2b5956] bg-[var(--deep)] text-white">
           <div className="flex items-center gap-3">
             {item.category && (
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#e8eee5] text-[#183f3d]">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[var(--mint)] text-[var(--ink)]">
                 {item.category}
               </span>
             )}
@@ -106,7 +106,7 @@ export const GalleryModal: React.FC<GalleryModalProps> = ({ item, onClose }) => 
 
         {/* Caption bar */}
         {item.caption && (
-          <div className="px-6 py-3 border-t border-[#2b5956] bg-[#143634] text-xs text-[#d3dfdb]">
+          <div className="px-6 py-3 border-t border-[#2b5956] bg-[#143634] text-xs text-[var(--mint)]">
             <p className="m-0 leading-relaxed">{item.caption}</p>
           </div>
         )}

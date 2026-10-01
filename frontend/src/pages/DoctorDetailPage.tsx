@@ -107,40 +107,40 @@ export const DoctorDetailPage: React.FC = () => {
                 )}
               </div>
 
-              <div className="p-6 bg-[#fffefb] space-y-4">
+              <div className="p-6 bg-white space-y-4">
                 <div>
-                  <h1 className="text-xl font-medium text-[#183f3d] mb-1">{doctor.name}</h1>
-                  <p className="text-xs text-[#8f4160] font-semibold">{doctor.designation}</p>
+                  <h1 className="text-xl font-medium text-[var(--ink)] mb-1">{doctor.name}</h1>
+                  <p className="text-xs text-[var(--coral)] font-semibold">{doctor.designation}</p>
                   {doctor.department && (
-                    <span className="inline-block mt-2 px-2.5 py-1 rounded bg-[#e8eee5] text-[#183f3d] text-[10px] font-semibold">
+                    <span className="inline-block mt-2 px-2.5 py-1 rounded bg-[var(--mint)] text-[var(--ink)] text-[10px] font-semibold">
                       {doctor.department}
                     </span>
                   )}
                 </div>
 
-                <div className="pt-4 border-t border-[#e0e5dd] space-y-2 text-xs text-[#596966]">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#8f4160] block mb-1">
+                <div className="pt-4 border-t border-[rgba(22,55,76,0.12)] space-y-2 text-xs text-[#5a7d92]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--coral)] block mb-1">
                     Consultation Schedule
                   </span>
                   {doctor.experience_years && (
                     <div className="flex items-center justify-between">
                       <span>Experience:</span>
-                      <strong className="text-[#183f3d]">{doctor.experience_years}+ Years</strong>
+                      <strong className="text-[var(--ink)]">{doctor.experience_years}+ Years</strong>
                     </div>
                   )}
                   {doctor.opd_timings && (
                     <div className="flex items-center justify-between">
                       <span>OPD Timings:</span>
-                      <strong className="text-[#183f3d]">{doctor.opd_timings}</strong>
+                      <strong className="text-[var(--ink)]">{doctor.opd_timings}</strong>
                     </div>
                   )}
                   <div className="flex items-center justify-between">
                     <span>Consultation Languages:</span>
-                    <strong className="text-[#183f3d]">{languagesList.join(', ')}</strong>
+                    <strong className="text-[var(--ink)]">{languagesList.join(', ')}</strong>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-[#e0e5dd] flex flex-col gap-2.5">
+                <div className="pt-4 border-t border-[rgba(22,55,76,0.12)] flex flex-col gap-2.5">
                   <Link
                     to={`/book-appointment?doctor=${encodeURIComponent(doctor.name)}`}
                     className="sr-button text-xs w-full justify-center"
@@ -164,11 +164,11 @@ export const DoctorDetailPage: React.FC = () => {
           {/* Details Column */}
           <div className="lg:col-span-8 space-y-10">
             {/* Biography & Approach */}
-            <div className="p-8 sm:p-10 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-2">
+            <div className="p-8 sm:p-10 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-2">
                 Professional Overview
               </span>
-              <h2 className="sr-display text-2xl mb-6 text-[#183f3d]">
+              <h2 className="sr-display text-2xl mb-6 text-[var(--ink)]">
                 Clinical experience &amp; patient philosophy
               </h2>
               {doctor.full_bio || doctor.bio || doctor.short_bio ? (
@@ -184,30 +184,30 @@ export const DoctorDetailPage: React.FC = () => {
 
             {/* Qualifications & Medical Credentials */}
             {qualificationsStr && (
-              <div className="p-8 sm:p-10 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
-                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-2">
+              <div className="p-8 sm:p-10 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-2">
                   Academic &amp; Clinical Credentials
                 </span>
-                <h3 className="sr-display text-2xl mb-5 text-[#183f3d]">
+                <h3 className="sr-display text-2xl mb-5 text-[var(--ink)]">
                   Qualifications &amp; Degrees
                 </h3>
-                <div className="flex items-start gap-3 p-4 rounded-lg bg-[#faf8f3] border border-[#e0e5dd]">
-                  <GraduationCap size={20} className="text-[#8f4160] shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3 p-4 rounded-lg bg-[var(--cream)] border border-[rgba(22,55,76,0.12)]">
+                  <GraduationCap size={20} className="text-[var(--coral)] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-sm text-[#183f3d] block">{qualificationsStr}</strong>
-                    <span className="text-xs text-[#596966]">Medical Council Registered Specialist</span>
+                    <strong className="text-sm text-[var(--ink)] block">{qualificationsStr}</strong>
+                    <span className="text-xs text-[#5a7d92]">Medical Council Registered Specialist</span>
                   </div>
                 </div>
               </div>
             )}
 
             {/* Clinical Commitment Card */}
-            <div className="p-8 rounded-xl bg-[#e8eee5] border border-[#cbd7c6] flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="p-8 rounded-xl bg-[var(--mint)] border border-[rgba(22,55,76,0.12)] flex flex-col sm:flex-row items-center justify-between gap-6">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#183f3d] block mb-1">
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--ink)] block mb-1">
                   At Sreemantha Hospital, Khammam
                 </span>
-                <h4 className="font-serif text-xl text-[#183f3d]">
+                <h4 className="font-serif text-xl text-[var(--ink)]">
                   Ready to discuss your medical questions?
                 </h4>
                 <p className="sr-copy text-xs mt-1 mb-0">

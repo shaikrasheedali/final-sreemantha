@@ -102,11 +102,11 @@ export const FacilityDetailPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
           {/* Main Info */}
           <div className="lg:col-span-8 space-y-10">
-            <div className="p-8 sm:p-10 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-2">
+            <div className="p-8 sm:p-10 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-2">
                 Space Specifications &amp; Hygiene Standards
               </span>
-              <h2 className="sr-display text-2xl mb-6 text-[#183f3d]">
+              <h2 className="sr-display text-2xl mb-6 text-[var(--ink)]">
                 Designed for clinical safety and comfort
               </h2>
               {facility.content ? (
@@ -123,17 +123,17 @@ export const FacilityDetailPage: React.FC = () => {
 
             {/* Equipment & Technology */}
             {equipmentList.length > 0 && (
-              <div className="p-8 sm:p-10 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
-                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-2">
+              <div className="p-8 sm:p-10 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-2">
                   Specialized Infrastructure
                 </span>
-                <h3 className="sr-display text-2xl mb-6 text-[#183f3d]">
+                <h3 className="sr-display text-2xl mb-6 text-[var(--ink)]">
                   Key equipment &amp; technologies installed
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   {equipmentList.map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-xs text-[#183f3d] font-medium">
-                      <div className="w-5 h-5 rounded-full bg-[#e8eee5] flex items-center justify-center text-[#183f3d] shrink-0">
+                    <div key={idx} className="flex items-center gap-2.5 text-xs text-[var(--ink)] font-medium">
+                      <div className="w-5 h-5 rounded-full bg-[var(--mint)] flex items-center justify-center text-[var(--ink)] shrink-0">
                         <Check size={12} />
                       </div>
                       <span>{item}</span>
@@ -146,14 +146,14 @@ export const FacilityDetailPage: React.FC = () => {
 
           {/* Right Sidebar CTA */}
           <div className="lg:col-span-4 sticky top-28 space-y-6">
-            <div className="p-8 rounded-xl bg-[#183f3d] text-white">
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-2">
+            <div className="p-8 rounded-xl bg-[var(--deep)] text-white">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--lime)] block mb-2">
                 Hospital Visit
               </span>
               <h3 className="font-serif text-2xl text-white mb-3">
                 Experience our facilities in person
               </h3>
-              <p className="text-xs text-[#d3dfdb] leading-relaxed mb-6">
+              <p className="text-xs text-[var(--mint)] leading-relaxed mb-6">
                 Schedule a consultation or visit Sreemantha Hospital on Priyadarshini Degree College Road, Nehru Nagar, Khammam.
               </p>
               <div className="flex flex-col gap-3">
@@ -167,7 +167,7 @@ export const FacilityDetailPage: React.FC = () => {
                 </Link>
                 <a
                   href={phoneHref}
-                  className="sr-button sr-button--outline text-xs w-full justify-center border-[#dce1d7] text-white hover:bg-[#285854]"
+                  className="sr-button sr-button--outline text-xs w-full justify-center border-white/30 text-white hover:bg-white/10"
                 >
                   <Phone size={14} />
                   Call: {phone}
@@ -175,9 +175,9 @@ export const FacilityDetailPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-6 rounded-xl bg-[#e8eee5] border border-[#cbd7c6]">
-              <div className="flex items-center gap-2 text-[#183f3d] text-xs font-bold uppercase tracking-wider mb-2">
-                <ShieldCheck size={16} className="text-[#8f4160]" />
+            <div className="p-6 rounded-xl bg-[var(--mint)] border border-[rgba(22,55,76,0.12)]">
+              <div className="flex items-center gap-2 text-[var(--ink)] text-xs font-bold uppercase tracking-wider mb-2">
+                <ShieldCheck size={16} className="text-[var(--coral)]" />
                 Infection Control
               </div>
               <p className="sr-copy text-xs leading-relaxed m-0">

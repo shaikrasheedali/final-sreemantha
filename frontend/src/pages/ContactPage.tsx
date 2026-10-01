@@ -85,67 +85,67 @@ export const ContactPage: React.FC = () => {
 
         {/* 4 Contact Information Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-col justify-between">
+          <div className="p-6 rounded-xl bg-white border border-[rgba(22,55,76,0.12)] flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-full bg-[#e8eee5] flex items-center justify-center text-[#183f3d] mb-4">
+              <div className="w-10 h-10 rounded-full bg-[var(--mint)] flex items-center justify-center text-[var(--ink)] mb-4">
                 <Phone size={18} />
               </div>
-              <h3 className="text-sm font-semibold text-[#183f3d] mb-1">Direct Helplines</h3>
+              <h3 className="text-sm font-semibold text-[var(--ink)] mb-1">Direct Helplines</h3>
               <p className="sr-copy text-xs mb-3">Appointments &amp; general enquiries</p>
             </div>
             <div>
-              <a href={phoneHref} className="text-sm font-bold text-[#183f3d] hover:text-[#8f4160] transition block">
+              <a href={phoneHref} className="text-sm font-bold text-[var(--ink)] hover:text-[var(--coral)] transition block">
                 {phone}
               </a>
-              <span className="text-[10px] text-[#596966]">Mon – Sat: 9 AM to 8 PM</span>
+              <span className="text-[10px] text-[#5a7d92]">Mon – Sat: 9 AM to 8 PM</span>
             </div>
           </div>
 
-          <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-col justify-between">
+          <div className="p-6 rounded-xl bg-white border border-[rgba(22,55,76,0.12)] flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-full bg-[#f4e7e9] flex items-center justify-center text-[#8f4160] mb-4">
+              <div className="w-10 h-10 rounded-full bg-[#fcebf3] flex items-center justify-center text-[var(--coral)] mb-4">
                 <ShieldCheck size={18} />
               </div>
-              <h3 className="text-sm font-semibold text-[#183f3d] mb-1">24/7 Emergency Care</h3>
+              <h3 className="text-sm font-semibold text-[var(--ink)] mb-1">24/7 Emergency Care</h3>
               <p className="sr-copy text-xs mb-3">Labor, casualty &amp; Level-III NICU</p>
             </div>
             <div>
-              <a href={emergencyHref} className="text-sm font-bold text-[#8f4160] hover:underline transition block">
+              <a href={emergencyHref} className="text-sm font-bold text-[var(--coral)] hover:underline transition block">
                 {emergency}
               </a>
-              <span className="text-[10px] text-[#596966]">Available 24 Hours / 365 Days</span>
+              <span className="text-[10px] text-[#5a7d92]">Available 24 Hours / 365 Days</span>
             </div>
           </div>
 
-          <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-col justify-between">
+          <div className="p-6 rounded-xl bg-white border border-[rgba(22,55,76,0.12)] flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-full bg-[#e8eee5] flex items-center justify-center text-[#183f3d] mb-4">
+              <div className="w-10 h-10 rounded-full bg-[var(--mint)] flex items-center justify-center text-[var(--ink)] mb-4">
                 <Mail size={18} />
               </div>
-              <h3 className="text-sm font-semibold text-[#183f3d] mb-1">Email Correspondence</h3>
+              <h3 className="text-sm font-semibold text-[var(--ink)] mb-1">Email Correspondence</h3>
               <p className="sr-copy text-xs mb-3">Patient queries &amp; medical records</p>
             </div>
             <div>
-              <a href={`mailto:${email}`} className="text-xs font-semibold text-[#183f3d] hover:text-[#8f4160] transition truncate block">
+              <a href={`mailto:${email}`} className="text-xs font-semibold text-[var(--ink)] hover:text-[var(--coral)] transition truncate block">
                 {email}
               </a>
-              <span className="text-[10px] text-[#596966]">Responses within 24 hours</span>
+              <span className="text-[10px] text-[#5a7d92]">Responses within 24 hours</span>
             </div>
           </div>
 
-          <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-col justify-between">
+          <div className="p-6 rounded-xl bg-white border border-[rgba(22,55,76,0.12)] flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-full bg-[#e8eee5] flex items-center justify-center text-[#183f3d] mb-4">
+              <div className="w-10 h-10 rounded-full bg-[var(--mint)] flex items-center justify-center text-[var(--ink)] mb-4">
                 <Clock size={18} />
               </div>
-              <h3 className="text-sm font-semibold text-[#183f3d] mb-1">Visiting Hours</h3>
+              <h3 className="text-sm font-semibold text-[var(--ink)] mb-1">Visiting Hours</h3>
               <p className="sr-copy text-xs mb-3">Inpatient &amp; maternity wards</p>
             </div>
             <div>
-              <span className="text-xs font-bold text-[#183f3d] block">
+              <span className="text-xs font-bold text-[var(--ink)] block">
                 04:00 PM – 07:00 PM
               </span>
-              <span className="text-[10px] text-[#596966]">Attendant passes provided</span>
+              <span className="text-[10px] text-[#5a7d92]">Attendant passes provided</span>
             </div>
           </div>
         </div>
@@ -154,20 +154,20 @@ export const ContactPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
           {/* Enquiry Form */}
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-12 rounded-2xl bg-[#fffefb] border border-[#e0e5dd]">
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-2">
+            <div className="p-8 sm:p-12 rounded-2xl bg-white border border-[rgba(22,55,76,0.12)]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-2">
                 Send a Message
               </span>
-              <h2 className="sr-display text-2xl mb-6 text-[#183f3d]">
+              <h2 className="sr-display text-2xl mb-6 text-[var(--ink)]">
                 Ask our clinical coordinator
               </h2>
 
               {success ? (
-                <div className="p-8 rounded-xl bg-[#faf8f3] border border-[#cbd7c6] text-center space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-[#e8eee5] text-[#183f3d] flex items-center justify-center mx-auto">
+                <div className="p-8 rounded-xl bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] text-center space-y-4">
+                  <div className="w-12 h-12 rounded-full bg-[var(--mint)] text-[var(--ink)] flex items-center justify-center mx-auto">
                     <Check size={24} />
                   </div>
-                  <h3 className="font-serif text-xl text-[#183f3d]">Message Received</h3>
+                  <h3 className="font-serif text-xl text-[var(--ink)]">Message Received</h3>
                   <p className="sr-copy text-xs max-w-sm mx-auto">
                     Thank you. Your message has been routed to our patient care desk. We will get back to you shortly.
                   </p>
@@ -181,7 +181,7 @@ export const ContactPage: React.FC = () => {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {error && (
-                    <div className="p-3.5 rounded-lg bg-[#f9e9ec] border border-[#f0c2cd] text-[#8f4160] text-xs font-semibold flex items-center gap-2">
+                    <div className="p-3.5 rounded-lg bg-[#f9e9ec] border border-[#f0c2cd] text-[var(--coral)] text-xs font-semibold flex items-center gap-2">
                       <AlertCircle size={15} />
                       <span>{error}</span>
                     </div>
@@ -266,26 +266,26 @@ export const ContactPage: React.FC = () => {
 
           {/* Location & Map Card */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="p-8 rounded-2xl bg-[#fffefb] border border-[#e0e5dd] space-y-5">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8f4160]">
+            <div className="p-8 rounded-2xl bg-white border border-[rgba(22,55,76,0.12)] space-y-5">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--coral)]">
                 <MapPin size={16} />
                 Facility Location
               </div>
 
               <div>
-                <h3 className="font-serif text-xl text-[#183f3d] mb-2">
+                <h3 className="font-serif text-xl text-[var(--ink)] mb-2">
                   Sreemantha Hospital, Khammam
                 </h3>
                 <p className="sr-copy text-xs leading-relaxed">
                   {address}
                 </p>
-                <p className="text-[11px] text-[#596966] mt-2">
+                <p className="text-[11px] text-[#5a7d92] mt-2">
                   Landmark: Beside Priyadarshini Degree College, Nehru Nagar.
                 </p>
               </div>
 
               {/* Map embed / link */}
-              <div className="rounded-xl overflow-hidden border border-[#e0e5dd] h-56 bg-[#e8eee5] relative flex items-center justify-center">
+              <div className="rounded-xl overflow-hidden border border-[rgba(22,55,76,0.12)] h-56 bg-[var(--mint)] relative flex items-center justify-center">
                 <iframe
                   title="Sreemantha Hospital Khammam Location Map"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3809.5262744781446!2d80.1487661!3d17.2415177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3459c3bf79a059%3A0xe6bf446cf055c5df!2sSreemantha%20Hospital!5e0!3m2!1sen!2sin!4v1700000000000"

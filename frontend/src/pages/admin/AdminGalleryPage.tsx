@@ -183,13 +183,13 @@ export const AdminGalleryPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-bold text-[#fa7830] uppercase tracking-wider block mb-1">
+          <span className="text-[10px] font-bold text-[var(--coral)] uppercase tracking-wider block mb-1">
             Media & Embed Lightbox Manager
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white font-heading">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink)] font-display">
             Gallery Management
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-[#5a7d92] mt-1">
             Upload images & videos or embed interactive iframes from Instagram, YouTube, and Facebook.
           </p>
         </div>
@@ -197,7 +197,7 @@ export const AdminGalleryPage: React.FC = () => {
         {!isEditing && (
           <button
             onClick={handleCreateNew}
-            className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#fa7830] hover:bg-[#e06622] text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#fa7830] hover:bg-[#e06622] text-[var(--ink)] text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
           >
             <Plus className="w-4 h-4" /> Add Gallery Media
           </button>
@@ -206,14 +206,14 @@ export const AdminGalleryPage: React.FC = () => {
 
       {isEditing ? (
         /* Create / Edit Form */
-        <div className="bg-slate-800 rounded-3xl border border-slate-700 p-6 sm:p-8 shadow-xl">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-700 mb-6">
-            <h2 className="text-lg font-bold text-white font-heading">
+        <div className="bg-white rounded-3xl border border-[rgba(22,55,76,0.12)] p-6 sm:p-8 shadow-xl">
+          <div className="flex items-center justify-between pb-4 border-b border-[rgba(22,55,76,0.12)] mb-6">
+            <h2 className="text-lg font-bold text-[var(--ink)] font-display">
               {selectedItem ? 'Edit Gallery Item' : 'New Gallery Upload / Embed'}
             </h2>
             <button
               onClick={() => setIsEditing(false)}
-              className="p-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-slate-300 transition-colors"
+              className="p-2 rounded-xl bg-[var(--cream)] text-[#5a7d92] border border-[rgba(22,55,76,0.12)] hover:bg-[var(--mint)] text-[#5a7d92] transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -223,7 +223,7 @@ export const AdminGalleryPage: React.FC = () => {
             {/* Title & Category */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
                   Item Title <span className="text-rose-400">*</span>
                 </label>
                 <input
@@ -232,18 +232,18 @@ export const AdminGalleryPage: React.FC = () => {
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="e.g. Advanced Embryology Laboratory"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#006c93]"
+                  className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2.5 text-xs text-[var(--ink)] placeholder-[#8ba2b1] focus:outline-none focus:ring-2 focus:ring-[#006c93]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
                   Category
                 </label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-[#006c93]"
+                  className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-[#006c93]"
                 >
                   {categories.map((c) => (
                     <option key={c} value={c}>{c}</option>
@@ -254,7 +254,7 @@ export const AdminGalleryPage: React.FC = () => {
 
             {/* Media Type Selector */}
             <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
                 Media Source & Type
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -274,7 +274,7 @@ export const AdminGalleryPage: React.FC = () => {
                       className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                         formData.media_type === type.id
                           ? 'bg-[#006c93] border-[#006c93] text-white shadow-md'
-                          : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'
+                          : 'bg-[var(--cream)] border-[rgba(22,55,76,0.12)] text-[#5a7d92] hover:text-white hover:bg-white'
                       }`}
                     >
                       <Icon className="w-4 h-4" /> {type.label}
@@ -286,10 +286,10 @@ export const AdminGalleryPage: React.FC = () => {
 
             {/* Upload or URL depending on type */}
             {(formData.media_type === 'image' || formData.media_type === 'video') && (
-              <div className="p-4 bg-slate-900/80 rounded-2xl border border-slate-700 space-y-4">
+              <div className="p-4 bg-[var(--cream)]/80 rounded-2xl border border-[rgba(22,55,76,0.12)] space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-300">File Upload</span>
-                  <label className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold cursor-pointer transition-colors border border-slate-600 flex items-center gap-2">
+                  <span className="text-xs font-bold text-[#5a7d92]">File Upload</span>
+                  <label className="px-4 py-2 bg-white hover:bg-[var(--mint)] text-[var(--ink)] rounded-xl text-xs font-bold cursor-pointer transition-colors border border-slate-600 flex items-center gap-2">
                     <Upload className="w-3.5 h-3.5" />
                     <span>{uploading ? 'Uploading...' : 'Choose File from Computer'}</span>
                     <input
@@ -302,7 +302,7 @@ export const AdminGalleryPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-400 mb-1">
+                  <label className="block text-[11px] font-bold text-[#5a7d92] mb-1">
                     Or Direct Media URL
                   </label>
                   <input
@@ -310,7 +310,7 @@ export const AdminGalleryPage: React.FC = () => {
                     value={formData.media_url}
                     onChange={(e) => setFormData({ ...formData, media_url: e.target.value })}
                     placeholder="https://example.com/media.jpg or /uploads/..."
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#006c93]"
+                    className="w-full bg-slate-950 border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2 text-xs text-[var(--ink)] placeholder-[#8ba2b1] focus:outline-none focus:ring-2 focus:ring-[#006c93]"
                   />
                 </div>
               </div>
@@ -318,9 +318,9 @@ export const AdminGalleryPage: React.FC = () => {
 
             {/* Social Embeds: YouTube, Instagram, Facebook */}
             {['youtube', 'instagram', 'facebook'].includes(formData.media_type) && (
-              <div className="p-4 bg-slate-900/80 rounded-2xl border border-slate-700 space-y-4">
+              <div className="p-4 bg-[var(--cream)]/80 rounded-2xl border border-[rgba(22,55,76,0.12)] space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
                     {formData.media_type.toUpperCase()} Video / Post URL or Iframe Code
                   </label>
                   <input
@@ -334,12 +334,12 @@ export const AdminGalleryPage: React.FC = () => {
                         ? 'https://www.instagram.com/p/...'
                         : 'https://www.facebook.com/...'
                     }
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#006c93]"
+                    className="w-full bg-slate-950 border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2.5 text-xs text-[var(--ink)] placeholder-[#8ba2b1] focus:outline-none focus:ring-2 focus:ring-[#006c93]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-400 mb-1">
+                  <label className="block text-[11px] font-bold text-[#5a7d92] mb-1">
                     Raw Iframe Embed Code (Optional override)
                   </label>
                   <textarea
@@ -347,7 +347,7 @@ export const AdminGalleryPage: React.FC = () => {
                     value={formData.embed_code}
                     onChange={(e) => setFormData({ ...formData, embed_code: e.target.value })}
                     placeholder="<iframe src=... allowfullscreen></iframe>"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:ring-2 focus:ring-[#006c93]"
+                    className="w-full bg-slate-950 border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2 text-xs text-[var(--ink)] placeholder-[#8ba2b1] font-mono focus:outline-none focus:ring-2 focus:ring-[#006c93]"
                   />
                 </div>
               </div>
@@ -355,7 +355,7 @@ export const AdminGalleryPage: React.FC = () => {
 
             {/* Thumbnail URL */}
             <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
                 Poster / Thumbnail Image URL (Recommended for Videos and Embeds)
               </label>
               <input
@@ -363,13 +363,13 @@ export const AdminGalleryPage: React.FC = () => {
                 value={formData.thumbnail_url}
                 onChange={(e) => setFormData({ ...formData, thumbnail_url: e.target.value })}
                 placeholder="https://images.unsplash.com/..."
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#006c93]"
+                className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2.5 text-xs text-[var(--ink)] placeholder-[#8ba2b1] focus:outline-none focus:ring-2 focus:ring-[#006c93]"
               />
             </div>
 
             {/* Caption */}
             <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
                 Caption & Description
               </label>
               <textarea
@@ -377,23 +377,23 @@ export const AdminGalleryPage: React.FC = () => {
                 value={formData.caption}
                 onChange={(e) => setFormData({ ...formData, caption: e.target.value })}
                 placeholder="Brief description displayed under the media when clicked in the modal lightbox..."
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#006c93]"
+                className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2 text-xs text-[var(--ink)] placeholder-[#8ba2b1] focus:outline-none focus:ring-2 focus:ring-[#006c93]"
               />
             </div>
 
             {/* Form actions */}
-            <div className="pt-4 border-t border-slate-700 flex items-center justify-end gap-3">
+            <div className="pt-4 border-t border-[rgba(22,55,76,0.12)] flex items-center justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setIsEditing(false)}
-                className="px-5 py-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-slate-300 text-xs font-bold transition-colors cursor-pointer"
+                className="px-5 py-2.5 rounded-xl bg-[var(--cream)] text-[#5a7d92] border border-[rgba(22,55,76,0.12)] hover:bg-[var(--mint)] text-[#5a7d92] text-xs font-bold transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={saving}
-                className="px-6 py-2.5 rounded-xl bg-[#fa7830] hover:bg-[#e06622] text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer disabled:opacity-60"
+                className="px-6 py-2.5 rounded-xl bg-[#fa7830] hover:bg-[#e06622] text-[var(--ink)] text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer disabled:opacity-60"
               >
                 <Save className="w-4 h-4" /> {saving ? 'Publishing...' : 'Save Gallery Item'}
               </button>
@@ -402,34 +402,34 @@ export const AdminGalleryPage: React.FC = () => {
         </div>
       ) : (
         /* Gallery Table Listing */
-        <div className="bg-slate-800/90 rounded-3xl border border-slate-700 overflow-hidden shadow-xl">
-          <div className="p-4 sm:p-6 border-b border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="bg-white rounded-3xl border border-[rgba(22,55,76,0.12)] overflow-hidden shadow-xl">
+          <div className="p-4 sm:p-6 border-b border-[rgba(22,55,76,0.12)] flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="relative w-full sm:w-80">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Search gallery..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#006c93]"
+                className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl pl-10 pr-4 py-2 text-xs text-[var(--ink)] placeholder-[#8ba2b1] focus:outline-none focus:ring-2 focus:ring-[#006c93]"
               />
             </div>
           </div>
 
           {loading ? (
-            <div className="py-20 text-center text-slate-400 text-xs animate-pulse">
+            <div className="py-20 text-center text-[#5a7d92] text-xs animate-pulse">
               Loading gallery media from database...
             </div>
           ) : filteredItems.length === 0 ? (
-            <div className="py-20 text-center text-slate-400">
+            <div className="py-20 text-center text-[#5a7d92]">
               <ImageIcon className="w-12 h-12 text-slate-600 mx-auto mb-2" />
-              <p className="text-sm font-bold text-slate-300">No media items found</p>
-              <p className="text-xs text-slate-500 mt-1">Click "Add Gallery Media" to upload photos or embed videos.</p>
+              <p className="text-sm font-bold text-[#5a7d92]">No media items found</p>
+              <p className="text-xs text-[#8ba2b1] mt-1">Click "Add Gallery Media" to upload photos or embed videos.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-900/60 text-slate-400 uppercase tracking-wider text-[10px] font-bold border-b border-slate-700">
+                <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-[10px] font-bold border-b border-[rgba(22,55,76,0.12)]">
                   <tr>
                     <th className="px-6 py-3.5">Media</th>
                     <th className="px-6 py-3.5">Title & Caption</th>
@@ -439,11 +439,11 @@ export const AdminGalleryPage: React.FC = () => {
                 </thead>
                 <tbody className="divide-y divide-slate-700/60">
                   {filteredItems.map((item) => (
-                    <tr key={item.id} className="hover:bg-slate-700/30 transition-colors">
+                    <tr key={item.id} className="hover:bg-[var(--cream)]/60 transition-colors">
                       <td className="px-6 py-3">
                         <div
                           onClick={() => setPreviewItem(item)}
-                          className="w-14 h-12 rounded-xl bg-slate-900 overflow-hidden border border-slate-700 cursor-pointer relative group shrink-0"
+                          className="w-14 h-12 rounded-xl bg-[var(--cream)] overflow-hidden border border-[rgba(22,55,76,0.12)] cursor-pointer relative group shrink-0"
                         >
                           <img
                             src={item.thumbnail_url || item.media_url}
@@ -456,15 +456,15 @@ export const AdminGalleryPage: React.FC = () => {
                         </div>
                       </td>
                       <td className="px-6 py-3 max-w-xs">
-                        <div className="font-bold text-white truncate">{item.title}</div>
-                        <p className="text-[10px] text-slate-400 truncate mt-0.5">{item.caption || 'No caption'}</p>
+                        <div className="font-bold text-[var(--ink)] truncate">{item.title}</div>
+                        <p className="text-[10px] text-[#5a7d92] truncate mt-0.5">{item.caption || 'No caption'}</p>
                       </td>
                       <td className="px-6 py-3">
                         <div className="flex items-center gap-2">
-                          <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-700 text-slate-300 uppercase">
+                          <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--cream)] text-[#5a7d92] border border-[rgba(22,55,76,0.12)] text-[#5a7d92] uppercase">
                             {item.media_type}
                           </span>
-                          <span className="text-slate-400 text-xs">{item.category}</span>
+                          <span className="text-[#5a7d92] text-xs">{item.category}</span>
                         </div>
                       </td>
                       <td className="px-6 py-3 text-right">
@@ -472,7 +472,7 @@ export const AdminGalleryPage: React.FC = () => {
                           <button
                             onClick={() => setPreviewItem(item)}
                             title="Preview in Modal"
-                            className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-700 text-slate-300 transition-colors cursor-pointer"
+                            className="p-1.5 rounded-lg bg-[var(--cream)] hover:bg-[var(--mint)] text-[#5a7d92] transition-colors cursor-pointer"
                           >
                             <Eye className="w-3.5 h-3.5" />
                           </button>
@@ -504,24 +504,24 @@ export const AdminGalleryPage: React.FC = () => {
       {/* Delete Confirmation Modal */}
       {deleteConfirmId && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-slate-800 rounded-3xl border border-slate-700 p-6 max-w-sm w-full text-center shadow-2xl">
+          <div className="bg-white rounded-3xl border border-[rgba(22,55,76,0.12)] p-6 max-w-sm w-full text-center shadow-2xl">
             <div className="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-3">
               <AlertCircle className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-bold text-white">Delete Gallery Media?</h3>
-            <p className="text-xs text-slate-400 mt-1 mb-6">
+            <h3 className="text-base font-bold text-[var(--ink)] font-display">Delete Gallery Media?</h3>
+            <p className="text-xs text-[#5a7d92] mt-1 mb-6">
               This media item will be removed permanently from the public gallery and lightboxes.
             </p>
             <div className="flex items-center justify-center gap-3">
               <button
                 onClick={() => setDeleteConfirmId(null)}
-                className="px-4 py-2 rounded-xl bg-slate-700 text-slate-300 text-xs font-bold cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-[var(--cream)] text-[#5a7d92] border border-[rgba(22,55,76,0.12)] text-[#5a7d92] text-xs font-bold cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleDelete(deleteConfirmId)}
-                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-[var(--ink)] text-xs font-bold cursor-pointer"
               >
                 Delete
               </button>

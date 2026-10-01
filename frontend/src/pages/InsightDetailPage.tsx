@@ -87,7 +87,7 @@ export const InsightDetailPage: React.FC = () => {
             </span>
             {insight.read_time && (
               <span className="sr-pill text-xs">
-                <Clock size={12} className="text-[#8f4160]" />
+                <Clock size={12} className="text-[var(--coral)]" />
                 {insight.read_time}
               </span>
             )}
@@ -97,9 +97,9 @@ export const InsightDetailPage: React.FC = () => {
             {insight.title}
           </h1>
 
-          <div className="flex items-center gap-4 text-xs text-[#596966] pt-4 border-t border-[#e0e5dd]">
-            <span className="flex items-center gap-1.5 font-medium text-[#183f3d]">
-              <User size={13} className="text-[#8f4160]" />
+          <div className="flex items-center gap-4 text-xs text-[#5a7d92] pt-4 border-t border-[rgba(22,55,76,0.12)]">
+            <span className="flex items-center gap-1.5 font-medium text-[var(--ink)]">
+              <User size={13} className="text-[var(--coral)]" />
               By {insight.author || 'Sreemantha Clinical Faculty'}
             </span>
             {insight.published_at && (
@@ -124,17 +124,17 @@ export const InsightDetailPage: React.FC = () => {
 
         {/* Summary Lead */}
         {(insight.summary || insight.excerpt) && (
-          <div className="p-6 sm:p-8 rounded-xl bg-[#e8eee5] border border-[#cbd7c6] mb-10">
-            <p className="sr-display text-lg text-[#183f3d] leading-relaxed m-0 italic font-normal">
+          <div className="p-6 sm:p-8 rounded-xl bg-[var(--mint)] border border-[rgba(22,55,76,0.12)] mb-10">
+            <p className="sr-display text-lg text-[var(--ink)] leading-relaxed m-0 italic font-normal">
               “{insight.summary || insight.excerpt}”
             </p>
           </div>
         )}
 
         {/* Longform Article Content */}
-        <article className="p-8 sm:p-12 rounded-xl bg-[#fffefb] border border-[#e0e5dd] mb-16">
+        <article className="p-8 sm:p-12 rounded-xl bg-white border border-[rgba(22,55,76,0.12)] mb-16">
           {insight.content ? (
-            <div className="sr-copy space-y-6 text-base leading-relaxed text-[#183f3d]">
+            <div className="sr-copy space-y-6 text-base leading-relaxed text-[var(--ink)]">
               <RichContentRenderer content={insight.content} />
             </div>
           ) : (
@@ -144,21 +144,21 @@ export const InsightDetailPage: React.FC = () => {
           )}
 
           {/* Medical Disclaimer */}
-          <div className="mt-12 pt-6 border-t border-[#e0e5dd] text-[11px] text-[#596966] leading-relaxed">
+          <div className="mt-12 pt-6 border-t border-[rgba(22,55,76,0.12)] text-[11px] text-[#5a7d92] leading-relaxed">
             <strong>Medical Note:</strong> This guide provides general health information and is authored for educational purposes. It does not replace an in-person clinical consultation. Please consult a qualified specialist at Sreemantha Hospital for personalized medical evaluation.
           </div>
         </article>
 
         {/* Consultation Callout */}
-        <div className="p-8 sm:p-10 rounded-2xl bg-[#183f3d] text-white flex flex-col sm:flex-row items-center justify-between gap-6 mb-20">
+        <div className="p-8 sm:p-10 rounded-2xl bg-[var(--deep)] text-white flex flex-col sm:flex-row items-center justify-between gap-6 mb-20">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--lime)] block mb-1">
               Have questions about your care?
             </span>
             <h3 className="font-serif text-2xl text-white">
               Speak with our senior specialists
             </h3>
-            <p className="text-xs text-[#d3dfdb] mt-1 m-0">
+            <p className="text-xs text-[var(--mint)] mt-1 m-0">
               Personalized fertility, maternity and neonatal evaluations in Khammam.
             </p>
           </div>
@@ -174,7 +174,7 @@ export const InsightDetailPage: React.FC = () => {
             <div className="sr-heading-row mb-6">
               <div>
                 <span className="sr-kicker">Continue Reading</span>
-                <h3 className="sr-display text-2xl mt-1 text-[#183f3d]">
+                <h3 className="sr-display text-2xl mt-1 text-[var(--ink)]">
                   Related articles &amp; guides
                 </h3>
               </div>
@@ -201,10 +201,10 @@ export const InsightDetailPage: React.FC = () => {
                     )}
                   </div>
                   <div className="sr-card-body" style={{ padding: 18 }}>
-                    <h4 className="font-serif text-base font-normal leading-snug text-[#183f3d] line-clamp-2">
+                    <h4 className="font-serif text-base font-normal leading-snug text-[var(--ink)] line-clamp-2">
                       {item.title}
                     </h4>
-                    <span className="sr-card-footer mt-auto pt-4 border-t border-[#e0e5dd] text-[11px] text-[#8f4160]">
+                    <span className="sr-card-footer mt-auto pt-4 border-t border-[rgba(22,55,76,0.12)] text-[11px] text-[var(--coral)]">
                       Read story <ArrowUpRight size={12} />
                     </span>
                   </div>

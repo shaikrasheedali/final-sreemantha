@@ -44,9 +44,9 @@ export const FacilitiesPage: React.FC = () => {
         </div>
 
         {/* Search */}
-        <div className="flex justify-end mb-10 pb-6 border-b border-[#e0e5dd]">
+        <div className="flex justify-end mb-10 pb-6 border-b border-[rgba(22,55,76,0.12)]">
           <div className="relative w-full md:w-80">
-            <Search size={15} className="text-[#596966] absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search size={15} className="text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search hospital spaces..."
@@ -90,7 +90,7 @@ export const FacilitiesPage: React.FC = () => {
                 className="relative rounded-2xl overflow-hidden text-white block group text-decoration-none"
                 style={{
                   minHeight: 360,
-                  background: '#315651',
+                  background: 'var(--deep)',
                 }}
               >
                 <div className="absolute inset-0">
@@ -116,10 +116,10 @@ export const FacilitiesPage: React.FC = () => {
 
                 <div className="relative z-10 flex flex-col justify-end h-full p-8 min-h-[360px]">
                   <div className="flex items-center justify-between mb-auto">
-                    <span className="text-[11px] font-mono tracking-widest text-[#d0ddc2] uppercase">
+                    <span className="text-[11px] font-mono tracking-widest text-[var(--lime)] uppercase">
                       OUR SPACES / {String(index + 1).padStart(2, '0')}
                     </span>
-                    <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-white group-hover:text-[#183f3d] transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-white group-hover:text-[var(--ink)] transition-colors">
                       <ArrowUpRight size={16} />
                     </div>
                   </div>

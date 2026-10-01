@@ -131,70 +131,70 @@ export const AdminSettingsPage: React.FC = () => {
   return (
     <div className="p-6 sm:p-10 max-w-5xl mx-auto space-y-8">
       {notice && (
-        <div className="p-4 rounded-xl bg-[#1f7a55] text-white text-xs font-semibold shadow-lg flex items-center gap-2">
+        <div className="p-4 rounded-xl bg-[#1f7a55] text-[var(--ink)] text-xs font-semibold shadow-lg flex items-center gap-2">
           <Check size={16} /> {notice}
         </div>
       )}
 
       {/* Header */}
       <div>
-        <span className="text-[10px] font-bold text-[#8f4160] uppercase tracking-wider block mb-1">
+        <span className="text-[10px] font-bold text-[var(--coral)] uppercase tracking-wider block mb-1">
           Hospital Configuration &amp; Branding
         </span>
-        <h1 className="text-2xl sm:text-3xl font-serif text-[#183f3d] font-normal">
+        <h1 className="text-2xl sm:text-3xl font-serif text-[var(--ink)] font-normal">
           Hospital Settings &amp; Favicon Editor
         </h1>
-        <p className="text-xs text-[#596966] mt-1">
+        <p className="text-xs text-[#5a7d92] mt-1">
           Manage your browser favicon, identity emblem, contact helplines, WhatsApp links, and hospital OPD details in real-time.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* 1. Favicon & Brand Identity Manager Section */}
-        <div className="bg-[#fffefb] rounded-2xl p-6 sm:p-8 border border-[#cbd7c6] shadow-sm space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-[#e0e5dd]">
-            <h2 className="text-sm font-bold text-[#183f3d] uppercase tracking-wider flex items-center gap-2">
-              <Sparkles size={16} className="text-[#8f4160]" /> Favicon &amp; Browser Head Identity
+        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[rgba(22,55,76,0.12)] shadow-sm space-y-6">
+          <div className="flex items-center justify-between pb-3 border-b border-[rgba(22,55,76,0.12)]">
+            <h2 className="text-sm font-bold text-[var(--ink)] uppercase tracking-wider flex items-center gap-2">
+              <Sparkles size={16} className="text-[var(--coral)]" /> Favicon &amp; Browser Head Identity
             </h2>
-            <span className="text-[11px] text-[#596966]">Live Browser Sync</span>
+            <span className="text-[11px] text-[#5a7d92]">Live Browser Sync</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Preview Box: Browser Tab & Mobile App Icons */}
             <div className="lg:col-span-5 space-y-4">
-              <span className="text-xs font-semibold text-[#183f3d] block">
+              <span className="text-xs font-semibold text-[var(--ink)] block">
                 Live Simulated Previews
               </span>
 
               {/* Browser Tab Simulation */}
-              <div className="p-3.5 bg-[#f4f2e8] rounded-xl border border-[#cbd7c6] shadow-inner space-y-2">
-                <div className="flex items-center gap-1.5 text-[10px] text-[#596966]">
+              <div className="p-3.5 bg-[#f4f2e8] rounded-xl border border-[rgba(22,55,76,0.12)] shadow-inner space-y-2">
+                <div className="flex items-center gap-1.5 text-[10px] text-[#5a7d92]">
                   <Laptop size={12} />
                   <span>Desktop Browser Tab</span>
                 </div>
-                <div className="bg-[#faf8f3] rounded-lg px-3 py-2 border border-[#d2ddd0] flex items-center gap-2 max-w-sm shadow-sm">
-                  <div className="w-4 h-4 rounded-sm flex items-center justify-center shrink-0 overflow-hidden bg-white p-0.5 border border-[#e0e5dd]">
+                <div className="bg-[var(--cream)] rounded-lg px-3 py-2 border border-[rgba(22,55,76,0.12)] flex items-center gap-2 max-w-sm shadow-sm">
+                  <div className="w-4 h-4 rounded-sm flex items-center justify-center shrink-0 overflow-hidden bg-white p-0.5 border border-[rgba(22,55,76,0.12)]">
                     <img
                       src={activeFavicon}
                       alt="Active Favicon"
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <span className="text-[11px] font-medium text-[#183f3d] truncate">
+                  <span className="text-[11px] font-medium text-[var(--ink)] truncate">
                     {formData.hospital_info?.hospital_name || 'Sreemantha Hospital | Khammam'}
                   </span>
-                  <span className="ml-auto text-[10px] text-slate-400">×</span>
+                  <span className="ml-auto text-[10px] text-[#5a7d92]">×</span>
                 </div>
               </div>
 
               {/* Mobile Home Screen Simulation */}
-              <div className="p-3.5 bg-[#f4f2e8] rounded-xl border border-[#cbd7c6] shadow-inner space-y-2">
-                <div className="flex items-center gap-1.5 text-[10px] text-[#596966]">
+              <div className="p-3.5 bg-[#f4f2e8] rounded-xl border border-[rgba(22,55,76,0.12)] shadow-inner space-y-2">
+                <div className="flex items-center gap-1.5 text-[10px] text-[#5a7d92]">
                   <Smartphone size={12} />
                   <span>Mobile &amp; Apple Touch App Icon</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 rounded-2xl bg-white p-2 border border-[#cbd7c6] shadow-md flex items-center justify-center shrink-0">
+                  <div className="w-14 h-14 rounded-2xl bg-white p-2 border border-[rgba(22,55,76,0.12)] shadow-md flex items-center justify-center shrink-0">
                     <img
                       src={activeFavicon}
                       alt="Mobile App Favicon Icon"
@@ -202,8 +202,8 @@ export const AdminSettingsPage: React.FC = () => {
                     />
                   </div>
                   <div className="text-xs">
-                    <strong className="text-[#183f3d] block">Sreemantha</strong>
-                    <span className="text-[10px] text-[#596966]">Home screen web app bookmark</span>
+                    <strong className="text-[var(--ink)] block">Sreemantha</strong>
+                    <span className="text-[10px] text-[#5a7d92]">Home screen web app bookmark</span>
                   </div>
                 </div>
               </div>
@@ -211,12 +211,12 @@ export const AdminSettingsPage: React.FC = () => {
 
             {/* Right Upload & URL Options */}
             <div className="lg:col-span-7 space-y-4">
-              <span className="text-xs font-semibold text-[#183f3d] block">
+              <span className="text-xs font-semibold text-[var(--ink)] block">
                 Change Favicon File or URL
               </span>
 
               {/* Upload Input */}
-              <div className="p-5 bg-[#faf8f3] rounded-xl border-2 border-dashed border-[#cbd7c6] text-center space-y-3">
+              <div className="p-5 bg-[var(--cream)] rounded-xl border-2 border-dashed border-[rgba(22,55,76,0.12)] text-center space-y-3">
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -225,7 +225,7 @@ export const AdminSettingsPage: React.FC = () => {
                   onChange={handleFaviconUpload}
                   className="hidden"
                 />
-                <div className="w-10 h-10 rounded-full bg-[#e8eee5] text-[#183f3d] flex items-center justify-center mx-auto">
+                <div className="w-10 h-10 rounded-full bg-[var(--mint)] text-[var(--ink)] flex items-center justify-center mx-auto">
                   <Upload size={18} />
                 </div>
                 <div>
@@ -235,7 +235,7 @@ export const AdminSettingsPage: React.FC = () => {
                   >
                     {uploadingFavicon ? 'Uploading icon...' : 'Upload New Favicon File'}
                   </label>
-                  <p className="text-[10px] text-[#596966] mt-1.5">
+                  <p className="text-[10px] text-[#5a7d92] mt-1.5">
                     Supports SVG, PNG, ICO, WEBP (SVG or 512x512 PNG recommended for high crispness).
                   </p>
                 </div>
@@ -279,13 +279,13 @@ export const AdminSettingsPage: React.FC = () => {
         </div>
 
         {/* 2. Floating Contact Buttons Section */}
-        <div className="bg-[#fffefb] rounded-2xl p-6 sm:p-8 border border-[#cbd7c6] shadow-sm space-y-6">
-          <h2 className="text-sm font-bold text-[#183f3d] uppercase tracking-wider flex items-center gap-2 pb-3 border-b border-[#e0e5dd]">
-            <Phone size={16} className="text-[#8f4160]" /> Floating Contact Buttons (Bottom Corner)
+        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[rgba(22,55,76,0.12)] shadow-sm space-y-6">
+          <h2 className="text-sm font-bold text-[var(--ink)] uppercase tracking-wider flex items-center gap-2 pb-3 border-b border-[rgba(22,55,76,0.12)]">
+            <Phone size={16} className="text-[var(--coral)]" /> Floating Contact Buttons (Bottom Corner)
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="p-5 bg-[#faf8f3] rounded-xl border border-[#e0e5dd] space-y-3">
+            <div className="p-5 bg-[var(--cream)] rounded-xl border border-[rgba(22,55,76,0.12)] space-y-3">
               <span className="text-xs font-bold text-[#1f7a55] block">WhatsApp Floating Button</span>
               <div>
                 <label className="sr-label">WhatsApp Number</label>
@@ -297,13 +297,13 @@ export const AdminSettingsPage: React.FC = () => {
                   className="sr-input text-xs"
                 />
               </div>
-              <p className="text-[10px] text-[#596966]">
+              <p className="text-[10px] text-[#5a7d92]">
                 Target link: https://wa.me/919666781779
               </p>
             </div>
 
-            <div className="p-5 bg-[#faf8f3] rounded-xl border border-[#e0e5dd] space-y-3">
-              <span className="text-xs font-bold text-[#183f3d] block">Direct Phone Call Button</span>
+            <div className="p-5 bg-[var(--cream)] rounded-xl border border-[rgba(22,55,76,0.12)] space-y-3">
+              <span className="text-xs font-bold text-[var(--ink)] block">Direct Phone Call Button</span>
               <div>
                 <label className="sr-label">Direct Phone Call Number</label>
                 <input
@@ -314,7 +314,7 @@ export const AdminSettingsPage: React.FC = () => {
                   className="sr-input text-xs"
                 />
               </div>
-              <p className="text-[10px] text-[#596966]">
+              <p className="text-[10px] text-[#5a7d92]">
                 Target link: tel:+919666781779
               </p>
             </div>
@@ -322,9 +322,9 @@ export const AdminSettingsPage: React.FC = () => {
         </div>
 
         {/* 3. General Hospital Details */}
-        <div className="bg-[#fffefb] rounded-2xl p-6 sm:p-8 border border-[#cbd7c6] shadow-sm space-y-6">
-          <h2 className="text-sm font-bold text-[#183f3d] uppercase tracking-wider flex items-center gap-2 pb-3 border-b border-[#e0e5dd]">
-            <Globe size={16} className="text-[#183f3d]" /> Hospital Identity &amp; Contact Details
+        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[rgba(22,55,76,0.12)] shadow-sm space-y-6">
+          <h2 className="text-sm font-bold text-[var(--ink)] uppercase tracking-wider flex items-center gap-2 pb-3 border-b border-[rgba(22,55,76,0.12)]">
+            <Globe size={16} className="text-[var(--ink)]" /> Hospital Identity &amp; Contact Details
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -76,13 +76,13 @@ export const AdminLayout: React.FC = () => {
         </Link>
 
         {/* Navigation list */}
-        <nav className="sidebar-nav flex-1 overflow-y-auto">
+        <nav className="sidebar-nav">
           {navItems.map((item, idx) => {
             if ('header' in item) {
               return (
                 <div
                   key={idx}
-                  className="pt-3 pb-1 px-3 text-[9px] font-bold text-[#8fa8a2] uppercase tracking-[0.16em]"
+                  className="pt-3.5 pb-1 px-3 text-[10px] font-bold text-[var(--lime)]/80 uppercase tracking-[0.15em]"
                 >
                   {item.header}
                 </div>
@@ -101,7 +101,7 @@ export const AdminLayout: React.FC = () => {
                 }
               >
                 <IconComp size={16} className="shrink-0" />
-                <span>{item.label}</span>
+                <span className="truncate">{item.label}</span>
               </NavLink>
             );
           })}

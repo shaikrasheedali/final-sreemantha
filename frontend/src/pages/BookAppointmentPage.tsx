@@ -104,40 +104,40 @@ export const BookAppointmentPage: React.FC = () => {
           {/* Form / Success Column */}
           <div className="lg:col-span-8">
             {success ? (
-              <div className="p-10 sm:p-14 rounded-2xl bg-[#fffefb] border border-[#cbd7c6] text-center space-y-6">
-                <div className="w-16 h-16 rounded-full bg-[#e8eee5] text-[#183f3d] flex items-center justify-center mx-auto border border-[#cbd7c6]">
+              <div className="p-10 sm:p-14 rounded-2xl bg-white border border-[rgba(22,55,76,0.12)] text-center space-y-6">
+                <div className="w-16 h-16 rounded-full bg-[var(--mint)] text-[var(--ink)] flex items-center justify-center mx-auto border border-[rgba(22,55,76,0.12)]">
                   <Check size={32} />
                 </div>
                 <div>
                   <span className="sr-kicker">Request Received</span>
-                  <h2 className="sr-display text-3xl mt-2 text-[#183f3d]">
+                  <h2 className="sr-display text-3xl mt-2 text-[var(--ink)]">
                     Thank You, {formData.name}!
                   </h2>
                   <p className="sr-copy max-w-lg mx-auto mt-3">
-                    Your consultation request has been registered with the clinical reception at Sreemantha Hospital, Khammam. Our team will call you at <strong className="text-[#183f3d]">{formData.phone}</strong> shortly to confirm your exact time slot and preparation guidelines.
+                    Your consultation request has been registered with the clinical reception at Sreemantha Hospital, Khammam. Our team will call you at <strong className="text-[var(--ink)]">{formData.phone}</strong> shortly to confirm your exact time slot and preparation guidelines.
                   </p>
                 </div>
 
-                <div className="p-6 rounded-xl bg-[#faf8f3] border border-[#e0e5dd] max-w-md mx-auto text-left text-xs space-y-2 text-[#596966]">
+                <div className="p-6 rounded-xl bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] max-w-md mx-auto text-left text-xs space-y-2 text-[#5a7d92]">
                   <div className="flex justify-between">
                     <span>Department:</span>
-                    <strong className="text-[#183f3d]">{formData.department}</strong>
+                    <strong className="text-[var(--ink)]">{formData.department}</strong>
                   </div>
                   {formData.doctor && (
                     <div className="flex justify-between">
                       <span>Doctor:</span>
-                      <strong className="text-[#183f3d]">{formData.doctor}</strong>
+                      <strong className="text-[var(--ink)]">{formData.doctor}</strong>
                     </div>
                   )}
                   {formData.preferred_date && (
                     <div className="flex justify-between">
                       <span>Requested Date:</span>
-                      <strong className="text-[#183f3d]">{formData.preferred_date}</strong>
+                      <strong className="text-[var(--ink)]">{formData.preferred_date}</strong>
                     </div>
                   )}
                   <div className="flex justify-between">
                     <span>Time Preference:</span>
-                    <strong className="text-[#183f3d]">{formData.preferred_time}</strong>
+                    <strong className="text-[var(--ink)]">{formData.preferred_time}</strong>
                   </div>
                 </div>
 
@@ -167,16 +167,16 @@ export const BookAppointmentPage: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="p-8 sm:p-12 rounded-2xl bg-[#fffefb] border border-[#e0e5dd] space-y-8">
+              <form onSubmit={handleSubmit} className="p-8 sm:p-12 rounded-2xl bg-white border border-[rgba(22,55,76,0.12)] space-y-8">
                 {error && (
-                  <div className="p-4 rounded-lg bg-[#f9e9ec] border border-[#f0c2cd] text-[#8f4160] text-xs font-semibold flex items-center gap-2">
+                  <div className="p-4 rounded-lg bg-[#f9e9ec] border border-[#f0c2cd] text-[var(--coral)] text-xs font-semibold flex items-center gap-2">
                     <AlertCircle size={16} />
                     <span>{error}</span>
                   </div>
                 )}
 
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-1">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-1">
                     Step 1 · Patient Details
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-4">
@@ -216,8 +216,8 @@ export const BookAppointmentPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-[#e0e5dd]">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-1">
+                <div className="pt-6 border-t border-[rgba(22,55,76,0.12)]">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-1">
                     Step 2 · Care Preference
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-4">
@@ -282,7 +282,7 @@ export const BookAppointmentPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-[#e0e5dd]">
+                <div className="pt-6 border-t border-[rgba(22,55,76,0.12)]">
                   <label className="sr-label">Notes or Previous History (Optional)</label>
                   <textarea
                     rows={3}
@@ -298,16 +298,16 @@ export const BookAppointmentPage: React.FC = () => {
                       id="consent"
                       checked={formData.consent}
                       onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-                      className="mt-1 accent-[#8f4160] cursor-pointer"
+                      className="mt-1 accent-[var(--coral)] cursor-pointer"
                     />
-                    <label htmlFor="consent" className="text-xs text-[#596966] leading-relaxed cursor-pointer">
+                    <label htmlFor="consent" className="text-xs text-[#5a7d92] leading-relaxed cursor-pointer">
                       I agree to allow Sreemantha Hospital clinical staff to contact me via phone or WhatsApp to coordinate this consultation.
                     </label>
                   </div>
                 </div>
 
                 <div className="pt-4 flex items-center justify-between gap-4">
-                  <span className="text-xs text-[#596966] hidden sm:inline">
+                  <span className="text-xs text-[#5a7d92] hidden sm:inline">
                     No advance payment required for request
                   </span>
                   <button
@@ -326,14 +326,14 @@ export const BookAppointmentPage: React.FC = () => {
 
           {/* Right Sidebar Information */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="p-8 rounded-xl bg-[#183f3d] text-white">
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-2">
+            <div className="p-8 rounded-xl bg-[var(--deep)] text-white">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--lime)] block mb-2">
                 Need Immediate Help?
               </span>
               <h3 className="font-serif text-2xl text-white mb-2">
                 Call our reception directly
               </h3>
-              <p className="text-xs text-[#d3dfdb] leading-relaxed mb-6">
+              <p className="text-xs text-[var(--mint)] leading-relaxed mb-6">
                 Our front desk coordinators can assist you immediately with today’s OPD availability and emergency care.
               </p>
               <div className="space-y-3">
@@ -346,34 +346,34 @@ export const BookAppointmentPage: React.FC = () => {
                 </a>
                 <a
                   href={`tel:${emergency.replace(/[^+\d]/g, '')}`}
-                  className="sr-button sr-button--outline text-xs w-full justify-center border-[#dce1d7] text-white hover:bg-[#285854]"
+                  className="sr-button sr-button--outline text-xs w-full justify-center border-white/30 text-white hover:bg-white/10"
                 >
                   Emergency: {emergency}
                 </a>
               </div>
             </div>
 
-            <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd] space-y-4">
-              <h4 className="text-sm font-semibold text-[#183f3d]">What to bring to your visit</h4>
-              <ul className="space-y-2 text-xs text-[#596966] list-none p-0 m-0">
+            <div className="p-6 rounded-xl bg-white border border-[rgba(22,55,76,0.12)] space-y-4">
+              <h4 className="text-sm font-semibold text-[var(--ink)]">What to bring to your visit</h4>
+              <ul className="space-y-2 text-xs text-[#5a7d92] list-none p-0 m-0">
                 <li className="flex items-start gap-2">
-                  <Check size={14} className="text-[#8f4160] shrink-0 mt-0.5" />
+                  <Check size={14} className="text-[var(--coral)] shrink-0 mt-0.5" />
                   <span>Previous medical files, prescriptions, or surgery notes</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check size={14} className="text-[#8f4160] shrink-0 mt-0.5" />
+                  <Check size={14} className="text-[var(--coral)] shrink-0 mt-0.5" />
                   <span>Recent blood investigations and ultrasound scan films</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check size={14} className="text-[#8f4160] shrink-0 mt-0.5" />
+                  <Check size={14} className="text-[var(--coral)] shrink-0 mt-0.5" />
                   <span>Government photo ID and insurance policy card if applicable</span>
                 </li>
               </ul>
             </div>
 
-            <div className="p-6 rounded-xl bg-[#e8eee5] border border-[#cbd7c6]">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#183f3d] mb-2">
-                <MapPin size={15} className="text-[#8f4160]" />
+            <div className="p-6 rounded-xl bg-[var(--mint)] border border-[rgba(22,55,76,0.12)]">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-2">
+                <MapPin size={15} className="text-[var(--coral)]" />
                 Hospital Location
               </div>
               <p className="sr-copy text-xs leading-relaxed m-0">

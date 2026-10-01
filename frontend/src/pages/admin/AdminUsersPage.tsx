@@ -68,12 +68,12 @@ export const AdminUsersPage: React.FC = () => {
   return (
     <div className="p-6 sm:p-10 max-w-5xl mx-auto space-y-6">
       {notice && (
-        <div className="p-4 rounded-2xl bg-emerald-600 text-white text-xs font-bold shadow-lg">
+        <div className="p-4 rounded-2xl bg-emerald-600 text-[var(--ink)] text-xs font-bold shadow-lg">
           {notice}
         </div>
       )}
       {error && (
-        <div className="p-4 rounded-2xl bg-rose-600 text-white text-xs font-bold shadow-lg">
+        <div className="p-4 rounded-2xl bg-rose-600 text-[var(--ink)] text-xs font-bold shadow-lg">
           {error}
         </div>
       )}
@@ -84,10 +84,10 @@ export const AdminUsersPage: React.FC = () => {
           <span className="text-[10px] font-bold text-rose-400 uppercase tracking-wider block mb-1">
             Access Control & RBAC
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white font-heading">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink)] font-display">
             Staff & System User Accounts
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-[#5a7d92] mt-1">
             Manage permissions and access levels: <strong>superadmin</strong>, <strong>admin</strong>, and <strong>staff</strong>.
           </p>
         </div>
@@ -95,7 +95,7 @@ export const AdminUsersPage: React.FC = () => {
         {!isCreating && (
           <button
             onClick={() => setIsCreating(true)}
-            className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#006c93] hover:bg-[#073d59] text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#006c93] hover:bg-[#073d59] text-[var(--ink)] text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
           >
             <Plus className="w-4 h-4" /> Add User Account
           </button>
@@ -103,10 +103,10 @@ export const AdminUsersPage: React.FC = () => {
       </div>
 
       {isCreating ? (
-        <div className="bg-slate-800 rounded-3xl border border-slate-700 p-6 sm:p-8 shadow-xl">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-700 mb-6">
-            <h2 className="text-lg font-bold text-white font-heading">Create New Staff User</h2>
-            <button onClick={() => setIsCreating(false)} className="text-slate-400 hover:text-white">
+        <div className="bg-white rounded-3xl border border-[rgba(22,55,76,0.12)] p-6 sm:p-8 shadow-xl">
+          <div className="flex items-center justify-between pb-4 border-b border-[rgba(22,55,76,0.12)] mb-6">
+            <h2 className="text-lg font-bold text-[var(--ink)] font-display">Create New Staff User</h2>
+            <button onClick={() => setIsCreating(false)} className="text-[#5a7d92] hover:text-white">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -114,7 +114,7 @@ export const AdminUsersPage: React.FC = () => {
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
                   Username <span className="text-rose-400">*</span>
                 </label>
                 <input
@@ -123,12 +123,12 @@ export const AdminUsersPage: React.FC = () => {
                   value={formData.username}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, username: e.target.value })}
                   placeholder="e.g. dr_priya"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white"
+                  className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2 text-xs text-white"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
                   Full Name
                 </label>
                 <input
@@ -136,14 +136,14 @@ export const AdminUsersPage: React.FC = () => {
                   value={formData.name}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Dr. Priya Rao"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white"
+                  className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2 text-xs text-white"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
                   Email Address
                 </label>
                 <input
@@ -151,12 +151,12 @@ export const AdminUsersPage: React.FC = () => {
                   value={formData.email}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="e.g. priya@sreemanthahospital.com"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white"
+                  className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2 text-xs text-white"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
                   Password (Hashed via Argon2) <span className="text-rose-400">*</span>
                 </label>
                 <input
@@ -165,19 +165,19 @@ export const AdminUsersPage: React.FC = () => {
                   value={formData.password}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: e.target.value })}
                   placeholder="Strong password"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white"
+                  className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2 text-xs text-white"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
                 Role & Permissions
               </label>
               <select
                 value={formData.role}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, role: e.target.value })}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white"
+                className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2 text-xs text-white"
               >
                 <option value="staff">Staff (Clinical Content Editor)</option>
                 <option value="admin">Administrator (CMS & Operations)</option>
@@ -185,18 +185,18 @@ export const AdminUsersPage: React.FC = () => {
               </select>
             </div>
 
-            <div className="pt-4 border-t border-slate-700 flex justify-end gap-2">
+            <div className="pt-4 border-t border-[rgba(22,55,76,0.12)] flex justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setIsCreating(false)}
-                className="px-4 py-2 rounded-xl bg-slate-700 text-slate-300 text-xs font-bold"
+                className="px-4 py-2 rounded-xl bg-[var(--cream)] text-[#5a7d92] border border-[rgba(22,55,76,0.12)] text-[#5a7d92] text-xs font-bold"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={saving}
-                className="px-6 py-2 rounded-xl bg-[#006c93] hover:bg-[#073d59] text-white text-xs font-bold"
+                className="px-6 py-2 rounded-xl bg-[#006c93] hover:bg-[#073d59] text-[var(--ink)] text-xs font-bold"
               >
                 {saving ? 'Creating...' : 'Create Account'}
               </button>
@@ -204,10 +204,10 @@ export const AdminUsersPage: React.FC = () => {
           </form>
         </div>
       ) : (
-        <div className="bg-slate-800/90 rounded-3xl border border-slate-700 overflow-hidden shadow-xl">
+        <div className="bg-white rounded-3xl border border-[rgba(22,55,76,0.12)] overflow-hidden shadow-xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-900/60 text-slate-400 uppercase tracking-wider text-[10px] font-bold border-b border-slate-700">
+              <thead className="bg-[var(--cream)] text-[#5a7d92] uppercase tracking-wider text-[10px] font-bold border-b border-[rgba(22,55,76,0.12)]">
                 <tr>
                   <th className="px-6 py-3.5">User</th>
                   <th className="px-6 py-3.5">Email</th>
@@ -218,12 +218,12 @@ export const AdminUsersPage: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-slate-700/60">
                 {users.map((u: UserType) => (
-                  <tr key={u.id} className="hover:bg-slate-700/30 transition-colors">
+                  <tr key={u.id} className="hover:bg-[var(--cream)]/60 transition-colors">
                     <td className="px-6 py-4">
-                      <div className="font-bold text-white text-xs">{u.name || u.username}</div>
-                      <span className="text-[10px] text-slate-400">@{u.username}</span>
+                      <div className="font-bold text-[var(--ink)] text-xs">{u.name || u.username}</div>
+                      <span className="text-[10px] text-[#5a7d92]">@{u.username}</span>
                     </td>
-                    <td className="px-6 py-4 text-slate-300">{u.email || '—'}</td>
+                    <td className="px-6 py-4 text-[#5a7d92]">{u.email || '—'}</td>
                     <td className="px-6 py-4">
                       <span className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
                         u.role === 'superadmin'
@@ -235,7 +235,7 @@ export const AdminUsersPage: React.FC = () => {
                         {u.role}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-slate-400 text-[11px]">
+                    <td className="px-6 py-4 text-[#5a7d92] text-[11px]">
                       {u.created_at ? new Date(u.created_at).toLocaleDateString() : 'System'}
                     </td>
                     <td className="px-6 py-4 text-right">

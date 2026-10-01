@@ -103,13 +103,13 @@ export const TreatmentDetailPage: React.FC = () => {
             </span>
             {treatment.typical_duration && (
               <span className="sr-pill text-xs">
-                <Clock size={12} className="text-[#8f4160]" />
+                <Clock size={12} className="text-[var(--coral)]" />
                 Typical duration: {treatment.typical_duration}
               </span>
             )}
             {treatment.success_rate && (
-              <span className="sr-pill text-xs font-semibold text-[#183f3d]">
-                <Sparkles size={12} className="text-[#8f4160]" />
+              <span className="sr-pill text-xs font-semibold text-[var(--ink)]">
+                <Sparkles size={12} className="text-[var(--coral)]" />
                 Success benchmark: {treatment.success_rate}
               </span>
             )}
@@ -123,13 +123,13 @@ export const TreatmentDetailPage: React.FC = () => {
         </div>
 
         {/* At a Glance Summary Strip */}
-        <div className="p-6 mb-12 rounded-xl bg-[#fffefb] border border-[#e0e5dd] flex flex-wrap items-center justify-between gap-6">
+        <div className="p-6 mb-12 rounded-xl bg-white border border-[rgba(22,55,76,0.12)] flex flex-wrap items-center justify-between gap-6">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-1">
               At a Glance
             </span>
-            <p className="text-xs text-[#596966] m-0">
-              Department: <strong className="text-[#183f3d]">{treatment.category || 'Clinical Care'}</strong> · Duration: <strong className="text-[#183f3d]">{treatment.typical_duration || 'Case dependent'}</strong>
+            <p className="text-xs text-[#5a7d92] m-0">
+              Department: <strong className="text-[var(--ink)]">{treatment.category || 'Clinical Care'}</strong> · Duration: <strong className="text-[var(--ink)]">{treatment.typical_duration || 'Case dependent'}</strong>
             </p>
           </div>
           <Link
@@ -153,11 +153,11 @@ export const TreatmentDetailPage: React.FC = () => {
           {/* Main Clinical Information */}
           <div className="lg:col-span-8 space-y-12">
             {/* Overview / Content */}
-            <div className="p-8 sm:p-10 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-3">
+            <div className="p-8 sm:p-10 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-3">
                 Overview &amp; Clinical Protocol
               </span>
-              <h2 className="sr-display text-2xl mb-6 text-[#183f3d]">
+              <h2 className="sr-display text-2xl mb-6 text-[var(--ink)]">
                 What to expect from this treatment
               </h2>
               {treatment.content ? (
@@ -174,24 +174,24 @@ export const TreatmentDetailPage: React.FC = () => {
 
             {/* How it works: Step-by-Step */}
             {howItWorks.length > 0 && (
-              <div className="p-8 sm:p-10 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
-                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-3">
+              <div className="p-8 sm:p-10 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-3">
                   Clinical Protocol
                 </span>
-                <h3 className="sr-display text-2xl mb-6 text-[#183f3d]">
+                <h3 className="sr-display text-2xl mb-6 text-[var(--ink)]">
                   Step-by-step pathway
                 </h3>
                 <ol className="space-y-4 list-none p-0 m-0">
                   {howItWorks.map((step, idx) => (
                     <li key={idx} className="flex items-start gap-4">
-                      <span className="w-7 h-7 rounded-full bg-[#e8eee5] text-[#183f3d] font-serif font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 border border-[#d2ddd0]">
+                      <span className="w-7 h-7 rounded-full bg-[var(--mint)] text-[var(--ink)] font-serif font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 border border-[rgba(22,55,76,0.12)]">
                         {idx + 1}
                       </span>
-                      <div className="sr-copy text-sm leading-relaxed m-0 text-[#183f3d]">
+                      <div className="sr-copy text-sm leading-relaxed m-0 text-[var(--ink)]">
                         {typeof step === 'object' && step !== null ? (
                           <>
-                            {step.title && <strong className="block text-[#183f3d] font-semibold mb-0.5">{step.title}</strong>}
-                            <span className="text-xs text-[#596966]">{step.desc || step.description || step.text || ''}</span>
+                            {step.title && <strong className="block text-[var(--ink)] font-semibold mb-0.5">{step.title}</strong>}
+                            <span className="text-xs text-[#5a7d92]">{step.desc || step.description || step.text || ''}</span>
                           </>
                         ) : (
                           <span>{String(step)}</span>
@@ -205,17 +205,17 @@ export const TreatmentDetailPage: React.FC = () => {
 
             {/* Who Requires this treatment */}
             {whoRequires.length > 0 && (
-              <div className="p-8 sm:p-10 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
-                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-3">
+              <div className="p-8 sm:p-10 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-3">
                   Indications &amp; Eligibility
                 </span>
-                <h3 className="sr-display text-2xl mb-6 text-[#183f3d]">
+                <h3 className="sr-display text-2xl mb-6 text-[var(--ink)]">
                   When is this procedure recommended?
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   {whoRequires.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs text-[#183f3d]">
-                      <div className="w-5 h-5 rounded-full bg-[#e8eee5] flex items-center justify-center text-[#183f3d] shrink-0 mt-0.5">
+                    <div key={idx} className="flex items-start gap-2.5 text-xs text-[var(--ink)]">
+                      <div className="w-5 h-5 rounded-full bg-[var(--mint)] flex items-center justify-center text-[var(--ink)] shrink-0 mt-0.5">
                         <Check size={12} />
                       </div>
                       <span className="leading-relaxed font-medium">
@@ -233,20 +233,20 @@ export const TreatmentDetailPage: React.FC = () => {
             {(treatment.preparation || treatment.aftercare) && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {treatment.preparation && (
-                  <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-2">
+                  <div className="p-6 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-2">
                       Before Your Visit
                     </span>
-                    <h4 className="text-base font-semibold text-[#183f3d] mb-3">Preparation Guidelines</h4>
+                    <h4 className="text-base font-semibold text-[var(--ink)] mb-3">Preparation Guidelines</h4>
                     <p className="sr-copy text-xs leading-relaxed">{treatment.preparation}</p>
                   </div>
                 )}
                 {treatment.aftercare && (
-                  <div className="p-6 rounded-xl bg-[#fffefb] border border-[#e0e5dd]">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8f4160] block mb-2">
+                  <div className="p-6 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-2">
                       Following Treatment
                     </span>
-                    <h4 className="text-base font-semibold text-[#183f3d] mb-3">Recovery &amp; Aftercare</h4>
+                    <h4 className="text-base font-semibold text-[var(--ink)] mb-3">Recovery &amp; Aftercare</h4>
                     <p className="sr-copy text-xs leading-relaxed">{treatment.aftercare}</p>
                   </div>
                 )}
@@ -259,7 +259,7 @@ export const TreatmentDetailPage: React.FC = () => {
                 <div className="sr-heading-row mb-6">
                   <div>
                     <span className="sr-kicker">Clinical Specialists</span>
-                    <h3 className="sr-display text-2xl mt-1 text-[#183f3d]">
+                    <h3 className="sr-display text-2xl mt-1 text-[var(--ink)]">
                       Doctors who oversee this care
                     </h3>
                   </div>
@@ -274,24 +274,24 @@ export const TreatmentDetailPage: React.FC = () => {
                     <Link
                       key={doc.id}
                       to={`/doctors/${doc.slug}`}
-                      className="p-5 rounded-xl bg-[#fffefb] border border-[#e0e5dd] hover:border-[#183f3d] hover:shadow-md transition text-decoration-none text-inherit group"
+                      className="p-5 rounded-xl bg-white border border-[rgba(22,55,76,0.12)] hover:border-[var(--teal)] hover:shadow-md transition text-decoration-none text-inherit group"
                     >
-                      <div className="w-14 h-14 rounded-full overflow-hidden bg-[#e8eee5] mb-3 border border-[#cbd7c6]">
+                      <div className="w-14 h-14 rounded-full overflow-hidden bg-[var(--mint)] mb-3 border border-[rgba(22,55,76,0.12)]">
                         {doc.photo_url ? (
                           <img src={doc.photo_url} alt={doc.name} className="w-full h-full object-cover" />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-[#596966]">
+                          <div className="w-full h-full flex items-center justify-center text-[#5a7d92]">
                             <Stethoscope size={20} />
                           </div>
                         )}
                       </div>
-                      <h4 className="text-sm font-semibold text-[#183f3d] group-hover:text-[#8f4160] transition mb-1">
+                      <h4 className="text-sm font-semibold text-[var(--ink)] group-hover:text-[var(--coral)] transition mb-1">
                         {doc.name}
                       </h4>
-                      <p className="text-[11px] text-[#8f4160] font-medium line-clamp-1 mb-1">
+                      <p className="text-[11px] text-[var(--coral)] font-medium line-clamp-1 mb-1">
                         {doc.designation}
                       </p>
-                      <span className="text-[10px] text-[#596966]">
+                      <span className="text-[10px] text-[#5a7d92]">
                         {doc.experience_years ? `${doc.experience_years}+ yrs exp` : doc.department}
                       </span>
                     </Link>
@@ -303,14 +303,14 @@ export const TreatmentDetailPage: React.FC = () => {
 
           {/* Right Consultation Booking Box */}
           <div className="lg:col-span-4 sticky top-28 space-y-6">
-            <div className="p-8 rounded-xl bg-[#183f3d] text-white">
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#d0ddc2] block mb-2">
+            <div className="p-8 rounded-xl bg-[var(--deep)] text-white">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--lime)] block mb-2">
                 Consultation Request
               </span>
               <h3 className="font-serif text-2xl text-white mb-3">
                 Book a consultation for this procedure
               </h3>
-              <p className="text-xs text-[#d3dfdb] leading-relaxed mb-6">
+              <p className="text-xs text-[var(--mint)] leading-relaxed mb-6">
                 Meet our senior specialists to evaluate your case, review previous medical reports, and receive a customized clinical recommendation.
               </p>
               <div className="flex flex-col gap-3">
@@ -324,7 +324,7 @@ export const TreatmentDetailPage: React.FC = () => {
                 </Link>
                 <a
                   href={phoneHref}
-                  className="sr-button sr-button--outline text-xs w-full justify-center border-[#dce1d7] text-white hover:bg-[#285854]"
+                  className="sr-button sr-button--outline text-xs w-full justify-center border-white/30 text-white hover:bg-white/10"
                 >
                   <Phone size={14} />
                   Call: {phone}
@@ -332,9 +332,9 @@ export const TreatmentDetailPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-6 rounded-xl bg-[#e8eee5] border border-[#cbd7c6]">
-              <div className="flex items-center gap-2 text-[#183f3d] text-xs font-bold uppercase tracking-wider mb-2">
-                <ShieldCheck size={16} className="text-[#8f4160]" />
+            <div className="p-6 rounded-xl bg-[var(--mint)] border border-[rgba(22,55,76,0.12)]">
+              <div className="flex items-center gap-2 text-[var(--ink)] text-xs font-bold uppercase tracking-wider mb-2">
+                <ShieldCheck size={16} className="text-[var(--coral)]" />
                 Transparent Guidance
               </div>
               <p className="sr-copy text-xs leading-relaxed m-0">

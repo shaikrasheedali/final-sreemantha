@@ -63,7 +63,7 @@ export const GalleryPage: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-10 pb-6 border-b border-[#e0e5dd]">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-10 pb-6 border-b border-[rgba(22,55,76,0.12)]">
           <div className="flex flex-wrap items-center gap-2">
             {categories.map((cat) => (
               <button
@@ -72,8 +72,8 @@ export const GalleryPage: React.FC = () => {
                 onClick={() => setCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition cursor-pointer ${
                   category === cat
-                    ? 'bg-[#183f3d] text-white'
-                    : 'bg-[#fffefb] text-[#596966] border border-[#e0e5dd] hover:border-[#183f3d]'
+                    ? 'bg-[var(--deep)] text-white'
+                    : 'bg-white text-[#5a7d92] border border-[rgba(22,55,76,0.12)] hover:border-[var(--teal)]'
                 }`}
               >
                 {cat}
@@ -86,8 +86,8 @@ export const GalleryPage: React.FC = () => {
               onClick={() => setMediaFilter('all')}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition ${
                 mediaFilter === 'all'
-                  ? 'bg-[#183f3d] text-white'
-                  : 'bg-[#fffefb] text-[#596966] border border-[#e0e5dd]'
+                  ? 'bg-[var(--deep)] text-white'
+                  : 'bg-white text-[#5a7d92] border border-[rgba(22,55,76,0.12)]'
               }`}
             >
               All Media
@@ -96,8 +96,8 @@ export const GalleryPage: React.FC = () => {
               onClick={() => setMediaFilter('image')}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition flex items-center gap-1 ${
                 mediaFilter === 'image'
-                  ? 'bg-[#183f3d] text-white'
-                  : 'bg-[#fffefb] text-[#596966] border border-[#e0e5dd]'
+                  ? 'bg-[var(--deep)] text-white'
+                  : 'bg-white text-[#5a7d92] border border-[rgba(22,55,76,0.12)]'
               }`}
             >
               <ImageIcon size={13} />
@@ -107,8 +107,8 @@ export const GalleryPage: React.FC = () => {
               onClick={() => setMediaFilter('video')}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition flex items-center gap-1 ${
                 mediaFilter === 'video'
-                  ? 'bg-[#183f3d] text-white'
-                  : 'bg-[#fffefb] text-[#596966] border border-[#e0e5dd]'
+                  ? 'bg-[var(--deep)] text-white'
+                  : 'bg-white text-[#5a7d92] border border-[rgba(22,55,76,0.12)]'
               }`}
             >
               <Video size={13} />
@@ -118,8 +118,8 @@ export const GalleryPage: React.FC = () => {
               onClick={() => setMediaFilter('social')}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition flex items-center gap-1 ${
                 mediaFilter === 'social'
-                  ? 'bg-[#183f3d] text-white'
-                  : 'bg-[#fffefb] text-[#596966] border border-[#e0e5dd]'
+                  ? 'bg-[var(--deep)] text-white'
+                  : 'bg-white text-[#5a7d92] border border-[rgba(22,55,76,0.12)]'
               }`}
             >
               Social / Embeds
@@ -170,11 +170,11 @@ export const GalleryPage: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white pointer-events-none">
                     {item.media_type === 'video' || item.media_type === 'youtube' ? (
-                      <div className="w-12 h-12 rounded-full bg-white/80 text-[#183f3d] flex items-center justify-center pl-1 shadow-lg">
-                        <Play size={22} fill="#183f3d" />
+                      <div className="w-12 h-12 rounded-full bg-white/80 text-[var(--ink)] flex items-center justify-center pl-1 shadow-lg">
+                        <Play size={22} fill="var(--teal)" />
                       </div>
                     ) : (
-                      <div className="w-10 h-10 rounded-full bg-white/80 text-[#183f3d] flex items-center justify-center shadow-lg">
+                      <div className="w-10 h-10 rounded-full bg-white/80 text-[var(--ink)] flex items-center justify-center shadow-lg">
                         <Maximize2 size={18} />
                       </div>
                     )}

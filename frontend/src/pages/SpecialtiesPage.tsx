@@ -51,7 +51,7 @@ export const SpecialtiesPage: React.FC = () => {
         </div>
 
         {/* Filters and Search Bar */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-10 pb-6 border-b border-[#e0e5dd]">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-10 pb-6 border-b border-[rgba(22,55,76,0.12)]">
           <div className="flex flex-wrap items-center gap-2">
             {categories.map((cat) => (
               <button
@@ -60,8 +60,8 @@ export const SpecialtiesPage: React.FC = () => {
                 onClick={() => setCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition cursor-pointer ${
                   category === cat
-                    ? 'bg-[#183f3d] text-white'
-                    : 'bg-[#fffefb] text-[#596966] border border-[#e0e5dd] hover:border-[#183f3d]'
+                    ? 'bg-[var(--deep)] text-white'
+                    : 'bg-white text-[#5a7d92] border border-[rgba(22,55,76,0.12)] hover:border-[var(--teal)]'
                 }`}
               >
                 {cat}
@@ -70,7 +70,7 @@ export const SpecialtiesPage: React.FC = () => {
           </div>
 
           <div className="relative w-full md:w-72">
-            <Search size={15} className="text-[#596966] absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search size={15} className="text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search specialties..."

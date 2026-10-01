@@ -55,7 +55,7 @@ export const InsightsPage: React.FC = () => {
         </div>
 
         {/* Filters and Search Bar */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-10 pb-6 border-b border-[#e0e5dd]">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-10 pb-6 border-b border-[rgba(22,55,76,0.12)]">
           <div className="flex flex-wrap items-center gap-2">
             {categories.map((cat) => (
               <button
@@ -64,8 +64,8 @@ export const InsightsPage: React.FC = () => {
                 onClick={() => setCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition cursor-pointer ${
                   category === cat
-                    ? 'bg-[#183f3d] text-white'
-                    : 'bg-[#fffefb] text-[#596966] border border-[#e0e5dd] hover:border-[#183f3d]'
+                    ? 'bg-[var(--deep)] text-white'
+                    : 'bg-white text-[#5a7d92] border border-[rgba(22,55,76,0.12)] hover:border-[var(--teal)]'
                 }`}
               >
                 {cat}
@@ -74,7 +74,7 @@ export const InsightsPage: React.FC = () => {
           </div>
 
           <div className="relative w-full md:w-72">
-            <Search size={15} className="text-[#596966] absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search size={15} className="text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search articles..."
@@ -130,21 +130,21 @@ export const InsightsPage: React.FC = () => {
                   )}
                 </div>
 
-                <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-between bg-[#fffefb]">
+                <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-between bg-white">
                   <div>
                     <div className="flex items-center gap-3 mb-3">
                       <span className="sr-card-category" style={{ margin: 0 }}>
                         {featured.category || 'Featured Article'}
                       </span>
                       {featured.read_time && (
-                        <span className="text-[11px] text-[#596966] flex items-center gap-1">
+                        <span className="text-[11px] text-[#5a7d92] flex items-center gap-1">
                           <Clock size={12} />
                           {featured.read_time}
                         </span>
                       )}
                     </div>
 
-                    <h2 className="font-serif text-2xl sm:text-3xl text-[#183f3d] font-normal leading-snug group-hover:text-[#8f4160] transition mb-4">
+                    <h2 className="font-serif text-2xl sm:text-3xl text-[var(--ink)] font-normal leading-snug group-hover:text-[var(--coral)] transition mb-4">
                       {featured.title}
                     </h2>
 
@@ -153,9 +153,9 @@ export const InsightsPage: React.FC = () => {
                     </p>
                   </div>
 
-                  <span className="sr-card-footer pt-6 border-t border-[#e0e5dd] text-xs">
+                  <span className="sr-card-footer pt-6 border-t border-[rgba(22,55,76,0.12)] text-xs">
                     <span>By {featured.author || 'Sreemantha Clinical Team'}</span>
-                    <span className="flex items-center gap-1 font-semibold text-[#8f4160]">
+                    <span className="flex items-center gap-1 font-semibold text-[var(--coral)]">
                       Read article <ArrowUpRight size={14} />
                     </span>
                   </span>
@@ -185,17 +185,17 @@ export const InsightsPage: React.FC = () => {
                       {insight.category && (
                         <span className="sr-card-category">{insight.category}</span>
                       )}
-                      <h3 className="font-serif text-xl font-normal leading-snug text-[#183f3d]">
+                      <h3 className="font-serif text-xl font-normal leading-snug text-[var(--ink)]">
                         {insight.title}
                       </h3>
                       <p className="sr-copy sr-clamp text-xs mt-3">
                         {insight.summary || insight.excerpt}
                       </p>
-                      <span className="sr-card-footer mt-auto pt-5 border-t border-[#e0e5dd]">
-                        <span className="text-[11px] text-[#596966] flex items-center gap-1">
+                      <span className="sr-card-footer mt-auto pt-5 border-t border-[rgba(22,55,76,0.12)]">
+                        <span className="text-[11px] text-[#5a7d92] flex items-center gap-1">
                           {insight.read_time && <><Clock size={12} /> {insight.read_time}</>}
                         </span>
-                        <span className="flex items-center gap-1 text-[11px] font-semibold text-[#8f4160]">
+                        <span className="flex items-center gap-1 text-[11px] font-semibold text-[var(--coral)]">
                           Read story <ArrowUpRight size={13} />
                         </span>
                       </span>

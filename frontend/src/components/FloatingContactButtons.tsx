@@ -45,7 +45,7 @@ export const FloatingContactButtons: React.FC = () => {
       {phoneEnabled && (
         <a
           href={`tel:${phoneNumber}`}
-          className="flex items-center gap-2 bg-[#183f3d] hover:bg-[#285854] text-white px-3.5 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all text-decoration-none"
+          className="flex items-center gap-2 bg-[var(--deep)] hover:bg-white/10 text-white px-3.5 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all text-decoration-none"
           title={`Call Sreemantha Hospital at ${phoneNumber}`}
         >
           <Phone size={15} className="text-white" />
