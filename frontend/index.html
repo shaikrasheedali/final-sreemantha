@@ -23,6 +23,28 @@
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet" />
+
+  <!-- Defensive error listener to suppress external browser extension scripts (e.g. 200.js, M_ID) -->
+  <script>
+    window.addEventListener('error', function (event) {
+      if (
+        (event.filename && event.filename.indexOf('200.js') !== -1) ||
+        (event.message && (event.message.indexOf('M_ID') !== -1 || event.message.indexOf("reading 'M_ID'") !== -1))
+      ) {
+        event.preventDefault();
+        event.stopPropagation();
+        return true;
+      }
+    }, true);
+    window.addEventListener('unhandledrejection', function (event) {
+      var reason = event.reason;
+      var str = typeof reason === 'string' ? reason : (reason && (reason.message || reason.stack) ? (reason.message || reason.stack) : '');
+      if (str && (str.indexOf('M_ID') !== -1 || str.indexOf('200.js') !== -1 || str.indexOf("reading 'M_ID'") !== -1)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }, true);
+  </script>
 </head>
 
 <body>

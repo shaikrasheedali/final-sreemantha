@@ -21,7 +21,7 @@ export const FloatingContactButtons: React.FC = () => {
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 pointer-events-auto"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-auto"
       role="region"
       aria-label="Patient Quick Assistance"
     >
@@ -31,15 +31,15 @@ export const FloatingContactButtons: React.FC = () => {
           href={`https://wa.me/${waNumber}?text=${waMsg}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center gap-2.5 bg-[#25D366] hover:bg-[#128C7E] px-4 py-2.5 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all border border-white/30 text-decoration-none"
+          className="group flex items-center gap-2 sm:gap-2.5 bg-[#25D366] hover:bg-[#128C7E] px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all border border-white/30 text-decoration-none"
           title="Chat with Patient Care on WhatsApp"
           style={{ color: '#ffffff' }}
         >
-          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-            <MessageCircle size={15} className="text-white fill-white" />
+          <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+            <MessageCircle size={14} className="text-white fill-white" />
           </div>
           <span
-            className="text-[13px] font-bold tracking-wide whitespace-nowrap"
+            className="text-xs sm:text-[13px] font-bold tracking-wide whitespace-nowrap"
             style={{ color: '#ffffff' }}
           >
             {waLabel}
@@ -51,15 +51,15 @@ export const FloatingContactButtons: React.FC = () => {
       {phoneEnabled && (
         <a
           href={`tel:${phoneNumber}`}
-          className="group flex items-center gap-2.5 bg-[#073d59] hover:bg-[#006c93] px-4 py-2.5 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all border border-white/30 text-decoration-none"
+          className="group flex items-center gap-2 sm:gap-2.5 bg-[#073d59] hover:bg-[#006c93] px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all border border-white/30 text-decoration-none"
           title={`Call Sreemantha Hospital at ${phoneNumber}`}
           style={{ color: '#ffffff' }}
         >
-          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-            <Phone size={14} className="text-white fill-white" />
+          <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+            <Phone size={13} className="text-white fill-white" />
           </div>
           <span
-            className="text-[13px] font-bold tracking-wide whitespace-nowrap"
+            className="text-xs sm:text-[13px] font-bold tracking-wide whitespace-nowrap"
             style={{ color: '#ffffff' }}
           >
             {phoneLabel}
