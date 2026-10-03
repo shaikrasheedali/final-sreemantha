@@ -149,7 +149,7 @@ export const FacilityDetailPage: React.FC = () => {
               <h3 className="font-serif text-2xl text-white mb-3">
                 Experience our facilities in person
               </h3>
-              <p className="text-xs text-[var(--mint)] leading-relaxed mb-6">
+              <p className="text-xs leading-relaxed mb-6 font-medium" style={{ color: '#ffffff' }}>
                 Schedule a consultation or visit Sreemantha Hospital on Priyadarshini Degree College Road, Nehru Nagar, Khammam.
               </p>
               <div className="flex flex-col gap-3">

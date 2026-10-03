@@ -198,7 +198,7 @@ export const SpecialtyDetailPage: React.FC = () => {
               <h3 className="font-serif text-2xl text-white mb-3">
                 Discuss your care with our doctors
               </h3>
-              <p className="text-xs text-[var(--mint)] leading-relaxed mb-6">
+              <p className="text-xs leading-relaxed mb-6 font-medium" style={{ color: '#ffffff' }}>
                 Receive personalized guidance, clinical evaluation, and an open conversation about the best next steps.
               </p>
               <div className="flex flex-col gap-3">

@@ -87,31 +87,22 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* Right Action CTAs */}
-          <div className="nav-actions flex items-center gap-2 shrink-0">
+          <div className="nav-actions flex items-center gap-1.5 sm:gap-2 shrink-0">
             {isAuthenticated ? (
-              <div className="flex items-center gap-1.5 shrink-0">
+              <div className="navbar-desktop-admin items-center gap-1.5 shrink-0 hidden md:flex">
                 {/* Desktop Admin Pill */}
                 <Link
                   to="/admin"
-                  className="btn btn-soft text-xs hidden md:inline-flex"
+                  className="btn btn-soft text-xs"
                 >
                   <User size={14} />
                   <span>Admin ({user?.role})</span>
-                </Link>
-                {/* Mobile Admin Icon */}
-                <Link
-                  to="/admin"
-                  className="round-btn text-white md:hidden"
-                  title={`Admin Dashboard (${user?.role})`}
-                  aria-label="Admin Dashboard"
-                >
-                  <User size={15} />
                 </Link>
                 {/* Desktop Logout Button */}
                 <button
                   onClick={logout}
                   title="Logout"
-                  className="round-btn text-white hidden md:inline-flex"
+                  className="round-btn text-white"
                 >
                   <LogOut size={15} />
                 </button>
@@ -127,12 +118,12 @@ export const Navbar: React.FC = () => {
 
             <Link
               to="/book-appointment"
-              className="btn btn-primary whitespace-nowrap shrink-0"
-              style={{ padding: '8px 14px' }}
+              className="btn btn-primary whitespace-nowrap shrink-0 text-xs sm:text-sm"
+              style={{ padding: '7px 12px' }}
             >
-              <span className="hidden sm:inline">Book Appointment</span>
-              <span className="sm:hidden font-semibold">Book</span>
-              <ArrowUpRight size={14} className="shrink-0" />
+              <span className="hidden sm:inline font-semibold">Book Appointment</span>
+              <span className="sm:hidden font-semibold text-xs">Book</span>
+              <ArrowUpRight size={13} className="shrink-0" />
             </Link>
 
             {/* Mobile Hamburger Button */}

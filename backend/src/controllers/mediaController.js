@@ -62,21 +62,30 @@ async function handleUpload(req, res) {
       fs.writeFileSync(filePath, req.file.buffer);
       mimeType = 'image/svg+xml';
     } else {
-      // Standard image: Convert to highly-performant WebP using sharp
+      // Standard image: Convert to highly-performant WebP using sharp with auto-rotate and bounded dimensions
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
       savedFilename = `asset-${uniqueSuffix}.webp`;
       const filePath = path.join(uploadDir, savedFilename);
 
-      const image = sharp(req.file.buffer);
-      const meta = await image.metadata();
+      const pipeline = sharp(req.file.buffer)
+        .rotate() // Automatically orient image according to EXIF data from phones/cameras
+        .resize({
+          width: 2400,
+          height: 2400,
+          fit: 'inside',
+          withoutEnlargement: true,
+        })
+        .webp({ quality: 84, effort: 3, smartSubsample: true });
+
+      const meta = await pipeline.metadata().catch(() => ({}));
       width = meta.width || null;
       height = meta.height || null;
 
-      const info = await image
-        .webp({ quality: 85, effort: 4 })
-        .toFile(filePath);
+      const info = await pipeline.toFile(filePath);
 
       fileSize = info.size;
+      width = info.width || width;
+      height = info.height || height;
       mimeType = 'image/webp';
     }
 
@@ -91,6 +100,7 @@ async function handleUpload(req, res) {
 
     return res.status(201).json({
       message: 'File uploaded and converted successfully',
+      url: fileUrl,
       asset: {
         id: result.insertId,
         url: fileUrl,

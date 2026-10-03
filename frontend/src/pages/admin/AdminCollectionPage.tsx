@@ -7,7 +7,7 @@ import {
 import { WysiwygEditor } from '../../components/WysiwygEditor';
 import { MediaPickerModal } from '../../components/MediaPickerModal';
 import { parseMediaList } from '../../components/DetailMediaCarousel';
-import { api } from '../../utils/api';
+import { api, getAuthToken } from '../../utils/api';
 
 export type CollectionType = 'facilities' | 'specialties' | 'treatments' | 'doctors' | 'insights';
 
@@ -34,7 +34,6 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
   // Form state
   const [form, setForm] = useState<Record<string, any>>({});
   const [mediaList, setMediaList] = useState<string[]>([]);
-  const [manualUrlInput, setManualUrlInput] = useState('');
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [uploadingDirect, setUploadingDirect] = useState(false);
 
@@ -106,7 +105,6 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
 
     setForm(baseForm);
     setMediaList(initialMedia);
-    setManualUrlInput('');
     setSelectedItem(null);
     setIsEditing(true);
   };
@@ -116,7 +114,6 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
     setForm({ ...item });
     const rawMedia = item.image_url || item.photo_url || item.hero_media || item.hero_image || item.profile_photo;
     setMediaList(parseMediaList(rawMedia));
-    setManualUrlInput('');
     setIsEditing(true);
   };
 
@@ -124,7 +121,7 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
     if (!files || files.length === 0) return;
     setUploadingDirect(true);
 
-    const token = localStorage.getItem('token');
+    const token = getAuthToken();
     const uploaded: string[] = [];
 
     for (let i = 0; i < files.length; i++) {
@@ -145,8 +142,9 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
         }
 
         const data = await res.json();
-        if (data.asset?.url) {
-          uploaded.push(data.asset.url);
+        const uploadedUrl = data.url || data.asset?.url;
+        if (uploadedUrl) {
+          uploaded.push(uploadedUrl);
         }
       } catch (err: any) {
         console.error('Direct upload failed:', err);
@@ -159,12 +157,6 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
       showNotice(`${uploaded.length} asset${uploaded.length > 1 ? 's' : ''} uploaded and converted to WebP successfully.`, 'success');
     }
     setUploadingDirect(false);
-  };
-
-  const handleAddManualUrl = () => {
-    if (!manualUrlInput.trim()) return;
-    setMediaList((prev) => [...prev, manualUrlInput.trim()]);
-    setManualUrlInput('');
   };
 
   const handleRemoveMedia = (idx: number) => {
@@ -486,29 +478,11 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
                   })}
                 </div>
               ) : (
-                <div className="py-6 text-center text-xs text-[#5a7d92] border border-dashed border-[rgba(22,55,76,0.15)] rounded-xl">
-                  No media assets attached yet. Click "Pick from Media Assets" or "Upload WebP" above.
+                <div className="py-6 text-center text-xs text-[#5a7d92] border border-dashed border-[rgba(22,55,76,0.15)] rounded-xl bg-slate-50/50">
+                  <p className="font-semibold text-[var(--ink)] mb-1">No media assets attached yet.</p>
+                  <p className="text-[11px] text-[#5a7d92]">Click "Upload Media" or "Pick from Media Assets" to add photos or videos. All files are automatically converted to optimized WebP.</p>
                 </div>
               )}
-
-              {/* Optional Manual URL Input */}
-              <div className="flex items-center gap-2 pt-2 border-t border-[rgba(22,55,76,0.08)]">
-                <input
-                  type="text"
-                  placeholder="Or paste external media URL (e.g. Unsplash, HTTPS link)..."
-                  value={manualUrlInput}
-                  onChange={(e) => setManualUrlInput(e.target.value)}
-                  className="flex-1 bg-white border border-[rgba(22,55,76,0.15)] rounded-xl px-3.5 py-1.5 text-xs text-[var(--ink)] placeholder-[#8ba2b1]"
-                />
-                <button
-                  type="button"
-                  onClick={handleAddManualUrl}
-                  disabled={!manualUrlInput.trim()}
-                  className="btn btn-soft text-xs py-1.5 px-3 cursor-pointer disabled:opacity-50"
-                >
-                  Add URL
-                </button>
-              </div>
             </div>
 
             {/* Short Description / Excerpt */}

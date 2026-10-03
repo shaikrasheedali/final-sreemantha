@@ -5,6 +5,26 @@ import { GalleryModal } from '../components/GalleryModal';
 import { GalleryItem } from '../types';
 import { api } from '../utils/api';
 
+function getCardPoster(item: GalleryItem): string {
+  if (item.thumbnail_url && !item.thumbnail_url.includes('1790703561267')) {
+    return item.thumbnail_url;
+  }
+  if (item.media_type === 'youtube' || (item.media_url && /youtube\.com|youtu\.be/i.test(item.media_url))) {
+    let videoId = '';
+    if (item.media_url.includes('youtu.be/')) {
+      videoId = item.media_url.split('youtu.be/')[1]?.split('?')[0];
+    } else {
+      const match = item.media_url.match(/[?&]v=([^&]+)/);
+      if (match) videoId = match[1];
+    }
+    if (videoId) return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  }
+  if (item.media_type === 'video' || /\.(mp4|webm|mov)$/i.test(item.media_url || '')) {
+    return 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80';
+  }
+  return item.media_url || 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80';
+}
+
 export const GalleryPage: React.FC = () => {
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [category, setCategory] = useState('All');
@@ -164,12 +184,15 @@ export const GalleryPage: React.FC = () => {
               >
                 <div className="sr-media" style={{ height: 240 }}>
                   <img
-                    src={item.thumbnail_url || item.media_url}
+                    src={getCardPoster(item)}
                     alt={item.title}
                     loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80';
+                    }}
                   />
                   <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white pointer-events-none">
-                    {item.media_type === 'video' || item.media_type === 'youtube' ? (
+                    {item.media_type === 'video' || item.media_type === 'youtube' || item.media_type === 'facebook' ? (
                       <div className="w-12 h-12 rounded-full bg-white/80 text-[var(--ink)] flex items-center justify-center pl-1 shadow-lg">
                         <Play size={22} fill="var(--teal)" />
                       </div>

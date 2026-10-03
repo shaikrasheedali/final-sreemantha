@@ -1,7 +1,7 @@
 const BASE_URL = '/api';
 
-function getAuthToken(): string | null {
-  return localStorage.getItem('sreemantha_auth_token');
+export function getAuthToken(): string | null {
+  return localStorage.getItem('sreemantha_auth_token') || localStorage.getItem('token');
 }
 
 export async function apiRequest<T>(

@@ -1,0 +1,19 @@
+# Sreemantha Hospital Robots Exclusion Protocol
+# https://sreemanthahospital.com
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api/*
+Disallow: /staff-login
+Disallow: /login
+
+# Allow major bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap
+Sitemap: https://sreemanthahospital.com/sitemap.xml

@@ -310,7 +310,7 @@ export const TreatmentDetailPage: React.FC = () => {
               <h3 className="font-serif text-2xl text-white mb-3">
                 Book a consultation for this procedure
               </h3>
-              <p className="text-xs text-[var(--mint)] leading-relaxed mb-6">
+              <p className="text-xs leading-relaxed mb-6 font-medium" style={{ color: '#ffffff' }}>
                 Meet our senior specialists to evaluate your case, review previous medical reports, and receive a customized clinical recommendation.
               </p>
               <div className="flex flex-col gap-3">

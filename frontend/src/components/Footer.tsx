@@ -109,9 +109,10 @@ export const Footer: React.FC = () => {
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Sreemantha Hospital. All rights reserved.</span>
           <div className="footer-legal">
-            <Link to="/staff-login">Staff Login / Admin Portal</Link>
-            <Link to="/about">Privacy</Link>
-            <Link to="/contact">Terms &amp; Directions</Link>
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link to="/terms-of-service">Terms of Service</Link>
+            <Link to="/patient-rights">Patient Rights</Link>
+            <Link to="/staff-login">Staff Login / Admin</Link>
           </div>
         </div>
       </div>

@@ -35,8 +35,14 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
-// Serve uploaded media
-app.use('/uploads', express.static(uploadDir));
+// Serve uploaded media with high performance client and proxy caching
+app.use(
+  '/uploads',
+  express.static(uploadDir, {
+    maxAge: '30d',
+    immutable: true,
+  })
+);
 
 // Swagger UI API Documentation
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapiSpec));
@@ -48,6 +54,19 @@ app.use('/api', (req, res, next) => {
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
   next();
+});
+
+// Explicit search engine indexing endpoints
+app.get('/robots.txt', (req, res) => {
+  const robotsPath = path.resolve(__dirname, '../../frontend/public/robots.txt');
+  if (fs.existsSync(robotsPath)) return res.type('text/plain').sendFile(robotsPath);
+  res.type('text/plain').send('User-agent: *\nAllow: /\nSitemap: /sitemap.xml\n');
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  const sitemapPath = path.resolve(__dirname, '../../frontend/public/sitemap.xml');
+  if (fs.existsSync(sitemapPath)) return res.type('application/xml').sendFile(sitemapPath);
+  res.status(404).send('Sitemap not found');
 });
 
 // Mount main API router

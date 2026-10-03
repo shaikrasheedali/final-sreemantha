@@ -243,40 +243,18 @@ export const AdminSettingsPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Direct URL input */}
-              <div className="space-y-1.5">
-                <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
-                  Or Custom Favicon URL
-                </label>
-                <div className="flex gap-2.5">
-                  <input
-                    type="text"
-                    value={formData.favicon_url || ''}
-                    onChange={(e) => {
-                      const url = e.target.value;
-                      setFormData({
-                        ...formData,
-                        favicon_url: url,
-                        hospital_info: {
-                          ...(formData.hospital_info || {}),
-                          favicon_url: url,
-                        },
-                      });
-                      updateFaviconInHead(url);
-                    }}
-                    placeholder="/favicon.svg"
-                    className="sr-input text-sm w-full px-4 py-2.5 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none block"
-                  />
-                  <button
-                    type="button"
-                    onClick={handleResetDefaultFavicon}
-                    className="btn btn-soft text-xs whitespace-nowrap shrink-0 flex items-center gap-1.5 font-bold"
-                    title="Restore default /favicon.svg"
-                  >
-                    <RotateCcw size={14} />
-                    Reset Default
-                  </button>
-                </div>
+              {/* Reset to Default Action */}
+              <div className="flex items-center justify-between pt-2">
+                <span className="text-xs text-[#5a7d92]">Need to revert to default logo icon?</span>
+                <button
+                  type="button"
+                  onClick={handleResetDefaultFavicon}
+                  className="btn btn-soft text-xs whitespace-nowrap shrink-0 flex items-center gap-1.5 font-bold"
+                  title="Restore default /favicon.svg"
+                >
+                  <RotateCcw size={14} />
+                  Reset to Default Favicon
+                </button>
               </div>
             </div>
           </div>

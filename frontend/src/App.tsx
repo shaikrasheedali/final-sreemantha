@@ -26,6 +26,9 @@ import { InsightsPage } from './pages/InsightsPage';
 import { InsightDetailPage } from './pages/InsightDetailPage';
 import { BookAppointmentPage } from './pages/BookAppointmentPage';
 import { ContactPage } from './pages/ContactPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { TermsOfServicePage } from './pages/TermsOfServicePage';
+import { PatientRightsPage } from './pages/PatientRightsPage';
 import { StaffLoginPage } from './pages/StaffLoginPage';
 
 // Admin Pages
@@ -81,6 +84,11 @@ export const App: React.FC = () => {
               <Route path="/blog/:slug" element={<InsightDetailPage />} />
               <Route path="/book-appointment" element={<BookAppointmentPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/privacy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+              <Route path="/terms" element={<TermsOfServicePage />} />
+              <Route path="/patient-rights" element={<PatientRightsPage />} />
             </Route>
 
             {/* Staff Login */}

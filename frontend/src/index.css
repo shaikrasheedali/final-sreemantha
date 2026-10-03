@@ -4007,17 +4007,70 @@ body,
   padding-bottom: 0 !important;
 }
 
+.navbar .brand,
+.navbar .brand-home {
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  flex-shrink: 0 !important;
+  margin-right: clamp(14px, 2.2vw, 36px) !important;
+  padding: 8px 0 !important;
+}
+
 .navbar .brand-logo {
-  width: clamp(140px, 36vw, 175px) !important;
+  height: 42px !important;
+  max-height: 42px !important;
+  width: auto !important;
   max-width: 175px !important;
-  height: auto !important;
   display: inline-flex !important;
   align-items: center !important;
 }
-@media (min-width: 768px) {
+
+.navbar .brand-logo svg {
+  height: 100% !important;
+  width: auto !important;
+  max-height: 100% !important;
+  aspect-ratio: 1982 / 607 !important;
+  display: block !important;
+}
+
+@media (min-width: 1024px) {
   .navbar .brand-logo {
-    width: clamp(200px, 18vw, 260px) !important;
-    max-width: 260px !important;
+    height: 46px !important;
+    max-height: 46px !important;
+    max-width: 200px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar .brand,
+  .navbar .brand-home {
+    margin-right: 8px !important;
+    padding: 6px 0 !important;
+  }
+  .navbar .brand-logo {
+    height: 36px !important;
+    max-height: 36px !important;
+    max-width: 135px !important;
+  }
+}
+
+/* Ensure mobile header never wraps or horizontally overflows */
+@media (max-width: 767px) {
+  .navbar-desktop-admin {
+    display: none !important;
+  }
+  .navbar .round-btn.menu-btn {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+  }
+}
+@media (min-width: 768px) {
+  .navbar-desktop-admin {
+    display: inline-flex !important;
   }
 }
 
@@ -4583,5 +4636,79 @@ input.sr-search-input {
 .insurance-strip {
   padding: 0 !important;
   border-bottom: none !important;
+}
+
+/* 9. Global Mobile & Tablet Responsiveness Safeguards */
+html,
+body,
+#root,
+.public-site,
+.public-page {
+  overflow-x: clip !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure container fits smoothly on all devices */
+.container,
+.sr-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding-left: clamp(14px, 3.2vw, 44px) !important;
+  padding-right: clamp(14px, 3.2vw, 44px) !important;
+}
+
+/* Responsive grid collapsing for mobile and tablet */
+@media (max-width: 639px) {
+  .sr-grid,
+  .sr-grid--two,
+  .sr-grid--three,
+  .sr-grid--four {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .intro-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .hero-ctas {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 10px !important;
+  }
+  .hero-ctas .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .hero-trust .hero-side-card {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .sr-grid,
+  .sr-grid--three,
+  .sr-grid--four {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+  .intro-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
+
+/* 10. Card Description Font Color = White (Specialist Consultation, Consultation Request, Hospital Visit) */
+.specialist-consultation-card p,
+.consultation-request-card p,
+.hospital-visit-card p,
+.specialist-consultation-description,
+.consultation-request-description,
+.hospital-visit-description {
+  color: #ffffff !important;
 }
 

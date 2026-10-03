@@ -10,7 +10,7 @@ import {
   AlertCircle,
   Plus,
 } from 'lucide-react';
-import { api } from '../utils/api';
+import { api, getAuthToken } from '../utils/api';
 
 export interface MediaAssetItem {
   id: number;
@@ -92,7 +92,7 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
     setUploading(true);
     setUploadError(null);
 
-    const token = localStorage.getItem('token');
+    const token = getAuthToken();
     const newUrls: string[] = [];
 
     for (let i = 0; i < files.length; i++) {
@@ -113,8 +113,9 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
         }
 
         const data = await response.json();
-        if (data.asset?.url) {
-          newUrls.push(data.asset.url);
+        const uploadedUrl = data.url || data.asset?.url;
+        if (uploadedUrl) {
+          newUrls.push(uploadedUrl);
         }
       } catch (err: any) {
         console.error('Upload error:', err);

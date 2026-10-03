@@ -15,7 +15,7 @@ import {
   X,
   FileText,
 } from 'lucide-react';
-import { api } from '../../utils/api';
+import { api, getAuthToken } from '../../utils/api';
 import { MediaAssetItem } from '../../components/MediaPickerModal';
 
 export const AdminMediaAssetsPage: React.FC = () => {
@@ -58,7 +58,7 @@ export const AdminMediaAssetsPage: React.FC = () => {
     if (!files || files.length === 0) return;
     setUploading(true);
 
-    const token = localStorage.getItem('token');
+    const token = getAuthToken();
     let uploadCount = 0;
 
     for (let i = 0; i < files.length; i++) {
