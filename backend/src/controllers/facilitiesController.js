@@ -61,12 +61,14 @@ async function getFacilityBySlug(req, res) {
 async function createFacility(req, res) {
   try {
     const { name, slug, short_description, description, equipment, image_url, status, display_order } = req.body;
+    const facilityName = (name || req.body.title || '').trim();
+    const facilityDesc = description || req.body.content || req.body.overview || '';
 
-    if (!name) {
+    if (!facilityName) {
       return res.status(400).json({ error: 'Facility name is required.' });
     }
 
-    const facilitySlug = (slug || slugify(name)).trim();
+    const facilitySlug = (slug || slugify(facilityName)).trim();
     const existing = await query('SELECT id FROM facilities WHERE slug = ?', [facilitySlug]);
     if (existing.length > 0) {
       return res.status(409).json({ error: 'A facility with this slug already exists.' });
@@ -76,9 +78,9 @@ async function createFacility(req, res) {
       'INSERT INTO facilities (slug, name, short_description, description, equipment, image_url, status, display_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
       [
         facilitySlug,
-        name.trim(),
+        facilityName,
         short_description || '',
-        description || '',
+        facilityDesc,
         stringifyJsonField(equipment),
         image_url || '',
         status || 'published',
@@ -86,7 +88,7 @@ async function createFacility(req, res) {
       ]
     );
 
-    await recordAudit(req.user?.username || 'Admin', 'CREATE', 'facilities', result.insertId, { name, slug: facilitySlug });
+    await recordAudit(req.user?.username || 'Admin', 'CREATE', 'facilities', result.insertId, { name: facilityName, slug: facilitySlug });
 
     return res.status(201).json({
       message: 'Facility created successfully.',
@@ -104,29 +106,37 @@ async function updateFacility(req, res) {
     const { id } = req.params;
     const { name, slug, short_description, description, equipment, image_url, status, display_order } = req.body;
 
-    const existing = await query('SELECT id, name FROM facilities WHERE id = ?', [id]);
+    const existing = await query('SELECT * FROM facilities WHERE id = ?', [id]);
     if (existing.length === 0) {
       return res.status(404).json({ error: 'Facility not found.' });
     }
 
-    const facilitySlug = slug ? slugify(slug) : slugify(name || existing[0].name);
+    const current = existing[0];
+    const facilityName = (name || req.body.title || current.name).trim();
+    const facilityDesc = description !== undefined ? description : (req.body.content !== undefined ? req.body.content : (req.body.overview !== undefined ? req.body.overview : current.description));
+    const facilityShortDesc = short_description !== undefined ? short_description : (req.body.summary !== undefined ? req.body.summary : current.short_description);
+    const facilitySlug = slug ? slugify(slug) : (current.slug || slugify(facilityName));
+    const facilityEquipment = equipment !== undefined ? equipment : current.equipment;
+    const facilityImageUrl = image_url !== undefined ? image_url : (req.body.image !== undefined ? req.body.image : current.image_url);
+    const facilityStatus = status !== undefined ? status : current.status;
+    const facilityOrder = display_order !== undefined ? display_order : current.display_order;
 
     await query(
       'UPDATE facilities SET slug = ?, name = ?, short_description = ?, description = ?, equipment = ?, image_url = ?, status = ?, display_order = ? WHERE id = ?',
       [
         facilitySlug,
-        name,
-        short_description || '',
-        description || '',
-        stringifyJsonField(equipment),
-        image_url || '',
-        status || 'published',
-        display_order || 0,
+        facilityName,
+        facilityShortDesc,
+        facilityDesc,
+        stringifyJsonField(facilityEquipment),
+        facilityImageUrl,
+        facilityStatus,
+        facilityOrder,
         id,
       ]
     );
 
-    await recordAudit(req.user?.username || 'Admin', 'UPDATE', 'facilities', id, { name, slug: facilitySlug });
+    await recordAudit(req.user?.username || 'Admin', 'UPDATE', 'facilities', id, { name: facilityName, slug: facilitySlug });
 
     return res.json({ message: 'Facility updated successfully.', id, slug: facilitySlug });
   } catch (err) {

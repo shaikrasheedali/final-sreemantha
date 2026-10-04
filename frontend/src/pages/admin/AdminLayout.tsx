@@ -47,7 +47,7 @@ export const AdminLayout: React.FC = () => {
     { label: 'Contact Enquiries', path: '/admin/enquiries', icon: MessageSquare },
     { header: 'SYSTEM & SETTINGS' },
     { label: 'Hospital Settings & Favicon', path: '/admin/settings', icon: Settings },
-    ...(user?.role === 'superadmin'
+    ...(user?.role === 'superadmin' || user?.role === 'admin'
       ? [{ label: 'Users & Roles', path: '/admin/users', icon: ShieldAlert }]
       : []),
     { label: 'Audit Logs', path: '/admin/audit-logs', icon: FileText },
@@ -56,26 +56,35 @@ export const AdminLayout: React.FC = () => {
   return (
     <div className="dashboard">
       {/* Mobile Top Header */}
-      <div className="md:hidden bg-[var(--deep)] px-4 py-3 border-b border-[rgba(255,255,255,0.15)] flex items-center justify-between sticky top-0 z-50 text-white col-span-2">
+      <header className="admin-mobile-header md:hidden bg-[var(--deep)] px-4 py-3 border-b border-[rgba(255,255,255,0.15)] flex items-center justify-between sticky top-0 z-40 text-white col-span-2 shadow-md">
         <Link to="/admin" className="inline-flex items-center">
           <BrandLogo theme="dark" className="w-36" />
         </Link>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="round-btn text-white w-9 h-9"
+          className="flex items-center justify-center rounded-lg bg-[rgba(255,255,255,0.15)] hover:bg-[rgba(255,255,255,0.25)] text-white w-10 h-10 transition-colors"
           aria-label="Toggle navigation"
         >
-          {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
+          {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
-      </div>
+      </header>
 
       {/* Sidebar */}
       <aside
         className={`sidebar ${sidebarOpen ? 'open' : ''}`}
       >
-        <Link to="/admin" className="brand block px-2 mb-6" onClick={() => setSidebarOpen(false)}>
-          <BrandLogo theme="dark" />
-        </Link>
+        <div className="flex items-center justify-between px-2 mb-6">
+          <Link to="/admin" className="brand block" onClick={() => setSidebarOpen(false)}>
+            <BrandLogo theme="dark" />
+          </Link>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="md:hidden flex items-center justify-center text-white/80 hover:text-white p-1 rounded-lg bg-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.2)] transition-colors"
+            aria-label="Close sidebar"
+          >
+            <X size={18} />
+          </button>
+        </div>
 
         {/* Navigation list */}
         <nav className="sidebar-nav">

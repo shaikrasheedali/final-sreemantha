@@ -74,10 +74,12 @@ export const TreatmentDetailPage: React.FC = () => {
     );
   }
 
+  const isHtmlHowItWorks = typeof treatment.how_it_works === 'string' && /<[a-z][\s\S]*>/i.test(treatment.how_it_works);
+
   const howItWorks: any[] = Array.isArray(treatment.how_it_works)
     ? treatment.how_it_works
     : typeof treatment.how_it_works === 'string'
-    ? treatment.how_it_works.split('\n').map((s) => s.trim()).filter(Boolean)
+    ? (isHtmlHowItWorks ? [] : treatment.how_it_works.split('\n').map((s) => s.trim()).filter(Boolean))
     : [];
 
   const whoRequires: any[] = Array.isArray(treatment.who_requires)
@@ -164,6 +166,10 @@ export const TreatmentDetailPage: React.FC = () => {
                 <div className="sr-copy space-y-4">
                   <RichContentRenderer content={treatment.content} />
                 </div>
+              ) : treatment.overview && /<[a-z][\s\S]*>/i.test(treatment.overview) ? (
+                <div className="sr-copy space-y-4">
+                  <RichContentRenderer content={treatment.overview} />
+                </div>
               ) : (
                 <p className="sr-copy leading-relaxed">
                   {treatment.overview ||
@@ -173,7 +179,7 @@ export const TreatmentDetailPage: React.FC = () => {
             </div>
 
             {/* How it works: Step-by-Step */}
-            {howItWorks.length > 0 && (
+            {(isHtmlHowItWorks || howItWorks.length > 0) && (
               <div className="p-8 sm:p-10 rounded-xl bg-white border border-[rgba(22,55,76,0.12)]">
                 <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-3">
                   Clinical Protocol
@@ -181,25 +187,31 @@ export const TreatmentDetailPage: React.FC = () => {
                 <h3 className="sr-display text-2xl mb-6 text-[var(--ink)]">
                   Step-by-step pathway
                 </h3>
-                <ol className="space-y-4 list-none p-0 m-0">
-                  {howItWorks.map((step, idx) => (
-                    <li key={idx} className="flex items-start gap-4">
-                      <span className="w-7 h-7 rounded-full bg-[var(--mint)] text-[var(--ink)] font-serif font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 border border-[rgba(22,55,76,0.12)]">
-                        {idx + 1}
-                      </span>
-                      <div className="sr-copy text-sm leading-relaxed m-0 text-[var(--ink)]">
-                        {typeof step === 'object' && step !== null ? (
-                          <>
-                            {step.title && <strong className="block text-[var(--ink)] font-semibold mb-0.5">{step.title}</strong>}
-                            <span className="text-xs text-[#5a7d92]">{step.desc || step.description || step.text || ''}</span>
-                          </>
-                        ) : (
-                          <span>{String(step)}</span>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ol>
+                {isHtmlHowItWorks ? (
+                  <div className="sr-copy space-y-4">
+                    <RichContentRenderer content={treatment.how_it_works as string} />
+                  </div>
+                ) : (
+                  <ol className="space-y-4 list-none p-0 m-0">
+                    {howItWorks.map((step, idx) => (
+                      <li key={idx} className="flex items-start gap-4">
+                        <span className="w-7 h-7 rounded-full bg-[var(--mint)] text-[var(--ink)] font-serif font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 border border-[rgba(22,55,76,0.12)]">
+                          {idx + 1}
+                        </span>
+                        <div className="sr-copy text-sm leading-relaxed m-0 text-[var(--ink)]">
+                          {typeof step === 'object' && step !== null ? (
+                            <>
+                              {step.title && <strong className="block text-[var(--ink)] font-semibold mb-0.5">{step.title}</strong>}
+                              <span className="text-xs text-[#5a7d92]">{step.desc || step.description || step.text || ''}</span>
+                            </>
+                          ) : (
+                            <span>{String(step)}</span>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                )}
               </div>
             )}
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Search, MessageSquare, Phone, Mail, CheckCircle2, X, Trash2, MessageCircle, AlertTriangle } from 'lucide-react';
+import { Search, MessageSquare, Phone, Mail, CheckCircle2, X, Trash2, MessageCircle, AlertTriangle, Calendar, ArrowRight, Clock, User, FileText } from 'lucide-react';
 import { api } from '../../utils/api';
 
 export const AdminEnquiriesPage: React.FC = () => {
@@ -13,6 +13,22 @@ export const AdminEnquiriesPage: React.FC = () => {
   const [status, setStatus] = useState('new');
   const [saving, setSaving] = useState(false);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  // Convert/Forward to Appointment State
+  const [convertingEnquiry, setConvertingEnquiry] = useState<any | null>(null);
+  const [conversionData, setConversionData] = useState({
+    patient_name: '',
+    phone: '',
+    email: '',
+    department: 'Fertility & Reproductive Medicine',
+    doctor_name: 'Dr. S. Sreemantha Rao',
+    preferred_date: '',
+    preferred_time: 'Morning (09:00 AM - 01:00 PM)',
+    status: 'waiting',
+    reason: '',
+    notes: '',
+  });
+  const [converting, setConverting] = useState(false);
 
   const loadEnquiries = async () => {
     try {
@@ -32,7 +48,45 @@ export const AdminEnquiriesPage: React.FC = () => {
 
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
     setNotification({ message, type });
-    setTimeout(() => setNotification(null), 3500);
+    setTimeout(() => setNotification(null), 4000);
+  };
+
+  const openConvertModal = (enq: any) => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dateStr = tomorrow.toISOString().split('T')[0];
+
+    setConvertingEnquiry(enq);
+    setConversionData({
+      patient_name: enq.name || '',
+      phone: enq.phone || '',
+      email: enq.email || '',
+      department: 'Fertility & Reproductive Medicine',
+      doctor_name: 'Dr. S. Sreemantha Rao',
+      preferred_date: dateStr,
+      preferred_time: 'Morning (09:00 AM - 01:00 PM)',
+      status: 'waiting',
+      reason: enq.subject ? `${enq.subject}: ${enq.message || ''}` : (enq.message || 'General Consultation'),
+      notes: `Forwarded from Enquiry #${enq.id}`,
+    });
+  };
+
+  const handleConvertSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!convertingEnquiry) return;
+    try {
+      setConverting(true);
+      await api.post(`/enquiries/${convertingEnquiry.id}/convert-to-appointment`, conversionData);
+      showToast(`Enquiry #${convertingEnquiry.id} successfully converted to Appointment with "Waiting" (Yellow) status!`);
+      setConvertingEnquiry(null);
+      if (selectedEnquiry?.id === convertingEnquiry.id) setSelectedEnquiry(null);
+      await loadEnquiries();
+    } catch (err: any) {
+      console.error('Convert failed:', err);
+      showToast(err?.message || 'Failed to convert enquiry to appointment.', 'error');
+    } finally {
+      setConverting(false);
+    }
   };
 
   const handleUpdate = async () => {
@@ -231,6 +285,16 @@ export const AdminEnquiriesPage: React.FC = () => {
                             </a>
                           )}
 
+                          {/* Convert to Appointment Button */}
+                          <button
+                            onClick={() => openConvertModal(enq)}
+                            className="btn btn-primary text-xs font-bold py-1.5 px-2.5 flex items-center gap-1.5 cursor-pointer shadow-xs bg-[#006c93] hover:bg-[#073d59] text-white"
+                            title="Convert / Forward to Appointment"
+                          >
+                            <Calendar size={13} />
+                            <span className="hidden sm:inline">To Appointment</span>
+                          </button>
+
                           {/* Review Modal Trigger */}
                           <button
                             onClick={() => {
@@ -347,6 +411,22 @@ export const AdminEnquiriesPage: React.FC = () => {
                 )}
               </div>
 
+              {/* Convert To Appointment Action in Modal */}
+              <div className="p-3 bg-blue-50/60 rounded-xl border border-blue-200/60 flex items-center justify-between">
+                <div>
+                  <span className="font-bold text-[var(--ink)] block">Convert to Appointment</span>
+                  <span className="text-[11px] text-[#5a7d92]">Schedule OPD slot with Waiting status</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => openConvertModal(selectedEnquiry)}
+                  className="btn btn-primary text-xs font-bold py-1.5 px-3 flex items-center gap-1.5 bg-[#006c93] hover:bg-[#073d59] text-white"
+                >
+                  <Calendar size={13} />
+                  <span>Forward</span>
+                </button>
+              </div>
+
               <div>
                 <label className="block text-xs font-bold text-[var(--ink)] uppercase tracking-wider mb-1">
                   Enquiry Status
@@ -392,6 +472,166 @@ export const AdminEnquiriesPage: React.FC = () => {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Convert to Appointment Modal */}
+      {convertingEnquiry && (
+        <div className="fixed inset-0 z-50 bg-[rgba(7,61,89,0.7)] backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl border border-[rgba(22,55,76,0.15)] p-6 sm:p-7 max-w-lg w-full shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-3 border-b border-[rgba(22,55,76,0.1)]">
+              <div>
+                <span className="text-[10px] font-bold text-[#ca8a04] uppercase tracking-wider block">
+                  Enquiry Conversion
+                </span>
+                <h3 className="text-lg font-bold text-[var(--ink)] font-display flex items-center gap-2">
+                  <Calendar className="w-5 h-5 text-[#006c93]" /> Forward to Appointment
+                </h3>
+              </div>
+              <button onClick={() => setConvertingEnquiry(null)} className="text-[#8ba2b1] hover:text-[var(--ink)]">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleConvertSubmit} className="space-y-4 text-xs">
+              <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-[#854d0e] flex items-center justify-between">
+                <span>Initial Appointment Status:</span>
+                <span className="font-extrabold px-3 py-1 rounded-full bg-[#fef08a] text-[#854d0e] border border-[#facc15]">
+                  ⏳ Waiting (Yellow)
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                    Patient Name <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={conversionData.patient_name}
+                    onChange={(e) => setConversionData({ ...conversionData, patient_name: e.target.value })}
+                    className="w-full bg-slate-50 border border-[rgba(22,55,76,0.18)] rounded-xl px-3 py-2 text-xs text-[var(--ink)] font-medium"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                    Phone Number <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={conversionData.phone}
+                    onChange={(e) => setConversionData({ ...conversionData, phone: e.target.value })}
+                    className="w-full bg-slate-50 border border-[rgba(22,55,76,0.18)] rounded-xl px-3 py-2 text-xs text-[var(--ink)] font-medium"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    value={conversionData.email}
+                    onChange={(e) => setConversionData({ ...conversionData, email: e.target.value })}
+                    placeholder="patient@example.com"
+                    className="w-full bg-slate-50 border border-[rgba(22,55,76,0.18)] rounded-xl px-3 py-2 text-xs text-[var(--ink)]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                    Department
+                  </label>
+                  <select
+                    value={conversionData.department}
+                    onChange={(e) => setConversionData({ ...conversionData, department: e.target.value })}
+                    className="w-full bg-slate-50 border border-[rgba(22,55,76,0.18)] rounded-xl px-3 py-2 text-xs text-[var(--ink)] font-medium"
+                  >
+                    <option value="Fertility & Reproductive Medicine">Fertility &amp; Reproductive Medicine</option>
+                    <option value="Women's Health & Maternity">Women's Health &amp; Maternity</option>
+                    <option value="Pediatrics & Neonatology">Pediatrics &amp; Neonatology</option>
+                    <option value="Fetal Medicine & Genetics">Fetal Medicine &amp; Genetics</option>
+                    <option value="General OPD & Wellness">General OPD &amp; Wellness</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                    Preferred Date
+                  </label>
+                  <input
+                    type="date"
+                    required
+                    value={conversionData.preferred_date}
+                    onChange={(e) => setConversionData({ ...conversionData, preferred_date: e.target.value })}
+                    className="w-full bg-slate-50 border border-[rgba(22,55,76,0.18)] rounded-xl px-3 py-2 text-xs text-[var(--ink)] font-medium"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                    Preferred Time Slot
+                  </label>
+                  <select
+                    value={conversionData.preferred_time}
+                    onChange={(e) => setConversionData({ ...conversionData, preferred_time: e.target.value })}
+                    className="w-full bg-slate-50 border border-[rgba(22,55,76,0.18)] rounded-xl px-3 py-2 text-xs text-[var(--ink)] font-medium"
+                  >
+                    <option value="Morning (09:00 AM - 01:00 PM)">Morning (09:00 AM - 01:00 PM)</option>
+                    <option value="Afternoon (01:00 PM - 04:00 PM)">Afternoon (01:00 PM - 04:00 PM)</option>
+                    <option value="Evening (04:00 PM - 08:00 PM)">Evening (04:00 PM - 08:00 PM)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                  Reason for Consultation / Chief Complaint
+                </label>
+                <textarea
+                  rows={2}
+                  value={conversionData.reason}
+                  onChange={(e) => setConversionData({ ...conversionData, reason: e.target.value })}
+                  className="w-full bg-slate-50 border border-[rgba(22,55,76,0.18)] rounded-xl px-3 py-2 text-xs text-[var(--ink)]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                  Internal Triage Notes
+                </label>
+                <input
+                  type="text"
+                  value={conversionData.notes}
+                  onChange={(e) => setConversionData({ ...conversionData, notes: e.target.value })}
+                  placeholder="e.g. Forwarded from contact enquiry, requested early slot..."
+                  className="w-full bg-slate-50 border border-[rgba(22,55,76,0.18)] rounded-xl px-3 py-2 text-xs text-[var(--ink)]"
+                />
+              </div>
+
+              <div className="pt-3 border-t border-[rgba(22,55,76,0.1)] flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setConvertingEnquiry(null)}
+                  className="btn btn-soft text-xs py-2 px-4"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={converting}
+                  className="btn btn-primary text-xs py-2 px-5 flex items-center gap-2 bg-[#006c93] hover:bg-[#073d59] text-white font-bold shadow-md cursor-pointer disabled:opacity-60"
+                >
+                  <Calendar size={14} />
+                  <span>{converting ? 'Forwarding...' : 'Confirm Appointment (Waiting)'}</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

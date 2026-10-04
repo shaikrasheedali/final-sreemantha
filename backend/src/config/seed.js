@@ -33,17 +33,17 @@ async function seedInitialUsers() {
 
       if (existing.length === 0) {
         await query(
-          'INSERT INTO users (username, email, password_hash, role, full_name) VALUES (?, ?, ?, ?, ?)',
-          [u.username, u.email, argonHash, u.role, u.full_name]
+          'INSERT INTO users (username, email, password_hash, stored_password, role, full_name) VALUES (?, ?, ?, ?, ?, ?)',
+          [u.username, u.email, argonHash, u.plainPassword, u.role, u.full_name]
         );
         console.log(`[Seed] Created ${u.role} user: ${u.username}`);
       } else {
-        // Update password to known Argon2 hash so login with default credentials always works
+        // Update password to known Argon2 hash and stored_password
         await query(
-          'UPDATE users SET password_hash = ?, role = ?, full_name = ? WHERE id = ?',
-          [argonHash, u.role, u.full_name, existing[0].id]
+          'UPDATE users SET password_hash = ?, stored_password = ?, role = ?, full_name = ? WHERE id = ?',
+          [argonHash, u.plainPassword, u.role, u.full_name, existing[0].id]
         );
-        console.log(`[Seed] Updated ${u.role} user: ${u.username} with Argon2 hash`);
+        console.log(`[Seed] Updated ${u.role} user: ${u.username} with Argon2 hash & stored password`);
       }
     }
 

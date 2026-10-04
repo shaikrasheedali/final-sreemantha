@@ -130,17 +130,21 @@ export const AdminAppointmentsPage: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
-          {['all', 'new', 'contacted', 'confirmed', 'completed', 'cancelled'].map((st) => (
+          {['all', 'waiting', 'consulted', 'new', 'contacted', 'confirmed', 'completed', 'cancelled'].map((st) => (
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
               className={`px-3 py-1.5 rounded-full text-xs font-bold capitalize transition-all whitespace-nowrap cursor-pointer ${
                 statusFilter === st
-                  ? 'bg-[var(--deep)] text-white shadow-xs'
+                  ? st === 'waiting'
+                    ? 'bg-[#eab308] text-white shadow-xs'
+                    : st === 'consulted'
+                    ? 'bg-[#16a34a] text-white shadow-xs'
+                    : 'bg-[var(--deep)] text-white shadow-xs'
                   : 'bg-[var(--cream)] text-[#5a7d92] hover:text-[var(--ink)] border border-[rgba(22,55,76,0.08)]'
               }`}
             >
-              {st}
+              {st === 'waiting' ? '⏳ Waiting' : st === 'consulted' ? '✅ Consulted' : st}
             </button>
           ))}
         </div>
@@ -165,7 +169,7 @@ export const AdminAppointmentsPage: React.FC = () => {
                   <th className="px-6 py-4">Patient Details</th>
                   <th className="px-6 py-4">Department &amp; Doctor</th>
                   <th className="px-6 py-4">Preferred Slot</th>
-                  <th className="px-6 py-4">Status</th>
+                  <th className="px-6 py-4">Status &amp; Triage</th>
                   <th className="px-6 py-4 text-right">Direct Actions</th>
                 </tr>
               </thead>
@@ -177,6 +181,7 @@ export const AdminAppointmentsPage: React.FC = () => {
                     `Hello ${patientName}, regarding your appointment request at Sreemantha Hospital for ${a.department || 'Specialist Consultation'}.`
                   )}`;
                   const telUrl = `tel:${(a.phone || '').replace(/\s+/g, '')}`;
+                  const currentStatus = (a.status || 'waiting').toLowerCase();
 
                   return (
                     <tr key={a.id} className="hover:bg-[var(--cream)]/60 transition-colors">
@@ -188,6 +193,11 @@ export const AdminAppointmentsPage: React.FC = () => {
                         {a.email && (
                           <div className="text-xs text-[#8ba2b1] flex items-center gap-1.5 mt-0.5">
                             <Mail className="w-3.5 h-3.5" /> {a.email}
+                          </div>
+                        )}
+                        {a.notes && (
+                          <div className="text-[11px] text-[#5a7d92] italic mt-1 bg-amber-50/80 p-1.5 rounded border border-amber-200/50">
+                            Note: {a.notes}
                           </div>
                         )}
                       </td>
@@ -204,21 +214,80 @@ export const AdminAppointmentsPage: React.FC = () => {
                         <div className="text-xs text-[#8ba2b1] mt-0.5">{a.preferred_time || 'General Slot'}</div>
                       </td>
                       <td className="px-6 py-4">
-                        <span
-                          className={`inline-block text-xs font-bold px-3 py-1 rounded-full capitalize ${
-                            a.status === 'confirmed'
-                              ? 'bg-[var(--mint)] text-[var(--teal)] border border-[var(--teal)]/20'
-                              : a.status === 'contacted'
-                              ? 'bg-sky-100 text-sky-800'
-                              : a.status === 'completed'
-                              ? 'bg-emerald-100 text-emerald-800'
-                              : a.status === 'cancelled'
-                              ? 'bg-rose-100 text-rose-800'
-                              : 'bg-[#fff1d8] text-[#a56a22]'
-                          }`}
-                        >
-                          {a.status || 'new'}
-                        </span>
+                        <div className="space-y-1.5">
+                          <span
+                            className={`inline-flex items-center gap-1.5 text-xs font-extrabold px-3 py-1 rounded-full capitalize shadow-2xs ${
+                              currentStatus === 'waiting'
+                                ? 'bg-[#fef08a] text-[#854d0e] border border-[#facc15]'
+                                : currentStatus === 'consulted'
+                                ? 'bg-[#bbf7d0] text-[#166534] border border-[#4ade80]'
+                                : currentStatus === 'confirmed'
+                                ? 'bg-[var(--mint)] text-[var(--teal)] border border-[var(--teal)]/20'
+                                : currentStatus === 'contacted'
+                                ? 'bg-sky-100 text-sky-800'
+                                : currentStatus === 'completed'
+                                ? 'bg-emerald-100 text-emerald-800'
+                                : currentStatus === 'cancelled'
+                                ? 'bg-rose-100 text-rose-800'
+                                : 'bg-[#fff1d8] text-[#a56a22]'
+                            }`}
+                          >
+                            <span
+                              className={`w-2 h-2 rounded-full ${
+                                currentStatus === 'waiting'
+                                  ? 'bg-[#ca8a04] animate-pulse'
+                                  : currentStatus === 'consulted'
+                                  ? 'bg-[#16a34a]'
+                                  : 'bg-current'
+                              }`}
+                            />
+                            {a.status || 'waiting'}
+                          </span>
+
+                          {/* Quick 1-Click Status Switcher between Waiting (Yellow) and Consulted (Green) */}
+                          <div className="flex items-center gap-1 pt-0.5">
+                            <button
+                              type="button"
+                              onClick={async () => {
+                                try {
+                                  await api.put(`/appointments/${a.id}`, { status: 'waiting' });
+                                  showToast(`Appointment #${a.id} set to Waiting status.`);
+                                  await loadAppointments();
+                                } catch (err) {
+                                  showToast('Failed to update status', 'error');
+                                }
+                              }}
+                              className={`text-[10px] px-2 py-0.5 rounded font-bold transition-all cursor-pointer ${
+                                currentStatus === 'waiting'
+                                  ? 'bg-[#facc15] text-[#713f12] ring-1 ring-[#ca8a04]'
+                                  : 'bg-amber-50 hover:bg-[#fef08a] text-[#854d0e] border border-amber-200'
+                              }`}
+                              title="Set status to Waiting (Yellow)"
+                            >
+                              Waiting
+                            </button>
+                            <button
+                              type="button"
+                              onClick={async () => {
+                                try {
+                                  await api.put(`/appointments/${a.id}`, { status: 'consulted' });
+                                  showToast(`Appointment #${a.id} set to Consulted status.`);
+                                  await loadAppointments();
+                                } catch (err) {
+                                  showToast('Failed to update status', 'error');
+                                }
+                              }}
+                              className={`text-[10px] px-2 py-0.5 rounded font-bold transition-all cursor-pointer ${
+                                currentStatus === 'consulted'
+                                  ? 'bg-[#4ade80] text-[#14532d] ring-1 ring-[#16a34a]'
+                                  : 'bg-emerald-50 hover:bg-[#bbf7d0] text-[#166534] border border-emerald-200'
+                              }`}
+                              title="Set status to Consulted (Green)"
+                            >
+                              Consulted
+                            </button>
+                          </div>
+                        </div>
                       </td>
                       <td className="px-6 py-4 text-right">
                         <div className="flex items-center justify-end gap-1.5">
@@ -360,8 +429,10 @@ export const AdminAppointmentsPage: React.FC = () => {
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
-                  className="w-full bg-white border border-[rgba(22,55,76,0.18)] rounded-xl px-4 py-2 text-xs text-[var(--ink)]"
+                  className="w-full bg-white border border-[rgba(22,55,76,0.18)] rounded-xl px-4 py-2 text-xs text-[var(--ink)] font-semibold"
                 >
+                  <option value="waiting">⏳ Waiting (Yellow)</option>
+                  <option value="consulted">✅ Consulted (Green)</option>
                   <option value="new">New</option>
                   <option value="contacted">Contacted</option>
                   <option value="confirmed">Confirmed</option>

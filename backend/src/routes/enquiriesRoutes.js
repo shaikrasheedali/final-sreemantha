@@ -4,6 +4,7 @@ const {
   createEnquiry,
   updateEnquiry,
   deleteEnquiry,
+  convertToAppointment,
 } = require('../controllers/enquiriesController');
 const { authenticateToken, requireRole } = require('../middleware/auth');
 
@@ -11,6 +12,7 @@ const router = express.Router();
 
 router.get('/', authenticateToken, requireRole('superadmin', 'admin', 'staff'), getAllEnquiries);
 router.post('/', createEnquiry);
+router.post('/:id/convert-to-appointment', authenticateToken, requireRole('superadmin', 'admin', 'staff'), convertToAppointment);
 router.put('/:id', authenticateToken, requireRole('superadmin', 'admin', 'staff'), updateEnquiry);
 router.delete('/:id', authenticateToken, requireRole('superadmin', 'admin'), deleteEnquiry);
 

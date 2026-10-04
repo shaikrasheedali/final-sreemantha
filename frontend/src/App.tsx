@@ -163,7 +163,7 @@ export const App: React.FC = () => {
               <Route
                 path="users"
                 element={
-                  <ProtectedRoute allowedRoles={['superadmin']}>
+                  <ProtectedRoute allowedRoles={['superadmin', 'admin']}>
                     <AdminUsersPage />
                   </ProtectedRoute>
                 }

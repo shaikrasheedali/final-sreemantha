@@ -14,6 +14,9 @@ function parseJsonField(val, fallback = []) {
   try {
     return JSON.parse(val);
   } catch (e) {
+    if (typeof val === 'string' && val.trim().length > 0) {
+      return val;
+    }
     return fallback;
   }
 }

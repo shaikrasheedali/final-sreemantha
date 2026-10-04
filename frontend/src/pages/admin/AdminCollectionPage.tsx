@@ -62,6 +62,43 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
     setTimeout(() => setNotification(null), 4000);
   };
 
+  const formatHowItWorksToHtml = (val: any): string => {
+    if (!val) return '';
+    if (typeof val === 'string') {
+      const trimmed = val.trim();
+      if (trimmed.startsWith('[') || trimmed.startsWith('{')) {
+        try {
+          const parsed = JSON.parse(trimmed);
+          return formatHowItWorksToHtml(parsed);
+        } catch {
+          // Plain text or html string
+        }
+      }
+      if (!/<[a-z][\s\S]*>/i.test(trimmed)) {
+        return trimmed
+          .split('\n')
+          .filter(Boolean)
+          .map((line) => `<p>${line.trim()}</p>`)
+          .join('');
+      }
+      return trimmed;
+    }
+    if (Array.isArray(val)) {
+      if (val.length === 0) return '';
+      return `<ol>${val
+        .map((step, idx) => {
+          if (typeof step === 'object' && step !== null) {
+            const title = step.title || step.name || `Step ${step.step || idx + 1}`;
+            const desc = step.desc || step.description || step.text || '';
+            return `<li><strong>${title}</strong>${desc ? `: ${desc}` : ''}</li>`;
+          }
+          return `<li>${String(step)}</li>`;
+        })
+        .join('')}</ol>`;
+    }
+    return String(val);
+  };
+
   const handleCreateNew = () => {
     const baseForm: Record<string, any> = {
       status: 'published'
@@ -71,19 +108,24 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
 
     if (type === 'doctors') {
       baseForm.name = '';
+      baseForm.title = '';
       baseForm.slug = '';
       baseForm.specialty = 'Fertility & Reproductive Medicine';
+      baseForm.department = 'Fertility & Reproductive Medicine';
       baseForm.designation = 'Senior Consultant';
       baseForm.qualifications = 'MBBS, MD';
       baseForm.experience = '10+ Years Experience';
       baseForm.languages = 'English, Telugu, Hindi';
       initialMedia = ['https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80'];
       baseForm.bio = '<p>Write doctor biography and clinical focus here...</p>';
+      baseForm.full_bio = baseForm.bio;
     } else if (type === 'insights') {
       baseForm.title = '';
+      baseForm.name = '';
       baseForm.slug = '';
       baseForm.category = 'Fertility';
       baseForm.excerpt = '';
+      baseForm.summary = '';
       baseForm.author = 'Clinical Faculty';
       baseForm.read_time = '5 min read';
       initialMedia = ['https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80'];
@@ -92,14 +134,17 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
     } else {
       // facilities, specialties, treatments
       baseForm.title = '';
+      baseForm.name = '';
       baseForm.slug = '';
       baseForm.category = type === 'facilities' ? 'Advanced Infrastructure' : type === 'specialties' ? 'Reproductive Medicine' : 'Fertility Procedures';
       baseForm.short_description = '';
       initialMedia = ['https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80'];
       baseForm.content = '<p>Detailed clinical explanation, procedures, and patient guidelines...</p>';
+      baseForm.overview = baseForm.content;
+      baseForm.description = baseForm.content;
       if (type === 'treatments') {
         baseForm.typical_duration = '2 - 3 Weeks';
-        baseForm.how_it_works = '<ol><li>Initial evaluation & diagnostics</li><li>Treatment protocol initiation</li><li>Procedure execution</li><li>Monitoring & post-care</li></ol>';
+        baseForm.how_it_works = '<ol><li><strong>Step 1: Clinical Evaluation</strong>: Detailed diagnosis and patient assessment</li><li><strong>Step 2: Treatment Protocol</strong>: Initiation of tailored therapy</li><li><strong>Step 3: Procedure Execution</strong>: Advanced procedure in our cleanroom modular facility</li><li><strong>Step 4: Monitoring & Post-Care</strong>: Continuous observation and follow-up support</li></ol>';
       }
     }
 
@@ -111,7 +156,35 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
 
   const handleEdit = (item: any) => {
     setSelectedItem(item);
-    setForm({ ...item });
+    const formCopy: Record<string, any> = { ...item };
+
+    // Standardize title and name
+    formCopy.title = item.title || item.name || '';
+    formCopy.name = item.name || item.title || '';
+
+    // Standardize description, overview, content
+    const richBody = item.content || item.overview || item.description || item.full_bio || item.bio || '';
+    formCopy.content = richBody;
+    formCopy.overview = item.overview || richBody;
+    formCopy.description = item.description || richBody;
+    formCopy.full_bio = item.full_bio || item.bio || richBody;
+    formCopy.bio = item.bio || item.full_bio || richBody;
+
+    // Standardize excerpt and summary
+    formCopy.short_description = item.short_description || item.excerpt || item.summary || '';
+    formCopy.excerpt = item.excerpt || item.summary || item.short_description || '';
+    formCopy.summary = item.summary || item.excerpt || item.short_description || '';
+
+    // Standardize department & specialty
+    formCopy.department = item.department || item.specialty || '';
+    formCopy.specialty = item.specialty || item.department || '';
+
+    // Treatments: format how_it_works
+    if (type === 'treatments') {
+      formCopy.how_it_works = formatHowItWorksToHtml(item.how_it_works);
+    }
+
+    setForm(formCopy);
     const rawMedia = item.image_url || item.photo_url || item.hero_media || item.hero_image || item.profile_photo;
     setMediaList(parseMediaList(rawMedia));
     setIsEditing(true);
@@ -182,6 +255,19 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
 
       const payload: Record<string, any> = {
         ...form,
+        title: form.title || form.name || '',
+        name: form.name || form.title || '',
+        overview: form.overview || form.content || form.description || '',
+        content: form.content || form.overview || form.description || '',
+        description: form.description || form.content || form.overview || '',
+        summary: form.summary || form.excerpt || form.short_description || '',
+        excerpt: form.excerpt || form.summary || form.short_description || '',
+        short_description: form.short_description || form.excerpt || form.summary || '',
+        department: form.department || form.specialty || '',
+        specialty: form.specialty || form.department || '',
+        full_bio: form.full_bio || form.bio || form.content || '',
+        bio: form.bio || form.full_bio || form.content || '',
+        how_it_works: form.how_it_works,
         image_url: mediaVal,
         photo_url: mediaVal,
         hero_media: mediaVal,

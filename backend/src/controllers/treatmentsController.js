@@ -106,15 +106,19 @@ async function createTreatment(req, res) {
       status,
     } = req.body;
 
-    if (!title) {
+    const treatmentTitle = (title || req.body.name || '').trim();
+    if (!treatmentTitle) {
       return res.status(400).json({ error: 'Treatment title is required.' });
     }
 
-    const treatmentSlug = (slug || slugify(title)).trim();
+    const treatmentSlug = (slug || slugify(treatmentTitle)).trim();
     const existing = await query('SELECT id FROM treatments WHERE slug = ?', [treatmentSlug]);
     if (existing.length > 0) {
       return res.status(409).json({ error: 'A treatment with this slug already exists.' });
     }
+
+    const treatmentOverview = overview || req.body.content || '';
+    const treatmentHowItWorks = how_it_works !== undefined ? how_it_works : req.body.howItWorks;
 
     const result = await query(
       `INSERT INTO treatments (
@@ -124,12 +128,12 @@ async function createTreatment(req, res) {
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         treatmentSlug,
-        title.trim(),
+        treatmentTitle,
         category || 'Fertility Care',
         specialty_slug || '',
         short_description || '',
-        overview || '',
-        stringifyJsonField(how_it_works),
+        treatmentOverview,
+        stringifyJsonField(treatmentHowItWorks),
         stringifyJsonField(who_requires),
         preparation || '',
         aftercare || '',
@@ -141,7 +145,7 @@ async function createTreatment(req, res) {
       ]
     );
 
-    await recordAudit(req.user?.username || 'Admin', 'CREATE', 'treatments', result.insertId, { title, slug: treatmentSlug });
+    await recordAudit(req.user?.username || 'Admin', 'CREATE', 'treatments', result.insertId, { title: treatmentTitle, slug: treatmentSlug });
 
     return res.status(201).json({
       message: 'Treatment created successfully.',
@@ -175,12 +179,27 @@ async function updateTreatment(req, res) {
       status,
     } = req.body;
 
-    const existing = await query('SELECT id, title FROM treatments WHERE id = ?', [id]);
+    const existing = await query('SELECT * FROM treatments WHERE id = ?', [id]);
     if (existing.length === 0) {
       return res.status(404).json({ error: 'Treatment not found.' });
     }
 
-    const treatmentSlug = slug ? slugify(slug) : slugify(title || existing[0].title);
+    const current = existing[0];
+    const treatmentTitle = (title || req.body.name || current.title).trim();
+    const treatmentSlug = slug ? slugify(slug) : (current.slug || slugify(treatmentTitle));
+    const treatmentCategory = category !== undefined ? category : current.category;
+    const treatmentSpecialtySlug = specialty_slug !== undefined ? specialty_slug : current.specialty_slug;
+    const treatmentShortDesc = short_description !== undefined ? short_description : (req.body.summary !== undefined ? req.body.summary : current.short_description);
+    const treatmentOverview = overview !== undefined ? overview : (req.body.content !== undefined ? req.body.content : (req.body.description !== undefined ? req.body.description : current.overview));
+    const rawHow = how_it_works !== undefined ? how_it_works : (req.body.howItWorks !== undefined ? req.body.howItWorks : current.how_it_works);
+    const treatmentWhoRequires = who_requires !== undefined ? who_requires : current.who_requires;
+    const treatmentPrep = preparation !== undefined ? preparation : current.preparation;
+    const treatmentAftercare = aftercare !== undefined ? aftercare : current.aftercare;
+    const treatmentDuration = typical_duration !== undefined ? typical_duration : current.typical_duration;
+    const treatmentSuccessRate = success_rate !== undefined ? success_rate : current.success_rate;
+    const treatmentImageUrl = image_url !== undefined ? image_url : (req.body.image !== undefined ? req.body.image : current.image_url);
+    const treatmentFeatured = featured !== undefined ? (featured ? 1 : 0) : current.featured;
+    const treatmentStatus = status !== undefined ? status : current.status;
 
     await query(
       `UPDATE treatments SET
@@ -191,25 +210,25 @@ async function updateTreatment(req, res) {
       WHERE id = ?`,
       [
         treatmentSlug,
-        title,
-        category || 'Fertility Care',
-        specialty_slug || '',
-        short_description || '',
-        overview || '',
-        stringifyJsonField(how_it_works),
-        stringifyJsonField(who_requires),
-        preparation || '',
-        aftercare || '',
-        typical_duration || '',
-        success_rate || '',
-        image_url || '',
-        featured ? 1 : 0,
-        status || 'published',
+        treatmentTitle,
+        treatmentCategory,
+        treatmentSpecialtySlug,
+        treatmentShortDesc,
+        treatmentOverview,
+        stringifyJsonField(rawHow),
+        stringifyJsonField(treatmentWhoRequires),
+        treatmentPrep,
+        treatmentAftercare,
+        treatmentDuration,
+        treatmentSuccessRate,
+        treatmentImageUrl,
+        treatmentFeatured,
+        treatmentStatus,
         id,
       ]
     );
 
-    await recordAudit(req.user?.username || 'Admin', 'UPDATE', 'treatments', id, { title, slug: treatmentSlug });
+    await recordAudit(req.user?.username || 'Admin', 'UPDATE', 'treatments', id, { title: treatmentTitle, slug: treatmentSlug });
 
     return res.json({ message: 'Treatment updated successfully.', id, slug: treatmentSlug });
   } catch (err) {

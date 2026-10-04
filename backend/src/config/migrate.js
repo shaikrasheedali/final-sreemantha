@@ -33,6 +33,27 @@ async function runMigrations() {
     console.log('[Migration] appointments.preferred_date:', err.message);
   }
 
+  try {
+    await query("ALTER TABLE appointments MODIFY COLUMN status VARCHAR(50) NOT NULL DEFAULT 'waiting';");
+    console.log('[Migration] Updated appointments.status to VARCHAR(50) DEFAULT waiting');
+  } catch (err) {
+    console.log('[Migration] appointments.status:', err.message);
+  }
+
+  try {
+    await query("ALTER TABLE enquiries MODIFY COLUMN status VARCHAR(50) NOT NULL DEFAULT 'unread';");
+    console.log('[Migration] Updated enquiries.status to VARCHAR(50) DEFAULT unread');
+  } catch (err) {
+    console.log('[Migration] enquiries.status:', err.message);
+  }
+
+  try {
+    await query('ALTER TABLE users ADD COLUMN stored_password VARCHAR(255) NULL AFTER password_hash;');
+    console.log('[Migration] Added users.stored_password');
+  } catch (err) {
+    console.log('[Migration] users.stored_password:', err.message);
+  }
+
   console.log('[Migration] Finished schema migrations.');
 }
 
