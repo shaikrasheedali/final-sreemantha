@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { recordAudit } = require('../middleware/auth');
 
@@ -16,7 +17,7 @@ async function getAllFaqs(req, res) {
     const items = await query(sql, params);
     return res.json({ faqs: items });
   } catch (err) {
-    console.error('Get FAQs error:', err);
+    logger.error('Get FAQs error:', err, 'FAQS');
     return res.status(500).json({ error: 'Failed to retrieve FAQs.' });
   }
 }
@@ -34,7 +35,7 @@ async function createFaq(req, res) {
     await recordAudit(req.user?.username || 'Staff', 'CREATE', 'faqs', result.insertId, { question });
     return res.status(201).json({ message: 'FAQ created.', id: result.insertId });
   } catch (err) {
-    console.error('Create FAQ error:', err);
+    logger.error('Create FAQ error:', err, 'FAQS');
     return res.status(500).json({ error: 'Failed to create FAQ.' });
   }
 }
@@ -52,7 +53,7 @@ async function updateFaq(req, res) {
     await recordAudit(req.user?.username || 'Staff', 'UPDATE', 'faqs', id, { question });
     return res.json({ message: 'FAQ updated.' });
   } catch (err) {
-    console.error('Update FAQ error:', err);
+    logger.error('Update FAQ error:', err, 'FAQS');
     return res.status(500).json({ error: 'Failed to update FAQ.' });
   }
 }
@@ -64,7 +65,7 @@ async function deleteFaq(req, res) {
     await recordAudit(req.user?.username || 'Staff', 'DELETE', 'faqs', id, { id });
     return res.json({ message: 'FAQ deleted.' });
   } catch (err) {
-    console.error('Delete FAQ error:', err);
+    logger.error('Delete FAQ error:', err, 'FAQS');
     return res.status(500).json({ error: 'Failed to delete FAQ.' });
   }
 }

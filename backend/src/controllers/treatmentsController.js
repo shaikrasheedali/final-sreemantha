@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { slugify, parseJsonField, stringifyJsonField } = require('../utils/helpers');
 const { recordAudit } = require('../middleware/auth');
@@ -45,7 +46,7 @@ async function getAllTreatments(req, res) {
       })),
     });
   } catch (err) {
-    console.error('Get treatments error:', err);
+    logger.error('Get treatments error:', err, 'TREATMENTS');
     return res.status(500).json({ error: 'Failed to retrieve treatments.' });
   }
 }
@@ -81,7 +82,7 @@ async function getTreatmentBySlug(req, res) {
       relatedDoctors: doctors,
     });
   } catch (err) {
-    console.error('Get treatment error:', err);
+    logger.error('Get treatment error:', err, 'TREATMENTS');
     return res.status(500).json({ error: 'Failed to retrieve treatment details.' });
   }
 }
@@ -153,7 +154,7 @@ async function createTreatment(req, res) {
       slug: treatmentSlug,
     });
   } catch (err) {
-    console.error('Create treatment error:', err);
+    logger.error('Create treatment error:', err, 'TREATMENTS');
     return res.status(500).json({ error: 'Failed to create treatment.' });
   }
 }
@@ -232,7 +233,7 @@ async function updateTreatment(req, res) {
 
     return res.json({ message: 'Treatment updated successfully.', id, slug: treatmentSlug });
   } catch (err) {
-    console.error('Update treatment error:', err);
+    logger.error('Update treatment error:', err, 'TREATMENTS');
     return res.status(500).json({ error: 'Failed to update treatment.' });
   }
 }
@@ -250,7 +251,7 @@ async function deleteTreatment(req, res) {
 
     return res.json({ message: 'Treatment deleted successfully.' });
   } catch (err) {
-    console.error('Delete treatment error:', err);
+    logger.error('Delete treatment error:', err, 'TREATMENTS');
     return res.status(500).json({ error: 'Failed to delete treatment.' });
   }
 }

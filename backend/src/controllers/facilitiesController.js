@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { slugify, parseJsonField, stringifyJsonField } = require('../utils/helpers');
 const { recordAudit } = require('../middleware/auth');
@@ -31,7 +32,7 @@ async function getAllFacilities(req, res) {
       })),
     });
   } catch (err) {
-    console.error('Get facilities error:', err);
+    logger.error('Get facilities error:', err, 'FACILITIES');
     return res.status(500).json({ error: 'Failed to retrieve facilities.' });
   }
 }
@@ -53,7 +54,7 @@ async function getFacilityBySlug(req, res) {
       },
     });
   } catch (err) {
-    console.error('Get facility error:', err);
+    logger.error('Get facility error:', err, 'FACILITIES');
     return res.status(500).json({ error: 'Failed to retrieve facility details.' });
   }
 }
@@ -96,7 +97,7 @@ async function createFacility(req, res) {
       slug: facilitySlug,
     });
   } catch (err) {
-    console.error('Create facility error:', err);
+    logger.error('Create facility error:', err, 'FACILITIES');
     return res.status(500).json({ error: 'Failed to create facility.' });
   }
 }
@@ -140,7 +141,7 @@ async function updateFacility(req, res) {
 
     return res.json({ message: 'Facility updated successfully.', id, slug: facilitySlug });
   } catch (err) {
-    console.error('Update facility error:', err);
+    logger.error('Update facility error:', err, 'FACILITIES');
     return res.status(500).json({ error: 'Failed to update facility.' });
   }
 }
@@ -158,7 +159,7 @@ async function deleteFacility(req, res) {
 
     return res.json({ message: 'Facility deleted successfully.' });
   } catch (err) {
-    console.error('Delete facility error:', err);
+    logger.error('Delete facility error:', err, 'FACILITIES');
     return res.status(500).json({ error: 'Failed to delete facility.' });
   }
 }

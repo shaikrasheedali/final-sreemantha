@@ -116,7 +116,7 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
       baseForm.qualifications = 'MBBS, MD';
       baseForm.experience = '10+ Years Experience';
       baseForm.languages = 'English, Telugu, Hindi';
-      initialMedia = ['https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80'];
+      initialMedia = ['/images/reception-newborn-card.webp'];
       baseForm.bio = '<p>Write doctor biography and clinical focus here...</p>';
       baseForm.full_bio = baseForm.bio;
     } else if (type === 'insights') {
@@ -128,7 +128,7 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
       baseForm.summary = '';
       baseForm.author = 'Clinical Faculty';
       baseForm.read_time = '5 min read';
-      initialMedia = ['https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80'];
+      initialMedia = ['/images/blogs/blog-you-trust-we-care.webp'];
       baseForm.content = '<p>Write comprehensive medical article here...</p>';
       baseForm.featured = false;
     } else {
@@ -138,7 +138,7 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
       baseForm.slug = '';
       baseForm.category = type === 'facilities' ? 'Advanced Infrastructure' : type === 'specialties' ? 'Reproductive Medicine' : 'Fertility Procedures';
       baseForm.short_description = '';
-      initialMedia = ['https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80'];
+      initialMedia = ['/images/hospital-exterior.webp'];
       baseForm.content = '<p>Detailed clinical explanation, procedures, and patient guidelines...</p>';
       baseForm.overview = baseForm.content;
       baseForm.description = baseForm.content;

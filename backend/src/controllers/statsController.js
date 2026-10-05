@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 
 async function getDashboardStats(req, res) {
@@ -31,7 +32,7 @@ async function getDashboardStats(req, res) {
       recentAudit,
     });
   } catch (err) {
-    console.error('Get dashboard stats error:', err);
+    logger.error('Get dashboard stats error:', err, 'STATS');
     return res.status(500).json({ error: 'Failed to retrieve dashboard statistics.' });
   }
 }

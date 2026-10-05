@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -114,7 +115,7 @@ async function handleUpload(req, res) {
       },
     });
   } catch (err) {
-    console.error('Media upload error:', err);
+    logger.error('Media upload error:', err, 'MEDIA');
     return res.status(500).json({ error: 'Failed to process and store media asset: ' + err.message });
   }
 }
@@ -139,7 +140,7 @@ async function getAllMedia(req, res) {
     const assets = await query(sql, params);
     return res.json({ assets });
   } catch (err) {
-    console.error('Get media assets error:', err);
+    logger.error('Get media assets error:', err, 'MEDIA');
     return res.status(500).json({ error: 'Failed to retrieve media assets.' });
   }
 }
@@ -170,7 +171,7 @@ async function deleteMedia(req, res) {
     await query('DELETE FROM media_assets WHERE id = ?', [id]);
     return res.json({ message: 'Media asset permanently deleted.' });
   } catch (err) {
-    console.error('Delete media asset error:', err);
+    logger.error('Delete media asset error:', err, 'MEDIA');
     return res.status(500).json({ error: 'Failed to delete media asset.' });
   }
 }

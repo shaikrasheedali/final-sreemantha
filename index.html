@@ -978,7 +978,7 @@
       .map {
         min-height: 520px;
         position: relative;
-        background: url("https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80")
+        background: url("./frontend/public/images/hospital-exterior-banner.webp")
           center/cover;
       }
       .map:after {
@@ -4253,34 +4253,34 @@
     <script type="text/babel">
       const { useState, useEffect, useRef } = React;
       const images = {
-        hero: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=2000&q=88",
+        hero: "./frontend/public/images/hospital-exterior-banner.webp",
         mother:
-          "https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&w=1000&q=85",
-        baby: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=700&q=85",
-        nicu: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1400&q=85",
+          "./frontend/public/images/reception-newborn.webp",
+        baby: "./frontend/public/images/reception-newborn-card.webp",
+        nicu: "./frontend/public/images/incubator-nicu.webp",
         patient:
-          "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1000&q=85",
+          "./frontend/public/images/reception-newborn.webp",
         login:
-          "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1400&q=85",
+          "./frontend/public/images/hospital-exterior.webp",
       };
       const doctorSeed = [
         {
-          name: "Dr. Krishna Reddy",
-          role: "Senior Pediatrician",
-          exp: "14+ years experience",
-          img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=500&q=80",
+          name: "Dr. G. Sindhu (Dr. Sindhu Gundamalla)",
+          role: "Obstetrics, Gynecology & Infertility Specialist",
+          exp: "12+ years experience · Osmania Medical College",
+          img: "./frontend/public/images/reception-newborn-card.webp",
         },
         {
-          name: "Dr. Sravani Rao",
-          role: "Fertility & IVF Specialist",
-          exp: "12+ years experience",
-          img: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=500&q=80",
+          name: "Dr. B. V. N. Krishna",
+          role: "Pediatrician & Neonatologist",
+          exp: "11+ years experience · VMMC & Safdarjung Hospital Delhi",
+          img: "./frontend/public/images/incubator-nicu-card.webp",
         },
         {
-          name: "Dr. Ananya Varma",
-          role: "Obstetrician & Gynecologist",
-          exp: "10+ years experience",
-          img: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=500&q=80",
+          name: "Dr. G. Latha",
+          role: "Pediatrician & Neonatologist",
+          exp: "14+ years experience · Kakatiya Medical College",
+          img: "./frontend/public/images/operation-theatre-card.webp",
         },
       ];
       const serviceSeed = [

@@ -44,8 +44,8 @@ export const StaffLoginPage: React.FC = () => {
       {/* Left visual column */}
       <section className="login-visual">
         <img
-          src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1200&q=80"
-          alt="Hospital Care Team"
+          src="/images/hospital-exterior.webp"
+          alt="Sreemantha Hospital Campus"
         />
         <BrandLogo theme="dark" />
         <div className="login-quote">

@@ -47,7 +47,7 @@ export const AboutPage: React.FC = () => {
           <div className="lg:col-span-7">
             <div className="rounded-3xl overflow-hidden shadow-xl h-[480px] sm:h-[560px] relative bg-[var(--mint)] border border-[rgba(22,55,76,0.12)]">
               <img
-                src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=1200&auto=format&fit=crop&q=85"
+                src="/images/reception-newborn.webp"
                 alt="Sreemantha Hospital clinical leadership and care team"
                 className="w-full h-full object-cover"
               />

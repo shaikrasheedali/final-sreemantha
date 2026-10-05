@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { recordAudit } = require('../middleware/auth');
 
@@ -21,7 +22,7 @@ async function getAllAppointments(req, res) {
     const items = await query(sql, params);
     return res.json({ appointments: items });
   } catch (err) {
-    console.error('Get appointments error:', err);
+    logger.error('Get appointments error:', err, 'APPOINTMENTS');
     return res.status(500).json({ error: 'Failed to retrieve appointments.' });
   }
 }
@@ -76,7 +77,7 @@ async function createAppointment(req, res) {
       id: result.insertId,
     });
   } catch (err) {
-    console.error('Create appointment error:', err);
+    logger.error('Create appointment error:', err, 'APPOINTMENTS');
     return res.status(500).json({ error: 'Failed to submit appointment request.' });
   }
 }
@@ -101,7 +102,7 @@ async function updateAppointment(req, res) {
     await recordAudit(req.user?.username || 'Staff', 'UPDATE', 'appointments', id, { status, doctor_name });
     return res.json({ message: 'Appointment updated successfully.' });
   } catch (err) {
-    console.error('Update appointment error:', err);
+    logger.error('Update appointment error:', err, 'APPOINTMENTS');
     return res.status(500).json({ error: 'Failed to update appointment.' });
   }
 }
@@ -113,7 +114,7 @@ async function deleteAppointment(req, res) {
     await recordAudit(req.user?.username || 'Admin', 'DELETE', 'appointments', id, { id });
     return res.json({ message: 'Appointment record deleted.' });
   } catch (err) {
-    console.error('Delete appointment error:', err);
+    logger.error('Delete appointment error:', err, 'APPOINTMENTS');
     return res.status(500).json({ error: 'Failed to delete appointment.' });
   }
 }

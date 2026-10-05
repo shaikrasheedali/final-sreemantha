@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { recordAudit } = require('../middleware/auth');
 
@@ -65,7 +66,7 @@ async function getAllGallery(req, res) {
 
     return res.json({ gallery: items, items: items });
   } catch (err) {
-    console.error('Get gallery error:', err);
+    logger.error('Get gallery error:', err, 'GALLERY');
     return res.status(500).json({ error: 'Failed to retrieve gallery items.' });
   }
 }
@@ -81,7 +82,7 @@ async function getGalleryById(req, res) {
 
     return res.json({ galleryItem: items[0] });
   } catch (err) {
-    console.error('Get gallery item error:', err);
+    logger.error('Get gallery item error:', err, 'GALLERY');
     return res.status(500).json({ error: 'Failed to retrieve gallery item.' });
   }
 }
@@ -119,7 +120,7 @@ async function createGalleryItem(req, res) {
       id: result.insertId,
     });
   } catch (err) {
-    console.error('Create gallery item error:', err);
+    logger.error('Create gallery item error:', err, 'GALLERY');
     return res.status(500).json({ error: 'Failed to create gallery item.' });
   }
 }
@@ -158,7 +159,7 @@ async function updateGalleryItem(req, res) {
 
     return res.json({ message: 'Gallery item updated successfully.', id });
   } catch (err) {
-    console.error('Update gallery item error:', err);
+    logger.error('Update gallery item error:', err, 'GALLERY');
     return res.status(500).json({ error: 'Failed to update gallery item.' });
   }
 }
@@ -176,7 +177,7 @@ async function deleteGalleryItem(req, res) {
 
     return res.json({ message: 'Gallery item deleted successfully.' });
   } catch (err) {
-    console.error('Delete gallery item error:', err);
+    logger.error('Delete gallery item error:', err, 'GALLERY');
     return res.status(500).json({ error: 'Failed to delete gallery item.' });
   }
 }

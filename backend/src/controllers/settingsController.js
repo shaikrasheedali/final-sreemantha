@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { parseJsonField, stringifyJsonField } = require('../utils/helpers');
 const { recordAudit } = require('../middleware/auth');
@@ -13,7 +14,7 @@ async function getSettings(req, res) {
 
     return res.json({ settings: settingsMap });
   } catch (err) {
-    console.error('Get settings error:', err);
+    logger.error('Get settings error:', err, 'SETTINGS');
     return res.status(500).json({ error: 'Failed to retrieve website settings.' });
   }
 }
@@ -40,7 +41,7 @@ async function updateSetting(req, res) {
 
     return res.json({ message: `Setting "${key}" updated successfully.`, key, value });
   } catch (err) {
-    console.error('Update setting error:', err);
+    logger.error('Update setting error:', err, 'SETTINGS');
     return res.status(500).json({ error: 'Failed to update setting.' });
   }
 }
@@ -65,7 +66,7 @@ async function updateSettings(req, res) {
     await recordAudit(req.user?.username || 'Admin', 'UPDATE', 'settings', 'bulk', { keys: Object.keys(payload) });
     return res.json({ message: 'Settings updated successfully.', settings: payload });
   } catch (err) {
-    console.error('Update settings error:', err);
+    logger.error('Update settings error:', err, 'SETTINGS');
     return res.status(500).json({ error: 'Failed to update settings.' });
   }
 }

@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { slugify, parseJsonField, stringifyJsonField } = require('../utils/helpers');
 const { recordAudit } = require('../middleware/auth');
@@ -35,7 +36,7 @@ async function getAllSpecialties(req, res) {
       })),
     });
   } catch (err) {
-    console.error('Get specialties error:', err);
+    logger.error('Get specialties error:', err, 'SPECIALTIES');
     return res.status(500).json({ error: 'Failed to retrieve specialties.' });
   }
 }
@@ -65,7 +66,7 @@ async function getSpecialtyBySlug(req, res) {
       relatedTreatments,
     });
   } catch (err) {
-    console.error('Get specialty error:', err);
+    logger.error('Get specialty error:', err, 'SPECIALTIES');
     return res.status(500).json({ error: 'Failed to retrieve specialty details.' });
   }
 }
@@ -108,7 +109,7 @@ async function createSpecialty(req, res) {
       slug: specialtySlug,
     });
   } catch (err) {
-    console.error('Create specialty error:', err);
+    logger.error('Create specialty error:', err, 'SPECIALTIES');
     return res.status(500).json({ error: 'Failed to create specialty.' });
   }
 }
@@ -146,7 +147,7 @@ async function updateSpecialty(req, res) {
 
     return res.json({ message: 'Specialty updated successfully.', id, slug: specialtySlug });
   } catch (err) {
-    console.error('Update specialty error:', err);
+    logger.error('Update specialty error:', err, 'SPECIALTIES');
     return res.status(500).json({ error: 'Failed to update specialty.' });
   }
 }
@@ -164,7 +165,7 @@ async function deleteSpecialty(req, res) {
 
     return res.json({ message: 'Specialty deleted successfully.' });
   } catch (err) {
-    console.error('Delete specialty error:', err);
+    logger.error('Delete specialty error:', err, 'SPECIALTIES');
     return res.status(500).json({ error: 'Failed to delete specialty.' });
   }
 }

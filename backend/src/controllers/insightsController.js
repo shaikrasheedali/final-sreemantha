@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { slugify } = require('../utils/helpers');
 const { recordAudit } = require('../middleware/auth');
@@ -34,7 +35,7 @@ async function getAllInsights(req, res) {
 
     return res.json({ insights: items });
   } catch (err) {
-    console.error('Get insights error:', err);
+    logger.error('Get insights error:', err, 'INSIGHTS');
     return res.status(500).json({ error: 'Failed to retrieve insights/blog posts.' });
   }
 }
@@ -61,7 +62,7 @@ async function getInsightBySlug(req, res) {
       relatedInsights: related,
     });
   } catch (err) {
-    console.error('Get insight error:', err);
+    logger.error('Get insight error:', err, 'INSIGHTS');
     return res.status(500).json({ error: 'Failed to retrieve article details.' });
   }
 }
@@ -122,7 +123,7 @@ async function createInsight(req, res) {
       slug: postSlug,
     });
   } catch (err) {
-    console.error('Create insight error:', err);
+    logger.error('Create insight error:', err, 'INSIGHTS');
     return res.status(500).json({ error: 'Failed to create article.' });
   }
 }
@@ -178,7 +179,7 @@ async function updateInsight(req, res) {
 
     return res.json({ message: 'Article updated successfully.', id, slug: postSlug });
   } catch (err) {
-    console.error('Update insight error:', err);
+    logger.error('Update insight error:', err, 'INSIGHTS');
     return res.status(500).json({ error: 'Failed to update article.' });
   }
 }
@@ -196,7 +197,7 @@ async function deleteInsight(req, res) {
 
     return res.json({ message: 'Article deleted successfully.' });
   } catch (err) {
-    console.error('Delete insight error:', err);
+    logger.error('Delete insight error:', err, 'INSIGHTS');
     return res.status(500).json({ error: 'Failed to delete article.' });
   }
 }

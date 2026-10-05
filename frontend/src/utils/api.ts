@@ -1,3 +1,5 @@
+import { clientLogger } from './logger';
+
 const BASE_URL = '/api';
 
 export function getAuthToken(): string | null {
@@ -28,6 +30,7 @@ export async function apiRequest<T>(
 
   if (!response.ok) {
     const errorMsg = data.error || data.message || `Request failed with status ${response.status}`;
+    clientLogger.error('API', `${options.method || 'GET'} ${endpoint} -> ${response.status}: ${errorMsg}`, data);
     throw new Error(errorMsg);
   }
 

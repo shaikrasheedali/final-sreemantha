@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { recordAudit } = require('../middleware/auth');
 
@@ -6,7 +7,7 @@ async function getAllInsurance(req, res) {
     const items = await query('SELECT * FROM insurance_providers WHERE status = \'active\' ORDER BY display_order ASC, id ASC');
     return res.json({ providers: items });
   } catch (err) {
-    console.error('Get insurance error:', err);
+    logger.error('Get insurance error:', err, 'INSURANCE');
     return res.status(500).json({ error: 'Failed to retrieve insurance providers.' });
   }
 }
@@ -24,7 +25,7 @@ async function createInsurance(req, res) {
     await recordAudit(req.user?.username || 'Admin', 'CREATE', 'insurance_providers', result.insertId, { name });
     return res.status(201).json({ message: 'Insurance provider added.', id: result.insertId });
   } catch (err) {
-    console.error('Create insurance error:', err);
+    logger.error('Create insurance error:', err, 'INSURANCE');
     return res.status(500).json({ error: 'Failed to create insurance provider.' });
   }
 }
@@ -42,7 +43,7 @@ async function updateInsurance(req, res) {
     await recordAudit(req.user?.username || 'Admin', 'UPDATE', 'insurance_providers', id, { name });
     return res.json({ message: 'Insurance provider updated.' });
   } catch (err) {
-    console.error('Update insurance error:', err);
+    logger.error('Update insurance error:', err, 'INSURANCE');
     return res.status(500).json({ error: 'Failed to update insurance provider.' });
   }
 }
@@ -54,7 +55,7 @@ async function deleteInsurance(req, res) {
     await recordAudit(req.user?.username || 'Admin', 'DELETE', 'insurance_providers', id, { id });
     return res.json({ message: 'Insurance provider deleted.' });
   } catch (err) {
-    console.error('Delete insurance error:', err);
+    logger.error('Delete insurance error:', err, 'INSURANCE');
     return res.status(500).json({ error: 'Failed to delete insurance provider.' });
   }
 }

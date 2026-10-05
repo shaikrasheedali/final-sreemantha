@@ -73,13 +73,18 @@ export const AdminLayout: React.FC = () => {
       <aside
         className={`sidebar ${sidebarOpen ? 'open' : ''}`}
       >
-        <div className="flex items-center justify-between px-2 mb-6">
-          <Link to="/admin" className="brand block" onClick={() => setSidebarOpen(false)}>
-            <BrandLogo theme="dark" />
+        <div className="flex items-center justify-between gap-2 px-1 mb-6 min-w-0 w-full">
+          <Link
+            to="/admin"
+            className="brand flex items-center min-w-0 flex-1 max-w-[215px] focus:outline-none"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Admin Dashboard Home"
+          >
+            <BrandLogo theme="dark" className="w-full max-w-[200px] h-auto object-contain" />
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="md:hidden flex items-center justify-center text-white/80 hover:text-white p-1 rounded-lg bg-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.2)] transition-colors"
+            className="md:hidden flex items-center justify-center text-white/80 hover:text-white p-1.5 rounded-lg bg-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.2)] transition-colors shrink-0"
             aria-label="Close sidebar"
           >
             <X size={18} />

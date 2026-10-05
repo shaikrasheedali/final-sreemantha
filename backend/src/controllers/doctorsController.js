@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { slugify, parseJsonField, stringifyJsonField } = require('../utils/helpers');
 const { recordAudit } = require('../middleware/auth');
@@ -41,7 +42,7 @@ async function getAllDoctors(req, res) {
       })),
     });
   } catch (err) {
-    console.error('Get doctors error:', err);
+    logger.error('Get doctors error:', err, 'DOCTORS');
     return res.status(500).json({ error: 'Failed to retrieve doctors.' });
   }
 }
@@ -72,7 +73,7 @@ async function getDoctorBySlug(req, res) {
       relatedTreatments,
     });
   } catch (err) {
-    console.error('Get doctor error:', err);
+    logger.error('Get doctor error:', err, 'DOCTORS');
     return res.status(500).json({ error: 'Failed to retrieve doctor details.' });
   }
 }
@@ -146,7 +147,7 @@ async function createDoctor(req, res) {
       slug: doctorSlug,
     });
   } catch (err) {
-    console.error('Create doctor error:', err);
+    logger.error('Create doctor error:', err, 'DOCTORS');
     return res.status(500).json({ error: 'Failed to create doctor.' });
   }
 }
@@ -228,7 +229,7 @@ async function updateDoctor(req, res) {
 
     return res.json({ message: 'Doctor updated successfully.', id, slug: doctorSlug });
   } catch (err) {
-    console.error('Update doctor error:', err);
+    logger.error('Update doctor error:', err, 'DOCTORS');
     return res.status(500).json({ error: 'Failed to update doctor.' });
   }
 }
@@ -246,7 +247,7 @@ async function deleteDoctor(req, res) {
 
     return res.json({ message: 'Doctor deleted successfully.' });
   } catch (err) {
-    console.error('Delete doctor error:', err);
+    logger.error('Delete doctor error:', err, 'DOCTORS');
     return res.status(500).json({ error: 'Failed to delete doctor.' });
   }
 }

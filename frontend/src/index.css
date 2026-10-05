@@ -1006,7 +1006,7 @@ body,
       .map {
         min-height: 520px;
         position: relative;
-        background: url("https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80")
+        background: url("/images/hospital-exterior-banner.webp")
           center/cover;
       }
       .map:after {
@@ -3840,9 +3840,40 @@ body,
 }
 
 .sidebar .brand {
-  padding: 0 4px;
-  margin-bottom: 20px;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  padding: 0 2px !important;
+  margin-bottom: 20px !important;
+  overflow: hidden !important;
 }
+
+.sidebar .brand-logo,
+.sidebar .brand .brand-logo {
+  display: inline-flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 205px !important;
+  height: auto !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex-shrink: 1 !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+.sidebar .brand-logo > svg,
+.sidebar .brand .brand-logo > svg {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 1982 / 607 !important;
+}
+
 
 .sidebar-nav {
   display: flex;

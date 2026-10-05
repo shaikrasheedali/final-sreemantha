@@ -20,9 +20,9 @@ function getCardPoster(item: GalleryItem): string {
     if (videoId) return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
   }
   if (item.media_type === 'video' || /\.(mp4|webm|mov)$/i.test(item.media_url || '')) {
-    return 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80';
+    return '/images/incubator-nicu.webp';
   }
-  return item.media_url || 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80';
+  return item.media_url || '/images/hospital-exterior.webp';
 }
 
 export const GalleryPage: React.FC = () => {
@@ -188,7 +188,7 @@ export const GalleryPage: React.FC = () => {
                     alt={item.title}
                     loading="lazy"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80';
+                      (e.target as HTMLImageElement).src = '/images/hospital-exterior.webp';
                     }}
                   />
                   <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white pointer-events-none">

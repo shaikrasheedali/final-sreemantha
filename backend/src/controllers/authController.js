@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { verifyPassword, hashPassword, generateToken } = require('../utils/security');
 const { recordAudit, normalizeRole } = require('../middleware/auth');
@@ -34,7 +35,7 @@ async function login(req, res) {
         await query('UPDATE users SET password_hash = ? WHERE id = ?', [newArgonHash, user.id]);
         console.log(`[Auth] Upgraded password hash to Argon2 for user ${user.username}`);
       } catch (err) {
-        console.error('Password hash upgrade error:', err.message);
+        logger.error('Password hash upgrade error:', err.message, 'AUTH');
       }
     }
 
@@ -58,7 +59,7 @@ async function login(req, res) {
       },
     });
   } catch (err) {
-    console.error('Login error:', err);
+    logger.error('Login error:', err, 'AUTH');
     return res.status(500).json({ error: 'Internal server error during authentication.' });
   }
 }
@@ -87,7 +88,7 @@ async function getMe(req, res) {
       },
     });
   } catch (err) {
-    console.error('Get me error:', err);
+    logger.error('Get me error:', err, 'AUTH');
     return res.status(500).json({ error: 'Internal server error.' });
   }
 }
@@ -127,7 +128,7 @@ async function listUsers(req, res) {
       }),
     });
   } catch (err) {
-    console.error('List users error:', err);
+    logger.error('List users error:', err, 'AUTH');
     return res.status(500).json({ error: 'Internal server error.' });
   }
 }
@@ -178,7 +179,7 @@ async function createUser(req, res) {
       },
     });
   } catch (err) {
-    console.error('Create user error:', err);
+    logger.error('Create user error:', err, 'AUTH');
     return res.status(500).json({ error: 'Internal server error.' });
   }
 }
@@ -244,7 +245,7 @@ async function updateUser(req, res) {
       },
     });
   } catch (err) {
-    console.error('Update user error:', err);
+    logger.error('Update user error:', err, 'AUTH');
     return res.status(500).json({ error: 'Failed to update user.' });
   }
 }
@@ -272,7 +273,7 @@ async function deleteUser(req, res) {
 
     return res.json({ message: 'User deleted successfully.' });
   } catch (err) {
-    console.error('Delete user error:', err);
+    logger.error('Delete user error:', err, 'AUTH');
     return res.status(500).json({ error: 'Internal server error.' });
   }
 }

@@ -165,6 +165,11 @@ export const DoctorsPage: React.FC = () => {
                         : doctor.qualifications}
                     </p>
                   )}
+                  {doctor.certifications && doctor.certifications.length > 0 && (
+                    <div style={{ marginTop: 6, fontSize: 10, color: 'var(--teal)', fontWeight: 600 }}>
+                      {doctor.certifications[0]}
+                    </div>
+                  )}
 
                   <span
                     className="sr-card-footer"

@@ -28,21 +28,23 @@ import type { Facility, Specialty, Treatment, Doctor, Insight } from '../types';
 import { api } from '../utils/api';
 
 const IMAGES = {
-  hero: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=1400&q=80',
-  mother: 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&w=1200&q=80',
-  baby: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=800&q=80',
-  nicu: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80',
-  patient: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80',
+  hero: '/images/hospital-exterior-banner.webp',
+  exterior: '/images/hospital-exterior.webp',
+  mother: '/images/reception-newborn.webp',
+  baby: '/images/reception-newborn-card.webp',
+  nicu: '/images/incubator-nicu.webp',
+  ot: '/images/operation-theatre.webp',
+  patient: '/images/reception-newborn.webp',
 };
 
 const TESTIMONIALS = [
   {
-    text: 'Dr. Sreemantha Rao and the team explained every detail with so much patience. The IVF treatment was clear, transparent, and we were blessed with our baby boy after 6 years of waiting.',
+    text: 'Dr. G. Sindhu and the fertility team explained every detail with so much patience. The IVF treatment was clear, transparent, and we were blessed with our baby boy after 6 years of waiting.',
     name: 'Ananya & Ramesh K.',
     meta: 'Fertility & IVF Care · Khammam',
   },
   {
-    text: 'The neonatal team in the Level-III NICU saved our preterm baby born at 31 weeks. Attentive nurses around the clock and doctors who truly care like family.',
+    text: 'The neonatal team in the Level-III NICU led by Dr. B. V. N. Krishna saved our preterm baby born at 31 weeks. Attentive nurses around the clock and doctors who truly care like family.',
     name: 'Priyanka & Suresh M.',
     meta: 'NICU Care · Verified Visit',
   },
@@ -104,10 +106,10 @@ export const HomePage: React.FC = () => {
   const activeStory = TESTIMONIALS[storyIdx % TESTIMONIALS.length];
   const activeFacility = facilities[selectedFacilityIdx] || {
     id: 1,
-    name: 'Advanced Cleanroom Embryology Lab',
-    tagline: 'Equipped with Esco Multi-Zone Incubators & Narishige Micromanipulators',
-    description: 'Class-10,000 cleanroom air filtration with HEPA and VOC filters, creating an optimal microenvironment for gamete handling, ICSI and blastocyst culture.',
-    image_url: IMAGES.nicu,
+    name: 'Multi-Specialty Hospital Infrastructure',
+    tagline: 'Modern 5-floor clinical campus in Khammam with 24/7 care',
+    description: 'Sreemantha Hospital’s campus is purpose-built to provide a welcoming, serene, and clinically sterile environment for women, mothers, and children.',
+    image_url: IMAGES.exterior,
   };
 
   return (

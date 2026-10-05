@@ -14,7 +14,13 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   return (
     <span
       className={`brand-logo ${theme === 'dark' ? 'brand-logo-dark' : ''} ${className}`}
-      style={{ display: 'inline-flex', alignItems: 'center' }}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        maxWidth: '100%',
+        minWidth: 0,
+        boxSizing: 'border-box',
+      }}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +28,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         role="img"
         aria-label={alt}
         focusable="false"
-        className="w-full h-auto aspect-[1982/607] block"
+        className="w-full h-auto max-w-full aspect-[1982/607] block"
+        style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
       >
         <use href="#sreemantha-vector-logo" />
       </svg>
@@ -31,3 +38,4 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 };
 
 export default BrandLogo;
+

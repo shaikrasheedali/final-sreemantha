@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const morgan = require('morgan');
 const path = require('path');
 const fs = require('fs');
 const swaggerUi = require('swagger-ui-express');
@@ -9,8 +8,13 @@ const swaggerUi = require('swagger-ui-express');
 const apiRouter = require('./routes');
 const openapiSpec = require('./openapi/openapi.json');
 const { uploadDir } = require('./controllers/mediaController');
+const { logger, requestCorrelationMiddleware } = require('./utils/logger');
+const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 
 const app = express();
+
+// Request ID and HTTP access correlation logger
+app.use(requestCorrelationMiddleware);
 
 // Security and middleware
 app.use(
@@ -24,16 +28,12 @@ app.use(
   cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-request-id'],
   })
 );
 
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true, limit: '15mb' }));
-
-if (process.env.NODE_ENV !== 'test') {
-  app.use(morgan('dev'));
-}
 
 // Serve uploaded media with high performance client and proxy caching
 app.use(
@@ -72,10 +72,13 @@ app.get('/sitemap.xml', (req, res) => {
 // Mount main API router
 app.use('/api', apiRouter);
 
+// API 404 handler
+app.use(notFoundHandler);
+
 // Serve frontend production build if present (Single Port Full Stack Serving)
 const frontendDistPath = path.resolve(__dirname, '../../frontend/dist');
 if (fs.existsSync(frontendDistPath)) {
-  console.log('[Server] Serving production frontend build from:', frontendDistPath);
+  logger.info(`Serving production frontend build from: ${frontendDistPath}`, {}, 'SERVER');
   app.use(express.static(frontendDistPath));
 
   // SPA fallback for all other GET routes
@@ -97,14 +100,8 @@ if (fs.existsSync(frontendDistPath)) {
   });
 }
 
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error('[Global Error]', err);
-  const status = err.status || 500;
-  return res.status(status).json({
-    error: err.message || 'Internal server error',
-    timestamp: new Date().toISOString(),
-  });
-});
+// Enterprise centralized error handler
+app.use(errorHandler);
 
 module.exports = app;
+

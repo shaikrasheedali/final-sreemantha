@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { recordAudit } = require('../middleware/auth');
 
@@ -21,7 +22,7 @@ async function getAllEnquiries(req, res) {
     const items = await query(sql, params);
     return res.json({ enquiries: items });
   } catch (err) {
-    console.error('Get enquiries error:', err);
+    logger.error('Get enquiries error:', err, 'ENQUIRIES');
     return res.status(500).json({ error: 'Failed to retrieve enquiries.' });
   }
 }
@@ -44,7 +45,7 @@ async function createEnquiry(req, res) {
       id: result.insertId,
     });
   } catch (err) {
-    console.error('Create enquiry error:', err);
+    logger.error('Create enquiry error:', err, 'ENQUIRIES');
     return res.status(500).json({ error: 'Failed to submit enquiry.' });
   }
 }
@@ -58,7 +59,7 @@ async function updateEnquiry(req, res) {
     await recordAudit(req.user?.username || 'Staff', 'UPDATE', 'enquiries', id, { status });
     return res.json({ message: 'Enquiry status updated.' });
   } catch (err) {
-    console.error('Update enquiry error:', err);
+    logger.error('Update enquiry error:', err, 'ENQUIRIES');
     return res.status(500).json({ error: 'Failed to update enquiry.' });
   }
 }
@@ -70,7 +71,7 @@ async function deleteEnquiry(req, res) {
     await recordAudit(req.user?.username || 'Admin', 'DELETE', 'enquiries', id, { id });
     return res.json({ message: 'Enquiry deleted.' });
   } catch (err) {
-    console.error('Delete enquiry error:', err);
+    logger.error('Delete enquiry error:', err, 'ENQUIRIES');
     return res.status(500).json({ error: 'Failed to delete enquiry.' });
   }
 }
@@ -142,7 +143,7 @@ async function convertToAppointment(req, res) {
       status: appStatus,
     });
   } catch (err) {
-    console.error('Convert enquiry error:', err);
+    logger.error('Convert enquiry error:', err, 'ENQUIRIES');
     return res.status(500).json({ error: 'Failed to convert enquiry to appointment.' });
   }
 }

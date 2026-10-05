@@ -1,3 +1,4 @@
+const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { slugify } = require('../utils/helpers');
 const { recordAudit } = require('../middleware/auth');
@@ -7,7 +8,7 @@ async function getAllDepartments(req, res) {
     const items = await query('SELECT * FROM departments WHERE status = \'published\' ORDER BY id ASC');
     return res.json({ departments: items });
   } catch (err) {
-    console.error('Get departments error:', err);
+    logger.error('Get departments error:', err, 'DEPARTMENTS');
     return res.status(500).json({ error: 'Failed to retrieve departments.' });
   }
 }
@@ -23,7 +24,7 @@ async function getDepartmentBySlug(req, res) {
 
     return res.json({ department: dept, doctors });
   } catch (err) {
-    console.error('Get department error:', err);
+    logger.error('Get department error:', err, 'DEPARTMENTS');
     return res.status(500).json({ error: 'Failed to retrieve department.' });
   }
 }
@@ -42,7 +43,7 @@ async function createDepartment(req, res) {
     await recordAudit(req.user?.username || 'Admin', 'CREATE', 'departments', result.insertId, { name, slug: deptSlug });
     return res.status(201).json({ message: 'Department created.', id: result.insertId, slug: deptSlug });
   } catch (err) {
-    console.error('Create department error:', err);
+    logger.error('Create department error:', err, 'DEPARTMENTS');
     return res.status(500).json({ error: 'Failed to create department.' });
   }
 }
@@ -61,7 +62,7 @@ async function updateDepartment(req, res) {
     await recordAudit(req.user?.username || 'Admin', 'UPDATE', 'departments', id, { name, slug: deptSlug });
     return res.json({ message: 'Department updated.', id, slug: deptSlug });
   } catch (err) {
-    console.error('Update department error:', err);
+    logger.error('Update department error:', err, 'DEPARTMENTS');
     return res.status(500).json({ error: 'Failed to update department.' });
   }
 }
@@ -73,7 +74,7 @@ async function deleteDepartment(req, res) {
     await recordAudit(req.user?.username || 'Admin', 'DELETE', 'departments', id, { id });
     return res.json({ message: 'Department deleted.' });
   } catch (err) {
-    console.error('Delete department error:', err);
+    logger.error('Delete department error:', err, 'DEPARTMENTS');
     return res.status(500).json({ error: 'Failed to delete department.' });
   }
 }
