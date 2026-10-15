@@ -1,0 +1,1594 @@
+{
+  "departments": [
+    {
+      "id": 1,
+      "slug": "fertility-reproductive-medicine",
+      "name": "Fertility and Reproductive Medicine",
+      "tagline": "World-Class IVF & Embryology in Khammam",
+      "description": "Complete assisted reproduction suite with cleanroom IVF lab, ICSI workstations, and blastocyst vitrification.",
+      "head_doctor_name": "Dr. S. Sreemantha Rao",
+      "icon": "Sparkles",
+      "image_url": "/uploads/departments/fertility-reproductive-medicine.webp",
+      "status": "published"
+    },
+    {
+      "id": 2,
+      "slug": "obstetrics-gynecology",
+      "name": "Obstetrics and Gynecology",
+      "tagline": "Holistic Maternal & Women Healthcare",
+      "description": "Painless delivery suites, advanced high-risk obstetric monitoring, and 4K minimally invasive laparoscopy.",
+      "head_doctor_name": "Dr. P. Shravani",
+      "icon": "HeartHandshake",
+      "image_url": "/uploads/departments/obstetrics-gynecology.webp",
+      "status": "published"
+    },
+    {
+      "id": 3,
+      "slug": "pediatrics-neonatology",
+      "name": "Pediatrics and Neonatal Intensive Care (NICU)",
+      "tagline": "Level III 24/7 Newborn & Pediatric Care",
+      "description": "Advanced intensive care for premature and sick newborns with Giraffe incubators and dedicated transport ambulance.",
+      "head_doctor_name": "Dr. M. Vamsi Krishna",
+      "icon": "Baby",
+      "image_url": "/uploads/departments/pediatrics-neonatology.webp",
+      "status": "published"
+    },
+    {
+      "id": 4,
+      "slug": "fetal-medicine-diagnostics",
+      "name": "Fetal Medicine and Advanced Ultrasound",
+      "tagline": "Precision 4D Prenatal Imaging",
+      "description": "GE Voluson E10 4D ultrasound, NT anomaly screening, fetal Doppler, and non-invasive prenatal testing (NIPT).",
+      "head_doctor_name": "Dr. P. Shravani",
+      "icon": "Activity",
+      "image_url": "/uploads/departments/fetal-medicine-diagnostics.webp",
+      "status": "published"
+    }
+  ],
+  "specialties": [
+    {
+      "id": 13,
+      "slug": "obstetrics-high-risk-pregnancy",
+      "title": "Obstetrics & High-Risk Pregnancy Care",
+      "category": "Maternity & Fetal Care",
+      "short_description": "Comprehensive prenatal care, painless labor management, and 24/7 tertiary maternal-fetal critical care in Khammam.",
+      "overview": "Sreemantha Hospital's Obstetrics department is led by Dr. G. Sindhu (MS OBGYN, Osmania Medical College). Our dedicated labor suites and modular operating theatres are equipped for complex maternal emergencies, twins/multiple gestations, gestational diabetes, pre-eclampsia, and prior cesarean deliveries.",
+      "icon": "HeartPulse",
+      "image_url": "/uploads/reception-newborn.webp",
+      "conditions": [
+        "High-Risk Pregnancy",
+        "Gestational Diabetes (GDM)",
+        "Pre-eclampsia & Hypertension",
+        "Multiple Pregnancies (Twins/Triplets)",
+        "Recurrent Pregnancy Loss",
+        "Placenta Previa & Accreta"
+      ],
+      "display_order": 1,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:52"
+    },
+    {
+      "id": 14,
+      "slug": "gynecology-laparoscopic-surgery",
+      "title": "Gynecology & Advanced 3D/4K Laparoscopic Surgery",
+      "category": "Women's Health",
+      "short_description": "Minimally invasive keyhole surgeries, fibroid removals, endometriosis excision, and complete female wellness.",
+      "overview": "Advanced gynecological surgical care featuring ultra-high-definition 4K laparoscopy and hysteroscopy. Patient benefits include minimal incision scars, negligible blood loss, rapid post-op recovery, and same-day or next-day discharge.",
+      "icon": "Activity",
+      "image_url": "/uploads/operation-theatre.webp",
+      "conditions": [
+        "Uterine Fibroids (Myomectomy)",
+        "Ovarian Cysts & Dermoids",
+        "Endometriosis & Adenomyosis",
+        "Uterine Polyps & Abnormal Bleeding",
+        "Pelvic Organ Prolapse",
+        "PCOS & Hormonal Imbalances"
+      ],
+      "display_order": 2,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:52"
+    },
+    {
+      "id": 15,
+      "slug": "fertility-reproductive-medicine-ivf",
+      "title": "Fertility & Reproductive Medicine (IVF / ICSI)",
+      "category": "Fertility & Andrology",
+      "short_description": "Class 10,000 modular embryology cleanroom, Day-5 blastocyst culture, ICSI, and individualized fertility protocols.",
+      "overview": "Comprehensive fertility solutions helping couples fulfill their parenthood dreams. We combine rigorous genetic assessment, optimized ovulation stimulation, advanced sperm preparation, and meticulous embryo culture.",
+      "icon": "Sparkles",
+      "image_url": "/uploads/blogs/blog-let-wonderful-things-happen.webp",
+      "conditions": [
+        "Unexplained Infertility",
+        "Low Ovarian Reserve (Low AMH)",
+        "Blocked Fallopian Tubes",
+        "Severe Male Infertility (Azoospermia/Oligospermia)",
+        "Polycystic Ovary Syndrome (PCOS)",
+        "Recurrent IVF Implantation Failure"
+      ],
+      "display_order": 3,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:52"
+    },
+    {
+      "id": 16,
+      "slug": "pediatrics-level-3-nicu",
+      "title": "Pediatrics & Level-III Neonatal Intensive Care (NICU)",
+      "category": "Neonatal & Child Health",
+      "short_description": "24/7 Level-III NICU with multi-zone incubators, servo-controlled warmers, high-frequency ventilators, and expert neonatologists.",
+      "overview": "Led by Dr. B. V. N. Krishna (MD Pediatrics, VMMC & Safdarjung Hospital Delhi, Fellow in Neonatology), our Level-III NICU provides life-saving tertiary care for preterm infants born as early as 26 weeks, low birth weight babies, and critical neonates.",
+      "icon": "Baby",
+      "image_url": "/uploads/incubator-nicu.webp",
+      "conditions": [
+        "Extreme Preterm Birth (under 28-32 weeks)",
+        "Extremely Low Birth Weight (<1000g)",
+        "Respiratory Distress Syndrome (RDS)",
+        "Neonatal Jaundice & Phototherapy",
+        "Neonatal Sepsis & Critical Care",
+        "Pediatric Growth & Developmental Delays"
+      ],
+      "display_order": 4,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:52"
+    }
+  ],
+  "treatments": [
+    {
+      "id": 19,
+      "slug": "ivf-in-vitro-fertilization-blastocyst",
+      "title": "IVF (In Vitro Fertilization) & Blastocyst Culture",
+      "category": "Fertility Care",
+      "specialty_slug": "fertility-reproductive-medicine-ivf",
+      "short_description": "State-of-the-art fertilization in our Class 10,000 embryology cleanroom with Day-5 blastocyst transfer.",
+      "overview": "In Vitro Fertilization (IVF) is the gold-standard assisted reproductive technology where eggs and sperm are fertilized in our advanced embryology lab. Embryos are cultured until the blastocyst stage (Day 5) to maximize implantation success.",
+      "how_it_works": "<ol><li><strong>Initial Clinical Assessment:</strong> Comprehensive hormonal & ultrasound evaluation</li><li><strong>Ovarian Stimulation:</strong> Monitored protocol tailored to ovarian reserve</li><li><strong>Egg Retrieval:</strong> Ultrasound-guided painless procedure</li><li><strong>Embryo Transfer:</strong> Single blastocyst ultrasound guided transfer</li></ol>",
+      "who_requires": [
+        "Couples with bilateral blocked or damaged fallopian tubes",
+        "Women with diminished ovarian reserve or advanced maternal age",
+        "Couples who have experienced failed IUI cycles",
+        "Severe endometriosis affecting egg quality or tubal motility"
+      ],
+      "preparation": "Comprehensive hormonal testing (AMH, FSH, LH), baseline pelvic ultrasound, and partner semen analysis.",
+      "aftercare": "Progesterone luteal support, avoidance of strenuous lifting for 48 hours, and pregnancy blood test after 14 days.",
+      "typical_duration": "2 to 3 weeks per cycle",
+      "success_rate": "High cumulative pregnancy rate",
+      "image_url": "/uploads/blogs/blog-let-wonderful-things-happen.webp",
+      "featured": 1,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:53"
+    },
+    {
+      "id": 20,
+      "slug": "painless-normal-delivery-maternity",
+      "title": "Painless Normal Delivery (Labor Epidural Analgesia)",
+      "category": "Maternity Care",
+      "specialty_slug": "obstetrics-high-risk-pregnancy",
+      "short_description": "24/7 labor epidural analgesia enabling smooth, comfortable normal vaginal delivery with continuous fetal monitoring.",
+      "overview": "Painless delivery utilizes continuous labor epidural analgesia administered by experienced consultant anesthesiologists. It significantly reduces labor pain while allowing the mother to remain alert and fully in control during pushing.",
+      "how_it_works": [
+        "1. Active Labor Assessment: Epidural is administered once labor is well established at 3-4 cm dilation.",
+        "2. Fine Epidural Catheter Placement: Micro-dosed local anesthetic is delivered into the epidural space.",
+        "3. Pain Relief within 10-15 Minutes: Contractions continue normally without agonizing labor pain.",
+        "4. Monitored Normal Birth: Continuous CTG fetal heartbeat tracking ensures optimal baby oxygenation."
+      ],
+      "who_requires": [
+        "Expectant mothers desiring a comfortable normal vaginal delivery",
+        "Mothers with low pain tolerance seeking to avoid elective surgical cesareans",
+        "Patients with mild pregnancy-induced hypertension where stress reduction is beneficial"
+      ],
+      "preparation": "Pre-anesthesia checkup during the third trimester, normal coagulation profile, and informed consent.",
+      "aftercare": "Immediate postpartum skin-to-skin bonding, initial breastfeeding within 30 minutes, and rapid mobilization within 4 hours.",
+      "typical_duration": "6 to 12 hours labor duration",
+      "success_rate": "95%+ pain alleviation",
+      "image_url": "/uploads/reception-newborn-card.webp",
+      "featured": 1,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:53"
+    },
+    {
+      "id": 21,
+      "slug": "level-3-nicu-preterm-care",
+      "title": "Level-III Neonatal Intensive Care (NICU)",
+      "category": "Neonatal Critical Care",
+      "specialty_slug": "pediatrics-level-3-nicu",
+      "short_description": "Tertiary care for preterm infants, respiratory distress, low birth weight, and surgical neonates led by Dr. B. V. N. Krishna.",
+      "overview": "Our Level-III NICU is the most advanced neonatal critical care facility in Khammam. Equipped with servo-controlled multi-zone incubators, LED phototherapy, continuous invasive and non-invasive cardiopulmonary monitoring, and neonatal resuscitation units.",
+      "how_it_works": [
+        "1. Rapid Resuscitation & Golden Hour Care: Immediate specialized stabilization at delivery.",
+        "2. Advanced Respiratory Support: Gentle CPAP, High-Frequency Ventilation, and Surfactant therapy.",
+        "3. Total Parenteral Nutrition (TPN): Precise intravenous nutrition for premature gastrointestinal systems.",
+        "4. Developmental Supportive Care: Noise/light control and Kangaroo Mother Care (KMC)."
+      ],
+      "who_requires": [
+        "Premature infants born before 37 weeks (down to 26 weeks)",
+        "Low birth weight babies weighing under 1500g or 1000g",
+        "Newborns with respiratory distress, meconium aspiration, or neonatal jaundice",
+        "Infants needing urgent neonatal medical stabilization"
+      ],
+      "preparation": "Antenatal maternal corticosteroid administration when preterm delivery is anticipated.",
+      "aftercare": "Lactation counseling for expressed breast milk, transition to Kangaroo Mother Care, and follow-up developmental pediatric clinic.",
+      "typical_duration": "Personalized neonatal stay",
+      "success_rate": "98%+ tertiary survival rate",
+      "image_url": "/uploads/incubator-nicu.webp",
+      "featured": 1,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:53"
+    },
+    {
+      "id": 22,
+      "slug": "icsi-intracytoplasmic-sperm-injection",
+      "title": "ICSI (Intracytoplasmic Sperm Injection) & Male Fertility",
+      "category": "Fertility Care",
+      "specialty_slug": "fertility-reproductive-medicine-ivf",
+      "short_description": "Micro-surgical injection of a single selected sperm directly into an egg for severe male factor infertility.",
+      "overview": "Intracytoplasmic Sperm Injection (ICSI) revolutionizes male infertility treatment. Using Narishige high-magnification micromanipulators, our embryologist selects the single most morphologically sound sperm and injects it directly into the egg cytoplasm.",
+      "how_it_works": [
+        "1. Advanced Semen Processing: Isolating progressive, healthy sperm.",
+        "2. Oocyte Denudation: Preparing mature eggs for micro-injection.",
+        "3. Micro-Injection: Precision insertion under 400x magnification inverted microscope.",
+        "4. Blastocyst Incubation: Culturing fertilized zygotes under strict environmental controls."
+      ],
+      "who_requires": [
+        "Men with very low sperm count (severe oligospermia)",
+        "Men with poor sperm motility (asthenospermia) or abnormal shape (teratospermia)",
+        "Surgical sperm retrieval cases (TESA / PESA for azoospermia)",
+        "Previous poor or failed fertilization with conventional IVF"
+      ],
+      "preparation": "Detailed semen analysis, DNA fragmentation index, and partner ovum pick-up coordination.",
+      "aftercare": "Embryo freezing or blastocyst transfer protocol as recommended by the clinical team.",
+      "typical_duration": "Same day laboratory procedure",
+      "success_rate": "80%+ fertilization rate",
+      "image_url": "/uploads/blogs/blog-beat-male-infertility.webp",
+      "featured": 0,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:53"
+    },
+    {
+      "id": 23,
+      "slug": "iui-intrauterine-insemination",
+      "title": "IUI (Intrauterine Insemination)",
+      "category": "Fertility Care",
+      "specialty_slug": "fertility-reproductive-medicine-ivf",
+      "short_description": "Minimally invasive first-line fertility treatment placing concentrated, highly motile sperm directly into the uterus.",
+      "overview": "Intrauterine Insemination (IUI) is a gentle, first-line fertility procedure where processed, active sperm is placed directly inside the uterine cavity near the time of ovulation.",
+      "how_it_works": [
+        "1. Ovulation Induction & Follicular Tracking: Mild stimulation and transvaginal ultrasound scans.",
+        "2. Trigger Injection: HCG/GnRH trigger administered when follicle reaches optimal 18-20mm maturity.",
+        "3. Sperm Wash & Capacitation: Processing the sample to concentrate the fastest moving sperm.",
+        "4. Gentle Insemination: Painless 5-minute procedure placing sperm into the uterus with a soft catheter."
+      ],
+      "who_requires": [
+        "Couples with unexplained infertility of 1-3 years duration",
+        "Mild male factor motility issues",
+        "Cervical mucus hostility or hostility factors",
+        "Ovulatory dysfunction treated with mild stimulation"
+      ],
+      "preparation": "Confirmed tubal patency via HSG / laparoscopy and healthy semen parameters.",
+      "aftercare": "Rest for 15-20 minutes following the procedure; normal daily activities resumed immediately.",
+      "typical_duration": "5-10 minutes OPD procedure",
+      "success_rate": "15% - 20% per cycle",
+      "image_url": "/uploads/blogs/blog-fertility-all-ages.webp",
+      "featured": 0,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:53"
+    },
+    {
+      "id": 24,
+      "slug": "laparoscopic-gynecological-surgery",
+      "title": "Advanced 3D/4K Gynecological Laparoscopy",
+      "category": "Women's Health",
+      "specialty_slug": "gynecology-laparoscopic-surgery",
+      "short_description": "Minimally invasive keyhole surgery for fibroids, ovarian cysts, and endometriosis with rapid recovery.",
+      "overview": "Our surgical suite features ultra-modern Karl Storz 4K laparoscopic imaging. Surgeries are performed through tiny 5mm-10mm keyhole incisions, eliminating large abdominal scars and dramatically reducing recovery time.",
+      "how_it_works": [
+        "1. High-Definition Visualization: 4K optical magnification identifies minute pathology.",
+        "2. Precision Tissue Dissection: Ultrasonic and bipolar energy instruments minimize bleeding.",
+        "3. Pathology Excision: Fibroids (myomectomy), ovarian cysts, or endometriosis cleared cleanly.",
+        "4. Aesthetic Closure: Dissolvable sub-cuticular sutures leave almost unnoticeable marks."
+      ],
+      "who_requires": [
+        "Women with symptomatic uterine fibroids causing heavy bleeding or pain",
+        "Patients with large ovarian cysts or dermoid cysts",
+        "Severe endometriosis causing pelvic pain or infertility",
+        "Ectopic pregnancy or fertility enhancing tubal evaluation"
+      ],
+      "preparation": "Routine pre-operative blood profile, fasting for 6 hours prior to surgery.",
+      "aftercare": "Ambulation on the same evening, oral fluids within 6 hours, discharge within 24 to 48 hours.",
+      "typical_duration": "45 to 90 minutes operative time",
+      "success_rate": "99%+ complication-free",
+      "image_url": "/uploads/operation-theatre.webp",
+      "featured": 1,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:53"
+    }
+  ],
+  "doctors": [
+    {
+      "id": 11,
+      "slug": "dr-g-sindhu",
+      "name": "Dr. G. Sindhu (Dr. Sindhu Gundamalla)",
+      "designation": "Obstetrics, Gynecology & Infertility Specialist",
+      "department": "Obstetrics, Gynecology & Infertility",
+      "qualifications": "M.B.B.S., M.S. (OBGYN) - Osmania Medical College",
+      "experience_years": 12,
+      "languages": [
+        "Telugu",
+        "English",
+        "Hindi"
+      ],
+      "short_bio": "Specialist in high-risk pregnancies, laparoscopic gynecological surgeries, and personalized fertility therapies.",
+      "full_bio": "Dr. G. Sindhu (డా॥ సింధు గుండమళ్ళ) is a distinguished Consultant Obstetrician, Gynecologist, and Infertility Specialist holding M.B.B.S. and M.S. (OBGYN) from the premier Osmania Medical College. With Regd. No. TSMC/FMR/03919, she is renowned across Khammam for empowering women's health and enriching motherhood with evidence-based fertility solutions, painless delivery expertise, and advanced minimally invasive laparoscopy.",
+      "education": [
+        "M.B.B.S. - Osmania Medical College, Hyderabad",
+        "M.S. (Obstetrics & Gynecology) - Osmania Medical College",
+        "Fellowship in Reproductive Medicine & Infertility",
+        "Advanced Training in 3D/4K Minimal Access Gynecological Laparoscopy"
+      ],
+      "certifications": [
+        "TSMC Reg. No: TSMC/FMR/03919",
+        "Life Member - Federation of Obstetric and Gynaecological Societies of India (FOGSI)",
+        "Member - Indian Society for Assisted Reproduction (ISAR)"
+      ],
+      "opd_timings": "10:00 AM - 02:00 PM & 05:00 PM - 08:00 PM",
+      "photo_url": "/uploads/reception-newborn-card.webp",
+      "featured": 1,
+      "display_order": 1,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:52"
+    },
+    {
+      "id": 12,
+      "slug": "dr-b-v-n-krishna",
+      "name": "Dr. B. V. N. Krishna",
+      "designation": "Consultant Pediatrician & Neonatologist",
+      "department": "Pediatrics & Level-III Neonatology",
+      "qualifications": "M.B.B.S., M.D. (Pediatrics) - VMMC & SJH, Delhi",
+      "experience_years": 11,
+      "languages": [
+        "Telugu",
+        "English",
+        "Hindi"
+      ],
+      "short_bio": "Specialist in Level-III neonatal intensive care, extremely preterm baby resuscitation, and comprehensive child development.",
+      "full_bio": "Dr. B. V. N. Krishna (డా॥ బి.వి.ఎన్. కృష్ణ) is an acclaimed Pediatrician & Neonatologist with M.B.B.S. and M.D. (Pediatrics) from the prestigious Vardhman Mahavir Medical College & Safdarjung Hospital (VMMC & SJH), New Delhi, complemented by an advanced Fellowship in Neonatology. With Regd. No. TSMC/FMR/07376, Dr. Krishna leads Sreemantha Hospital's state-of-the-art 24/7 Level-III NICU, safeguarding critically ill and preterm newborns with compassionate clinical precision.",
+      "education": [
+        "M.B.B.S. - VMMC & Safdarjung Hospital, New Delhi",
+        "M.D. (Pediatrics) - VMMC & Safdarjung Hospital, New Delhi",
+        "Fellowship in Advanced Neonatology (Level-III NICU)"
+      ],
+      "certifications": [
+        "TSMC Reg. No: TSMC/FMR/07376",
+        "Member - National Neonatology Forum (NNF) India",
+        "Member - Indian Academy of Pediatrics (IAP)"
+      ],
+      "opd_timings": "09:00 AM - 01:00 PM & 04:00 PM - 08:00 PM (Emergency 24/7)",
+      "photo_url": "/uploads/incubator-nicu-card.webp",
+      "featured": 1,
+      "display_order": 2,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:52"
+    },
+    {
+      "id": 13,
+      "slug": "dr-g-latha",
+      "name": "Dr. G. Latha",
+      "designation": "Consultant Pediatrician & Neonatologist",
+      "department": "Pediatrics & Neonatal Care",
+      "qualifications": "M.B.B.S., M.D. Paed. (KMC)",
+      "experience_years": 14,
+      "languages": [
+        "Telugu",
+        "English"
+      ],
+      "short_bio": "Expert pediatrician dedicated to newborn care, immunizations, childhood growth, and adolescent wellness.",
+      "full_bio": "Dr. G. Latha is a respected Pediatrician and Neonatologist holding M.B.B.S. and M.D. in Pediatrics from Kakatiya Medical College (KMC), registered under TSMC/FMR/05781. She brings extensive experience in pediatric clinical management, preventive child healthcare, and neonatal monitoring to Sreemantha Hospital.",
+      "education": [
+        "M.B.B.S. - Kakatiya Medical College",
+        "M.D. (Pediatrics) - Kakatiya Medical College (KMC)"
+      ],
+      "certifications": [
+        "TSMC Reg. No: TSMC/FMR/05781",
+        "Member - Indian Academy of Pediatrics (IAP)"
+      ],
+      "opd_timings": "10:30 AM - 01:30 PM & 05:30 PM - 07:30 PM",
+      "photo_url": "/uploads/operation-theatre-card.webp",
+      "featured": 1,
+      "display_order": 3,
+      "status": "published",
+      "created_at": "2026-10-05 01:38:52"
+    }
+  ],
+  "facilities": [
+    {
+      "id": 5,
+      "slug": "hospital-building-infrastructure",
+      "name": "Multi-Specialty Hospital Infrastructure & Reception",
+      "short_description": "Modern 5-floor clinical campus in Khammam with spacious waiting lobbies, 24/7 pharmacy, and emergency desks.",
+      "description": "Sreemantha Hospital's campus is purpose-built to provide a welcoming, serene, and clinically sterile environment for women, mothers, and children. Features centralized air-handling units, dedicated triage, and seamless digital registration desks.",
+      "equipment": [
+        "High-Speed Patient Elevators",
+        "24/7 Digital Registration Desks",
+        "Centralized Medical Gas Pipeline",
+        "Dedicated Patient Pharmacy",
+        "Comfortable Executive Waiting Lounges"
+      ],
+      "image_url": "/uploads/hospital-exterior.webp",
+      "status": "published",
+      "display_order": 1
+    },
+    {
+      "id": 6,
+      "slug": "level-3-neonatal-intensive-care-unit",
+      "name": "24/7 Level-III Neonatal Intensive Care Unit (NICU)",
+      "short_description": "Khammam's premier tertiary neonatal center equipped with multi-zone incubators and round-the-clock neonatologists.",
+      "description": "Our Level-III NICU is engineered to provide life-saving care to extremely premature neonates and critically ill newborns. Equipped with advanced GE Giraffe and Dräger incubators, LED phototherapy, and high-frequency ventilators.",
+      "equipment": [
+        "Advanced Servo-Controlled Incubators",
+        "Dräger Multi-Mode Neonatal Ventilators",
+        "Double Surface LED Phototherapy Units",
+        "Continuous Multi-Para Vital Monitors",
+        "Laminar Flow TPN Preparation Station"
+      ],
+      "image_url": "/uploads/incubator-nicu.webp",
+      "status": "published",
+      "display_order": 2
+    },
+    {
+      "id": 7,
+      "slug": "modular-operation-theatre-laparoscopy",
+      "name": "Ultra-Clean Modular Operation Theatres",
+      "short_description": "Class 10,000 laminar airflow surgical suites equipped with 4K Karl Storz laparoscopy towers for maternity and gynecology.",
+      "description": "Designed to international surgical standards with seamless anti-bacterial surfaces, laminar airflow, and HEPA air filtration. Capable of handling complex emergency C-sections within 15 minutes, radical pelvic surgeries, and microscopic fertility operations.",
+      "equipment": [
+        "Karl Storz 4K Ultra-HD Laparoscopy Tower",
+        "Laminar Airflow Positive Pressure System",
+        "Advanced Mindray Anesthesia Workstations",
+        "ValleyLab Ultrasonic Energy Dissection Devices",
+        "Emergency Crash Cart & Defibrillator"
+      ],
+      "image_url": "/uploads/operation-theatre.webp",
+      "status": "published",
+      "display_order": 3
+    },
+    {
+      "id": 8,
+      "slug": "reception-maternity-experience-center",
+      "name": "Maternity Patient Experience & Postnatal Suites",
+      "short_description": "Dedicated maternity floor, luxury postnatal recovery suites, and compassionate patient care counselors.",
+      "description": "At Sreemantha Hospital, welcoming a new baby is celebrated with dignity and happiness. Our maternity suites provide quiet, supportive recovery environments for new mothers and their newborn babies with immediate bedside assistance.",
+      "equipment": [
+        "Private Air-Conditioned Postnatal Rooms",
+        "Dedicated Lactation Counseling Suite",
+        "Bedside Electronic Nurse Call System",
+        "Kangaroo Mother Care Recliners",
+        "24/7 Pediatric Ward Coverage"
+      ],
+      "image_url": "/uploads/reception-newborn.webp",
+      "status": "published",
+      "display_order": 4
+    }
+  ],
+  "blog_posts": [
+    {
+      "id": 22,
+      "slug": "you-trust-we-care-fertility-maternity",
+      "title": "You Trust, We Care: Compassionate Fertility & Motherhood Excellence",
+      "category": "Hospital Care & Philosophy",
+      "author": "Dr. G. Sindhu (MS OBGYN)",
+      "read_time": "5 min read",
+      "summary": "At Sreemantha Hospital, every patient's trust is honored with dedicated medical excellence, empathetic clinical guidance, and personalized fertility and maternity care in Khammam.",
+      "content": "<p>Trust is the cornerstone of every healing relationship. When couples embark on their journey towards parenthood, the emotional and physical aspects require profound understanding and clinical expertise. At Sreemantha Hospital, our guiding principle is simple yet resolute: <strong>\"You Trust, We Care\"</strong>.</p><h3>Why Compassionate Care Matters</h3><p>From initial fertility consultations to advanced IVF and delivery, our multidisciplinary team of obstetricians, embryologists, and neonatologists walk alongside every family. We provide transparent counseling, personalized treatment protocols, and world-class cleanroom lab standards to ensure the highest success rates with maximum comfort.</p>",
+      "image_url": "/uploads/blogs/blog-you-trust-we-care.webp",
+      "published_at": "2026-09-19 18:30:00",
+      "featured": 1,
+      "status": "published"
+    },
+    {
+      "id": 23,
+      "slug": "let-wonderful-things-happen-fertility-journey",
+      "title": "Let Wonderful Things Happen: Transforming Dreams of Parenthood into Reality",
+      "category": "Fertility & IVF",
+      "author": "Clinical Embryology Team",
+      "read_time": "6 min read",
+      "summary": "Overcoming fertility challenges with modern reproductive medicine, advanced blastocyst culture, and compassionate clinical expertise.",
+      "content": "<p>Every hopeful parent's dream is precious. At Sreemantha Hospital, our advanced fertility unit is engineered to make wonderful things happen for couples navigating infertility.</p><h3>Advanced Reproductive Technologies Available</h3><ul><li><strong>Class 10,000 Modular IVF Embryology Lab</strong> with HEPA and VOC filtration</li><li><strong>Intracytoplasmic Sperm Injection (ICSI)</strong> for severe male factor cases</li><li><strong>Blastocyst Culture (Day 5)</strong> for superior embryo viability and implantation</li><li><strong>Laser Assisted Hatching & Cryopreservation</strong></li></ul><p>Our dedicated fertility specialists tailor each protocol to match individual ovarian reserve, hormonal profiles, and genetic parameters.</p>",
+      "image_url": "/uploads/blogs/blog-let-wonderful-things-happen.webp",
+      "published_at": "2026-09-23 18:30:00",
+      "featured": 1,
+      "status": "published"
+    },
+    {
+      "id": 24,
+      "slug": "happiness-is-hearing-babys-first-cry",
+      "title": "Happiness is Hearing Your Baby’s First Cry: What to Expect During Safe Delivery",
+      "category": "Obstetrics & Maternity",
+      "author": "Dr. G. Sindhu (MS OBGYN)",
+      "read_time": "5 min read",
+      "summary": "The miraculous moment of childbirth: how Sreemantha Hospital ensures painless delivery, maternal safety, and immediate neonatal bonding.",
+      "content": "<p>There is no sound more joyful and reassuring in the world than a newborn baby's first vigorous cry. It signifies the commencement of new life and the triumphant culmination of months of maternal care.</p><h3>Ensuring a Safe, Memorable Childbirth</h3><p>At Sreemantha Hospital, our labor and delivery suites are integrated directly with modular operating rooms and our Level-III NICU. We provide:</p><ul><li><strong>24/7 Painless Normal Delivery (Epidural Analgesia)</strong> administered by expert anesthesiologists</li><li><strong>Continuous Electronic Fetal Heart Rate Monitoring (CTG)</strong></li><li><strong>Immediate Skin-to-Skin Kangaroo Mother Care</strong> and lactation support</li><li><strong>Emergency C-Section Readiness within 15 minutes</strong> for high-risk obstetric cases</li></ul>",
+      "image_url": "/uploads/blogs/blog-baby-first-cry.webp",
+      "published_at": "2026-09-27 18:30:00",
+      "featured": 1,
+      "status": "published"
+    },
+    {
+      "id": 25,
+      "slug": "every-child-birth-is-special-and-memorable",
+      "title": "For Us Every Child Birth is Special and Memorable: Personalized Maternity Suites",
+      "category": "Maternity & Labor Care",
+      "author": "Obstetric Nursing Team",
+      "read_time": "4 min read",
+      "summary": "Celebrating every birth with dignity, warmth, and clinical precision in our modern maternity suites in Khammam.",
+      "content": "<p>Childbirth is a milestone that stays in a mother's heart for lifetime. Recognizing this, Sreemantha Hospital transforms the clinical hospital experience into an empowering, celebratory journey.</p><p>Our private maternity suites are thoughtfully designed to balance clinical safety with domestic warmth. With 24/7 obstetric monitoring, dedicated nursing staff, and round-the-clock neonatologist availability, mothers and families experience absolute peace of mind.</p>",
+      "image_url": "/uploads/blogs/blog-childbirth-special-memorable.webp",
+      "published_at": "2026-09-30 18:30:00",
+      "featured": 0,
+      "status": "published"
+    },
+    {
+      "id": 26,
+      "slug": "follow-your-babys-cues-neonatal-signs",
+      "title": "Follow Your Baby’s Cues: Essential Signs Every New Parent Should Recognize",
+      "category": "Pediatrics & Newborn Care",
+      "author": "Dr. B. V. N. Krishna (MD Pediatrics, Neonatologist)",
+      "read_time": "6 min read",
+      "summary": "Dr. B. V. N. Krishna explains the vital non-verbal cues newborns use to communicate hunger, sleepiness, colic discomfort, and clinical warning signs.",
+      "content": "<p>Newborn babies communicate continuously through subtle behavioral and physical cues. Learning to read these cues helps parents respond promptly and prevents parental anxiety.</p><h3>Common Baby Cues Decoded</h3><ul><li><strong>Early Hunger Cues:</strong> Lip smacking, head turning (rooting reflex), hands brought to mouth. Crying is a late hunger cue!</li><li><strong>Sleepiness Cues:</strong> Yawning, looking away, rubbing eyes, stiffening limbs.</li><li><strong>Colic / Gas Cues:</strong> Clenched fists, pulling legs towards the tummy, arching back during or after feeding.</li></ul><h3>When to Seek Immediate Medical Evaluation</h3><p>Contact our pediatric emergency department immediately if you notice lethargy, poor sucking, breathing difficulties (chest indrawing), persistent vomiting, or body temperature above 100.4°F.</p>",
+      "image_url": "/uploads/blogs/blog-follow-baby-cues.webp",
+      "published_at": "2026-10-01 18:30:00",
+      "featured": 1,
+      "status": "published"
+    },
+    {
+      "id": 27,
+      "slug": "fertility-impacts-men-and-women-all-ages",
+      "title": "Fertility Impacts Men & Women of All Ages: Breaking Infertility Myths with Science",
+      "category": "Reproductive Medicine",
+      "author": "Fertility & Andrology Specialists",
+      "read_time": "7 min read",
+      "summary": "Infertility affects both partners equally. Discover how timely diagnostic evaluations and lifestyle modifications improve conception chances.",
+      "content": "<p>A prevalent misconception in society is that infertility is predominantly a female concern. Medical science unequivocally shows that approximately 40% of infertility factors are male-related, 40% female-related, and 20% combined or unexplained.</p><h3>Key Factors Affecting Fertility</h3><ul><li><strong>Age & Ovarian Reserve:</strong> Anti-Müllerian Hormone (AMH) and Antral Follicle Count (AFC) assessments.</li><li><strong>Sperm Quality Parameters:</strong> Semen analysis testing count, motility, and normal morphology.</li><li><strong>Lifestyle Factors:</strong> Smoking, alcohol, endocrine disruptors, obesity, and chronic stress.</li></ul><p>Early evaluation enables targeted, less invasive treatments like ovulation tracking and IUI before progressing to IVF if required.</p>",
+      "image_url": "/uploads/blogs/blog-fertility-all-ages.webp",
+      "published_at": "2026-10-02 18:30:00",
+      "featured": 0,
+      "status": "published"
+    },
+    {
+      "id": 28,
+      "slug": "embrace-good-health-happiness-for-child",
+      "title": "Embrace Good Health & Happiness for Your Child: Complete Pediatric Wellness Guide",
+      "category": "Pediatrics & Child Health",
+      "author": "Dr. G. Latha (MD Paediatrics)",
+      "read_time": "5 min read",
+      "summary": "Essential guidelines for child immunization schedules, balanced nutritional milestones, and cognitive growth from infancy to school age.",
+      "content": "<p>A healthy child is a happy child. Pediatric wellness extends beyond treating illness to proactive preventive healthcare, timely vaccinations, and balanced emotional growth.</p><h3>Key Pillars of Pediatric Wellness</h3><ul><li><strong>Immunization Adherence:</strong> Strict compliance with the Indian Academy of Pediatrics (IAP) vaccination schedule protecting against polio, measles, rotavirus, pneumococcus, and MMR.</li><li><strong>Milestone Tracking:</strong> Regular developmental assessments measuring motor skills, language acquisition, and social interaction.</li><li><strong>Nutrition & Hydration:</strong> Exclusive breastfeeding for the first 6 months, followed by wholesome age-appropriate complementary foods.</li></ul>",
+      "image_url": "/uploads/blogs/blog-embrace-health-happiness.webp",
+      "published_at": "2026-10-03 18:30:00",
+      "featured": 0,
+      "status": "published"
+    },
+    {
+      "id": 29,
+      "slug": "beat-male-infertility-become-a-father",
+      "title": "Beat Male Infertility: Modern Medical Solutions to Becoming a Father",
+      "category": "Andrology & Men's Health",
+      "author": "Andrology Department",
+      "read_time": "6 min read",
+      "summary": "Exploring clinical breakthroughs in treating male infertility including lifestyle reversal, medical therapies, TESA, and ICSI.",
+      "content": "<p>Male factor infertility is increasingly prevalent due to sedentary lifestyles, environmental pollutants, and metabolic imbalances. Fortunately, modern reproductive medicine offers powerful clinical pathways for men to achieve biological fatherhood.</p><h3>Modern Treatment Options</h3><ul><li><strong>Medical Therapy:</strong> Antioxidant regimens and hormonal balance correction for oligospermia.</li><li><strong>Intracytoplasmic Sperm Injection (ICSI):</strong> Selecting a single healthy sperm for direct egg fertilization.</li><li><strong>Testicular Sperm Aspiration (TESA / PESA):</strong> Surgical sperm retrieval for obstructive azoospermia.</li></ul>",
+      "image_url": "/uploads/blogs/blog-beat-male-infertility.webp",
+      "published_at": "2026-10-04 18:30:00",
+      "featured": 1,
+      "status": "published"
+    }
+  ],
+  "gallery_items": [
+    {
+      "id": 1,
+      "title": "Advanced IVF Embryology Cleanroom Lab",
+      "category": "Facilities & Labs",
+      "media_type": "image",
+      "media_url": "/uploads/gallery/gallery-embryology-lab.webp",
+      "embed_code": "",
+      "thumbnail_url": "/uploads/gallery/gallery-embryology-lab.webp",
+      "caption": "HEPA-filtered Class 10,000 cleanroom equipped with high-resolution micromanipulators for ICSI and embryo vitrification.",
+      "display_order": 0
+    },
+    {
+      "id": 2,
+      "title": "Level III Neonatal Intensive Care Unit (NICU)",
+      "category": "NICU & Pediatrics",
+      "media_type": "image",
+      "media_url": "/uploads/gallery/gallery-level-3-nicu.webp",
+      "embed_code": null,
+      "thumbnail_url": "/uploads/gallery/gallery-level-3-nicu.webp",
+      "caption": "Continuous multipara monitoring, advanced servo incubators, and dedicated neonatal resuscitation team on 24/7 duty.",
+      "display_order": 2
+    },
+    {
+      "id": 3,
+      "title": "Modular Laminar Airflow Operation Theatre",
+      "category": "Operation Theatres",
+      "media_type": "image",
+      "media_url": "/uploads/gallery/gallery-operation-theatre.webp",
+      "embed_code": null,
+      "thumbnail_url": "/uploads/gallery/gallery-operation-theatre.webp",
+      "caption": "State-of-the-art sterile surgical theater dedicated to laparoscopic gynecology, hysteroscopy, and caesarean deliveries.",
+      "display_order": 3
+    },
+    {
+      "id": 4,
+      "title": "4D Fetal Medicine & Ultrasound Diagnostics",
+      "category": "Facilities & Labs",
+      "media_type": "image",
+      "media_url": "/uploads/gallery/gallery-fetal-medicine.webp",
+      "embed_code": null,
+      "thumbnail_url": "/uploads/gallery/gallery-fetal-medicine.webp",
+      "caption": "High-definition Voluson ultrasound technology for accurate fetal anomaly scans, nuchal translucency, and doppler studies.",
+      "display_order": 4
+    },
+    {
+      "id": 5,
+      "title": "Deluxe Patient Post-Operative & Recovery Suite",
+      "category": "Hospital Infrastructure",
+      "media_type": "image",
+      "media_url": "/uploads/gallery/gallery-recovery-suite.webp",
+      "embed_code": null,
+      "thumbnail_url": "/uploads/gallery/gallery-recovery-suite.webp",
+      "caption": "Comfortable, private recovery rooms with attached patient amenities and dedicated nursing call systems.",
+      "display_order": 5
+    },
+    {
+      "id": 6,
+      "title": "Pediatric Care & Child Wellness Consultation Suites",
+      "category": "NICU & Pediatrics",
+      "media_type": "image",
+      "media_url": "/uploads/gallery/gallery-pediatric-consultation.webp",
+      "embed_code": null,
+      "thumbnail_url": "/uploads/gallery/gallery-pediatric-consultation.webp",
+      "caption": "Child-friendly examination rooms designed to keep infants and children comfortable during routine vaccinations and wellness checks.",
+      "display_order": 6
+    },
+    {
+      "id": 7,
+      "title": "Sreemantha Hospital Welcoming Reception & Patient Lounge",
+      "category": "Hospital Infrastructure",
+      "media_type": "image",
+      "media_url": "/uploads/gallery/gallery-reception-lounge.webp",
+      "embed_code": null,
+      "thumbnail_url": "/uploads/gallery/gallery-reception-lounge.webp",
+      "caption": "Warm, compassionate patient reception on Priyadarshini Degree College Road, Nehru Nagar, Khammam.",
+      "display_order": 7
+    },
+    {
+      "id": 8,
+      "title": "Celebrating Parenthood: Healthy Newborn Deliveries",
+      "category": "Happy Families",
+      "media_type": "image",
+      "media_url": "/uploads/gallery/gallery-healthy-newborns.webp",
+      "embed_code": null,
+      "thumbnail_url": "/uploads/gallery/gallery-healthy-newborns.webp",
+      "caption": "Over 15,000 families blessed with healthy babies through dedicated reproductive care and high-risk obstetric support.",
+      "display_order": 8
+    }
+  ],
+  "insurance_providers": [
+    {
+      "id": 11,
+      "name": "Aditya Birla Health Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Cashless Pre-Auth & Direct TPA Desk Available",
+      "logo_url": "/uploads/insurance/aditya-birla-health.webp",
+      "display_order": 1,
+      "status": "active"
+    },
+    {
+      "id": 12,
+      "name": "SBI General Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Suraksha Aur Bharosa Dono",
+      "logo_url": "/uploads/insurance/sbi-general-insurance.webp",
+      "display_order": 2,
+      "status": "active"
+    },
+    {
+      "id": 13,
+      "name": "ICICI Lombard",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Nibhaye Vaade",
+      "logo_url": "/uploads/insurance/icici-lombard.webp",
+      "display_order": 3,
+      "status": "active"
+    },
+    {
+      "id": 14,
+      "name": "Acko General Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Cashless Pre-Auth & Direct TPA Desk Available",
+      "logo_url": "/uploads/insurance/acko-general-insurance.webp",
+      "display_order": 4,
+      "status": "active"
+    },
+    {
+      "id": 15,
+      "name": "Bajaj Allianz",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "General Insurance",
+      "logo_url": "/uploads/insurance/bajaj-allianz.webp",
+      "display_order": 5,
+      "status": "active"
+    },
+    {
+      "id": 16,
+      "name": "Star Health and Allied Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "The Health Insurance Specialist",
+      "logo_url": "/uploads/insurance/star-health.webp",
+      "display_order": 6,
+      "status": "active"
+    },
+    {
+      "id": 17,
+      "name": "Reliance General Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Anil Dhirubhai Ambani Group",
+      "logo_url": "/uploads/insurance/reliance-general-insurance.webp",
+      "display_order": 7,
+      "status": "active"
+    },
+    {
+      "id": 18,
+      "name": "Max Bupa Health Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Niva Bupa Health Insurance",
+      "logo_url": "/uploads/insurance/max-bupa-niva.webp",
+      "display_order": 8,
+      "status": "active"
+    },
+    {
+      "id": 19,
+      "name": "IFFCO-TOKIO General Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Muskurate Raho",
+      "logo_url": "/uploads/insurance/iffco-tokio.webp",
+      "display_order": 9,
+      "status": "active"
+    },
+    {
+      "id": 20,
+      "name": "Safeway Insurance TPA Pvt. Ltd.",
+      "type": "Third Party Administrator (TPA)",
+      "cashless_available": 1,
+      "claim_assistance_info": "TPA Support",
+      "logo_url": "/uploads/insurance/safeway-tpa.webp",
+      "display_order": 10,
+      "status": "active"
+    },
+    {
+      "id": 21,
+      "name": "Care Health Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Health Hamesha",
+      "logo_url": "/uploads/insurance/care-health.webp",
+      "display_order": 11,
+      "status": "active"
+    },
+    {
+      "id": 22,
+      "name": "Tata AIG General Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "With You Always",
+      "logo_url": "/uploads/insurance/tata-aig.webp",
+      "display_order": 12,
+      "status": "active"
+    },
+    {
+      "id": 23,
+      "name": "Ericson Insurance TPA Pvt. Ltd.",
+      "type": "Third Party Administrator (TPA)",
+      "cashless_available": 1,
+      "claim_assistance_info": "Third Party Administrator",
+      "logo_url": "/uploads/insurance/ericson-tpa.webp",
+      "display_order": 13,
+      "status": "active"
+    },
+    {
+      "id": 24,
+      "name": "Liberty General Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Liberty Mutual Insurance",
+      "logo_url": "/uploads/insurance/liberty-general.webp",
+      "display_order": 14,
+      "status": "active"
+    },
+    {
+      "id": 25,
+      "name": "Religare Health Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Care Health Insurance / Adv Health Hamesha",
+      "logo_url": "/uploads/insurance/religare-health.webp",
+      "display_order": 15,
+      "status": "active"
+    },
+    {
+      "id": 26,
+      "name": "Future Generali Total Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Total Insurance Solutions",
+      "logo_url": "/uploads/insurance/future-generali.webp",
+      "display_order": 16,
+      "status": "active"
+    },
+    {
+      "id": 27,
+      "name": "Genins India Insurance TPA LTD",
+      "type": "Third Party Administrator (TPA)",
+      "cashless_available": 1,
+      "claim_assistance_info": "National TPA Network",
+      "logo_url": "/uploads/insurance/genins-tpa.webp",
+      "display_order": 17,
+      "status": "active"
+    },
+    {
+      "id": 28,
+      "name": "Navi Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Digital Health Cover",
+      "logo_url": "/uploads/insurance/navi-insurance.webp",
+      "display_order": 18,
+      "status": "active"
+    },
+    {
+      "id": 29,
+      "name": "Paramount Health Care",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Paramount TPA Services",
+      "logo_url": "/uploads/insurance/paramount-tpa.webp",
+      "display_order": 19,
+      "status": "active"
+    },
+    {
+      "id": 30,
+      "name": "MD India Health Insurance TPA",
+      "type": "Third Party Administrator (TPA)",
+      "cashless_available": 1,
+      "claim_assistance_info": "Healthcare TPA Pioneer",
+      "logo_url": "/uploads/insurance/md-india-tpa.webp",
+      "display_order": 20,
+      "status": "active"
+    },
+    {
+      "id": 31,
+      "name": "Vidal Health",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Third Party Administrator",
+      "logo_url": "/uploads/insurance/vidal-health-tpa.webp",
+      "display_order": 21,
+      "status": "active"
+    },
+    {
+      "id": 32,
+      "name": "Heritage Health (KH)",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Heritage Health TPA",
+      "logo_url": "/uploads/insurance/heritage-health-tpa.webp",
+      "display_order": 22,
+      "status": "active"
+    },
+    {
+      "id": 33,
+      "name": "ManipalCigna Health Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Health Ka Saath",
+      "logo_url": "/uploads/insurance/manipal-cigna.webp",
+      "display_order": 23,
+      "status": "active"
+    },
+    {
+      "id": 34,
+      "name": "Apollo Munich Health Insurance",
+      "type": "Health & General Insurer",
+      "cashless_available": 1,
+      "claim_assistance_info": "Let's Uncomplicate",
+      "logo_url": "/uploads/insurance/apollo-munich.webp",
+      "display_order": 24,
+      "status": "active"
+    }
+  ],
+  "settings": [
+    {
+      "setting_key": "contact_buttons",
+      "setting_value": {
+        "phone_button": {
+          "label": "Call Hospital",
+          "order": 1,
+          "number": "+919666781779",
+          "enabled": true,
+          "position": "bottom-left",
+          "tel_link": "tel:+919666781779"
+        },
+        "whatsapp_button": {
+          "label": "WhatsApp Us",
+          "order": 2,
+          "number": "+919666781779",
+          "enabled": true,
+          "position": "bottom-left",
+          "wa_target": "https://wa.me/919666781779",
+          "default_message": "Hello Sreemantha Hospital, I would like to inquire about consultation."
+        }
+      },
+      "updated_at": "2026-09-28 15:33:32"
+    },
+    {
+      "setting_key": "hospital_info",
+      "setting_value": {
+        "email": "care@sreemanthahospital.com",
+        "phone": "+91 96667 81779",
+        "stats": [
+          {
+            "label": "Happy Families",
+            "value": "15,000+"
+          },
+          {
+            "label": "IVF Success Rate",
+            "value": "78%"
+          },
+          {
+            "label": "Level III NICU",
+            "value": "24/7"
+          },
+          {
+            "label": "Expert Specialists",
+            "value": "25+"
+          }
+        ],
+        "address": "Priyadarshini Degree/College Road, Nehru Nagar, Khammam, Telangana 507001",
+        "tagline": "Bringing the Joy of Parenthood to Your Life",
+        "location": "Khammam, Telangana",
+        "subtitle": "World-class IVF technology, compassionate maternity care, and expert pediatric services in Khammam.",
+        "whatsapp": "+91 96667 81779",
+        "hospital_name": "Sreemantha IVF and Child Care Hospital",
+        "working_hours": {
+          "opd": "Monday - Saturday: 9:00 AM to 8:00 PM | Sunday: 9:00 AM to 1:00 PM",
+          "emergency": "24/7 Casualty, NICU and Maternity Support"
+        },
+        "display_hotline": "+91-8800-SREEMANTHA",
+        "emergency_hotline": "+91 88007 73362"
+      },
+      "updated_at": "2026-09-28 15:33:32"
+    }
+  ],
+  "faqs": [
+    {
+      "id": 1,
+      "category": "Fertility",
+      "question": "What is the IVF success rate at Sreemantha Hospital Khammam?",
+      "answer": "Our cumulative IVF pregnancy success rate stands at 78% for women under 35, achieved through our advanced modular embryology laboratory, routine day-5 blastocyst culture, and individualized stimulation regimens supervised by senior specialists.",
+      "display_order": 1,
+      "status": "published"
+    },
+    {
+      "id": 2,
+      "category": "Fertility",
+      "question": "How do I know if I need IUI or IVF?",
+      "answer": "During your initial consultation, we conduct an ultrasound follicular scan, tubal patency evaluation, and semen analysis. Couples with open tubes and mild male factor challenges often begin with gentle IUI, whereas severe sperm issues, blocked tubes, or repeated IUI failures benefit from IVF or ICSI.",
+      "display_order": 2,
+      "status": "published"
+    },
+    {
+      "id": 3,
+      "category": "Maternity",
+      "question": "What is painless delivery, and is it safe for my baby?",
+      "answer": "Painless delivery utilizes labor epidural analgesia administered by experienced consultant anesthetists. It relieves the severe contractions pain while allowing you to remain fully conscious and physically active to push. Clinical studies confirm it is safe for both mother and infant.",
+      "display_order": 3,
+      "status": "published"
+    },
+    {
+      "id": 4,
+      "category": "Pediatrics",
+      "question": "When is a newborn admitted to the Level III NICU?",
+      "answer": "Babies born prematurely (before 36 weeks), with birth weights under 2.0 kg, respiratory distress, severe jaundice, infection, or difficult deliveries requiring observation receive immediate round-the-clock intensive care in our Level III NICU.",
+      "display_order": 4,
+      "status": "published"
+    },
+    {
+      "id": 5,
+      "category": "Insurance",
+      "question": "Which health insurance policies and TPAs offer cashless treatment here?",
+      "answer": "We offer cashless hospitalization with Star Health, HDFC ERGO, ICICI Lombard, Medi Assist, Vidal Health, Care Health, Niva Bupa, and Bajaj Allianz. We also assist with Telangana State Government EHS and Aarogyasri protocols. Our insurance desk manages documentation directly.",
+      "display_order": 5,
+      "status": "published"
+    },
+    {
+      "id": 6,
+      "category": "General",
+      "question": "What are the consultation timings and how do I book an appointment?",
+      "answer": "OPD operates Monday through Saturday from 9:00 AM to 8:00 PM, and Sunday from 9:00 AM to 1:00 PM. Emergency services, maternity casualty, and Level III NICU operate 24 hours every day. You can book online through this website or call +91 96667 81779.",
+      "display_order": 6,
+      "status": "published"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "patient_name": "Anusha & Venkat Rao",
+      "location": "Khammam Town",
+      "treatment_category": "IVF Treatment",
+      "rating": 5,
+      "story": "After 7 years of heartbreaking negative tests across Hyderabad hospitals, we met Dr. Sreemantha Rao. His calm reassurance and the advanced lab in Khammam blessed us with twin baby boys on our very first IVF cycle.",
+      "consent_verified": 1,
+      "status": "published",
+      "created_at": "2026-09-28 15:33:34"
+    },
+    {
+      "id": 2,
+      "patient_name": "Pooja & Rajesh Kumar",
+      "location": "Kothagudem",
+      "treatment_category": "Level III NICU Care",
+      "rating": 5,
+      "story": "Our daughter was born at just 29 weeks weighing 1.1 kilograms. Dr. Vamsi Krishna and the NICU nursing staff cared for her like their own child for 42 days. Today she is a healthy, cheerful 1-year-old baby girl.",
+      "consent_verified": 1,
+      "status": "published",
+      "created_at": "2026-09-28 15:33:34"
+    },
+    {
+      "id": 3,
+      "patient_name": "Sravanthi & Mohan",
+      "location": "Suryapet",
+      "treatment_category": "Painless Delivery",
+      "rating": 5,
+      "story": "Dr. Shravani made my entire maternity journey wonderful. The epidural painless delivery was completely peaceful, and the postnatal nursing team supported us with breastfeeding from the very first hour.",
+      "consent_verified": 1,
+      "status": "published",
+      "created_at": "2026-09-28 15:33:34"
+    }
+  ],
+  "media_assets": [
+    {
+      "id": 1,
+      "filename": "fertility-reproductive-medicine.webp",
+      "original_name": "Embryology Lab Cleanroom",
+      "url": "/uploads/departments/fertility-reproductive-medicine.webp",
+      "file_size": 135752,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 2,
+      "filename": "obstetrics-gynecology.webp",
+      "original_name": "Maternal Obstetric Care",
+      "url": "/uploads/departments/obstetrics-gynecology.webp",
+      "file_size": 78988,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 3,
+      "filename": "pediatrics-neonatology.webp",
+      "original_name": "Pediatric Neonatal Ward",
+      "url": "/uploads/departments/pediatrics-neonatology.webp",
+      "file_size": 66342,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 4,
+      "filename": "fetal-medicine-diagnostics.webp",
+      "original_name": "Fetal Ultrasound Diagnostics",
+      "url": "/uploads/departments/fetal-medicine-diagnostics.webp",
+      "file_size": 125920,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 5,
+      "filename": "fertility-reproductive-medicine.webp",
+      "original_name": "Embryology Lab Cleanroom",
+      "url": "/uploads/departments/fertility-reproductive-medicine.webp",
+      "file_size": 135752,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 6,
+      "filename": "laboratory-research.webp",
+      "original_name": "Diagnostic Research Lab",
+      "url": "/uploads/laboratory-research.webp",
+      "file_size": 109830,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 7,
+      "filename": "obstetrics-gynecology.webp",
+      "original_name": "Maternal Obstetric Care",
+      "url": "/uploads/departments/obstetrics-gynecology.webp",
+      "file_size": 78988,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 8,
+      "filename": "pediatrics-neonatology.webp",
+      "original_name": "Pediatric Neonatal Ward",
+      "url": "/uploads/departments/pediatrics-neonatology.webp",
+      "file_size": 66342,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 9,
+      "filename": "obstetrics-gynecology.webp",
+      "original_name": "Maternal Obstetric Care",
+      "url": "/uploads/departments/obstetrics-gynecology.webp",
+      "file_size": 78988,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 10,
+      "filename": "fetal-medicine-diagnostics.webp",
+      "original_name": "Fetal Ultrasound Diagnostics",
+      "url": "/uploads/departments/fetal-medicine-diagnostics.webp",
+      "file_size": 125920,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 11,
+      "filename": "doctor-consultation-male.webp",
+      "original_name": "Consultant Doctor Profile Male",
+      "url": "/uploads/doctor-consultation-male.webp",
+      "file_size": 54556,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 800,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 13,
+      "filename": "doctor-consultation-female.webp",
+      "original_name": "Consultant Doctor Profile Female",
+      "url": "/uploads/doctor-consultation-female.webp",
+      "file_size": 44936,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 800,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 14,
+      "filename": "doctor-pediatrician.webp",
+      "original_name": "Senior Pediatrician",
+      "url": "/uploads/doctor-pediatrician.webp",
+      "file_size": 77054,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 800,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:12"
+    },
+    {
+      "id": 15,
+      "filename": "fertility-reproductive-medicine.webp",
+      "original_name": "Embryology Lab Cleanroom",
+      "url": "/uploads/departments/fertility-reproductive-medicine.webp",
+      "file_size": 135752,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 16,
+      "filename": "pediatrics-neonatology.webp",
+      "original_name": "Pediatric Neonatal Ward",
+      "url": "/uploads/departments/pediatrics-neonatology.webp",
+      "file_size": 66342,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 17,
+      "filename": "fetal-medicine-diagnostics.webp",
+      "original_name": "Fetal Ultrasound Diagnostics",
+      "url": "/uploads/departments/fetal-medicine-diagnostics.webp",
+      "file_size": 125920,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 18,
+      "filename": "obstetrics-gynecology.webp",
+      "original_name": "Maternal Obstetric Care",
+      "url": "/uploads/departments/obstetrics-gynecology.webp",
+      "file_size": 78988,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 19,
+      "filename": "fertility-reproductive-medicine.webp",
+      "original_name": "Embryology Lab Cleanroom",
+      "url": "/uploads/departments/fertility-reproductive-medicine.webp",
+      "file_size": 135752,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 20,
+      "filename": "pediatrics-neonatology.webp",
+      "original_name": "Pediatric Neonatal Ward",
+      "url": "/uploads/departments/pediatrics-neonatology.webp",
+      "file_size": 66342,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 21,
+      "filename": "diagnostic-microscope.webp",
+      "original_name": "High Precision Microscope",
+      "url": "/uploads/diagnostic-microscope.webp",
+      "file_size": 134116,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 22,
+      "filename": "gallery-fetal-medicine.webp",
+      "original_name": "4D Prenatal Imaging Room",
+      "url": "/uploads/gallery/gallery-fetal-medicine.webp",
+      "file_size": 78988,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 23,
+      "filename": "gallery-level-3-nicu.webp",
+      "original_name": "Level III NICU Giraffe Incubator",
+      "url": "/uploads/gallery/gallery-level-3-nicu.webp",
+      "file_size": 82822,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 25,
+      "filename": "gallery-level-3-nicu.webp",
+      "original_name": "Level III NICU Giraffe Incubator",
+      "url": "/uploads/gallery/gallery-level-3-nicu.webp",
+      "file_size": 82822,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 26,
+      "filename": "gallery-operation-theatre.webp",
+      "original_name": "Modular OT Laminar Flow Suite",
+      "url": "/uploads/gallery/gallery-operation-theatre.webp",
+      "file_size": 41748,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 27,
+      "filename": "gallery-fetal-medicine.webp",
+      "original_name": "4D Prenatal Imaging Room",
+      "url": "/uploads/gallery/gallery-fetal-medicine.webp",
+      "file_size": 78988,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 28,
+      "filename": "gallery-recovery-suite.webp",
+      "original_name": "Deluxe Patient Recovery Room",
+      "url": "/uploads/gallery/gallery-recovery-suite.webp",
+      "file_size": 75314,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:13"
+    },
+    {
+      "id": 29,
+      "filename": "gallery-pediatric-consultation.webp",
+      "original_name": "Pediatric Examination Lounge",
+      "url": "/uploads/gallery/gallery-pediatric-consultation.webp",
+      "file_size": 81130,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:14"
+    },
+    {
+      "id": 30,
+      "filename": "gallery-reception-lounge.webp",
+      "original_name": "Hospital Main Entrance Reception",
+      "url": "/uploads/gallery/gallery-reception-lounge.webp",
+      "file_size": 91468,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:14"
+    },
+    {
+      "id": 31,
+      "filename": "gallery-embryology-lab.webp",
+      "original_name": "ICSI Embryology Cleanroom",
+      "url": "/uploads/gallery/gallery-embryology-lab.webp",
+      "file_size": 35570,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1200,
+      "height": 800,
+      "created_at": "2026-10-01 17:09:14"
+    },
+    {
+      "id": 39,
+      "filename": "asset-1791049250066-295820097.webp",
+      "original_name": "Untitled image (2).jpeg",
+      "url": "/uploads/asset-1791049250066-295820097.webp",
+      "file_size": 64736,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 2400,
+      "height": 1340,
+      "created_at": "2026-10-03 12:10:51"
+    },
+    {
+      "id": 45,
+      "filename": "hospital-exterior.webp",
+      "original_name": "Adobe Express - file.png",
+      "url": "/uploads/hospital-exterior.webp",
+      "file_size": 93686,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1672,
+      "height": 941,
+      "created_at": "2026-10-05 00:08:38"
+    },
+    {
+      "id": 47,
+      "filename": "hospital-exterior.webp",
+      "original_name": "Hospital Exterior Front Building",
+      "url": "/uploads/hospital-exterior.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 2000,
+      "height": 1500,
+      "created_at": "2026-10-05 01:38:54"
+    },
+    {
+      "id": 48,
+      "filename": "hospital-exterior-banner.webp",
+      "original_name": "Hospital Exterior Banner 16:9",
+      "url": "/uploads/hospital-exterior-banner.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1920,
+      "height": 1080,
+      "created_at": "2026-10-05 01:38:55"
+    },
+    {
+      "id": 49,
+      "filename": "incubator-nicu.webp",
+      "original_name": "NICU Incubator Room with Nurses & Preterms",
+      "url": "/uploads/incubator-nicu.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1599,
+      "height": 1200,
+      "created_at": "2026-10-05 01:38:55"
+    },
+    {
+      "id": 50,
+      "filename": "reception-newborn.webp",
+      "original_name": "Newborn Mom & Staff at Reception",
+      "url": "/uploads/reception-newborn.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 2000,
+      "height": 900,
+      "created_at": "2026-10-05 01:38:55"
+    },
+    {
+      "id": 51,
+      "filename": "operation-theatre.webp",
+      "original_name": "Modular Operation Theatre with Surgical Equipments",
+      "url": "/uploads/operation-theatre.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1152,
+      "height": 648,
+      "created_at": "2026-10-05 01:38:55"
+    },
+    {
+      "id": 52,
+      "filename": "blog-you-trust-we-care.webp",
+      "original_name": "Blog: You Trust We Care Poster",
+      "url": "/uploads/blogs/blog-you-trust-we-care.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 705,
+      "height": 853,
+      "created_at": "2026-10-05 01:38:55"
+    },
+    {
+      "id": 53,
+      "filename": "blog-let-wonderful-things-happen.webp",
+      "original_name": "Blog: Let Wonderful Things Happen Poster",
+      "url": "/uploads/blogs/blog-let-wonderful-things-happen.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 705,
+      "height": 853,
+      "created_at": "2026-10-05 01:38:56"
+    },
+    {
+      "id": 54,
+      "filename": "blog-baby-first-cry.webp",
+      "original_name": "Blog: Babys First Cry Poster",
+      "url": "/uploads/blogs/blog-baby-first-cry.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 705,
+      "height": 853,
+      "created_at": "2026-10-05 01:38:56"
+    },
+    {
+      "id": 55,
+      "filename": "blog-childbirth-special-memorable.webp",
+      "original_name": "Blog: Childbirth Special & Memorable Poster",
+      "url": "/uploads/blogs/blog-childbirth-special-memorable.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 705,
+      "height": 845,
+      "created_at": "2026-10-05 01:38:56"
+    },
+    {
+      "id": 56,
+      "filename": "blog-follow-baby-cues.webp",
+      "original_name": "Blog: Follow Your Babys Cues Poster",
+      "url": "/uploads/blogs/blog-follow-baby-cues.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 705,
+      "height": 864,
+      "created_at": "2026-10-05 01:38:57"
+    },
+    {
+      "id": 57,
+      "filename": "blog-fertility-all-ages.webp",
+      "original_name": "Blog: Fertility All Ages Poster",
+      "url": "/uploads/blogs/blog-fertility-all-ages.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 705,
+      "height": 864,
+      "created_at": "2026-10-05 01:38:57"
+    },
+    {
+      "id": 58,
+      "filename": "blog-embrace-health-happiness.webp",
+      "original_name": "Blog: Embrace Good Health & Happiness Poster",
+      "url": "/uploads/blogs/blog-embrace-health-happiness.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 1079,
+      "height": 1186,
+      "created_at": "2026-10-05 01:38:58"
+    },
+    {
+      "id": 59,
+      "filename": "blog-beat-male-infertility.webp",
+      "original_name": "Blog: Beat Male Infertility Poster",
+      "url": "/uploads/blogs/blog-beat-male-infertility.webp",
+      "file_size": 150000,
+      "mime_type": "image/webp",
+      "media_type": "image",
+      "width": 705,
+      "height": 869,
+      "created_at": "2026-10-05 01:38:58"
+    }
+  ]
+}

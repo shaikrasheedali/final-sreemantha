@@ -21,6 +21,7 @@ app.use(
   helmet({
     contentSecurityPolicy: false, // Allow iframes for Instagram, YouTube, Facebook and local SVGs
     crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: false,
   })
 );
 
@@ -44,6 +45,14 @@ app.use(
   })
 );
 
+// Fallback image serving: checks both uploads and frontend public images
+const frontendPublicImages = path.resolve(__dirname, '../../frontend/public/images');
+app.use(
+  '/images',
+  express.static(uploadDir, { maxAge: '30d' }),
+  express.static(frontendPublicImages, { maxAge: '30d' })
+);
+
 // Swagger UI API Documentation
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapiSpec));
 app.get('/api/docs.json', (req, res) => res.json(openapiSpec));
@@ -56,7 +65,7 @@ app.use('/api', (req, res, next) => {
   next();
 });
 
-// Explicit search engine indexing endpoints
+// Explicit search engine indexing endpoints & web manifest
 app.get('/robots.txt', (req, res) => {
   const robotsPath = path.resolve(__dirname, '../../frontend/public/robots.txt');
   if (fs.existsSync(robotsPath)) return res.type('text/plain').sendFile(robotsPath);
@@ -67,6 +76,21 @@ app.get('/sitemap.xml', (req, res) => {
   const sitemapPath = path.resolve(__dirname, '../../frontend/public/sitemap.xml');
   if (fs.existsSync(sitemapPath)) return res.type('application/xml').sendFile(sitemapPath);
   res.status(404).send('Sitemap not found');
+});
+
+app.get('/site.webmanifest', (req, res) => {
+  const manifestPaths = [
+    path.resolve(__dirname, '../../frontend/dist/site.webmanifest'),
+    path.resolve(__dirname, '../../frontend/public/site.webmanifest'),
+    path.resolve(__dirname, '../../site.webmanifest'),
+  ];
+  for (const p of manifestPaths) {
+    if (fs.existsSync(p)) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      return res.type('application/manifest+json').sendFile(p);
+    }
+  }
+  res.status(404).send('Manifest not found');
 });
 
 // Mount main API router
@@ -83,7 +107,12 @@ if (fs.existsSync(frontendDistPath)) {
 
   // SPA fallback for all other GET routes
   app.use((req, res, next) => {
-    if (req.method === 'GET' && !req.path.startsWith('/api') && !req.path.startsWith('/uploads')) {
+    if (
+      req.method === 'GET' &&
+      !req.path.startsWith('/api') &&
+      !req.path.startsWith('/uploads') &&
+      !req.path.startsWith('/images')
+    ) {
       return res.sendFile(path.join(frontendDistPath, 'index.html'));
     }
     next();
@@ -104,4 +133,3 @@ if (fs.existsSync(frontendDistPath)) {
 app.use(errorHandler);
 
 module.exports = app;
-
