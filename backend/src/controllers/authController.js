@@ -102,13 +102,15 @@ async function listUsers(req, res) {
       users: users.map(u => {
         const userRole = normalizeRole(u.role);
         let visiblePassword = null;
-        // Superadmin sees passwords of all accounts (admin, staff, superadmin)
+        // Superadmin can view the recorded credential for all accounts.
+        // Never fall back to a known default password here: doing so would
+        // disclose a password that is no longer valid or was never set.
         if (currentUserRole === 'superadmin') {
-          visiblePassword = u.stored_password || 'SuperAdmin@2026';
+          visiblePassword = u.stored_password || null;
         } else if (currentUserRole === 'admin') {
-          // Admin sees passwords of all staff accounts
+          // Admin sees credentials for staff accounts only.
           if (userRole === 'staff') {
-            visiblePassword = u.stored_password || 'Staff@2026';
+            visiblePassword = u.stored_password || null;
           }
         }
 

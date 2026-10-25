@@ -4,6 +4,8 @@
  * Provides structured, colorized, readable, and debuggable logging with request correlation.
  */
 
+require('../config/env');
+
 const LOG_LEVELS = {
   error: 0,
   warn: 1,
@@ -11,6 +13,8 @@ const LOG_LEVELS = {
   http: 3,
   debug: 4,
 };
+
+const COLOR_ENABLED = process.env.NO_COLOR === undefined && Boolean(process.stdout.isTTY);
 
 const LEVEL_COLORS = {
   error: '\x1b[31m\x1b[1m', // Bold Red
@@ -20,10 +24,14 @@ const LEVEL_COLORS = {
   debug: '\x1b[90m',        // Gray
 };
 
-const RESET_COLOR = '\x1b[0m';
-const DIM_COLOR = '\x1b[2m';
-const BOLD_COLOR = '\x1b[1m';
-const GREEN_COLOR = '\x1b[32m';
+if (!COLOR_ENABLED) {
+  for (const key of Object.keys(LEVEL_COLORS)) LEVEL_COLORS[key] = '';
+}
+
+const RESET_COLOR = COLOR_ENABLED ? '\x1b[0m' : '';
+const DIM_COLOR = COLOR_ENABLED ? '\x1b[2m' : '';
+const BOLD_COLOR = COLOR_ENABLED ? '\x1b[1m' : '';
+const GREEN_COLOR = COLOR_ENABLED ? '\x1b[32m' : '';
 
 const CURRENT_LEVEL = process.env.LOG_LEVEL || (process.env.NODE_ENV === 'production' ? 'info' : 'debug');
 

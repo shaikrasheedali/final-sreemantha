@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { query } = require('./db');
+const { withConnection } = require('./db');
 const { seedInitialUsers } = require('./seed');
 
 const TABLE_DEFINITIONS = {
@@ -61,8 +61,8 @@ const TABLE_DEFINITIONS = {
       \`specialty_slug\` varchar(120) NOT NULL,
       \`short_description\` text,
       \`overview\` longtext,
-      \`how_it_works\` json DEFAULT NULL,
-      \`who_requires\` json DEFAULT NULL,
+      \`how_it_works\` longtext,
+      \`who_requires\` longtext,
       \`preparation\` text,
       \`aftercare\` text,
       \`typical_duration\` varchar(255) DEFAULT NULL,
@@ -245,114 +245,166 @@ const TABLE_DEFINITIONS = {
   audit_logs: `
     CREATE TABLE IF NOT EXISTS \`audit_logs\` (
       \`id\` int NOT NULL AUTO_INCREMENT,
-      \`user_id\` int DEFAULT NULL,
-      \`action\` varchar(100) NOT NULL,
-      \`entity\` varchar(100) NOT NULL,
+      \`user_name\` varchar(100) NOT NULL,
+      \`action\` varchar(255) NOT NULL,
+      \`entity_type\` varchar(100) NOT NULL,
       \`entity_id\` varchar(100) DEFAULT NULL,
       \`details\` json DEFAULT NULL,
-      \`ip_address\` varchar(50) DEFAULT NULL,
       \`created_at\` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
       PRIMARY KEY (\`id\`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
   `,
 };
 
+const SCHEMA_UPGRADES = [
+  "ALTER TABLE gallery_items MODIFY COLUMN media_type VARCHAR(50) DEFAULT 'image'",
+  'ALTER TABLE gallery_items ADD COLUMN embed_code TEXT NULL AFTER media_url',
+  'ALTER TABLE gallery_items ADD COLUMN thumbnail_url VARCHAR(500) NULL AFTER embed_code',
+  'ALTER TABLE appointments MODIFY COLUMN preferred_date DATE NULL',
+  "ALTER TABLE appointments MODIFY COLUMN status VARCHAR(50) NOT NULL DEFAULT 'waiting'",
+  "ALTER TABLE enquiries MODIFY COLUMN status VARCHAR(50) NOT NULL DEFAULT 'unread'",
+  'ALTER TABLE users ADD COLUMN stored_password VARCHAR(255) NULL AFTER password_hash',
+  // how_it_works is authored as rich HTML in the CMS, while who_requires may
+  // be JSON or plain text. Both must not be constrained to valid JSON.
+  'ALTER TABLE treatments MODIFY COLUMN how_it_works LONGTEXT NULL',
+  'ALTER TABLE treatments MODIFY COLUMN who_requires LONGTEXT NULL',
+  // Compatibility with the previous audit_logs definition.
+  'ALTER TABLE audit_logs ADD COLUMN user_name VARCHAR(100) NULL',
+  'ALTER TABLE audit_logs ADD COLUMN entity_type VARCHAR(100) NULL',
+  'ALTER TABLE audit_logs MODIFY COLUMN entity VARCHAR(100) NULL',
+];
+
+function isExpectedSchemaError(err) {
+  // Duplicate column / duplicate key / missing old column are expected while
+  // bringing an existing database up to the current schema.
+  return ['ER_DUP_FIELDNAME', 'ER_DUP_KEYNAME', 'ER_CANT_DROP_FIELD_OR_KEY', 'ER_BAD_FIELD_ERROR'].includes(
+    err && err.code
+  );
+}
+
 async function initDatabase() {
   console.log('[InitDb] Verifying and provisioning MySQL database tables...');
 
-  // 1. Create all 16 tables individually
-  for (const [tableName, ddl] of Object.entries(TABLE_DEFINITIONS)) {
-    try {
-      await query(ddl);
-      console.log(`[InitDb] Table verified: ${tableName}`);
-    } catch (err) {
-      console.error(`[InitDb] Warning creating table ${tableName}:`, err.message);
+  return withConnection(async (connection) => {
+    const run = async (sql, params) => {
+      const [rows] = await connection.query(sql, params);
+      return rows;
+    };
+
+    // 1. Create all tables individually so one failure cannot abort the boot.
+    let createdOrVerified = 0;
+    for (const [tableName, ddl] of Object.entries(TABLE_DEFINITIONS)) {
+      try {
+        await run(ddl);
+        createdOrVerified += 1;
+      } catch (err) {
+        console.error(`[InitDb] Warning creating table ${tableName}:`, err.message);
+      }
     }
-  }
 
-  // 2. Check and run schema column updates
-  try {
-    await query("ALTER TABLE gallery_items MODIFY COLUMN media_type VARCHAR(50) DEFAULT 'image';");
-  } catch (e) {}
-
-  try {
-    await query('ALTER TABLE gallery_items ADD COLUMN embed_code TEXT NULL AFTER media_url;');
-  } catch (e) {}
-
-  try {
-    await query('ALTER TABLE gallery_items ADD COLUMN thumbnail_url VARCHAR(500) NULL AFTER embed_code;');
-  } catch (e) {}
-
-  try {
-    await query('ALTER TABLE appointments MODIFY COLUMN preferred_date DATE NULL;');
-  } catch (e) {}
-
-  try {
-    await query("ALTER TABLE appointments MODIFY COLUMN status VARCHAR(50) NOT NULL DEFAULT 'waiting';");
-  } catch (e) {}
-
-  try {
-    await query("ALTER TABLE enquiries MODIFY COLUMN status VARCHAR(50) NOT NULL DEFAULT 'unread';");
-  } catch (e) {}
-
-  try {
-    await query('ALTER TABLE users ADD COLUMN stored_password VARCHAR(255) NULL AFTER password_hash;');
-  } catch (e) {}
-
-  // 3. Seed baseline content tables if empty
-  const baselinePath = path.join(__dirname, 'baseline_data.json');
-  if (fs.existsSync(baselinePath)) {
-    try {
-      const baseline = JSON.parse(fs.readFileSync(baselinePath, 'utf-8'));
-
-      for (const [tableName, rows] of Object.entries(baseline)) {
-        if (!rows || rows.length === 0) continue;
-
-        try {
-          const countResult = await query(`SELECT COUNT(*) as cnt FROM \`${tableName}\``);
-          const count = countResult[0]?.cnt || 0;
-
-          if (count === 0) {
-            console.log(`[InitDb] Seeding empty table \`${tableName}\` with ${rows.length} baseline records...`);
-            
-            for (const row of rows) {
-              const cols = Object.keys(row);
-              const placeholders = cols.map(() => '?').join(', ');
-              const values = cols.map(c => {
-                const val = row[c];
-                if (val !== null && typeof val === 'object') {
-                  return JSON.stringify(val);
-                }
-                return val;
-              });
-
-              await query(
-                `INSERT INTO \`${tableName}\` (${cols.map(c => `\`${c}\``).join(', ')}) VALUES (${placeholders})`,
-                values
-              );
-            }
-            console.log(`[InitDb] Successfully seeded table: ${tableName}`);
-          }
-        } catch (tableErr) {
-          console.error(`[InitDb] Notice seeding table ${tableName}:`, tableErr.message);
+    // 2. Apply backwards-compatible schema upgrades.
+    for (const statement of SCHEMA_UPGRADES) {
+      try {
+        await run(statement);
+      } catch (err) {
+        if (!isExpectedSchemaError(err)) {
+          console.error('[InitDb] Schema update notice:', err.message);
         }
       }
-    } catch (baselineErr) {
-      console.error('[InitDb] Error loading baseline data:', baselineErr.message);
     }
-  }
 
-  // 4. Seed initial superadmin, admin, staff users
-  await seedInitialUsers();
+    // 3. Backfill audit rows written by the previous schema.
+    try {
+      await run(
+        `UPDATE audit_logs
+            SET user_name = COALESCE(user_name, 'System'),
+                entity_type = COALESCE(entity_type, entity)
+          WHERE user_name IS NULL OR entity_type IS NULL`
+      );
+    } catch (err) {
+      // The old column may not exist on a freshly-created database.
+      if (!isExpectedSchemaError(err)) {
+        console.error('[InitDb] Audit backfill notice:', err.message);
+      }
+    }
 
-  console.log('[InitDb] Database initialization check completed successfully.');
+    // 4. Seed baseline content tables only when they are empty.
+    const baselinePath = path.join(__dirname, 'baseline_data.json');
+    if (fs.existsSync(baselinePath)) {
+      try {
+        const baseline = JSON.parse(fs.readFileSync(baselinePath, 'utf-8'));
+
+        for (const [tableName, rows] of Object.entries(baseline)) {
+          if (!rows || rows.length === 0) continue;
+
+          try {
+            const countResult = await run(`SELECT COUNT(*) as cnt FROM \`${tableName}\``);
+            const count = Number(countResult[0]?.cnt || 0);
+
+            if (count === 0) {
+              console.log(
+                `[InitDb] Seeding empty table \`${tableName}\` with ${rows.length} baseline records...`
+              );
+
+              let inserted = 0;
+              for (const row of rows) {
+                const cols = Object.keys(row);
+                const placeholders = cols.map(() => '?').join(', ');
+                const values = cols.map((c) => {
+                  const val = row[c];
+                  if (val !== null && typeof val === 'object') {
+                    return JSON.stringify(val);
+                  }
+                  return val;
+                });
+
+                try {
+                  await run(
+                    `INSERT INTO \`${tableName}\` (${cols.map((c) => `\`${c}\``).join(', ')}) VALUES (${placeholders})`,
+                    values
+                  );
+                  inserted += 1;
+                } catch (rowErr) {
+                  // Keep seeding the remaining rows; a single malformed
+                  // baseline record must not leave a whole table empty.
+                  console.error(
+                    `[InitDb] Could not seed ${tableName} row ${row.id ?? inserted + 1}:`,
+                    rowErr.message
+                  );
+                }
+              }
+              console.log(
+                `[InitDb] Seeded ${inserted}/${rows.length} records into table: ${tableName}`
+              );
+            }
+          } catch (tableErr) {
+            console.error(`[InitDb] Notice seeding table ${tableName}:`, tableErr.message);
+          }
+        }
+      } catch (baselineErr) {
+        console.error('[InitDb] Error loading baseline data:', baselineErr.message);
+      }
+    }
+
+    // 5. Seed initial superadmin, admin and staff users without ever
+    //    overwriting an existing account.
+    await seedInitialUsers(connection);
+
+    console.log(
+      `[InitDb] Database initialization completed (${createdOrVerified}/${Object.keys(TABLE_DEFINITIONS).length} tables verified).`
+    );
+
+    return { tablesVerified: createdOrVerified };
+  });
 }
 
 module.exports = { initDatabase };
 
 if (require.main === module) {
-  initDatabase().then(() => process.exit(0)).catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
+  initDatabase()
+    .then(() => process.exit(0))
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
 }

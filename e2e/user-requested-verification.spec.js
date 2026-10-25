@@ -61,6 +61,14 @@ test.describe('User Requested Features Verification', () => {
 
     // 2.3 Mobile View (375x667)
     await page.setViewportSize({ width: 375, height: 667 });
+    await expect(mobileMenuBtn).toBeVisible();
+    if (!(await sidebar.evaluate((el) => el.classList.contains('open')))) {
+      await mobileMenuBtn.click();
+    }
+    await page.waitForFunction(() => {
+      const el = document.querySelector('aside.sidebar');
+      return !!el && el.classList.contains('open') && Math.abs(el.getBoundingClientRect().x) < 1;
+    });
     const mobileLogoBox = await brandLogo.boundingBox();
     const mobileSidebarBox = await sidebar.boundingBox();
     expect(mobileLogoBox.x + mobileLogoBox.width).toBeLessThanOrEqual(mobileSidebarBox.x + mobileSidebarBox.width);
@@ -87,10 +95,10 @@ test.describe('User Requested Features Verification', () => {
     await expect(page.locator('text=Let Wonderful Things Happen')).toBeVisible();
     await expect(page.locator('text=Beat Male Infertility')).toBeVisible();
 
-    const blogImg = page.locator('img[src*="/images/blogs/"]').first();
+    const blogImg = page.locator('img[src*="/uploads/blogs/"]').first();
     await expect(blogImg).toBeVisible();
     const blogSrc = await blogImg.getAttribute('src');
-    expect(blogSrc).toContain('/images/blogs/');
+    expect(blogSrc).toContain('/uploads/blogs/');
     expect(blogSrc).toContain('.webp');
   });
 

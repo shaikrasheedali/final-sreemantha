@@ -35,8 +35,19 @@ function stringifyJsonField(val, fallback = '[]') {
   return JSON.stringify(val);
 }
 
+/**
+ * Serializes a mixed content field (rich HTML, plain text, or a structured
+ * array/object) for a LONGTEXT column without double-encoding HTML.
+ */
+function stringifyContentField(val, fallback = '') {
+  if (val === null || val === undefined) return fallback;
+  if (typeof val === 'string') return val;
+  return JSON.stringify(val);
+}
+
 module.exports = {
   slugify,
   parseJsonField,
   stringifyJsonField,
+  stringifyContentField,
 };

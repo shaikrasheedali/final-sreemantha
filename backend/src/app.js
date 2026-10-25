@@ -1,3 +1,4 @@
+require('./config/env');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -12,6 +13,10 @@ const { logger, requestCorrelationMiddleware } = require('./utils/logger');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 
 const app = express();
+
+// GoDaddy terminates TLS at its proxy. Trust exactly one hop so req.ip and
+// audit records contain the real client address rather than the proxy address.
+app.set('trust proxy', 1);
 
 // Request ID and HTTP access correlation logger
 app.use(requestCorrelationMiddleware);
@@ -103,15 +108,29 @@ app.use(notFoundHandler);
 const frontendDistPath = path.resolve(__dirname, '../../frontend/dist');
 if (fs.existsSync(frontendDistPath)) {
   logger.info(`Serving production frontend build from: ${frontendDistPath}`, {}, 'SERVER');
+
+  // Vite emits content-hashed assets; they can be cached aggressively.
+  app.use(
+    '/assets',
+    express.static(path.join(frontendDistPath, 'assets'), {
+      maxAge: '365d',
+      immutable: true,
+      fallthrough: true,
+    })
+  );
+
   app.use(express.static(frontendDistPath));
 
-  // SPA fallback for all other GET routes
+  // SPA fallback for client-side routes only. Missing files (for example a
+  // stale /assets/*.js request) must 404 rather than return index.html.
   app.use((req, res, next) => {
     if (
-      req.method === 'GET' &&
+      (req.method === 'GET' || req.method === 'HEAD') &&
       !req.path.startsWith('/api') &&
       !req.path.startsWith('/uploads') &&
-      !req.path.startsWith('/images')
+      !req.path.startsWith('/images') &&
+      !req.path.startsWith('/assets') &&
+      !path.extname(req.path)
     ) {
       return res.sendFile(path.join(frontendDistPath, 'index.html'));
     }

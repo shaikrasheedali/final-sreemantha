@@ -3806,7 +3806,9 @@ body,
   grid-template-columns: 260px 1fr;
 }
 
-@media (max-width: 768px) {
+/* Keep this one pixel below Tailwind's md breakpoint (768px) so the desktop
+   sidebar and the md:hidden mobile header can never both be hidden. */
+@media (max-width: 767px) {
   .dashboard {
     grid-template-columns: 1fr;
     display: block;
@@ -3829,7 +3831,7 @@ body,
   box-shadow: 2px 0 16px rgba(7, 61, 89, 0.15);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .sidebar {
     width: min(300px, 85vw);
     transform: translateX(-100%);
@@ -3954,7 +3956,7 @@ body,
   min-height: 100vh;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .dash-main {
     grid-column: 1 / -1;
     width: 100%;
@@ -4004,7 +4006,7 @@ body,
 .topbar {
   height: 32px !important;
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .topbar {
     display: none !important;
   }

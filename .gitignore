@@ -6,13 +6,27 @@ frontend/node_modules/
 # Environment Variables
 .env
 .env.local
+.env.*.local
 *.env
+!*.env.example
+
+# Build output
+frontend/dist/
+frontend/dist-ssr/
+dist/
+build/
+
+# Runtime data (generated JWT secret, local uploads override, etc.)
+backend/data/
 
 # Testing & Artifacts
 test-results/
 playwright-report/
 .nyc_output/
 coverage/
+
+# Deployment archives
+*.zip
 
 # OS / Editor files
 .DS_Store

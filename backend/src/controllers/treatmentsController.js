@@ -1,6 +1,11 @@
 const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
-const { slugify, parseJsonField, stringifyJsonField } = require('../utils/helpers');
+const {
+  slugify,
+  parseJsonField,
+  stringifyJsonField,
+  stringifyContentField,
+} = require('../utils/helpers');
 const { recordAudit } = require('../middleware/auth');
 
 async function getAllTreatments(req, res) {
@@ -134,7 +139,7 @@ async function createTreatment(req, res) {
         specialty_slug || '',
         short_description || '',
         treatmentOverview,
-        stringifyJsonField(treatmentHowItWorks),
+        stringifyContentField(treatmentHowItWorks),
         stringifyJsonField(who_requires),
         preparation || '',
         aftercare || '',
@@ -216,7 +221,7 @@ async function updateTreatment(req, res) {
         treatmentSpecialtySlug,
         treatmentShortDesc,
         treatmentOverview,
-        stringifyJsonField(rawHow),
+        stringifyContentField(rawHow),
         stringifyJsonField(treatmentWhoRequires),
         treatmentPrep,
         treatmentAftercare,

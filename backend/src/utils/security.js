@@ -1,8 +1,64 @@
+const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
+require('../config/env');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'sreemantha-hospital-super-secure-jwt-secret-2026-key';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
+
+/**
+ * Resolve the JWT signing secret.
+ *
+ * Priority:
+ *  1. JWT_SECRET from the hosting dashboard / process environment.
+ *  2. A generated secret persisted under backend/data/.jwt-secret.
+ *  3. A random in-memory secret (sessions survive only until restart).
+ *
+ * There is deliberately no hard-coded fallback: a public repository must never
+ * ship a signing key that anyone could use to forge administrator tokens.
+ */
+function resolveJwtSecret() {
+  const envSecret = (process.env.JWT_SECRET || '').trim();
+  if (envSecret) {
+    return { secret: envSecret, source: 'environment' };
+  }
+
+  const secretFile = path.resolve(
+    process.env.JWT_SECRET_FILE || path.join(__dirname, '../../data/.jwt-secret')
+  );
+
+  try {
+    if (fs.existsSync(secretFile)) {
+      const existing = fs.readFileSync(secretFile, 'utf8').trim();
+      if (existing.length >= 32) {
+        return { secret: existing, source: 'file' };
+      }
+    }
+  } catch (err) {
+    console.warn(`[Security] Could not read JWT secret file: ${err.message}`);
+  }
+
+  const generated = crypto.randomBytes(48).toString('hex');
+
+  try {
+    fs.mkdirSync(path.dirname(secretFile), { recursive: true });
+    fs.writeFileSync(secretFile, `${generated}\n`, { mode: 0o600 });
+    return { secret: generated, source: 'generated-file' };
+  } catch (err) {
+    console.warn(`[Security] Could not persist JWT secret file: ${err.message}`);
+    return { secret: generated, source: 'ephemeral' };
+  }
+}
+
+const { secret: JWT_SECRET, source: JWT_SECRET_SOURCE } = resolveJwtSecret();
+
+if (JWT_SECRET_SOURCE !== 'environment') {
+  console.warn(
+    '[Security] JWT_SECRET is not configured. A generated secret is in use ' +
+      `(${JWT_SECRET_SOURCE}). Set JWT_SECRET in the hosting secrets for stable, portable sessions.`
+  );
+}
 
 /**
  * Hash a plain text password using Argon2id
@@ -84,4 +140,5 @@ module.exports = {
   generateToken,
   verifyToken,
   JWT_SECRET,
+  JWT_SECRET_SOURCE,
 };

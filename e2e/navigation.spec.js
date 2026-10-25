@@ -25,12 +25,12 @@ test.describe('Public Website & Navigation Tests', () => {
     await expect(page.getByRole('link', { name: /Staff Login/i }).first()).toBeVisible();
 
     // Verify Sliding Insurance Strip section
-    const insuranceSection = page.locator('text=Empanelled Insurance & Cashless Partners');
+    const insuranceSection = page.locator('text=Accepted Insurance & TPA Partners');
     await expect(insuranceSection).toBeVisible();
 
-    // Check that at least some insurance company names/logos are rendered
-    await expect(page.locator('text=Star Health').first()).toBeVisible();
-    await expect(page.locator('text=HDFC ERGO').first()).toBeVisible();
+    // Check that insurance partner badges are rendered
+    await expect(page.locator('img[src*="star-health.webp"]').first()).toBeAttached();
+    await expect(page.locator('img[src*="icici-lombard.webp"]').first()).toBeAttached();
 
     // Verify Floating Contact Buttons (Phone and WhatsApp)
     const phoneBtn = page.locator('a[href^="tel:"]').first();

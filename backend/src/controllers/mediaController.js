@@ -5,7 +5,12 @@ const fs = require('fs');
 const sharp = require('sharp');
 const { query } = require('../config/db');
 
-const uploadDir = path.join(__dirname, '../../uploads');
+// UPLOAD_DIR lets production point uploads at a persistent mounted volume.
+// When unset (default for this app), uploads live in backend/uploads.
+const uploadDir = process.env.UPLOAD_DIR
+  ? path.resolve(process.env.UPLOAD_DIR)
+  : path.join(__dirname, '../../uploads');
+
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
@@ -156,10 +161,14 @@ async function deleteMedia(req, res) {
 
     const asset = rows[0];
 
-    // If local file in uploads, remove from disk
+    // If the asset is stored locally, remove it from the upload directory.
     if (asset.url && asset.url.startsWith('/uploads/')) {
-      const localPath = path.join(__dirname, '../../', asset.url);
-      if (fs.existsSync(localPath)) {
+      const relativeName = asset.url.replace(/^\/uploads\//, '');
+      const localPath = path.resolve(uploadDir, relativeName);
+      const uploadRoot = path.resolve(uploadDir) + path.sep;
+
+      // Never allow a crafted database value to delete outside UPLOAD_DIR.
+      if (localPath.startsWith(uploadRoot) && fs.existsSync(localPath)) {
         try {
           fs.unlinkSync(localPath);
         } catch (fsErr) {
