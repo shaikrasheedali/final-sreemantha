@@ -2,7 +2,8 @@ const { test, expect } = require('@playwright/test');
 
 async function loginAndOpenTreatmentEditor(page) {
   await page.goto('/staff-login');
-  await page.locator('#quick-login-admin').click();
+  await page.locator('#staff-username').fill('admin');
+  await page.locator('#staff-password').fill('Admin@2026');
   await page.getByRole('button', { name: /Sign In to Portal/i }).click();
   await expect(page).toHaveURL(/\/admin/);
 

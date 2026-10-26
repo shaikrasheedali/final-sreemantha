@@ -6,8 +6,9 @@ test.describe('Staff Authentication & Admin CMS Workflows', () => {
 
     await expect(page.locator('h2')).toContainText(/Hospital Staff Sign In/i);
 
-    // Click quick fill for Admin
-    await page.locator('#quick-login-admin').click();
+    // Sign in with the administrator credentials
+    await page.locator('#staff-username').fill('admin');
+    await page.locator('#staff-password').fill('Admin@2026');
 
     // Submit login
     await page.getByRole('button', { name: /Sign In to Portal/i }).click();
@@ -26,7 +27,8 @@ test.describe('Staff Authentication & Admin CMS Workflows', () => {
   test('CMS Collection Manager loads MS Word-like WYSIWYG editor for Treatments', async ({ page }) => {
     // Login as Admin
     await page.goto('/staff-login');
-    await page.locator('#quick-login-admin').click();
+    await page.locator('#staff-username').fill('admin');
+    await page.locator('#staff-password').fill('Admin@2026');
     await page.getByRole('button', { name: /Sign In to Portal/i }).click();
     await expect(page).toHaveURL(/\/admin/);
 
@@ -53,7 +55,8 @@ test.describe('Staff Authentication & Admin CMS Workflows', () => {
   test('Admin Gallery management supports media upload and YouTube/Instagram/Facebook embeds', async ({ page }) => {
     // Login as Admin
     await page.goto('/staff-login');
-    await page.locator('#quick-login-admin').click();
+    await page.locator('#staff-username').fill('admin');
+    await page.locator('#staff-password').fill('Admin@2026');
     await page.getByRole('button', { name: /Sign In to Portal/i }).click();
     await expect(page).toHaveURL(/\/admin/);
 

@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { SettingsProvider } from './context/SettingsContext';
+import { TranslationProvider } from './context/TranslationContext';
 
 // Shared app-shell components (kept eager so the public shell paints instantly)
 import { Navbar } from './components/Navbar';
@@ -120,17 +121,19 @@ const AdminAuditLogsPage = lazyPage(
 // Public Layout Wrapper
 const PublicLayout: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-[var(--paper)] text-[var(--ink)] relative">
-      <Navbar />
-      <main className="flex-1 public-page">
-        <Suspense fallback={<RouteFallback />}>
-          <Outlet />
-        </Suspense>
-      </main>
-      <Footer />
-      <FloatingContactButtons />
-      <div className="noise" aria-hidden="true" />
-    </div>
+    <TranslationProvider>
+      <div className="flex flex-col min-h-screen bg-[var(--paper)] text-[var(--ink)] relative public-site">
+        <Navbar />
+        <main className="flex-1 public-page">
+          <Suspense fallback={<RouteFallback />}>
+            <Outlet />
+          </Suspense>
+        </main>
+        <Footer />
+        <FloatingContactButtons />
+        <div className="noise" aria-hidden="true" />
+      </div>
+    </TranslationProvider>
   );
 };
 

@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Lock, ArrowLeft, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useEnglishOnlyPage } from '../context/TranslationContext';
 import { BrandLogo } from '../components/BrandLogo';
 
 export const StaffLoginPage: React.FC = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  useEnglishOnlyPage();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -32,11 +34,6 @@ export const StaffLoginPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleQuickLogin = (u: string, p: string) => {
-    setUsername(u);
-    setPassword(p);
   };
 
   return (
@@ -84,8 +81,10 @@ export const StaffLoginPage: React.FC = () => {
 
           <form onSubmit={handleSubmit}>
             <div className="field mb-4">
-              <label>Staff Username</label>
+              <label htmlFor="staff-username">Staff Username</label>
               <input
+                id="staff-username"
+                name="username"
                 type="text"
                 required
                 autoComplete="username"
@@ -96,9 +95,11 @@ export const StaffLoginPage: React.FC = () => {
             </div>
 
             <div className="field mb-4">
-              <label>Password</label>
+              <label htmlFor="staff-password">Password</label>
               <div className="password-wrap">
                 <input
+                  id="staff-password"
+                  name="password"
                   type={showPassword ? 'text' : 'password'}
                   required
                   autoComplete="current-password"
@@ -129,23 +130,6 @@ export const StaffLoginPage: React.FC = () => {
               <span>{loading ? 'Authenticating…' : 'Sign In to Portal'}</span>
             </button>
           </form>
-
-          {/* Preset test credentials */}
-          <div className="mt-8 pt-6 border-t border-[var(--line)]">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#4e6373] block mb-2">
-              Quick Personnel Sign-In (For Testing &amp; Review)
-            </span>
-            <div className="grid grid-cols-1 gap-2">
-              <button
-                id="quick-login-admin"
-                type="button"
-                onClick={() => handleQuickLogin('admin', 'Admin@2026')}
-                className="btn btn-soft text-xs justify-center py-2"
-              >
-                Administrator
-              </button>
-            </div>
-          </div>
         </div>
       </section>
     </div>

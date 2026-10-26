@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
-  ArrowUpRight,
   Calendar,
   Clock,
   Heart,
-  MapPin,
   Phone,
   PhoneCall,
   ShieldCheck,
@@ -23,6 +21,7 @@ import {
   HandHeart,
 } from 'lucide-react';
 import { SlidingInsuranceStrip } from '../components/SlidingInsuranceStrip';
+import { LocationMap } from '../components/LocationMap';
 import { useSettings } from '../context/SettingsContext';
 import type { Facility, Specialty, Doctor } from '../types';
 import { api } from '../utils/api';
@@ -36,6 +35,34 @@ const IMAGES = {
   ot: '/images/operation-theatre.webp',
   patient: '/images/reception-newborn.webp',
 };
+
+const HERO_SLIDES = [
+  {
+    src: IMAGES.hero,
+    alt: 'Sreemantha Hospital exterior in Khammam',
+    position: 'center 26%',
+  },
+  {
+    src: IMAGES.mother,
+    alt: 'Newborn care at the Sreemantha maternity unit',
+    position: 'center 34%',
+  },
+  {
+    src: IMAGES.nicu,
+    alt: 'Level-III NICU incubator at Sreemantha Hospital',
+    position: 'center 42%',
+  },
+  {
+    src: IMAGES.ot,
+    alt: 'Modern operation theatre at Sreemantha Hospital',
+    position: 'center 48%',
+  },
+  {
+    src: IMAGES.exterior,
+    alt: 'Sreemantha Hospital clinical campus',
+    position: 'center 32%',
+  },
+];
 
 const TESTIMONIALS = [
   {
@@ -68,6 +95,18 @@ export const HomePage: React.FC = () => {
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [selectedFacilityIdx, setSelectedFacilityIdx] = useState(0);
   const [storyIdx, setStoryIdx] = useState(0);
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    const interval = window.setInterval(() => {
+      setHeroIndex((current) => (current + 1) % HERO_SLIDES.length);
+    }, 6500);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -106,8 +145,22 @@ export const HomePage: React.FC = () => {
     <div className="public-site">
       {/* 1. HERO SECTION */}
       <header className="hero" id="home">
-        <div className="hero-media">
-          <img src={IMAGES.hero} alt="Sreemantha Hospital Specialist Care" />
+        <div className="hero-media" aria-hidden="true">
+          {HERO_SLIDES.map((slide, index) => (
+            <div
+              key={slide.src}
+              className={`hero-slide${index === heroIndex ? ' is-active' : ''}`}
+            >
+              <img
+                src={slide.src}
+                alt=""
+                style={{ objectPosition: slide.position }}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                fetchPriority={index === 0 ? 'high' : 'low'}
+                draggable={false}
+              />
+            </div>
+          ))}
         </div>
         <div className="container">
           <div className="hero-copy">
@@ -681,22 +734,7 @@ export const HomePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="location-map">
-              <div className="map-placeholder">
-                <MapPin size={38} className="text-[var(--teal)] mb-2" />
-                <h3>Sreemantha Hospital</h3>
-                <p className="text-sm max-w-xs">{info.address || 'Nehru Nagar, Khammam, Telangana'}</p>
-                <a
-                  className="btn btn-dark mt-4"
-                  href={`https://maps.google.com/?q=${encodeURIComponent('Sreemantha Hospital, Nehru Nagar, Khammam')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span>Open in Google Maps</span>
-                  <ArrowUpRight size={16} />
-                </a>
-              </div>
-            </div>
+            <LocationMap />
           </div>
         </div>
       </section>

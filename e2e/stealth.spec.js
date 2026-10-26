@@ -23,8 +23,12 @@ test.describe('Superadmin stealth', () => {
       page.getByRole('heading', { name: /Hospital Staff Sign In/i })
     ).toBeVisible();
     await expectNoSuperAdminText(page);
-    await expect(page.locator('#quick-login-admin')).toBeVisible();
-    await expect(page.locator('[id^="quick-login-"]')).toHaveCount(1);
+    // The public quick-login shortcuts (including the Administrator button)
+    // were removed so the portal only exposes the real credential form.
+    await expect(page.locator('[id^="quick-login-"]')).toHaveCount(0);
+    await expect(page.getByText(/Quick Personnel Sign-In/i)).toHaveCount(0);
+    await expect(page.locator('#staff-username')).toBeVisible();
+    await expect(page.locator('#staff-password')).toBeVisible();
   });
 
   test('administrator API responses and screens are blind to the superadmin', async ({

@@ -21,7 +21,8 @@ test.describe('User Requested Features Verification', () => {
     // 2.1 Desktop View (1280x800)
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/staff-login');
-    await page.locator('#quick-login-admin').click();
+    await page.locator('#staff-username').fill('admin');
+    await page.locator('#staff-password').fill('Admin@2026');
     await page.getByRole('button', { name: /Sign In to Portal/i }).click();
     await expect(page).toHaveURL(/\/admin/);
 
@@ -77,7 +78,7 @@ test.describe('User Requested Features Verification', () => {
   test('3. Real Hospital Images, Doctors & Blogs Verification', async ({ page }) => {
     // 3.1 Homepage real hospital WebP images
     await page.goto('/');
-    const heroImg = page.locator('.hero-media img');
+    const heroImg = page.locator('.hero-media .hero-slide img').first();
     await expect(heroImg).toBeVisible();
     const heroSrc = await heroImg.getAttribute('src');
     expect(heroSrc).toContain('/images/hospital-exterior-banner.webp');

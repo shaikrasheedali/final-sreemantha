@@ -8,9 +8,9 @@ import {
   Check,
   AlertCircle,
   ShieldCheck,
-  ArrowUpRight,
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { LocationMap } from '../components/LocationMap';
 import { useSettings } from '../context/SettingsContext';
 import { api } from '../utils/api';
 
@@ -294,31 +294,10 @@ export const ContactPage: React.FC = () => {
               </div>
 
               {/* Map embed / link */}
-              <div className="rounded-xl overflow-hidden border border-[rgba(22,55,76,0.12)] h-56 bg-[var(--mint)] relative flex items-center justify-center">
-                <iframe
-                  title="Sreemantha Hospital Khammam Location Map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3809.5262744781446!2d80.1487661!3d17.2415177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3459c3bf79a059%3A0xe6bf446cf055c5df!2sSreemantha%20Hospital!5e0!3m2!1sen!2sin!4v1700000000000"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-
-              <div className="pt-2">
-                <a
-                  href="https://maps.google.com/?q=Sreemantha+Hospital+Khammam"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="sr-button sr-button--outline text-xs w-full justify-center"
-                >
-                  <MapPin size={14} />
-                  Open in Google Maps
-                  <ArrowUpRight size={14} />
-                </a>
-              </div>
+              <LocationMap
+                compact
+                className="rounded-xl overflow-hidden border border-[rgba(22,55,76,0.12)]"
+              />
             </div>
           </div>
         </div>

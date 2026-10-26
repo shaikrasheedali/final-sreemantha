@@ -20,6 +20,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useEnglishOnlyPage } from '../../context/TranslationContext';
 import { BrandLogo } from '../../components/BrandLogo';
 import { RouteFallback } from '../../components/RouteFallback';
 
@@ -27,6 +28,7 @@ export const AdminLayout: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  useEnglishOnlyPage();
 
   const handleLogout = () => {
     logout();

@@ -209,6 +209,12 @@ export const AdminAppointmentsPage: React.FC = () => {
                             <Mail className="w-3.5 h-3.5" /> {a.email}
                           </div>
                         )}
+                        {a.reason && (
+                          <div className="text-xs text-[#5a7d92] flex items-start gap-1.5 mt-1">
+                            <MessageCircle className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                            <span className="line-clamp-2">{a.reason}</span>
+                          </div>
+                        )}
                         {a.notes && (
                           <div className="text-[11px] text-[#5a7d92] italic mt-1 bg-amber-50/80 p-1.5 rounded border border-amber-200/50">
                             Note: {a.notes}

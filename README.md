@@ -125,6 +125,8 @@ Committed media under `backend/uploads` ships with the code. Files uploaded thro
 - There is no hard-coded JWT signing key. Set `JWT_SECRET` in production for sessions that survive restarts and redeploys.
 - The initial seed accounts are created only when missing. Change their passwords immediately after the first login.
 - API responses containing user records never substitute a known default password for a missing stored credential.
+- Sign-in and public appointment/enquiry endpoints use in-memory rate limits to blunt credential stuffing and form spam. The counters reset when the process restarts; GoDaddy runs this app as a single Node process.
+- The CMS credential-recovery view stores the last password set by an administrator in `users.stored_password` so authorized administrators can hand credentials to staff. Treat database access as sensitive and use a dedicated MySQL user for the application.
 
 ## Verification
 

@@ -1,12 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Phone, MessageCircle } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { useSettings } from '../context/SettingsContext';
 
 export const FloatingContactButtons: React.FC = () => {
   const { settings } = useSettings();
+  const { pathname } = useLocation();
+  const [heroVisible, setHeroVisible] = useState(false);
   const contactButtons = settings.contact_buttons || {};
   const phoneBtn = contactButtons.phone_button;
   const waBtn = contactButtons.whatsapp_button;
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
+    const media = window.matchMedia('(max-width: 1023px)');
+    let observer: IntersectionObserver | null = null;
+    let frame = 0;
+
+    const disconnect = () => {
+      observer?.disconnect();
+      observer = null;
+    };
+
+    const observeHero = () => {
+      disconnect();
+
+      if (pathname !== '/' || !media.matches) {
+        setHeroVisible(false);
+        return;
+      }
+
+      const hero = document.querySelector('.hero');
+      if (!hero) {
+        setHeroVisible(false);
+        return;
+      }
+
+      observer = new IntersectionObserver(
+        ([entry]) => setHeroVisible(entry.isIntersecting),
+        { threshold: [0, 0.03, 0.15] }
+      );
+      observer.observe(hero);
+    };
+
+    frame = window.requestAnimationFrame(observeHero);
+
+    const handleViewportChange = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(observeHero);
+    };
+
+    if (typeof media.addEventListener === 'function') {
+      media.addEventListener('change', handleViewportChange);
+    } else {
+      media.addListener(handleViewportChange);
+    }
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      disconnect();
+      if (typeof media.removeEventListener === 'function') {
+        media.removeEventListener('change', handleViewportChange);
+      } else {
+        media.removeListener(handleViewportChange);
+      }
+    };
+  }, [pathname]);
 
   const phoneEnabled = phoneBtn?.enabled ?? true;
   const phoneNumber = (phoneBtn?.number || '+91 96667 81779').replace(/\s+/g, '');
@@ -21,9 +81,12 @@ export const FloatingContactButtons: React.FC = () => {
 
   return (
     <div
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-auto"
+      className={`floating-contact fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-auto${
+        heroVisible ? ' is-hero-hidden' : ''
+      }`}
       role="region"
       aria-label="Patient Quick Assistance"
+      aria-hidden={heroVisible || undefined}
     >
       {/* WhatsApp Button */}
       {waEnabled && (
