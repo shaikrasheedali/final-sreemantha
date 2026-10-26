@@ -78,8 +78,11 @@ export const Footer: React.FC = () => {
               <form onSubmit={handleSubscribe}>
                 <div className="newsletter flex items-center bg-white/10 border border-white/20 rounded-xl p-1.5 pl-3.5 my-3 max-w-sm">
                   <input
+                    id="footer-newsletter-email"
+                    name="newsletter-email"
                     aria-label="Your email address"
                     type="email"
+                    autoComplete="email"
                     required
                     placeholder="Your email address"
                     value={email}
@@ -96,6 +99,8 @@ export const Footer: React.FC = () => {
                 </div>
                 <label className="checkbox newsletter-consent">
                   <input
+                    id="footer-newsletter-consent"
+                    name="newsletter-consent"
                     type="checkbox"
                     checked={consent}
                     required

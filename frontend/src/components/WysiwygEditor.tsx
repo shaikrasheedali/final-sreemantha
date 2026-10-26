@@ -780,6 +780,7 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
 
             {/* Headings */}
             <select
+              name="paragraph-style"
               aria-label="Paragraph style"
               value={activeFormats.block}
               onChange={(event) => handleHeadingChange(event.target.value as BlockTag)}
@@ -795,6 +796,7 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
 
             {/* Font Family */}
             <select
+              name="font-family"
               aria-label="Font family"
               value=""
               onChange={(event) => {
@@ -815,6 +817,7 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
 
             {/* Font Size */}
             <select
+              name="font-size"
               aria-label="Font size"
               value=""
               onChange={(event) => {
@@ -888,6 +891,7 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
             >
               <Type className="w-3.5 h-3.5 text-[#bc1169]" />
               <input
+                name="text-colour"
                 type="color"
                 onMouseDown={saveSelection}
                 onChange={(event) => execute('foreColor', event.target.value)}
@@ -901,6 +905,7 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
             >
               <span className="text-[11px] font-bold bg-yellow-200 px-1 rounded">A</span>
               <input
+                name="highlight-colour"
                 type="color"
                 defaultValue="#ffff00"
                 onMouseDown={saveSelection}
@@ -1070,6 +1075,7 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
       {/* Editor Body */}
       {showHtml ? (
         <textarea
+          name="html-source"
           value={htmlValue}
           onChange={handleHtmlChange}
           style={{ minHeight }}
@@ -1141,10 +1147,15 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
+              <label
+                htmlFor="wysiwyg-link-url"
+                className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5"
+              >
                 Destination URL
               </label>
               <input
+                id="wysiwyg-link-url"
+                name="url"
                 autoFocus
                 type="text"
                 value={linkForm.url}
@@ -1162,10 +1173,15 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
 
             {!linkForm.editing && (
               <div>
-                <label className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
+                <label
+                  htmlFor="wysiwyg-link-text"
+                  className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5"
+                >
                   Link Text <span className="font-normal normal-case tracking-normal">(optional)</span>
                 </label>
                 <input
+                  id="wysiwyg-link-text"
+                  name="text"
                   type="text"
                   value={linkForm.text}
                   onChange={(event) =>
@@ -1179,6 +1195,7 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
 
             <label className="flex items-center gap-2 text-xs text-[var(--ink)] font-medium cursor-pointer">
               <input
+                name="new-tab"
                 type="checkbox"
                 checked={linkForm.newTab}
                 onChange={(event) =>
@@ -1267,10 +1284,15 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
+              <label
+                htmlFor="wysiwyg-image-url"
+                className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5"
+              >
                 Media URL
               </label>
               <input
+                id="wysiwyg-image-url"
+                name="image-url"
                 autoFocus
                 type="text"
                 value={imageForm.url}
@@ -1287,10 +1309,15 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
+              <label
+                htmlFor="wysiwyg-image-alt"
+                className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5"
+              >
                 Alt Text <span className="font-normal normal-case tracking-normal">(for accessibility)</span>
               </label>
               <input
+                id="wysiwyg-image-alt"
+                name="alt"
                 type="text"
                 value={imageForm.alt}
                 onChange={(event) =>
@@ -1376,10 +1403,15 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
+                <label
+                  htmlFor="wysiwyg-table-rows"
+                  className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5"
+                >
                   Rows
                 </label>
                 <input
+                  id="wysiwyg-table-rows"
+                  name="rows"
                   autoFocus
                   type="number"
                   min={1}
@@ -1395,10 +1427,15 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
+                <label
+                  htmlFor="wysiwyg-table-cols"
+                  className="block text-[11px] font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5"
+                >
                   Columns
                 </label>
                 <input
+                  id="wysiwyg-table-cols"
+                  name="cols"
                   type="number"
                   min={1}
                   max={12}
@@ -1416,6 +1453,7 @@ export const WysiwygEditor: React.FC<WysiwygEditorProps> = ({
 
             <label className="flex items-center gap-2 text-xs text-[var(--ink)] font-medium cursor-pointer">
               <input
+                name="header"
                 type="checkbox"
                 checked={tableForm.header}
                 onChange={(event) =>

@@ -72,7 +72,10 @@ export const DoctorsPage: React.FC = () => {
           <div className="relative w-full md:w-72">
             <Search size={15} className="text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" />
             <input
-              type="text"
+              id="doctor-search"
+              name="search"
+              type="search"
+              autoComplete="off"
               placeholder="Search by doctor name..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -123,8 +126,11 @@ export const DoctorsPage: React.FC = () => {
                     <img
                       src={doctor.photo_url}
                       alt={doctor.name}
+                      width={400}
+                      height={280}
                       style={{ objectPosition: 'center top' }}
                       loading="lazy"
+                      decoding="async"
                     />
                   ) : (
                     <div className="sr-image-placeholder">

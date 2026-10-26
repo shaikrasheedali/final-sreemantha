@@ -232,6 +232,7 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
             <div className="flex items-center gap-2">
               {/* Type Filter */}
               <select
+                name="filter-type"
                 value={filterType}
                 onChange={(e: any) => setFilterType(e.target.value)}
                 className="bg-white border border-[rgba(22,55,76,0.15)] rounded-xl px-2.5 py-1.5 text-xs text-[var(--ink)]"
@@ -245,6 +246,7 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
               <div className="relative">
                 <Search size={14} className="text-[#8ba2b1] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  name="search"
                   type="text"
                   placeholder="Search assets..."
                   value={search}
@@ -284,6 +286,7 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
                 <label className="mt-2 btn btn-primary text-xs py-2 px-5 cursor-pointer">
                   <span>Browse Device Files</span>
                   <input
+                    name="media-files"
                     type="file"
                     multiple
                     accept="image/*,video/*"

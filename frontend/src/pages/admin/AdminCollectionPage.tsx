@@ -25,11 +25,20 @@ interface AdminCollectionPageProps {
   description: string;
 }
 
+const SINGULAR_LABELS: Record<CollectionType, string> = {
+  facilities: 'Facility',
+  specialties: 'Specialty',
+  treatments: 'Treatment',
+  doctors: 'Doctor',
+  insights: 'Insight',
+};
+
 export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
   type,
   title,
   description
 }) => {
+  const singularLabel = SINGULAR_LABELS[type];
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -401,7 +410,7 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
             className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#fa7830] hover:bg-[#e06622] text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
             style={{ color: '#ffffff' }}
           >
-            <Plus className="w-4 h-4 text-white" /> Add New {title.slice(0, -1)}
+            <Plus className="w-4 h-4 text-white" /> Add New {singularLabel}
           </button>
         )}
       </div>
@@ -411,7 +420,7 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
         <div className="bg-white rounded-3xl border border-[rgba(22,55,76,0.12)] p-6 sm:p-8 shadow-xl">
           <div className="flex items-center justify-between pb-4 border-b border-[rgba(22,55,76,0.12)] mb-6">
             <h2 className="text-lg font-bold text-[var(--ink)] font-display">
-              {selectedItem ? `Edit ${title.slice(0, -1)}: ${selectedItem.title || selectedItem.name}` : `Create New ${title.slice(0, -1)}`}
+              {selectedItem ? `Edit ${singularLabel}: ${selectedItem.title || selectedItem.name}` : `Create New ${singularLabel}`}
             </h2>
             <button
               onClick={() => setIsEditing(false)}
@@ -425,10 +434,15 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
             {/* Title & Slug */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                <label
+                  htmlFor="collection-title"
+                  className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+                >
                   {type === 'doctors' ? 'Doctor Name' : 'Item Title'} <span className="text-rose-400">*</span>
                 </label>
                 <input
+                  id="collection-title"
+                  name="title"
                   type="text"
                   required
                   value={form.title || form.name || ''}
@@ -443,10 +457,15 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                <label
+                  htmlFor="collection-slug"
+                  className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+                >
                   URL Slug (Auto-generated if empty)
                 </label>
                 <input
+                  id="collection-slug"
+                  name="slug"
                   type="text"
                   value={form.slug || ''}
                   onChange={(e) => setForm({ ...form, slug: e.target.value })}
@@ -460,10 +479,15 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
             {type === 'doctors' && (
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                  <label
+                    htmlFor="collection-designation"
+                    className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+                  >
                     Designation
                   </label>
                   <input
+                    id="collection-designation"
+                    name="designation"
                     type="text"
                     value={form.designation || ''}
                     onChange={(e) => setForm({ ...form, designation: e.target.value })}
@@ -472,10 +496,15 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                  <label
+                    htmlFor="collection-qualifications"
+                    className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+                  >
                     Qualifications
                   </label>
                   <input
+                    id="collection-qualifications"
+                    name="qualifications"
                     type="text"
                     value={form.qualifications || ''}
                     onChange={(e) => setForm({ ...form, qualifications: e.target.value })}
@@ -484,10 +513,15 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                  <label
+                    htmlFor="collection-department"
+                    className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+                  >
                     Experience / Department
                   </label>
                   <input
+                    id="collection-department"
+                    name="department"
                     type="text"
                     value={form.department || form.specialty || ''}
                     onChange={(e) => setForm({ ...form, department: e.target.value, specialty: e.target.value })}
@@ -502,10 +536,15 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
             {type !== 'doctors' && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                  <label
+                    htmlFor="collection-category"
+                    className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+                  >
                     Category
                   </label>
                   <input
+                    id="collection-category"
+                    name="category"
                     type="text"
                     value={form.category || ''}
                     onChange={(e) => setForm({ ...form, category: e.target.value })}
@@ -516,10 +555,15 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
 
                 {type === 'treatments' && (
                   <div>
-                    <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                    <label
+                      htmlFor="collection-duration"
+                      className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+                    >
                       Typical Duration
                     </label>
                     <input
+                      id="collection-duration"
+                      name="typical-duration"
                       type="text"
                       value={form.typical_duration || ''}
                       onChange={(e) => setForm({ ...form, typical_duration: e.target.value })}
@@ -535,9 +579,9 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
             <div className="p-5 rounded-2xl bg-[var(--cream)]/60 border border-[rgba(22,55,76,0.12)] space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-[var(--ink)] uppercase tracking-wider">
+                  <p className="block text-xs font-bold text-[var(--ink)] uppercase tracking-wider">
                     {type === 'doctors' ? 'Doctor Profile Photo(s) / Showcase' : 'Hero Image(s) & Media Assets'}
-                  </label>
+                  </p>
                   <p className="text-[11px] text-[#5a7d92] mt-0.5">
                     Attach one or multiple images or videos. Multiple assets display as an auto-sliding 4:3 carousel with generous timer on detail pages.
                   </p>
@@ -557,6 +601,7 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
                     <Upload size={14} />
                     <span>{uploadingDirect ? 'Converting...' : 'Upload WebP'}</span>
                     <input
+                      name="media-files"
                       type="file"
                       multiple
                       accept="image/*,video/*"
@@ -614,10 +659,15 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
             {/* Short Description / Excerpt */}
             {type !== 'doctors' && (
               <div>
-                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                <label
+                  htmlFor="collection-summary"
+                  className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+                >
                   Short Summary / Excerpt
                 </label>
                 <textarea
+                  id="collection-summary"
+                  name="short-description"
                   rows={2}
                   value={form.short_description || form.excerpt || ''}
                   onChange={(e) => {
@@ -633,10 +683,10 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
 
             {/* Feature-Rich WYSIWYG Editor */}
             <div>
-              <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2 flex items-center justify-between">
+              <p className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2 flex items-center justify-between">
                 <span>{type === 'doctors' ? 'Professional Biography & Clinical Experience' : 'Detailed Content Document'}</span>
                 <span className="text-[10px] text-amber-600 font-normal">Rich WYSIWYG Document Editor (MS Word features enabled)</span>
-              </label>
+              </p>
               <div className="border border-[rgba(22,55,76,0.12)] rounded-2xl overflow-hidden shadow-inner">
                 <WysiwygEditor
                   value={type === 'doctors' ? form.bio || form.full_bio || '' : form.content || form.overview || ''}
@@ -651,9 +701,9 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
             {/* Additional How It Works for Treatments */}
             {type === 'treatments' && (
               <div>
-                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                <p className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
                   How It Works (Step-by-Step Procedure)
-                </label>
+                </p>
                 <div className="border border-[rgba(22,55,76,0.12)] rounded-2xl overflow-hidden shadow-inner">
                   <WysiwygEditor
                     value={form.how_it_works || ''}
@@ -690,6 +740,7 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
             <div className="relative flex-1 max-w-sm">
               <Search className="w-4 h-4 text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
+                name="search"
                 type="text"
                 placeholder={`Search ${title.toLowerCase()}...`}
                 value={search}
@@ -815,7 +866,7 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
               <h3 className="text-base font-bold text-[var(--ink)] font-display">Confirm Permanent Deletion</h3>
             </div>
             <p className="text-xs text-[#5a7d92] leading-relaxed">
-              Are you sure you want to permanently delete this {title.slice(0, -1).toLowerCase()}? This action is ACID-compliant and permanently removes the record from the MySQL database.
+              Are you sure you want to permanently delete this {singularLabel.toLowerCase()}? This action is ACID-compliant and permanently removes the record from the MySQL database.
             </p>
             <div className="flex items-center justify-end gap-3 pt-2">
               <button

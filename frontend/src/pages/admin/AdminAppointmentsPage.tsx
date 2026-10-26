@@ -135,6 +135,7 @@ export const AdminAppointmentsPage: React.FC = () => {
         <div className="relative flex-1 max-w-sm">
           <Search className="w-4 h-4 text-[#8ba2b1] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
+            name="search"
             type="text"
             placeholder="Search by patient name, phone, or department..."
             value={search}
@@ -443,10 +444,15 @@ export const AdminAppointmentsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[var(--ink)] uppercase tracking-wider mb-1">
+                <label
+                  htmlFor="appointment-status"
+                  className="block text-xs font-bold text-[var(--ink)] uppercase tracking-wider mb-1"
+                >
                   Appointment Status
                 </label>
                 <select
+                  id="appointment-status"
+                  name="status"
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
                   className="w-full bg-white border border-[rgba(22,55,76,0.18)] rounded-xl px-4 py-2 text-xs text-[var(--ink)] font-semibold"
@@ -462,10 +468,15 @@ export const AdminAppointmentsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[var(--ink)] uppercase tracking-wider mb-1">
+                <label
+                  htmlFor="appointment-notes"
+                  className="block text-xs font-bold text-[var(--ink)] uppercase tracking-wider mb-1"
+                >
                   Internal Hospital Staff Notes
                 </label>
                 <textarea
+                  id="appointment-notes"
+                  name="notes"
                   rows={3}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}

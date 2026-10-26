@@ -31,18 +31,21 @@ const fallbackProviders: InsuranceProvider[] = [
 ];
 
 export const SlidingInsuranceStrip: React.FC = () => {
-  const [providers, setProviders] = useState<InsuranceProvider[]>(fallbackProviders);
+  // Start empty so the fallback logos are never mounted and then replaced by
+  // the database list. Chrome's lazy-load audit reports detached image nodes
+  // when a lazy list is swapped after the first paint.
+  const [providers, setProviders] = useState<InsuranceProvider[]>([]);
 
   useEffect(() => {
     let mounted = true;
     async function loadProviders() {
       try {
         const res = await api.get<{ providers: InsuranceProvider[] }>('/insurance');
-        if (mounted && res.providers && res.providers.length > 0) {
-          setProviders(res.providers);
+        if (mounted) {
+          setProviders(res.providers && res.providers.length > 0 ? res.providers : fallbackProviders);
         }
       } catch {
-        // Fallback list is already loaded
+        if (mounted) setProviders(fallbackProviders);
       }
     }
     loadProviders();
@@ -97,7 +100,11 @@ export const SlidingInsuranceStrip: React.FC = () => {
                 <img
                   src={provider.logo_url}
                   alt={provider.name}
+                  width={320}
+                  height={72}
                   loading="lazy"
+                  decoding="async"
+                  style={{ aspectRatio: '320 / 72' }}
                   className="h-16 sm:h-[72px] w-auto max-w-[320px] object-contain rounded-xl drop-shadow-xs hover:drop-shadow-md transition-shadow"
                 />
               ) : (

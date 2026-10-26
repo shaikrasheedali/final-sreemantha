@@ -48,7 +48,10 @@ export const FacilitiesPage: React.FC = () => {
           <div className="relative w-full md:w-80">
             <Search size={15} className="text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" />
             <input
-              type="text"
+              id="facilities-search"
+              name="search"
+              type="search"
+              autoComplete="off"
               placeholder="Search hospital spaces..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -99,6 +102,10 @@ export const FacilitiesPage: React.FC = () => {
                     <img
                       src={facility.image_url}
                       alt={facility.name}
+                      width={800}
+                      height={600}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   ) : (

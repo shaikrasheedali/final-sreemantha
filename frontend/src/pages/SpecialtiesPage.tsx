@@ -72,7 +72,10 @@ export const SpecialtiesPage: React.FC = () => {
           <div className="relative w-full md:w-72">
             <Search size={15} className="text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" />
             <input
-              type="text"
+              id="specialties-search"
+              name="search"
+              type="search"
+              autoComplete="off"
               placeholder="Search specialties..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -115,7 +118,14 @@ export const SpecialtiesPage: React.FC = () => {
               <Link key={spec.id} to={`/specialties/${spec.slug}`} className="sr-card">
                 <div className="sr-media">
                   {spec.image_url ? (
-                    <img src={spec.image_url} alt={spec.title} loading="lazy" />
+                    <img
+                      src={spec.image_url}
+                      alt={spec.title}
+                      width={400}
+                      height={240}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   ) : (
                     <div className="sr-image-placeholder">
                       <Stethoscope size={36} />

@@ -299,10 +299,15 @@ export const AdminGalleryPage: React.FC = () => {
             {/* Title & Category */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                <label
+                  htmlFor="gallery-title"
+                  className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+                >
                   Item Title <span className="text-rose-400">*</span>
                 </label>
                 <input
+                  id="gallery-title"
+                  name="title"
                   type="text"
                   required
                   value={formData.title}
@@ -313,10 +318,15 @@ export const AdminGalleryPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                <label
+                  htmlFor="gallery-category"
+                  className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+                >
                   Category
                 </label>
                 <select
+                  id="gallery-category"
+                  name="category"
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                   className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-[#006c93]"
@@ -330,9 +340,9 @@ export const AdminGalleryPage: React.FC = () => {
 
             {/* Media Type Selector */}
             <div>
-              <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+              <p className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
                 Media Source & Type
-              </label>
+              </p>
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                 {[
                   { id: 'image', label: 'Image', icon: ImageIcon },
@@ -386,6 +396,7 @@ export const AdminGalleryPage: React.FC = () => {
                       <Upload className="w-3.5 h-3.5" />
                       <span>{uploading ? 'Converting to WebP...' : 'Upload from Computer'}</span>
                       <input
+                        name="media-files"
                         type="file"
                         accept={formData.media_type === 'video' ? 'video/mp4,video/webm,video/quicktime' : 'image/*'}
                         onChange={handleFileUpload}
@@ -435,10 +446,15 @@ export const AdminGalleryPage: React.FC = () => {
             {['youtube', 'instagram', 'facebook'].includes(formData.media_type) && (
               <div className="p-4 bg-[var(--cream)]/80 rounded-2xl border border-[rgba(22,55,76,0.12)] space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+                  <label
+                    htmlFor="gallery-media-url"
+                    className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+                  >
                     {formData.media_type.toUpperCase()} Video / Post URL or Link
                   </label>
                   <input
+                    id="gallery-media-url"
+                    name="media-url"
                     type="text"
                     value={formData.media_url}
                     onChange={(e) => {
@@ -465,10 +481,15 @@ export const AdminGalleryPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-[#5a7d92] mb-1">
+                  <label
+                    htmlFor="gallery-embed-code"
+                    className="block text-[11px] font-bold text-[#5a7d92] mb-1"
+                  >
                     Raw Iframe Embed Code (Optional HTML embed override)
                   </label>
                   <textarea
+                    id="gallery-embed-code"
+                    name="embed-code"
                     rows={2}
                     value={formData.embed_code}
                     onChange={(e) => setFormData({ ...formData, embed_code: e.target.value })}
@@ -483,9 +504,9 @@ export const AdminGalleryPage: React.FC = () => {
             <div className="p-4 bg-[var(--cream)]/60 rounded-2xl border border-[rgba(22,55,76,0.12)] space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <label className="block text-xs font-bold text-[var(--ink)] uppercase tracking-wider">
+                  <p className="block text-xs font-bold text-[var(--ink)] uppercase tracking-wider">
                     Poster / Thumbnail Image
-                  </label>
+                  </p>
                   <span className="text-[11px] text-[#5a7d92]">
                     Preview image displayed on the gallery grid card before playing or enlarging.
                   </span>
@@ -504,6 +525,7 @@ export const AdminGalleryPage: React.FC = () => {
                     <Upload size={13} />
                     <span>{uploadingThumbnail ? 'Uploading...' : 'Upload Thumbnail'}</span>
                     <input
+                      name="thumbnail-file"
                       type="file"
                       accept="image/*"
                       onChange={handleThumbnailUpload}
@@ -538,10 +560,15 @@ export const AdminGalleryPage: React.FC = () => {
 
             {/* Caption */}
             <div>
-              <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2">
+              <label
+                htmlFor="gallery-caption"
+                className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-2"
+              >
                 Caption & Description
               </label>
               <textarea
+                id="gallery-caption"
+                name="caption"
                 rows={2}
                 value={formData.caption}
                 onChange={(e) => setFormData({ ...formData, caption: e.target.value })}
@@ -576,6 +603,7 @@ export const AdminGalleryPage: React.FC = () => {
             <div className="relative w-full sm:w-80">
               <Search className="w-4 h-4 text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
+                name="search"
                 type="text"
                 placeholder="Search gallery..."
                 value={search}

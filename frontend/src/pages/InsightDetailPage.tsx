@@ -191,7 +191,7 @@ export const InsightDetailPage: React.FC = () => {
                 >
                   <div className="sr-media" style={{ height: 160 }}>
                     {item.image_url ? (
-                      <img src={item.image_url} alt={item.title} />
+                      <img src={item.image_url} alt={item.title} width={400} height={160} loading="lazy" />
                     ) : (
                       <div className="sr-image-placeholder">
                         <BookOpen size={28} />

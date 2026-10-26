@@ -248,10 +248,15 @@ export const AdminUsersPage: React.FC = () => {
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
+                <label
+                  htmlFor="create-user-username"
+                  className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5"
+                >
                   Username <span className="text-rose-500">*</span>
                 </label>
                 <input
+                  id="create-user-username"
+                  name="account-username"
                   type="text"
                   required
                   value={createForm.username}
@@ -262,10 +267,15 @@ export const AdminUsersPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
+                <label
+                  htmlFor="create-user-full-name"
+                  className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5"
+                >
                   Full Name
                 </label>
                 <input
+                  id="create-user-full-name"
+                  name="full-name"
                   type="text"
                   value={createForm.name}
                   onChange={(e) => setCreateForm({ ...createForm, name: e.target.value })}
@@ -277,10 +287,15 @@ export const AdminUsersPage: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
+                <label
+                  htmlFor="create-user-email"
+                  className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5"
+                >
                   Email Address <span className="text-rose-500">*</span>
                 </label>
                 <input
+                  id="create-user-email"
+                  name="account-email"
                   type="email"
                   required
                   value={createForm.email}
@@ -291,10 +306,15 @@ export const AdminUsersPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
+                <label
+                  htmlFor="create-user-password"
+                  className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5"
+                >
                   Password <span className="text-rose-500">*</span>
                 </label>
                 <input
+                  id="create-user-password"
+                  name="account-password"
                   type="text"
                   required
                   value={createForm.password}
@@ -306,11 +326,16 @@ export const AdminUsersPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
+              <label
+                htmlFor="create-user-role"
+                className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5"
+              >
                 Role &amp; Permissions
               </label>
               {isSuperAdmin ? (
                 <select
+                  id="create-user-role"
+                  name="role"
                   value={createForm.role}
                   onChange={(e) => setCreateForm({ ...createForm, role: e.target.value })}
                   className="w-full bg-[var(--cream)] border border-[rgba(22,55,76,0.12)] rounded-xl px-4 py-2.5 text-xs text-[var(--ink)] font-medium"
@@ -457,10 +482,12 @@ export const AdminUsersPage: React.FC = () => {
             <form onSubmit={handleEditSubmit} className="space-y-4 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                  <label htmlFor="edit-user-username" className="block text-xs font-bold text-[var(--ink)] mb-1">
                     Username
                   </label>
                   <input
+                    id="edit-user-username"
+                    name="account-username"
                     type="text"
                     required
                     value={editForm.username}
@@ -469,10 +496,12 @@ export const AdminUsersPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                  <label htmlFor="edit-user-full-name" className="block text-xs font-bold text-[var(--ink)] mb-1">
                     Full Name
                   </label>
                   <input
+                    id="edit-user-full-name"
+                    name="full-name"
                     type="text"
                     value={editForm.name}
                     onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
@@ -482,10 +511,12 @@ export const AdminUsersPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                <label htmlFor="edit-user-email" className="block text-xs font-bold text-[var(--ink)] mb-1">
                   Email Address
                 </label>
                 <input
+                  id="edit-user-email"
+                  name="account-email"
                   type="email"
                   required
                   value={editForm.email}
@@ -495,10 +526,12 @@ export const AdminUsersPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                <label htmlFor="edit-user-password" className="block text-xs font-bold text-[var(--ink)] mb-1">
                   Current / New Password
                 </label>
                 <input
+                  id="edit-user-password"
+                  name="account-password"
                   type="text"
                   required
                   value={editForm.password}
@@ -513,10 +546,12 @@ export const AdminUsersPage: React.FC = () => {
 
               {isSuperAdmin && (
                 <div>
-                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                  <label htmlFor="edit-user-role" className="block text-xs font-bold text-[var(--ink)] mb-1">
                     Role &amp; Privilege Level
                   </label>
                   <select
+                    id="edit-user-role"
+                    name="role"
                     value={editForm.role}
                     onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
                     className="w-full bg-slate-50 border border-[rgba(22,55,76,0.18)] rounded-xl px-3 py-2 text-xs text-[var(--ink)] font-medium"

@@ -81,6 +81,8 @@ export const DetailMediaCarousel: React.FC<DetailMediaCarouselProps> = ({
             key={currentMedia}
             src={currentMedia}
             alt={`${title} - view ${currentIndex + 1}`}
+            width={800}
+            height={600}
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
           />
         )}

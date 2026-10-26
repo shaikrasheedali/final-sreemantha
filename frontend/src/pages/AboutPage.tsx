@@ -42,6 +42,8 @@ export const AboutPage: React.FC = () => {
               <img
                 src="/images/reception-newborn.webp"
                 alt="Sreemantha Hospital clinical leadership and care team"
+                width={800}
+                height={600}
                 className="w-full h-full object-cover"
               />
             </div>

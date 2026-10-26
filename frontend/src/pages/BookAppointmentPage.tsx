@@ -179,9 +179,12 @@ export const BookAppointmentPage: React.FC = () => {
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-4">
                     <div>
-                      <label className="sr-label">Full Name *</label>
+                      <label htmlFor="appointment-name" className="sr-label">Full Name *</label>
                       <input
+                        id="appointment-name"
+                        name="name"
                         type="text"
+                        autoComplete="name"
                         required
                         placeholder="e.g. Ramesh Kumar"
                         value={formData.name}
@@ -190,9 +193,12 @@ export const BookAppointmentPage: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <label className="sr-label">Mobile Phone Number *</label>
+                      <label htmlFor="appointment-phone" className="sr-label">Mobile Phone Number *</label>
                       <input
+                        id="appointment-phone"
+                        name="phone"
                         type="tel"
+                        autoComplete="tel"
                         required
                         placeholder="e.g. 9876543210"
                         value={formData.phone}
@@ -203,9 +209,12 @@ export const BookAppointmentPage: React.FC = () => {
                   </div>
 
                   <div className="mt-5">
-                    <label className="sr-label">Email Address (Optional)</label>
+                    <label htmlFor="appointment-email" className="sr-label">Email Address (Optional)</label>
                     <input
+                      id="appointment-email"
+                      name="email"
                       type="email"
+                      autoComplete="email"
                       placeholder="e.g. name@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -220,8 +229,10 @@ export const BookAppointmentPage: React.FC = () => {
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-4">
                     <div>
-                      <label className="sr-label">Clinical Department</label>
+                      <label htmlFor="appointment-department" className="sr-label">Clinical Department</label>
                       <select
+                        id="appointment-department"
+                        name="department"
                         value={formData.department}
                         onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                         className="sr-select"
@@ -236,8 +247,10 @@ export const BookAppointmentPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="sr-label">Specific Specialist (Optional)</label>
+                      <label htmlFor="appointment-doctor" className="sr-label">Specific Specialist (Optional)</label>
                       <select
+                        id="appointment-doctor"
+                        name="doctor"
                         value={formData.doctor}
                         onChange={(e) => setFormData({ ...formData, doctor: e.target.value })}
                         className="sr-select"
@@ -254,8 +267,10 @@ export const BookAppointmentPage: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
                     <div>
-                      <label className="sr-label">Preferred Date</label>
+                      <label htmlFor="appointment-date" className="sr-label">Preferred Date</label>
                       <input
+                        id="appointment-date"
+                        name="preferred_date"
                         type="date"
                         value={formData.preferred_date}
                         min={TODAY_ISO}
@@ -265,8 +280,10 @@ export const BookAppointmentPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="sr-label">Preferred Time Slot</label>
+                      <label htmlFor="appointment-time" className="sr-label">Preferred Time Slot</label>
                       <select
+                        id="appointment-time"
+                        name="preferred_time"
                         value={formData.preferred_time}
                         onChange={(e) => setFormData({ ...formData, preferred_time: e.target.value })}
                         className="sr-select"
@@ -281,8 +298,10 @@ export const BookAppointmentPage: React.FC = () => {
                 </div>
 
                 <div className="pt-6 border-t border-[rgba(22,55,76,0.12)]">
-                  <label className="sr-label">Notes or Previous History (Optional)</label>
+                  <label htmlFor="appointment-message" className="sr-label">Notes or Previous History (Optional)</label>
                   <textarea
+                    id="appointment-message"
+                    name="message"
                     rows={3}
                     placeholder="Briefly describe your symptoms, medical history, or consultation questions..."
                     value={formData.message}
@@ -294,6 +313,7 @@ export const BookAppointmentPage: React.FC = () => {
                     <input
                       type="checkbox"
                       id="consent"
+                      name="consent"
                       checked={formData.consent}
                       onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
                       className="mt-1 accent-[var(--coral)] cursor-pointer"

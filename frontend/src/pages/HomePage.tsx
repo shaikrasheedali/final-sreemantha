@@ -154,6 +154,8 @@ export const HomePage: React.FC = () => {
               <img
                 src={slide.src}
                 alt=""
+                width={1600}
+                height={900}
                 style={{ objectPosition: slide.position }}
                 loading={index === 0 ? 'eager' : 'lazy'}
                 fetchPriority={index === 0 ? 'high' : 'low'}
@@ -191,6 +193,8 @@ export const HomePage: React.FC = () => {
                     key={doc.id || idx}
                     src={doc.photo_url || doc.profile_photo || IMAGES.patient}
                     alt={doc.name}
+                    width={64}
+                    height={64}
                   />
                 ))}
               </div>
@@ -243,11 +247,15 @@ export const HomePage: React.FC = () => {
               className="intro-main"
               src={IMAGES.mother}
               alt="Mother and child sharing a peaceful moment"
+              width={800}
+              height={600}
             />
             <img
               className="intro-float"
               src={IMAGES.baby}
               alt="A peacefully resting newborn at Sreemantha"
+              width={400}
+              height={400}
             />
             <div className="year-badge">
               <strong>2022</strong>
@@ -468,6 +476,9 @@ export const HomePage: React.FC = () => {
                       <img
                         src={doc.photo_url || doc.profile_photo || IMAGES.patient}
                         alt={doc.name}
+                        width={400}
+                        height={400}
+                        loading="lazy"
                       />
                       <div>
                         <h3>
@@ -509,7 +520,7 @@ export const HomePage: React.FC = () => {
                     { name: 'Dr. V. Rajesh Kumar', role: 'Consultant Pediatrician & Neonatologist', exp: '10+ years experience', qual: 'MBBS, MD (Pediatrics), Fellowship in Neonatology' },
                   ].map((doc, idx) => (
                     <article className="doctor profile-card" key={idx}>
-                      <img src={IMAGES.patient} alt={doc.name} />
+                      <img src={IMAGES.patient} alt={doc.name} width={400} height={400} loading="lazy" />
                       <div>
                         <h3><Link to="/doctors">{doc.name}</Link></h3>
                         <p>{doc.role} · {doc.exp}</p>
@@ -539,6 +550,8 @@ export const HomePage: React.FC = () => {
               <img
                 src={activeFacility.image_url || IMAGES.nicu}
                 alt={activeFacility.name}
+                width={800}
+                height={600}
               />
             </div>
             <div className="facility-content">
@@ -630,6 +643,8 @@ export const HomePage: React.FC = () => {
               className="main-patient"
               src={IMAGES.patient}
               alt="Care team at Sreemantha"
+              width={800}
+              height={600}
             />
             <div className="rating-float">
               <strong>4.2</strong>

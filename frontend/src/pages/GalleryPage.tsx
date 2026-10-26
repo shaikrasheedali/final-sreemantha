@@ -186,7 +186,10 @@ export const GalleryPage: React.FC = () => {
                   <img
                     src={getCardPoster(item)}
                     alt={item.title}
+                    width={400}
+                    height={240}
                     loading="lazy"
+                    decoding="async"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = '/images/hospital-exterior.webp';
                     }}

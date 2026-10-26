@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Lock, ArrowLeft, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { useEnglishOnlyPage } from '../context/TranslationContext';
+import { useEnglishOnlyPage } from '../context/translation';
 import { BrandLogo } from '../components/BrandLogo';
 
 export const StaffLoginPage: React.FC = () => {
@@ -113,6 +113,8 @@ export const StaffLoginPage: React.FC = () => {
             <div className="login-options mb-6">
               <label className="checkbox">
                 <input
+                  id="show-password"
+                  name="show-password"
                   type="checkbox"
                   checked={showPassword}
                   onChange={(e) => setShowPassword(e.target.checked)}

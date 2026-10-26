@@ -193,6 +193,7 @@ export const AdminMediaAssetsPage: React.FC = () => {
             <Upload size={14} />
             <span>Upload New Asset</span>
             <input
+              name="media-files"
               type="file"
               multiple
               accept="image/*,video/*"
@@ -235,6 +236,7 @@ export const AdminMediaAssetsPage: React.FC = () => {
           <label className="btn btn-soft text-xs py-2 px-4 cursor-pointer whitespace-nowrap">
             <span>Select Files</span>
             <input
+              name="bulk-media-files"
               type="file"
               multiple
               accept="image/*,video/*"
@@ -250,6 +252,7 @@ export const AdminMediaAssetsPage: React.FC = () => {
         <div className="relative flex-1 max-w-sm">
           <Search className="w-4 h-4 text-[#8ba2b1] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
+            name="search"
             type="text"
             placeholder="Search media by filename or title..."
             value={search}

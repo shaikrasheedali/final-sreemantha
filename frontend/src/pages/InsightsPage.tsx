@@ -76,7 +76,10 @@ export const InsightsPage: React.FC = () => {
           <div className="relative w-full md:w-72">
             <Search size={15} className="text-[#5a7d92] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" />
             <input
-              type="text"
+              id="insights-search"
+              name="search"
+              type="search"
+              autoComplete="off"
               placeholder="Search articles..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -123,7 +126,14 @@ export const InsightsPage: React.FC = () => {
               >
                 <div className="lg:col-span-7 sr-media" style={{ minHeight: 340 }}>
                   {featured.image_url ? (
-                    <img src={featured.image_url} alt={featured.title} loading="eager" />
+                    <img
+                      src={featured.image_url}
+                      alt={featured.title}
+                      width={800}
+                      height={450}
+                      loading="eager"
+                      decoding="async"
+                    />
                   ) : (
                     <div className="sr-image-placeholder">
                       <BookOpen size={48} />
@@ -175,7 +185,14 @@ export const InsightsPage: React.FC = () => {
                   >
                     <div className="sr-media" style={{ height: 210 }}>
                       {insight.image_url ? (
-                        <img src={insight.image_url} alt={insight.title} loading="lazy" />
+                        <img
+                          src={insight.image_url}
+                          alt={insight.title}
+                          width={400}
+                          height={210}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       ) : (
                         <div className="sr-image-placeholder">
                           <BookOpen size={36} />

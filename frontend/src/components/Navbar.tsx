@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
 import { useAuth } from '../context/AuthContext';
-import { SITE_LANGUAGES, useTranslation } from '../context/TranslationContext';
+import { SITE_LANGUAGES, useTranslation } from '../context/translation';
 import { BrandLogo } from './BrandLogo';
 import { AppointmentDrawer } from './AppointmentDrawer';
 
@@ -99,6 +99,8 @@ export const Navbar: React.FC = () => {
                 <Languages size={14} className="topbar-language__icon" aria-hidden="true" />
                 <span className="sr-only">Website language</span>
                 <select
+                  id="site-language-select"
+                  name="site-language"
                   value={language}
                   onChange={(event) =>
                     setLanguage(event.target.value as (typeof SITE_LANGUAGES)[number]['code'])

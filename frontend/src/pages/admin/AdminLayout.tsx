@@ -20,7 +20,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { useEnglishOnlyPage } from '../../context/TranslationContext';
+import { useEnglishOnlyPage } from '../../context/translation';
 import { BrandLogo } from '../../components/BrandLogo';
 import { RouteFallback } from '../../components/RouteFallback';
 

@@ -289,7 +289,13 @@ export const TreatmentDetailPage: React.FC = () => {
                     >
                       <div className="w-14 h-14 rounded-full overflow-hidden bg-[var(--mint)] mb-3 border border-[rgba(22,55,76,0.12)]">
                         {doc.photo_url ? (
-                          <img src={doc.photo_url} alt={doc.name} className="w-full h-full object-cover" />
+                          <img
+                            src={doc.photo_url}
+                            alt={doc.name}
+                            width={56}
+                            height={56}
+                            className="w-full h-full object-cover"
+                          />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-[#5a7d92]">
                             <Stethoscope size={20} />

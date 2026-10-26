@@ -188,11 +188,17 @@ export const ContactPage: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                      <label
+                        htmlFor="contact-name"
+                        className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+                      >
                         Your Name *
                       </label>
                       <input
+                        id="contact-name"
+                        name="name"
                         type="text"
+                        autoComplete="name"
                         required
                         placeholder="e.g. Ramesh Reddy"
                         value={formData.name}
@@ -201,11 +207,17 @@ export const ContactPage: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                      <label
+                        htmlFor="contact-phone"
+                        className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+                      >
                         Phone Number *
                       </label>
                       <input
+                        id="contact-phone"
+                        name="phone"
                         type="tel"
+                        autoComplete="tel"
                         required
                         placeholder="e.g. +91 96667 81779"
                         value={formData.phone}
@@ -217,11 +229,17 @@ export const ContactPage: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                      <label
+                        htmlFor="contact-email"
+                        className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+                      >
                         Email Address (Optional)
                       </label>
                       <input
+                        id="contact-email"
+                        name="email"
                         type="email"
+                        autoComplete="email"
                         placeholder="e.g. ramesh@example.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -229,10 +247,15 @@ export const ContactPage: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                      <label
+                        htmlFor="contact-subject"
+                        className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+                      >
                         Area of Interest
                       </label>
                       <select
+                        id="contact-subject"
+                        name="subject"
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         className="sr-select w-full px-4 py-3 rounded-xl border border-[rgba(22,55,76,0.18)] bg-white text-[var(--ink)] text-sm shadow-xs focus:ring-2 focus:ring-[var(--teal)]/20 focus:border-[var(--teal)] outline-none cursor-pointer block"
@@ -247,10 +270,15 @@ export const ContactPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                    <label
+                      htmlFor="contact-message"
+                      className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+                    >
                       Your Message or Question *
                     </label>
                     <textarea
+                      id="contact-message"
+                      name="message"
                       rows={4}
                       required
                       placeholder="Please let us know your requirements or medical queries..."

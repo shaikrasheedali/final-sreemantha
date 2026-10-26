@@ -186,6 +186,7 @@ export const AdminEnquiriesPage: React.FC = () => {
         <div className="relative flex-1 max-w-sm">
           <Search className="w-4 h-4 text-[#8ba2b1] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
+            name="search"
             type="text"
             placeholder="Search enquiries by name, phone, or subject..."
             value={search}
@@ -448,10 +449,15 @@ export const AdminEnquiriesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[var(--ink)] uppercase tracking-wider mb-1">
+                <label
+                  htmlFor="enquiry-status"
+                  className="block text-xs font-bold text-[var(--ink)] uppercase tracking-wider mb-1"
+                >
                   Enquiry Status
                 </label>
                 <select
+                  id="enquiry-status"
+                  name="status"
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
                   className="w-full bg-white border border-[rgba(22,55,76,0.18)] rounded-xl px-4 py-2 text-xs text-[var(--ink)]"
@@ -524,10 +530,12 @@ export const AdminEnquiriesPage: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                  <label htmlFor="conversion-patient-name" className="block text-xs font-bold text-[var(--ink)] mb-1">
                     Patient Name <span className="text-rose-500">*</span>
                   </label>
                   <input
+                    id="conversion-patient-name"
+                    name="patient-name"
                     type="text"
                     required
                     value={conversionData.patient_name}
@@ -536,10 +544,12 @@ export const AdminEnquiriesPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                  <label htmlFor="conversion-phone" className="block text-xs font-bold text-[var(--ink)] mb-1">
                     Phone Number <span className="text-rose-500">*</span>
                   </label>
                   <input
+                    id="conversion-phone"
+                    name="patient-phone"
                     type="text"
                     required
                     value={conversionData.phone}
@@ -551,10 +561,12 @@ export const AdminEnquiriesPage: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                  <label htmlFor="conversion-email" className="block text-xs font-bold text-[var(--ink)] mb-1">
                     Email Address
                   </label>
                   <input
+                    id="conversion-email"
+                    name="patient-email"
                     type="email"
                     value={conversionData.email}
                     onChange={(e) => setConversionData({ ...conversionData, email: e.target.value })}
@@ -563,10 +575,12 @@ export const AdminEnquiriesPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                  <label htmlFor="conversion-department" className="block text-xs font-bold text-[var(--ink)] mb-1">
                     Department
                   </label>
                   <select
+                    id="conversion-department"
+                    name="department"
                     value={conversionData.department}
                     onChange={(e) => setConversionData({ ...conversionData, department: e.target.value })}
                     className="w-full bg-slate-50 border border-[rgba(22,55,76,0.18)] rounded-xl px-3 py-2 text-xs text-[var(--ink)] font-medium"
@@ -582,10 +596,12 @@ export const AdminEnquiriesPage: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                  <label htmlFor="conversion-date" className="block text-xs font-bold text-[var(--ink)] mb-1">
                     Preferred Date
                   </label>
                   <input
+                    id="conversion-date"
+                    name="preferred-date"
                     type="date"
                     required
                     value={conversionData.preferred_date}
@@ -594,10 +610,12 @@ export const AdminEnquiriesPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                  <label htmlFor="conversion-time" className="block text-xs font-bold text-[var(--ink)] mb-1">
                     Preferred Time Slot
                   </label>
                   <select
+                    id="conversion-time"
+                    name="preferred-time"
                     value={conversionData.preferred_time}
                     onChange={(e) => setConversionData({ ...conversionData, preferred_time: e.target.value })}
                     className="w-full bg-slate-50 border border-[rgba(22,55,76,0.18)] rounded-xl px-3 py-2 text-xs text-[var(--ink)] font-medium"
@@ -610,10 +628,12 @@ export const AdminEnquiriesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                <label htmlFor="conversion-reason" className="block text-xs font-bold text-[var(--ink)] mb-1">
                   Reason for Consultation / Chief Complaint
                 </label>
                 <textarea
+                  id="conversion-reason"
+                  name="reason"
                   rows={2}
                   value={conversionData.reason}
                   onChange={(e) => setConversionData({ ...conversionData, reason: e.target.value })}
@@ -622,10 +642,12 @@ export const AdminEnquiriesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[var(--ink)] mb-1">
+                <label htmlFor="conversion-notes" className="block text-xs font-bold text-[var(--ink)] mb-1">
                   Internal Triage Notes
                 </label>
                 <input
+                  id="conversion-notes"
+                  name="notes"
                   type="text"
                   value={conversionData.notes}
                   onChange={(e) => setConversionData({ ...conversionData, notes: e.target.value })}

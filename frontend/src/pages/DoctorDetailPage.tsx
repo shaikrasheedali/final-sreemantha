@@ -92,6 +92,8 @@ export const DoctorDetailPage: React.FC = () => {
                   <img
                     src={doctor.photo_url}
                     alt={doctor.name}
+                    width={400}
+                    height={380}
                     style={{ objectPosition: 'center top' }}
                   />
                 ) : (

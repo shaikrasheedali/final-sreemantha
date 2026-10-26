@@ -155,6 +155,8 @@ export const GalleryModal: React.FC<GalleryModalProps> = ({ item, onClose }) => 
             <img
               src={item.media_url}
               alt={item.title}
+              width={800}
+              height={600}
               className="max-h-[68vh] w-auto max-w-full object-contain rounded-xl shadow-2xl mx-auto"
             />
           )}

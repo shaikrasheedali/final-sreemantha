@@ -266,10 +266,15 @@ export const AdminSettingsPage: React.FC = () => {
                 WhatsApp Floating Button
               </span>
               <div>
-                <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                <label
+                  htmlFor="settings-whatsapp"
+                  className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+                >
                   WhatsApp Number
                 </label>
                 <input
+                  id="settings-whatsapp"
+                  name="contact-whatsapp"
                   type="text"
                   value={formData.contact_whatsapp || '+91 96667 81779'}
                   onChange={(e) => setFormData({ ...formData, contact_whatsapp: e.target.value })}
@@ -287,10 +292,15 @@ export const AdminSettingsPage: React.FC = () => {
                 Direct Phone Call Button
               </span>
               <div>
-                <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+                <label
+                  htmlFor="settings-phone"
+                  className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+                >
                   Direct Phone Call Number
                 </label>
                 <input
+                  id="settings-phone"
+                  name="contact-phone"
                   type="text"
                   value={formData.contact_phone || '+91 96667 81779'}
                   onChange={(e) => setFormData({ ...formData, contact_phone: e.target.value })}
@@ -313,10 +323,15 @@ export const AdminSettingsPage: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+              <label
+                htmlFor="settings-hospital-name"
+                className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+              >
                 Hospital Full Name
               </label>
               <input
+                id="settings-hospital-name"
+                name="hospital-name"
                 type="text"
                 value={formData.hospital_name || 'Sreemantha Hospital'}
                 onChange={(e) => setFormData({ ...formData, hospital_name: e.target.value })}
@@ -325,10 +340,15 @@ export const AdminSettingsPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+              <label
+                htmlFor="settings-tagline"
+                className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+              >
                 Hospital Tagline
               </label>
               <input
+                id="settings-tagline"
+                name="hospital-tagline"
                 type="text"
                 value={formData.hospital_tagline || 'Fertility, Women & Child Care'}
                 onChange={(e) => setFormData({ ...formData, hospital_tagline: e.target.value })}
@@ -339,10 +359,15 @@ export const AdminSettingsPage: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+              <label
+                htmlFor="settings-email"
+                className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+              >
                 Contact Email
               </label>
               <input
+                id="settings-email"
+                name="contact-email"
                 type="email"
                 value={formData.contact_email || 'care@sreemanthahospital.com'}
                 onChange={(e) => setFormData({ ...formData, contact_email: e.target.value })}
@@ -351,10 +376,15 @@ export const AdminSettingsPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+              <label
+                htmlFor="settings-emergency-phone"
+                className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+              >
                 Emergency 24/7 Helpline
               </label>
               <input
+                id="settings-emergency-phone"
+                name="emergency-phone"
                 type="text"
                 value={formData.emergency_phone || '+91 88007 73362'}
                 onChange={(e) => setFormData({ ...formData, emergency_phone: e.target.value })}
@@ -364,10 +394,15 @@ export const AdminSettingsPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+            <label
+              htmlFor="settings-address"
+              className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+            >
               Physical Address (Khammam Facility)
             </label>
             <textarea
+              id="settings-address"
+              name="hospital-address"
               rows={2}
               value={formData.address || 'Priyadarshini Degree College Road, Nehru Nagar, Khammam, Telangana 507001'}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
@@ -377,10 +412,15 @@ export const AdminSettingsPage: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+              <label
+                htmlFor="settings-working-hours"
+                className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+              >
                 OPD Working Hours
               </label>
               <input
+                id="settings-working-hours"
+                name="working-hours"
                 type="text"
                 value={formData.working_hours || 'Mon - Sat: 09:00 AM - 08:00 PM'}
                 onChange={(e) => setFormData({ ...formData, working_hours: e.target.value })}
@@ -389,10 +429,15 @@ export const AdminSettingsPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5">
+              <label
+                htmlFor="settings-emergency-hours"
+                className="sr-label block text-xs font-bold uppercase tracking-wider text-[var(--ink)] mb-1.5"
+              >
                 Emergency / Casualty Hours
               </label>
               <input
+                id="settings-emergency-hours"
+                name="emergency-hours"
                 type="text"
                 value={formData.emergency_hours || '24/7 All Days & Holidays'}
                 onChange={(e) => setFormData({ ...formData, emergency_hours: e.target.value })}
