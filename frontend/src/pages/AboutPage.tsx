@@ -36,19 +36,19 @@ export const AboutPage: React.FC = () => {
         </div>
 
         {/* Hero Visual Banner */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-24">
-          <div className="lg:col-span-7">
-            <div className="rounded-3xl overflow-hidden shadow-xl h-[480px] sm:h-[560px] relative bg-[var(--mint)] border border-[rgba(22,55,76,0.12)]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-24">
+          <div className="lg:col-span-5">
+            <div className="rounded-3xl overflow-hidden shadow-xl relative bg-[var(--mint)] border border-[rgba(22,55,76,0.12)] flex items-center justify-center p-4 sm:p-6 h-full min-h-[480px] sm:min-h-[560px]">
               <img
-                src="/images/reception-newborn.webp"
-                alt="Sreemantha Hospital clinical leadership and care team"
-                width={800}
-                height={600}
-                className="w-full h-full object-cover"
+                src="/images/sreemantha-hospital-facade.webp"
+                alt="Sreemantha Hospital facade in Khammam"
+                width={1047}
+                height={1481}
+                className="block h-auto w-auto max-h-[500px] sm:max-h-[560px] max-w-full rounded-2xl object-contain shadow-sm"
               />
             </div>
           </div>
-          <div className="lg:col-span-5 flex flex-col justify-between p-6 sm:p-10 rounded-2xl bg-[var(--mint)] border border-[rgba(22,55,76,0.12)]">
+          <div className="lg:col-span-7 flex flex-col justify-between p-6 sm:p-10 rounded-2xl bg-[var(--mint)] border border-[rgba(22,55,76,0.12)]">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--coral)] block mb-2">
                 A Khammam Benchmark
@@ -56,7 +56,7 @@ export const AboutPage: React.FC = () => {
               <h2 className="sr-display text-3xl mb-4 text-[var(--ink)]">
                 Care centered around you, not just protocols.
               </h2>
-              <p className="sr-copy text-sm leading-relaxed mb-6">
+              <p className="sr-copy text-sm leading-relaxed mb-6 max-w-2xl">
                 From our cleanroom embryology labs to our round-the-clock Level-III NICU, every space is designed to give you medical reassurance and gentle emotional comfort.
               </p>
             </div>

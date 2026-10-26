@@ -31,6 +31,8 @@ const IMAGES = {
   exterior: '/images/hospital-exterior.webp',
   mother: '/images/reception-newborn.webp',
   baby: '/images/reception-newborn-card.webp',
+  aboutMain: '/images/sreemantha-hospital-facade.webp',
+  aboutBadge: '/images/sreemantha-telugu-brand-poster.webp',
   nicu: '/images/incubator-nicu.webp',
   ot: '/images/operation-theatre.webp',
   patient: '/images/reception-newborn.webp',
@@ -245,17 +247,21 @@ export const HomePage: React.FC = () => {
           <div className="intro-visual">
             <img
               className="intro-main"
-              src={IMAGES.mother}
-              alt="Mother and child sharing a peaceful moment"
-              width={800}
-              height={600}
+              src={IMAGES.aboutMain}
+              alt="Sreemantha Hospital facade in Khammam"
+              width={1047}
+              height={1481}
+              loading="lazy"
+              decoding="async"
             />
             <img
               className="intro-float"
-              src={IMAGES.baby}
-              alt="A peacefully resting newborn at Sreemantha"
-              width={400}
-              height={400}
+              src={IMAGES.aboutBadge}
+              alt="Sreemantha Hospital Telugu brand poster"
+              width={768}
+              height={1024}
+              loading="lazy"
+              decoding="async"
             />
             <div className="year-badge">
               <strong>2022</strong>

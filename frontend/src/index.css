@@ -497,11 +497,18 @@ body,
       }
       .intro-visual {
         position: relative;
-        height: 650px;
+        width: 100%;
+        max-width: 583px;
+        aspect-ratio: 583 / 650;
+        margin-inline: auto;
       }
       .intro-main {
-        width: 82%;
-        height: 570px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: calc(70% - 6px);
+        height: auto;
+        aspect-ratio: 1047 / 1481;
         object-fit: cover;
         border-radius: 180px 180px 28px 28px;
       }
@@ -509,8 +516,9 @@ body,
         position: absolute;
         right: 0;
         bottom: 0;
-        width: 230px;
-        height: 280px;
+        width: calc(30% - 6px);
+        height: auto;
+        aspect-ratio: 3 / 4;
         object-fit: cover;
         border: 9px solid var(--paper);
         border-radius: 26px;
@@ -1816,13 +1824,17 @@ body,
         }
         .intro-visual {
           height: 490px;
+          max-width: 380px;
+          aspect-ratio: auto;
         }
         .intro-main {
-          height: 440px;
+          position: static;
+          width: auto;
+          height: 100%;
         }
         .intro-float {
           width: 160px;
-          height: 200px;
+          height: auto;
         }
         .year-badge {
           width: 100px;
