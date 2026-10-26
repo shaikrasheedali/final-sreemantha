@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, ArrowUpRight, BookOpen, Clock, Calendar } from 'lucide-react';
+import { Search, ArrowUpRight, BookOpen, Clock } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { Insight } from '../types';
 import { api } from '../utils/api';

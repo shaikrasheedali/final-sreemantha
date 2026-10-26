@@ -1,24 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, Play, Film, Image as ImageIcon } from 'lucide-react';
-
-export function parseMediaList(raw: string | string[] | null | undefined): string[] {
-  if (!raw) return [];
-  if (Array.isArray(raw)) return raw.filter(Boolean);
-  if (typeof raw !== 'string') return [];
-  const trimmed = raw.trim();
-  if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
-    try {
-      const parsed = JSON.parse(trimmed);
-      if (Array.isArray(parsed)) return parsed.filter(Boolean);
-    } catch {
-      // Fallback if not valid JSON
-    }
-  }
-  if (trimmed.includes(',')) {
-    return trimmed.split(',').map((s) => s.trim()).filter(Boolean);
-  }
-  return [trimmed];
-}
+import { ChevronLeft, ChevronRight, Film, Image as ImageIcon } from 'lucide-react';
+import { parseMediaList } from '../utils/media';
 
 function isVideoUrl(url: string): boolean {
   if (!url) return false;

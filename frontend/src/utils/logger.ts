@@ -4,8 +4,6 @@
  * Clean, readable, structured console formatting with log levels and timestamps.
  */
 
-type LogLevel = 'info' | 'warn' | 'error' | 'debug';
-
 const STYLES = {
   info: 'background: #006c93; color: white; border-radius: 4px; padding: 2px 6px; font-weight: bold;',
   warn: 'background: #f59e0b; color: white; border-radius: 4px; padding: 2px 6px; font-weight: bold;',

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Upload,
   Search,
@@ -7,13 +7,11 @@ import {
   Check,
   Film,
   Image as ImageIcon,
-  ExternalLink,
   AlertTriangle,
   CheckCircle2,
   RefreshCw,
   Eye,
   X,
-  FileText,
 } from 'lucide-react';
 import { api, getAuthToken } from '../../utils/api';
 import { MediaAssetItem } from '../../components/MediaPickerModal';
@@ -30,7 +28,15 @@ export const AdminMediaAssetsPage: React.FC = () => {
   const [deleting, setDeleting] = useState(false);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
-  const loadAssets = async () => {
+  const showToast = useCallback(
+    (message: string, type: 'success' | 'error' = 'success') => {
+      setNotification({ message, type });
+      setTimeout(() => setNotification(null), 3500);
+    },
+    []
+  );
+
+  const loadAssets = useCallback(async () => {
     try {
       setLoading(true);
       const res = await api.get<{ assets: MediaAssetItem[] }>('/media');
@@ -43,16 +49,29 @@ export const AdminMediaAssetsPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showToast]);
 
   useEffect(() => {
-    loadAssets();
-  }, []);
+    let active = true;
 
-  const showToast = (message: string, type: 'success' | 'error' = 'success') => {
-    setNotification({ message, type });
-    setTimeout(() => setNotification(null), 3500);
-  };
+    api
+      .get<{ assets: MediaAssetItem[] }>('/media')
+      .then((res) => {
+        if (active && res.assets) setAssets(res.assets);
+      })
+      .catch((err) => {
+        if (!active) return;
+        console.error('Failed to load media assets:', err);
+        showToast('Failed to load media assets from database.', 'error');
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [showToast]);
 
   const handleFileUpload = async (files: FileList | null) => {
     if (!files || files.length === 0) return;

@@ -5,7 +5,6 @@ import {
   Clock,
   Check,
   Phone,
-  ArrowRight,
   ArrowUpRight,
   ShieldCheck,
   Stethoscope,

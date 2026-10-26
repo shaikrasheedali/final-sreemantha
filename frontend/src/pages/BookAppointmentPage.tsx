@@ -2,20 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import {
   Calendar,
-  Clock,
   Check,
   Phone,
-  ShieldCheck,
   AlertCircle,
   MapPin,
-  ArrowRight,
   ArrowUpRight,
-  Heart,
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { api } from '../utils/api';
 import { Doctor } from '../types';
 import { useSettings } from '../context/SettingsContext';
+
+const TODAY_ISO = new Date().toISOString().split('T')[0];
 
 export const BookAppointmentPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -260,7 +258,7 @@ export const BookAppointmentPage: React.FC = () => {
                       <input
                         type="date"
                         value={formData.preferred_date}
-                        min={new Date().toISOString().split('T')[0]}
+                        min={TODAY_ISO}
                         onChange={(e) => setFormData({ ...formData, preferred_date: e.target.value })}
                         className="sr-input"
                       />

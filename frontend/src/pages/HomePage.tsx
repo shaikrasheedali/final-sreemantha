@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 import { SlidingInsuranceStrip } from '../components/SlidingInsuranceStrip';
 import { useSettings } from '../context/SettingsContext';
-import type { Facility, Specialty, Treatment, Doctor, Insight } from '../types';
+import type { Facility, Specialty, Doctor } from '../types';
 import { api } from '../utils/api';
 
 const IMAGES = {
@@ -64,10 +64,8 @@ export const HomePage: React.FC = () => {
   const emergencyHref = `tel:${emergency.replace(/[^+\d]/g, '')}`;
 
   const [specialties, setSpecialties] = useState<Specialty[]>([]);
-  const [treatments, setTreatments] = useState<Treatment[]>([]);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [facilities, setFacilities] = useState<Facility[]>([]);
-  const [insights, setInsights] = useState<Insight[]>([]);
   const [selectedFacilityIdx, setSelectedFacilityIdx] = useState(0);
   const [storyIdx, setStoryIdx] = useState(0);
 
@@ -75,26 +73,18 @@ export const HomePage: React.FC = () => {
     let mounted = true;
     Promise.allSettled([
       api.get<{ specialties: Specialty[] }>('/specialties'),
-      api.get<{ treatments: Treatment[] }>('/treatments'),
       api.get<{ doctors: Doctor[] }>('/doctors'),
       api.get<{ facilities: Facility[] }>('/facilities'),
-      api.get<{ insights: Insight[] }>('/insights'),
-    ]).then(([specRes, treatRes, docRes, facRes, insRes]) => {
+    ]).then(([specRes, docRes, facRes]) => {
       if (!mounted) return;
       if (specRes.status === 'fulfilled' && specRes.value.specialties) {
         setSpecialties(specRes.value.specialties);
-      }
-      if (treatRes.status === 'fulfilled' && treatRes.value.treatments) {
-        setTreatments(treatRes.value.treatments);
       }
       if (docRes.status === 'fulfilled' && docRes.value.doctors) {
         setDoctors(docRes.value.doctors);
       }
       if (facRes.status === 'fulfilled' && facRes.value.facilities) {
         setFacilities(facRes.value.facilities);
-      }
-      if (insRes.status === 'fulfilled' && insRes.value.insights) {
-        setInsights(insRes.value.insights);
       }
     });
 

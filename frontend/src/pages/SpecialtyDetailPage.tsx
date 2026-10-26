@@ -4,9 +4,7 @@ import {
   Calendar,
   Phone,
   Check,
-  ArrowRight,
   ArrowUpRight,
-  Stethoscope,
   ShieldCheck,
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';

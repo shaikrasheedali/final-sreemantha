@@ -4,7 +4,6 @@ import {
   Calendar,
   Phone,
   Check,
-  Building2,
   ShieldCheck,
   ArrowUpRight,
 } from 'lucide-react';

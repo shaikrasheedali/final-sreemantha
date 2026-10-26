@@ -1,18 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Heart,
-  Sparkles,
   ShieldCheck,
-  Check,
   Calendar,
   Phone,
-  ArrowRight,
   ArrowUpRight,
   Baby,
-  Stethoscope,
-  Building2,
-  Award,
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { useSettings } from '../context/SettingsContext';

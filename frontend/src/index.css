@@ -4806,3 +4806,278 @@ body,
   color: #ffffff !important;
 }
 
+/* 11. Rich Content / WYSIWYG typography
+   Tailwind's preflight removes heading and list styling. These scoped rules
+   make every toolbar command visibly and accurately reflected both inside the
+   editor and on the public detail pages. */
+.wysiwyg-content {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.wysiwyg-content > *:first-child {
+  margin-top: 0;
+}
+
+.wysiwyg-content > *:last-child {
+  margin-bottom: 0;
+}
+
+.wysiwyg-content p {
+  margin: 0 0 0.9em;
+  color: inherit;
+}
+
+.wysiwyg-content h1,
+.wysiwyg-content h2,
+.wysiwyg-content h3,
+.wysiwyg-content h4,
+.wysiwyg-content h5,
+.wysiwyg-content h6 {
+  margin: 1.4em 0 0.55em;
+  color: var(--deep);
+  font-family: "Manrope", "DM Sans", sans-serif;
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+.wysiwyg-content h1 {
+  font-size: 2rem;
+}
+
+.wysiwyg-content h2 {
+  font-size: 1.6rem;
+}
+
+.wysiwyg-content h3 {
+  font-size: 1.32rem;
+}
+
+.wysiwyg-content h4 {
+  font-size: 1.13rem;
+}
+
+.wysiwyg-content h5 {
+  font-size: 1rem;
+}
+
+.wysiwyg-content h6 {
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.wysiwyg-content strong,
+.wysiwyg-content b {
+  font-weight: 700;
+  color: inherit;
+}
+
+.wysiwyg-content em,
+.wysiwyg-content i {
+  font-style: italic;
+}
+
+.wysiwyg-content u {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.wysiwyg-content s,
+.wysiwyg-content strike {
+  text-decoration: line-through;
+}
+
+.wysiwyg-content ul,
+.wysiwyg-content ol {
+  margin: 0.55em 0 1em;
+  padding-left: 1.55rem;
+  color: inherit;
+}
+
+.wysiwyg-content ul {
+  list-style: disc outside;
+}
+
+.wysiwyg-content ol {
+  list-style: decimal outside;
+}
+
+.wysiwyg-content ul ul {
+  list-style-type: circle;
+}
+
+.wysiwyg-content ul ul ul {
+  list-style-type: square;
+}
+
+.wysiwyg-content ol ol {
+  list-style-type: lower-alpha;
+}
+
+.wysiwyg-content ol ol ol {
+  list-style-type: lower-roman;
+}
+
+.wysiwyg-content li {
+  margin: 0.3em 0;
+  padding-left: 0.2rem;
+  color: inherit;
+}
+
+.wysiwyg-content li > p {
+  margin-bottom: 0.35em;
+}
+
+.wysiwyg-content blockquote {
+  margin: 1.15em 0;
+  padding: 0.85rem 1rem 0.85rem 1.15rem;
+  border-left: 4px solid var(--teal);
+  border-radius: 0 12px 12px 0;
+  background: var(--cream);
+  color: #3f5d70;
+  font-style: italic;
+}
+
+.wysiwyg-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.wysiwyg-content a {
+  color: var(--teal);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.wysiwyg-content a:hover {
+  color: var(--coral);
+}
+
+.wysiwyg-content hr {
+  display: block;
+  width: 100%;
+  height: 0;
+  margin: 1.5em 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
+.wysiwyg-content img,
+.wysiwyg-content video,
+.wysiwyg-content iframe {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.1em auto;
+  border-radius: 16px;
+}
+
+.wysiwyg-content video {
+  width: 100%;
+  background: #073d59;
+}
+
+.wysiwyg-content table {
+  width: 100%;
+  min-width: 0;
+  margin: 1.1em 0 1.35em;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 0.94rem;
+  table-layout: auto;
+}
+
+.wysiwyg-content th,
+.wysiwyg-content td {
+  padding: 0.62rem 0.75rem;
+  border: 1px solid rgba(22, 55, 76, 0.2);
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.55;
+}
+
+.wysiwyg-content th {
+  background: var(--mint);
+  color: var(--deep);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.wysiwyg-content td {
+  color: inherit;
+  background: #ffffff;
+}
+
+.wysiwyg-content tbody tr:nth-child(even) td {
+  background: #fbfdff;
+}
+
+.wysiwyg-content pre {
+  margin: 1.1em 0;
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 12px;
+  background: #073d59;
+  color: #e7f6ff;
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+.wysiwyg-content code {
+  padding: 0.12em 0.35em;
+  border-radius: 5px;
+  background: rgba(7, 61, 89, 0.08);
+  color: var(--deep);
+  font-family: "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+.wysiwyg-content pre code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+}
+
+.wysiwyg-content sub,
+.wysiwyg-content sup {
+  font-size: 0.75em;
+  line-height: 0;
+}
+
+.wysiwyg-content[contenteditable="true"]:empty::before {
+  content: attr(data-placeholder);
+  display: block;
+  color: #8ba2b1;
+  font-weight: 400;
+  pointer-events: none;
+  font-style: normal;
+}
+
+@media (max-width: 640px) {
+  .wysiwyg-content h1 {
+    font-size: 1.65rem;
+  }
+
+  .wysiwyg-content h2 {
+    font-size: 1.4rem;
+  }
+
+  .wysiwyg-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .wysiwyg-content table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+

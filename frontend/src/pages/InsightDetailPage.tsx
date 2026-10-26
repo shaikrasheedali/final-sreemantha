@@ -4,10 +4,8 @@ import {
   Calendar,
   Clock,
   User,
-  ArrowRight,
   ArrowUpRight,
   BookOpen,
-  Share2,
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RichContentRenderer } from '../components/RichContentRenderer';

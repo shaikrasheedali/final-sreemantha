@@ -28,7 +28,21 @@ export const AdminAppointmentsPage: React.FC = () => {
   };
 
   useEffect(() => {
-    loadAppointments();
+    let active = true;
+    async function fetchAppointments() {
+      try {
+        const res = await api.get<{ appointments: any[] }>('/appointments');
+        if (active && res.appointments) setAppointments(res.appointments);
+      } catch (err) {
+        console.error('Failed to load appointments:', err);
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+    fetchAppointments();
+    return () => {
+      active = false;
+    };
   }, []);
 
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
@@ -253,7 +267,7 @@ export const AdminAppointmentsPage: React.FC = () => {
                                   await api.put(`/appointments/${a.id}`, { status: 'waiting' });
                                   showToast(`Appointment #${a.id} set to Waiting status.`);
                                   await loadAppointments();
-                                } catch (err) {
+                                } catch {
                                   showToast('Failed to update status', 'error');
                                 }
                               }}
@@ -273,7 +287,7 @@ export const AdminAppointmentsPage: React.FC = () => {
                                   await api.put(`/appointments/${a.id}`, { status: 'consulted' });
                                   showToast(`Appointment #${a.id} set to Consulted status.`);
                                   await loadAppointments();
-                                } catch (err) {
+                                } catch {
                                   showToast('Failed to update status', 'error');
                                 }
                               }}

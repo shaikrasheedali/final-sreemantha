@@ -1,7 +1,6 @@
 import React from 'react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
-import { HeartHandshake, ShieldCheck, UserCheck, Stethoscope, AlertCircle, Phone } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { HeartHandshake, ShieldCheck, UserCheck, Phone } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
 
 export const PatientRightsPage: React.FC = () => {

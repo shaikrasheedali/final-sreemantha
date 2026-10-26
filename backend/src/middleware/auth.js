@@ -64,8 +64,10 @@ function requireRole(...allowedRoles) {
       return next();
     }
 
+    // Never enumerate the permitted roles in the response. Doing so would
+    // reveal restricted roles (including superadmin) to staff accounts.
     return res.status(403).json({
-      error: `Access denied. Requires one of roles: ${allowedRoles.join(', ')}. Current role: ${req.user.role}`,
+      error: 'Access denied. Your account does not have permission to perform this action.',
     });
   };
 }

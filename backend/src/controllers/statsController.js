@@ -1,5 +1,7 @@
 const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
+const { normalizeRole } = require('../middleware/auth');
+const { mentionsSuperAdmin, superadminBlindSqlFilter } = require('../utils/stealth');
 
 async function getDashboardStats(req, res) {
   try {
@@ -14,7 +16,21 @@ async function getDashboardStats(req, res) {
 
     const recentAppointments = await query('SELECT id, patient_name, phone, department, doctor_name, preferred_date, status FROM appointments ORDER BY id DESC LIMIT 5');
     const recentEnquiries = await query('SELECT id, name, phone, subject, status, created_at FROM enquiries ORDER BY id DESC LIMIT 5');
-    const recentAudit = await query('SELECT id, user_name, action, entity_type, created_at FROM audit_logs ORDER BY id DESC LIMIT 6');
+    const isSuperAdmin = normalizeRole(req.user?.role) === 'superadmin';
+    const auditColumns = 'id, user_name, action, entity_type, created_at';
+    const auditBlindFilter = ['user_name', 'action', 'entity_type', 'details']
+      .map(superadminBlindSqlFilter)
+      .join(' AND ');
+
+    const recentAuditRows = isSuperAdmin
+      ? await query(`SELECT ${auditColumns} FROM audit_logs ORDER BY id DESC LIMIT 6`)
+      : await query(
+          `SELECT ${auditColumns} FROM audit_logs WHERE ${auditBlindFilter} ORDER BY id DESC LIMIT 6`
+        );
+
+    const recentAudit = isSuperAdmin
+      ? recentAuditRows
+      : recentAuditRows.filter((entry) => !mentionsSuperAdmin(entry));
 
     return res.json({
       counts: {

@@ -1,18 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import {
-  Settings,
   Save,
   Phone,
-  MessageSquare,
-  MapPin,
-  Clock,
   Globe,
-  ShieldCheck,
   Check,
   Upload,
   RotateCcw,
   Sparkles,
-  ExternalLink,
   Laptop,
   Smartphone,
 } from 'lucide-react';

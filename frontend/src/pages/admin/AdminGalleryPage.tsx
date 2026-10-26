@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Plus, Search, Edit3, Trash2, Eye, X, Upload,
-  Image as ImageIcon, Video, AlertCircle, Save, Check
+  Image as ImageIcon, Video, AlertCircle, Save
 } from 'lucide-react';
 import { YoutubeIcon, InstagramIcon, FacebookIcon } from '../../components/SocialIcons';
 import { GalleryModal } from '../../components/GalleryModal';
@@ -38,7 +38,12 @@ export const AdminGalleryPage: React.FC = () => {
 
   const categories = ['Hospital', 'Facilities', 'Events', 'Medical Team', 'Awareness Programs', 'Celebrations'];
 
-  const loadItems = async () => {
+  const showNotice = useCallback((message: string, type: 'success' | 'error') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 4000);
+  }, []);
+
+  const loadItems = useCallback(async () => {
     try {
       setLoading(true);
       const res = await api.get<{ items?: GalleryItem[]; gallery?: GalleryItem[] }>('/gallery');
@@ -50,16 +55,30 @@ export const AdminGalleryPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showNotice]);
 
   useEffect(() => {
-    loadItems();
-  }, []);
+    let active = true;
 
-  const showNotice = (message: string, type: 'success' | 'error') => {
-    setNotification({ message, type });
-    setTimeout(() => setNotification(null), 4000);
-  };
+    api
+      .get<{ items?: GalleryItem[]; gallery?: GalleryItem[] }>('/gallery')
+      .then((res) => {
+        if (!active) return;
+        setItems(res.items || res.gallery || []);
+      })
+      .catch((err) => {
+        if (!active) return;
+        console.error('Failed to load gallery items:', err);
+        showNotice('Failed to load gallery items.', 'error');
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [showNotice]);
 
   const handleCreateNew = () => {
     setFormData({

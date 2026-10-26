@@ -54,6 +54,22 @@ const defaultSettings: HospitalSettings = {
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
+const mergeSettings = (
+  previous: HospitalSettings,
+  incoming: HospitalSettings
+): HospitalSettings => ({
+  ...previous,
+  ...incoming,
+  hospital_info: {
+    ...previous.hospital_info,
+    ...(incoming.hospital_info || {}),
+  },
+  contact_buttons: {
+    ...previous.contact_buttons,
+    ...(incoming.contact_buttons || {}),
+  },
+});
+
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [settings, setSettings] = useState<HospitalSettings>(defaultSettings);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -62,18 +78,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     try {
       const res = await api.get<{ settings: HospitalSettings }>('/settings');
       if (res && res.settings) {
-        setSettings(prev => ({
-          ...prev,
-          ...res.settings,
-          hospital_info: {
-            ...prev.hospital_info,
-            ...(res.settings.hospital_info || {}),
-          },
-          contact_buttons: {
-            ...prev.contact_buttons,
-            ...(res.settings.contact_buttons || {}),
-          },
-        }));
+        setSettings((previous) => mergeSettings(previous, res.settings));
       }
     } catch (err) {
       console.warn('Failed to load dynamic settings, using defaults:', err);
@@ -104,7 +109,27 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   useEffect(() => {
-    fetchSettings();
+    let active = true;
+
+    api
+      .get<{ settings: HospitalSettings }>('/settings')
+      .then((res) => {
+        if (active && res?.settings) {
+          setSettings((previous) => mergeSettings(previous, res.settings));
+        }
+      })
+      .catch((err) => {
+        if (active) {
+          console.warn('Failed to load dynamic settings, using defaults:', err);
+        }
+      })
+      .finally(() => {
+        if (active) setIsLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   useEffect(() => {

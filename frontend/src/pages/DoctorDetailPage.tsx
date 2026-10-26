@@ -2,16 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
   Calendar,
-  Clock,
   Phone,
-  ArrowRight,
   ArrowUpRight,
   Stethoscope,
   GraduationCap,
-  Award,
-  Globe,
-  Check,
-  ShieldCheck,
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RichContentRenderer } from '../components/RichContentRenderer';

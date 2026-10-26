@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
-  Plus, Search, Edit3, Trash2, ExternalLink, Check, CheckCircle2,
+  Plus, Search, Edit3, Trash2, CheckCircle2,
   X, AlertCircle, Eye, Save, RefreshCw, FileText,
-  Upload, Film, Image as ImageIcon, ChevronRight
+  Upload, Film, Image as ImageIcon
 } from 'lucide-react';
 import { WysiwygEditor } from '../../components/WysiwygEditor';
 import { MediaPickerModal } from '../../components/MediaPickerModal';
-import { parseMediaList } from '../../components/DetailMediaCarousel';
+import { parseMediaList } from '../../utils/media';
 import { api, getAuthToken } from '../../utils/api';
 
 export type CollectionType = 'facilities' | 'specialties' | 'treatments' | 'doctors' | 'insights';
+
+const COLLECTION_LABELS: Record<CollectionType, string> = {
+  facilities: 'Facility',
+  specialties: 'Specialty',
+  treatments: 'Treatment',
+  doctors: 'Doctor',
+  insights: 'Insight',
+};
 
 interface AdminCollectionPageProps {
   type: CollectionType;
@@ -37,7 +45,12 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [uploadingDirect, setUploadingDirect] = useState(false);
 
-  const loadItems = async () => {
+  const showNotice = useCallback((message: string, noticeType: 'success' | 'error') => {
+    setNotification({ message, type: noticeType });
+    setTimeout(() => setNotification(null), 4000);
+  }, []);
+
+  const loadItems = useCallback(async () => {
     try {
       setLoading(true);
       const res = await api.get<any>(`/${type}`);
@@ -49,18 +62,39 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [type, showNotice]);
 
   useEffect(() => {
-    loadItems();
-    setIsEditing(false);
-    setSelectedItem(null);
-  }, [type]);
+    let active = true;
 
-  const showNotice = (message: string, noticeType: 'success' | 'error') => {
-    setNotification({ message, type: noticeType });
-    setTimeout(() => setNotification(null), 4000);
-  };
+    api
+      .get<any>(`/${type}`)
+      .then((res) => {
+        if (!active) return;
+        const list =
+          res[type] ||
+          res.items ||
+          res.doctors ||
+          res.specialties ||
+          res.facilities ||
+          res.treatments ||
+          res.insights ||
+          [];
+        setItems(list);
+      })
+      .catch((err) => {
+        if (!active) return;
+        console.error(`Failed to load ${type}:`, err);
+        showNotice('Failed to load records from database.', 'error');
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [type, showNotice]);
 
   const formatHowItWorksToHtml = (val: any): string => {
     if (!val) return '';
@@ -241,8 +275,12 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
     try {
       setSaving(true);
       const currentNameOrTitle = form.title || form.name || '';
-      if (!form.slug && currentNameOrTitle) {
-        form.slug = currentNameOrTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const formValues = { ...form };
+      if (!formValues.slug && currentNameOrTitle) {
+        formValues.slug = currentNameOrTitle
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '');
       }
 
       // Store multiple media assets as JSON array if multiple, or single string
@@ -254,20 +292,20 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
           : JSON.stringify(mediaList);
 
       const payload: Record<string, any> = {
-        ...form,
-        title: form.title || form.name || '',
-        name: form.name || form.title || '',
-        overview: form.overview || form.content || form.description || '',
-        content: form.content || form.overview || form.description || '',
-        description: form.description || form.content || form.overview || '',
-        summary: form.summary || form.excerpt || form.short_description || '',
-        excerpt: form.excerpt || form.summary || form.short_description || '',
-        short_description: form.short_description || form.excerpt || form.summary || '',
-        department: form.department || form.specialty || '',
-        specialty: form.specialty || form.department || '',
-        full_bio: form.full_bio || form.bio || form.content || '',
-        bio: form.bio || form.full_bio || form.content || '',
-        how_it_works: form.how_it_works,
+        ...formValues,
+        title: formValues.title || formValues.name || '',
+        name: formValues.name || formValues.title || '',
+        overview: formValues.overview || formValues.content || formValues.description || '',
+        content: formValues.content || formValues.overview || formValues.description || '',
+        description: formValues.description || formValues.content || formValues.overview || '',
+        summary: formValues.summary || formValues.excerpt || formValues.short_description || '',
+        excerpt: formValues.excerpt || formValues.summary || formValues.short_description || '',
+        short_description: formValues.short_description || formValues.excerpt || formValues.summary || '',
+        department: formValues.department || formValues.specialty || '',
+        specialty: formValues.specialty || formValues.department || '',
+        full_bio: formValues.full_bio || formValues.bio || formValues.content || '',
+        bio: formValues.bio || formValues.full_bio || formValues.content || '',
+        how_it_works: formValues.how_it_works,
         image_url: mediaVal,
         photo_url: mediaVal,
         hero_media: mediaVal,
@@ -275,14 +313,16 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
         profile_photo: mediaVal,
       };
 
+      const itemLabel = COLLECTION_LABELS[type];
+
       if (selectedItem?.id) {
         // Update existing
         await api.put(`/${type}/${selectedItem.id}`, payload);
-        showNotice(`${title.slice(0, -1)} updated successfully in MySQL database.`, 'success');
+        showNotice(`${itemLabel} updated successfully in MySQL database.`, 'success');
       } else {
         // Create new
         await api.post(`/${type}`, payload);
-        showNotice(`New ${title.slice(0, -1)} created in database.`, 'success');
+        showNotice(`New ${itemLabel.toLowerCase()} created in database.`, 'success');
       }
 
       setIsEditing(false);
@@ -299,7 +339,7 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
   const handleDelete = async (id: number) => {
     try {
       await api.delete(`/${type}/${id}`);
-      showNotice('Item permanently deleted from database.', 'success');
+      showNotice(`${COLLECTION_LABELS[type]} permanently deleted from database.`, 'success');
       setDeleteConfirmId(null);
       await loadItems();
     } catch (err: any) {

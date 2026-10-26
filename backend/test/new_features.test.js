@@ -37,19 +37,56 @@ describe('New Features & Enhancements Verification', () => {
     assert.equal(superadminUser.stored_password, 'SuperAdmin@2026');
   });
 
-  it('Admin can view users and see staff stored_password but not superadmin password', async () => {
+  it('Admin users view is blind to the superadmin account entirely', async () => {
     const res = await request(app)
       .get('/api/auth/users')
       .set('Authorization', `Bearer ${adminToken}`);
     assert.equal(res.status, 200);
-    const superadminUser = res.body.users.find(u => u.username === 'superadmin');
-    assert.ok(superadminUser);
-    assert.equal(superadminUser.stored_password, null); // Admin cannot see superadmin password
+    assert.ok(Array.isArray(res.body.users));
+
+    const superadminUser = res.body.users.find((u) =>
+      JSON.stringify(u).toLowerCase().replace(/[^a-z0-9]+/g, '').includes('superadmin')
+    );
+    assert.equal(superadminUser, undefined); // Stealth: no superadmin record at all
 
     const staffUser = res.body.users.find(u => u.role === 'staff');
     if (staffUser) {
       assert.ok(staffUser.stored_password); // Admin CAN see staff password
     }
+  });
+
+  it('Admin audit trail never mentions the superadmin identity', async () => {
+    const res = await request(app)
+      .get('/api/audit-logs')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(res.status, 200);
+    assert.ok(Array.isArray(res.body.auditLogs));
+
+    for (const entry of res.body.auditLogs) {
+      const haystack = JSON.stringify(entry).toLowerCase().replace(/[^a-z0-9]+/g, '');
+      assert.ok(!haystack.includes('superadmin'));
+    }
+  });
+
+  it('Admin cannot discover the superadmin account through direct user mutations', async () => {
+    const usersRes = await request(app)
+      .get('/api/auth/users')
+      .set('Authorization', `Bearer ${superadminToken}`);
+    const superadminUser = usersRes.body.users.find((u) => u.username === 'superadmin');
+    assert.ok(superadminUser);
+
+    const updateRes = await request(app)
+      .put(`/api/auth/users/${superadminUser.id}`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({ role: 'staff' });
+    assert.equal(updateRes.status, 404);
+    assert.equal(updateRes.body.error, 'User not found.');
+
+    const deleteRes = await request(app)
+      .delete(`/api/auth/users/${superadminUser.id}`)
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(deleteRes.status, 404);
+    assert.equal(deleteRes.body.error, 'User not found.');
   });
 
   it('Admin can create a new staff user with stored password', async () => {

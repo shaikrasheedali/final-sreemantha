@@ -4,6 +4,8 @@ import { ArrowRight } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
 import { BrandLogo } from './BrandLogo';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export const Footer: React.FC = () => {
   const { settings } = useSettings();
   const info = settings.hospital_info || {};
@@ -107,7 +109,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Sreemantha Hospital. All rights reserved.</span>
+          <span>© {CURRENT_YEAR} Sreemantha Hospital. All rights reserved.</span>
           <div className="footer-legal">
             <Link to="/privacy-policy">Privacy Policy</Link>
             <Link to="/terms-of-service">Terms of Service</Link>

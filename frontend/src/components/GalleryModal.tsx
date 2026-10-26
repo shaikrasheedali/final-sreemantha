@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, ExternalLink } from 'lucide-react';
+import { X } from 'lucide-react';
 import { GalleryItem } from '../types';
 
 interface GalleryModalProps {

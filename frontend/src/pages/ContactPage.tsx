@@ -9,7 +9,6 @@ import {
   AlertCircle,
   ShieldCheck,
   ArrowUpRight,
-  MessageCircle,
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { useSettings } from '../context/SettingsContext';

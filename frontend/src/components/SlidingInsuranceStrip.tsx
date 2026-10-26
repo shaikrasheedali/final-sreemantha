@@ -41,7 +41,7 @@ export const SlidingInsuranceStrip: React.FC = () => {
         if (mounted && res.providers && res.providers.length > 0) {
           setProviders(res.providers);
         }
-      } catch (err) {
+      } catch {
         // Fallback list is already loaded
       }
     }

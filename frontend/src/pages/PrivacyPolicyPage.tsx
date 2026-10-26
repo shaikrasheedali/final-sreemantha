@@ -8,7 +8,6 @@ export const PrivacyPolicyPage: React.FC = () => {
   const info = settings.hospital_info || {};
   const phone = info.phone || '+91 96667 81779';
   const email = info.email || 'care@sreemanthahospital.com';
-  const address = info.address || 'Near Priyadarshini Degree College, Nehru Nagar, Wyra Road, Khammam, Telangana 507001';
 
   return (
     <div className="sr-section" style={{ paddingTop: 40 }}>

@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Search, MessageSquare, Phone, Mail, CheckCircle2, X, Trash2, MessageCircle, AlertTriangle, Calendar, ArrowRight, Clock, User, FileText } from 'lucide-react';
+import { Search, MessageSquare, Phone, Mail, CheckCircle2, X, Trash2, MessageCircle, AlertTriangle, Calendar } from 'lucide-react';
 import { api } from '../../utils/api';
+
+const getTomorrowDateString = (): string => {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return tomorrow.toISOString().split('T')[0];
+};
 
 export const AdminEnquiriesPage: React.FC = () => {
   const [enquiries, setEnquiries] = useState<any[]>([]);
@@ -43,7 +49,23 @@ export const AdminEnquiriesPage: React.FC = () => {
   };
 
   useEffect(() => {
-    loadEnquiries();
+    let active = true;
+
+    api
+      .get<{ enquiries: any[] }>('/enquiries')
+      .then((res) => {
+        if (active && res.enquiries) setEnquiries(res.enquiries);
+      })
+      .catch((err) => {
+        if (active) console.error('Failed to load enquiries:', err);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
@@ -52,9 +74,7 @@ export const AdminEnquiriesPage: React.FC = () => {
   };
 
   const openConvertModal = (enq: any) => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const dateStr = tomorrow.toISOString().split('T')[0];
+    const dateStr = getTomorrowDateString();
 
     setConvertingEnquiry(enq);
     setConversionData({

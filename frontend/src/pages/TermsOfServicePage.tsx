@@ -1,6 +1,6 @@
 import React from 'react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
-import { FileCheck, AlertTriangle, Clock, CreditCard, Stethoscope, Phone, Shield } from 'lucide-react';
+import { FileCheck, AlertTriangle, Clock, CreditCard, Stethoscope, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useSettings } from '../context/SettingsContext';
 

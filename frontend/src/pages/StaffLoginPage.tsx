@@ -135,14 +135,7 @@ export const StaffLoginPage: React.FC = () => {
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#4e6373] block mb-2">
               Quick Personnel Sign-In (For Testing &amp; Review)
             </span>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleQuickLogin('superadmin', 'SuperAdmin@2026')}
-                className="btn btn-soft text-xs justify-center py-2"
-              >
-                Superadmin
-              </button>
+            <div className="grid grid-cols-1 gap-2">
               <button
                 id="quick-login-admin"
                 type="button"

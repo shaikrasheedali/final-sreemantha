@@ -1,20 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { ShieldCheck, Plus, Trash2, Edit3, KeyRound, Mail, AlertCircle, X, Check, Eye, EyeOff, Lock, UserCheck } from 'lucide-react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Plus, Trash2, Edit3, X, Check, Eye, EyeOff, Lock, UserCheck } from 'lucide-react';
 import { api } from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
 
+const normalizeRoleText = (role: any): string =>
+  String(role ?? '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '');
+
+const isSuperAdminRole = (role: any): boolean =>
+  normalizeRoleText(role).includes('superadmin');
+
+const isSuperAdminIdentity = (user: any): boolean =>
+  [user?.role, user?.username, user?.email, user?.full_name, user?.fullName, user?.name].some(
+    (value) => normalizeRoleText(value).includes('superadmin')
+  );
+
+const isStaffRole = (role: any): boolean => normalizeRoleText(role) === 'staff';
+
 export const AdminUsersPage: React.FC = () => {
   const { user: currentUser } = useAuth();
-  const isSuperAdmin = currentUser?.role === 'superadmin';
-  const isAdmin = currentUser?.role === 'admin';
+  const isSuperAdmin = isSuperAdminRole(currentUser?.role);
+  const isAdmin = normalizeRoleText(currentUser?.role) === 'admin';
 
   const [users, setUsers] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [isCreating, setIsCreating] = useState(false);
   const [editingUser, setEditingUser] = useState<any | null>(null);
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Stealth guard: even if a cached/legacy API response contains the
+  // superadmin record, administrator and staff sessions must never render it.
+  const visibleUsers = isSuperAdmin
+    ? users
+    : users.filter((u) => !isSuperAdminIdentity(u));
 
   // Password visibility state by user id
   const [revealedPasswords, setRevealedPasswords] = useState<Record<number, boolean>>({});
@@ -35,22 +55,45 @@ export const AdminUsersPage: React.FC = () => {
     role: 'staff',
   });
 
-  const loadUsers = async () => {
+  const loadUsers = useCallback(async () => {
     try {
-      setLoading(true);
       const res = await api.get<{ users: any[] }>('/auth/users');
-      if (res.users) setUsers(res.users);
+      if (res.users) {
+        setUsers(
+          isSuperAdmin
+            ? res.users
+            : res.users.filter((u) => !isSuperAdminIdentity(u))
+        );
+      }
     } catch (err: any) {
       console.error('Failed to load users:', err);
       setError(err?.message || 'Failed to load user accounts.');
-    } finally {
-      setLoading(false);
     }
-  };
+  }, [isSuperAdmin]);
 
   useEffect(() => {
-    loadUsers();
-  }, []);
+    let active = true;
+
+    api
+      .get<{ users: any[] }>('/auth/users')
+      .then((res) => {
+        if (!active || !res.users) return;
+        setUsers(
+          isSuperAdmin
+            ? res.users
+            : res.users.filter((u) => !isSuperAdminIdentity(u))
+        );
+      })
+      .catch((err: any) => {
+        if (!active) return;
+        console.error('Failed to load users:', err);
+        setError(err?.message || 'Failed to load user accounts.');
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [isSuperAdmin]);
 
   const showNotice = (msg: string) => {
     setNotice(msg);
@@ -71,7 +114,7 @@ export const AdminUsersPage: React.FC = () => {
       setError(null);
       await api.post('/auth/users', {
         ...createForm,
-        role: isAdmin ? 'staff' : createForm.role,
+        role: isSuperAdmin ? createForm.role : 'staff',
       });
       showNotice(`User "${createForm.username}" created successfully with stored password.`);
       setIsCreating(false);
@@ -133,15 +176,16 @@ export const AdminUsersPage: React.FC = () => {
   // Determine if current user can edit a given user
   const canEditUser = (u: any) => {
     if (isSuperAdmin) return true;
-    if (isAdmin && u.role === 'staff') return true;
+    if (isAdmin && isStaffRole(u.role)) return true;
     return false;
   };
 
   // Determine if current user can delete a given user
   const canDeleteUser = (u: any) => {
     if (String(u.id) === String(currentUser?.id)) return false;
-    if (isSuperAdmin && u.username !== 'superadmin') return true;
-    if (isAdmin && u.role === 'staff') return true;
+    if (isSuperAdminIdentity(u)) return false;
+    if (isSuperAdmin) return true;
+    if (isAdmin && isStaffRole(u.role)) return true;
     return false;
   };
 
@@ -183,7 +227,7 @@ export const AdminUsersPage: React.FC = () => {
             onClick={() => setIsCreating(true)}
             className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-[#006c93] hover:bg-[#073d59] text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
           >
-            <Plus className="w-4 h-4 text-white" /> Add {isAdmin ? 'Staff Account' : 'User Account'}
+            <Plus className="w-4 h-4 text-white" /> Add {isSuperAdmin ? 'User Account' : 'Staff Account'}
           </button>
         )}
       </div>
@@ -194,7 +238,7 @@ export const AdminUsersPage: React.FC = () => {
           <div className="flex items-center justify-between pb-4 border-b border-[rgba(22,55,76,0.12)] mb-6">
             <h2 className="text-lg font-bold text-[var(--ink)] font-display flex items-center gap-2">
               <UserCheck className="w-5 h-5 text-[#006c93]" />
-              Create New {isAdmin ? 'Staff' : 'System'} Account
+              Create New {isSuperAdmin ? 'System' : 'Staff'} Account
             </h2>
             <button onClick={() => setIsCreating(false)} className="text-[#5a7d92] hover:text-[var(--ink)]">
               <X className="w-4 h-4" />
@@ -265,11 +309,7 @@ export const AdminUsersPage: React.FC = () => {
               <label className="block text-xs font-bold text-[#5a7d92] uppercase tracking-wider mb-1.5">
                 Role &amp; Permissions
               </label>
-              {isAdmin ? (
-                <div className="p-3 rounded-xl bg-slate-100 text-xs font-bold text-[var(--ink)]">
-                  Staff (Clinical &amp; Operations Staff) — Pre-assigned for Administrator
-                </div>
-              ) : (
+              {isSuperAdmin ? (
                 <select
                   value={createForm.role}
                   onChange={(e) => setCreateForm({ ...createForm, role: e.target.value })}
@@ -279,6 +319,10 @@ export const AdminUsersPage: React.FC = () => {
                   <option value="admin">Administrator (Hospital CMS &amp; Staff Management)</option>
                   <option value="superadmin">Superadmin (Master Authority)</option>
                 </select>
+              ) : (
+                <div className="p-3 rounded-xl bg-slate-100 text-xs font-bold text-[var(--ink)]">
+                  Staff (Clinical &amp; Operations Staff) — Pre-assigned for Administrator
+                </div>
               )}
             </div>
 
@@ -316,7 +360,7 @@ export const AdminUsersPage: React.FC = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-[rgba(22,55,76,0.08)]">
-                {users.map((u: any) => {
+                {visibleUsers.map((u: any) => {
                   const hasPasswordAccess = Boolean(u.stored_password || u.password);
                   const isRevealed = Boolean(revealedPasswords[u.id]);
                   const canEdit = canEditUser(u);
@@ -332,7 +376,7 @@ export const AdminUsersPage: React.FC = () => {
                       <td className="px-6 py-4">
                         <span
                           className={`inline-block text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider ${
-                            u.role === 'superadmin'
+                            isSuperAdminRole(u.role)
                               ? 'bg-[#fcebf3] text-[var(--coral)] border border-[var(--coral)]/20'
                               : u.role === 'admin'
                               ? 'bg-[var(--mint)] text-[var(--teal)] border border-[var(--teal)]/20'

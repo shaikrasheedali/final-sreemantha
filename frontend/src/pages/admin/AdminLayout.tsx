@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { BrandLogo } from '../../components/BrandLogo';
+import { RouteFallback } from '../../components/RouteFallback';
 
 export const AdminLayout: React.FC = () => {
   const { user, logout } = useAuth();
@@ -48,9 +49,11 @@ export const AdminLayout: React.FC = () => {
     { header: 'SYSTEM & SETTINGS' },
     { label: 'Hospital Settings & Favicon', path: '/admin/settings', icon: Settings },
     ...(user?.role === 'superadmin' || user?.role === 'admin'
-      ? [{ label: 'Users & Roles', path: '/admin/users', icon: ShieldAlert }]
+      ? [
+          { label: 'Users & Roles', path: '/admin/users', icon: ShieldAlert },
+          { label: 'Audit Logs', path: '/admin/audit-logs', icon: FileText },
+        ]
       : []),
-    { label: 'Audit Logs', path: '/admin/audit-logs', icon: FileText },
   ];
 
   return (
@@ -162,7 +165,9 @@ export const AdminLayout: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="dash-main">
-        <Outlet />
+        <Suspense fallback={<RouteFallback />}>
+          <Outlet />
+        </Suspense>
       </main>
 
       {/* Scrim backdrop for mobile */}

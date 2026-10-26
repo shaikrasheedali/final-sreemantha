@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
   X,
   Upload,
@@ -6,9 +6,7 @@ import {
   Check,
   Film,
   Image as ImageIcon,
-  CheckCircle2,
   AlertCircle,
-  Plus,
 } from 'lucide-react';
 import { api, getAuthToken } from '../utils/api';
 
@@ -51,7 +49,7 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
-  const loadAssets = async () => {
+  const loadAssets = useCallback(async () => {
     try {
       setLoading(true);
       const res = await api.get<{ assets: MediaAssetItem[] }>('/media');
@@ -63,14 +61,42 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  useEffect(() => {
+  // Reset the pending selection when the picker transitions from closed to
+  // open. Adjusting state during render (instead of in an effect) avoids a
+  // second render pass with stale selection data.
+  const [wasOpen, setWasOpen] = useState(isOpen);
+  if (isOpen !== wasOpen) {
+    setWasOpen(isOpen);
     if (isOpen) {
-      loadAssets();
       setSelectedUrls(initialSelected);
       setUploadError(null);
+      setActiveTab('gallery');
     }
+  }
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let active = true;
+    async function fetchAssets() {
+      try {
+        const res = await api.get<{ assets: MediaAssetItem[] }>('/media');
+        if (active && res.assets) {
+          setAssets(res.assets);
+        }
+      } catch (err) {
+        console.error('Failed to load media assets:', err);
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+
+    fetchAssets();
+    return () => {
+      active = false;
+    };
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -166,6 +192,7 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
           </div>
 
           <button
+            type="button"
             onClick={onClose}
             className="w-8 h-8 rounded-full bg-[var(--cream)] hover:bg-[var(--mint)] text-[#5a7d92] hover:text-[var(--ink)] flex items-center justify-center transition-colors"
           >
@@ -177,6 +204,7 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
         <div className="px-6 pt-3 pb-2 border-b border-[rgba(22,55,76,0.08)] flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={() => setActiveTab('gallery')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'gallery'
@@ -187,6 +215,7 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
               Browse Media Assets ({assets.length})
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('upload')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                 activeTab === 'upload'

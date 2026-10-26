@@ -21,4 +21,26 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    // Route pages are dynamically imported in App.tsx. Keeping the React
+    // runtime in its own long-lived chunk improves caching across deploys.
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: 'react-vendor',
+              test: /node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/,
+              priority: 20,
+            },
+            {
+              name: 'icons',
+              test: /node_modules[\\/]lucide-react[\\/]/,
+              priority: 10,
+            },
+          ],
+        },
+      },
+    },
+  },
 });
