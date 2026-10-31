@@ -282,6 +282,133 @@ function isExpectedSchemaError(err) {
   );
 }
 
+// The retired reception/newborn photograph must never be served again. Its
+// CMS image slots now use the approved Sreemantha brand artwork. The rewrite
+// is idempotent and runs at boot so existing hosted databases are cleaned up
+// in place, not just fresh installs seeded from baseline_data.json.
+const LEGACY_MEDIA_REWRITES = [
+  ['/reception-newborn-card.webp', '/sreemantha-brand-logo-square.webp'],
+  ['/reception-newborn.webp', '/sreemantha-brand-logo-card.webp'],
+];
+
+const LEGACY_MEDIA_COLUMNS = [
+  ['departments', 'image_url'],
+  ['specialties', 'image_url'],
+  ['treatments', 'image_url'],
+  ['doctors', 'photo_url'],
+  ['facilities', 'image_url'],
+  ['blog_posts', 'image_url'],
+  ['blog_posts', 'content'],
+  ['gallery_items', 'media_url'],
+  ['gallery_items', 'thumbnail_url'],
+  ['gallery_items', 'embed_code'],
+  ['media_assets', 'url'],
+];
+
+function rewriteLegacyMediaValue(value) {
+  return LEGACY_MEDIA_REWRITES.reduce(
+    (current, [from, to]) => current.split(from).join(to),
+    String(value)
+  );
+}
+
+async function migrateLegacyBrandMedia(run) {
+  let rewrittenColumns = 0;
+
+  for (const [table, column] of LEGACY_MEDIA_COLUMNS) {
+    try {
+      const result = await run(
+        `UPDATE \`${table}\` SET \`${column}\` = REPLACE(REPLACE(\`${column}\`,
+            '/reception-newborn-card.webp', '/sreemantha-brand-logo-square.webp'),
+            '/reception-newborn.webp', '/sreemantha-brand-logo-card.webp')
+          WHERE \`${column}\` LIKE '%reception-newborn%'`
+      );
+      if (result && result.affectedRows) rewrittenColumns += 1;
+    } catch (err) {
+      if (!isExpectedSchemaError(err)) {
+        console.error(`[InitDb] Legacy media cleanup notice (${table}.${column}):`, err.message);
+      }
+    }
+  }
+
+  // Remove the retired photograph from the CMS media library entirely.
+  try {
+    await run(
+      `DELETE FROM media_assets
+        WHERE filename IN ('reception-newborn.webp', 'reception-newborn-card.webp')
+           OR original_name LIKE '%Newborn Mom & Staff%'`
+    );
+  } catch (err) {
+    console.error('[InitDb] Legacy media asset cleanup notice:', err.message);
+  }
+
+  // Rename the previously uploaded, untitled logo asset to a stable,
+  // descriptive production filename. Fresh databases already contain this
+  // row from baseline_data.json, so the update is a no-op there.
+  try {
+    await run(
+      `UPDATE media_assets
+          SET filename = 'sreemantha-brand-logo.webp',
+              original_name = 'Sreemantha Fertility, Women & Child Care Hospital Logo',
+              url = '/uploads/sreemantha-brand-logo.webp',
+              file_size = 118876,
+              mime_type = 'image/webp',
+              media_type = 'image',
+              width = 2400,
+              height = 1350
+        WHERE filename = 'asset-1791049250066-295820097.webp'
+           OR original_name = 'Untitled image (2).jpeg'`
+    );
+
+    const [{ count: logoCount } = { count: 0 }] = await run(
+      `SELECT COUNT(*) AS count FROM media_assets WHERE filename = 'sreemantha-brand-logo.webp'`
+    );
+    if (Number(logoCount) === 0) {
+      await run(
+        `INSERT INTO media_assets
+          (filename, original_name, url, file_size, mime_type, media_type, width, height)
+         VALUES (?, ?, ?, ?, 'image/webp', 'image', ?, ?)`,
+        [
+          'sreemantha-brand-logo.webp',
+          'Sreemantha Fertility, Women & Child Care Hospital Logo',
+          '/uploads/sreemantha-brand-logo.webp',
+          118876,
+          2400,
+          1350,
+        ]
+      );
+    }
+  } catch (err) {
+    console.error('[InitDb] Logo media asset registration notice:', err.message);
+  }
+
+  // Settings are stored as JSON and may embed a media path inside copy.
+  try {
+    const settingsRows = await run(
+      `SELECT setting_key, setting_value FROM settings
+        WHERE CAST(setting_value AS CHAR) LIKE '%reception-newborn%'`
+    );
+    for (const row of settingsRows) {
+      const serialized =
+        typeof row.setting_value === 'string'
+          ? row.setting_value
+          : JSON.stringify(row.setting_value);
+      await run('UPDATE settings SET setting_value = ? WHERE setting_key = ?', [
+        rewriteLegacyMediaValue(serialized),
+        row.setting_key,
+      ]);
+    }
+  } catch (err) {
+    console.error('[InitDb] Settings media cleanup notice:', err.message);
+  }
+
+  if (rewrittenColumns > 0) {
+    console.log(
+      `[InitDb] Replaced retired reception photograph references in ${rewrittenColumns} content column(s).`
+    );
+  }
+}
+
 async function initDatabase() {
   console.log('[InitDb] Verifying and provisioning MySQL database tables...');
 
@@ -386,7 +513,11 @@ async function initDatabase() {
       }
     }
 
-    // 5. Seed initial superadmin, admin and staff users without ever
+    // 5. Replace every remaining reference to the retired reception/newborn
+    //    photograph, including rows that existed before this deploy.
+    await migrateLegacyBrandMedia(run);
+
+    // 6. Seed initial superadmin, admin and staff users without ever
     //    overwriting an existing account.
     await seedInitialUsers(connection);
 

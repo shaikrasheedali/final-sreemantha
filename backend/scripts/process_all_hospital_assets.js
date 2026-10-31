@@ -90,22 +90,12 @@ async function processHospitalImages() {
     { width: 800, height: 600 }
   );
 
-  // 3. Reception & Newborn
-  await convertPngToWebp(
-    path.join(ROOT_DIR, 'new-born-with-mom-and-staff-posing-at-reception.png'),
-    [
-      path.join(FRONTEND_PUBLIC, 'images/reception-newborn.webp'),
-      path.join(BACKEND_UPLOADS, 'reception-newborn.webp'),
-    ]
-  );
-  await convertPngWithCrop(
-    path.join(ROOT_DIR, 'new-born-with-mom-and-staff-posing-at-reception.png'),
-    [
-      path.join(FRONTEND_PUBLIC, 'images/reception-newborn-card.webp'),
-      path.join(BACKEND_UPLOADS, 'reception-newborn-card.webp'),
-    ],
-    { width: 1200, height: 675 }
-  );
+  // 3. Official brand logo
+  // The approved logo variants are versioned at:
+  //   frontend/public/images/sreemantha-brand-logo*.webp
+  //   backend/uploads/sreemantha-brand-logo*.webp
+  // They are generated from the official high-resolution brand artwork and
+  // must not be re-encoded by this facility-image pipeline.
 
   // 4. Operation Theatre
   await convertPngToWebp(
@@ -534,7 +524,7 @@ async function updateDatabaseCollections() {
       '["M.B.B.S. - Osmania Medical College, Hyderabad", "M.S. (Obstetrics & Gynecology) - Osmania Medical College", "Fellowship in Reproductive Medicine & Infertility", "Advanced Training in 3D/4K Minimal Access Gynecological Laparoscopy"]',
       '["TSMC Reg. No: TSMC/FMR/03919", "Life Member - Federation of Obstetric and Gynaecological Societies of India (FOGSI)", "Member - Indian Society for Assisted Reproduction (ISAR)"]',
       '10:00 AM - 02:00 PM & 05:00 PM - 08:00 PM',
-      '/images/reception-newborn-card.webp',
+      '/images/sreemantha-brand-logo-square.webp',
       1,
       1,
       'published'
@@ -707,7 +697,7 @@ async function updateDatabaseCollections() {
       'Comprehensive prenatal care, painless labor management, and 24/7 tertiary maternal-fetal critical care in Khammam.',
       'Sreemantha Hospital\\'s Obstetrics department is led by Dr. G. Sindhu (MS OBGYN, Osmania Medical College). Our dedicated labor suites and modular operating theatres are equipped for complex maternal emergencies, twins/multiple gestations, gestational diabetes, pre-eclampsia, and prior cesarean deliveries.',
       'HeartPulse',
-      '/images/reception-newborn.webp',
+      '/images/sreemantha-brand-logo-card.webp',
       '["High-Risk Pregnancy", "Gestational Diabetes (GDM)", "Pre-eclampsia & Hypertension", "Multiple Pregnancies (Twins/Triplets)", "Recurrent Pregnancy Loss", "Placenta Previa & Accreta"]',
       1,
       'published'
@@ -796,7 +786,7 @@ async function updateDatabaseCollections() {
       'Immediate postpartum skin-to-skin bonding, initial breastfeeding within 30 minutes, and rapid mobilization within 4 hours.',
       '6 to 12 hours labor duration',
       '95%+ pain alleviation',
-      '/images/reception-newborn-card.webp',
+      '/images/sreemantha-brand-logo-card.webp',
       1,
       'published'
     ),
@@ -913,7 +903,7 @@ async function updateDatabaseCollections() {
       'Dedicated maternity floor, luxury postnatal recovery suites, and compassionate patient care counselors.',
       'At Sreemantha Hospital, welcoming a new baby is celebrated with dignity and happiness. Our maternity suites provide quiet, supportive recovery environments for new mothers and their newborn babies with immediate bedside assistance.',
       '["Private Air-Conditioned Postnatal Rooms", "Dedicated Lactation Counseling Suite", "Bedside Electronic Nurse Call System", "Kangaroo Mother Care Recliners", "24/7 Pediatric Ward Coverage"]',
-      '/images/reception-newborn.webp',
+      '/images/sreemantha-brand-logo-card.webp',
       'published',
       4
     )
@@ -946,7 +936,7 @@ async function updateDatabaseCollections() {
     { name: 'Hospital Exterior Front Building', filename: 'hospital-exterior.webp', url: '/images/hospital-exterior.webp', w: 2000, h: 1500 },
     { name: 'Hospital Exterior Banner 16:9', filename: 'hospital-exterior-banner.webp', url: '/images/hospital-exterior-banner.webp', w: 1920, h: 1080 },
     { name: 'NICU Incubator Room with Nurses & Preterms', filename: 'incubator-nicu.webp', url: '/images/incubator-nicu.webp', w: 1599, h: 1200 },
-    { name: 'Newborn Mom & Staff at Reception', filename: 'reception-newborn.webp', url: '/images/reception-newborn.webp', w: 2000, h: 900 },
+    { name: 'Sreemantha Fertility, Women & Child Care Hospital Logo', filename: 'sreemantha-brand-logo.webp', url: '/images/sreemantha-brand-logo.webp', w: 2400, h: 1350 },
     { name: 'Modular Operation Theatre with Surgical Equipments', filename: 'operation-theatre.webp', url: '/images/operation-theatre.webp', w: 1152, h: 648 },
     { name: 'Blog: You Trust We Care Poster', filename: 'blog-you-trust-we-care.webp', url: '/images/blogs/blog-you-trust-we-care.webp', w: 705, h: 853 },
     { name: 'Blog: Let Wonderful Things Happen Poster', filename: 'blog-let-wonderful-things-happen.webp', url: '/images/blogs/blog-let-wonderful-things-happen.webp', w: 705, h: 853 },

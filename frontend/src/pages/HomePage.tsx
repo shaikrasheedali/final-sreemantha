@@ -29,13 +29,18 @@ import { api } from '../utils/api';
 const IMAGES = {
   hero: '/images/hospital-exterior-banner.webp',
   exterior: '/images/hospital-exterior.webp',
-  mother: '/images/reception-newborn.webp',
-  baby: '/images/reception-newborn-card.webp',
+  brandLogo: '/images/sreemantha-brand-logo.webp',
+  brandLogoCard: '/images/sreemantha-brand-logo-card.webp',
+  brandLogoSquare: '/images/sreemantha-brand-logo-square.webp',
+  brandLogoPortrait: '/images/sreemantha-brand-logo-portrait.webp',
+  mother: '/images/sreemantha-brand-logo.webp',
+  baby: '/images/sreemantha-brand-logo-card.webp',
   aboutMain: '/images/sreemantha-hospital-facade.webp',
   aboutBadge: '/images/sreemantha-telugu-brand-poster.webp',
   nicu: '/images/incubator-nicu.webp',
   ot: '/images/operation-theatre.webp',
-  patient: '/images/reception-newborn.webp',
+  patient: '/images/sreemantha-brand-logo-portrait.webp',
+  doctorFallback: '/images/sreemantha-brand-logo-square.webp',
 };
 
 const HERO_SLIDES = [
@@ -46,7 +51,7 @@ const HERO_SLIDES = [
   },
   {
     src: IMAGES.mother,
-    alt: 'Newborn care at the Sreemantha maternity unit',
+    alt: 'Sreemantha Fertility, Women & Child Care Hospital brand identity',
     position: 'center 34%',
   },
   {
@@ -193,7 +198,7 @@ export const HomePage: React.FC = () => {
                 {doctors.slice(0, 3).map((doc, idx) => (
                   <img
                     key={doc.id || idx}
-                    src={doc.photo_url || doc.profile_photo || IMAGES.patient}
+                    src={doc.photo_url || doc.profile_photo || IMAGES.doctorFallback}
                     alt={doc.name}
                     width={64}
                     height={64}
@@ -480,7 +485,7 @@ export const HomePage: React.FC = () => {
                 ? doctors.slice(0, 4).map((doc) => (
                     <article className="doctor profile-card" key={doc.id}>
                       <img
-                        src={doc.photo_url || doc.profile_photo || IMAGES.patient}
+                        src={doc.photo_url || doc.profile_photo || IMAGES.doctorFallback}
                         alt={doc.name}
                         width={400}
                         height={400}
@@ -526,7 +531,7 @@ export const HomePage: React.FC = () => {
                     { name: 'Dr. V. Rajesh Kumar', role: 'Consultant Pediatrician & Neonatologist', exp: '10+ years experience', qual: 'MBBS, MD (Pediatrics), Fellowship in Neonatology' },
                   ].map((doc, idx) => (
                     <article className="doctor profile-card" key={idx}>
-                      <img src={IMAGES.patient} alt={doc.name} width={400} height={400} loading="lazy" />
+                      <img src={IMAGES.doctorFallback} alt={doc.name} width={400} height={400} loading="lazy" />
                       <div>
                         <h3><Link to="/doctors">{doc.name}</Link></h3>
                         <p>{doc.role} · {doc.exp}</p>
@@ -648,7 +653,7 @@ export const HomePage: React.FC = () => {
             <img
               className="main-patient"
               src={IMAGES.patient}
-              alt="Care team at Sreemantha"
+              alt="Sreemantha Hospital official brand mark"
               width={800}
               height={600}
             />

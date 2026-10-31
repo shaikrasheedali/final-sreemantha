@@ -5193,7 +5193,7 @@
           "Member - Indian Society for Assisted Reproduction (ISAR)"
         ],
         "opd_timings": "10:00 AM - 02:00 PM & 05:00 PM - 08:00 PM",
-        "photo_url": "/uploads/reception-newborn-card.webp",
+        "photo_url": "/uploads/sreemantha-brand-logo-square.webp",
         "featured": 1,
         "display_order": 1,
         "status": "published",
@@ -5666,7 +5666,7 @@
           "Kangaroo Mother Care Recliners",
           "24/7 Pediatric Ward Coverage"
         ],
-        "image_url": "/uploads/reception-newborn.webp",
+        "image_url": "/uploads/sreemantha-brand-logo-card.webp",
         "status": "published",
         "display_order": 4
       }
@@ -6420,14 +6420,14 @@
       },
       {
         "id": 39,
-        "filename": "asset-1791049250066-295820097.webp",
-        "original_name": "Untitled image (2).jpeg",
-        "url": "/uploads/asset-1791049250066-295820097.webp",
-        "file_size": 64736,
+        "filename": "sreemantha-brand-logo.webp",
+        "original_name": "Sreemantha Fertility, Women & Child Care Hospital Logo",
+        "url": "/uploads/sreemantha-brand-logo.webp",
+        "file_size": 118876,
         "mime_type": "image/webp",
         "media_type": "image",
         "width": 2400,
-        "height": 1340,
+        "height": 1350,
         "created_at": "2026-10-03T12:10:51.000Z"
       },
       {
@@ -6476,18 +6476,6 @@
         "media_type": "image",
         "width": 1599,
         "height": 1200,
-        "created_at": "2026-10-05T01:38:55.000Z"
-      },
-      {
-        "id": 50,
-        "filename": "reception-newborn.webp",
-        "original_name": "Newborn Mom & Staff at Reception",
-        "url": "/uploads/reception-newborn.webp",
-        "file_size": 150000,
-        "mime_type": "image/webp",
-        "media_type": "image",
-        "width": 2000,
-        "height": 900,
         "created_at": "2026-10-05T01:38:55.000Z"
       },
       {
@@ -6679,7 +6667,7 @@
         "short_description": "Comprehensive prenatal care, painless labor management, and 24/7 tertiary maternal-fetal critical care in Khammam.",
         "overview": "Sreemantha Hospital's Obstetrics department is led by Dr. G. Sindhu (MS OBGYN, Osmania Medical College). Our dedicated labor suites and modular operating theatres are equipped for complex maternal emergencies, twins/multiple gestations, gestational diabetes, pre-eclampsia, and prior cesarean deliveries.",
         "icon": "HeartPulse",
-        "image_url": "/uploads/reception-newborn.webp",
+        "image_url": "/uploads/sreemantha-brand-logo-card.webp",
         "conditions": [
           "High-Risk Pregnancy",
           "Gestational Diabetes (GDM)",
@@ -6847,7 +6835,7 @@
         "aftercare": "Immediate postpartum skin-to-skin bonding, initial breastfeeding within 30 minutes, and rapid mobilization within 4 hours.",
         "typical_duration": "6 to 12 hours labor duration",
         "success_rate": "95%+ pain alleviation",
-        "image_url": "/uploads/reception-newborn-card.webp",
+        "image_url": "/uploads/sreemantha-brand-logo-card.webp",
         "featured": 1,
         "status": "published",
         "created_at": "2026-10-05T01:38:53.000Z"

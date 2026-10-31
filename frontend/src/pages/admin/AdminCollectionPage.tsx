@@ -159,7 +159,7 @@ export const AdminCollectionPage: React.FC<AdminCollectionPageProps> = ({
       baseForm.qualifications = 'MBBS, MD';
       baseForm.experience = '10+ Years Experience';
       baseForm.languages = 'English, Telugu, Hindi';
-      initialMedia = ['/images/reception-newborn-card.webp'];
+      initialMedia = ['/images/sreemantha-brand-logo-square.webp'];
       baseForm.bio = '<p>Write doctor biography and clinical focus here...</p>';
       baseForm.full_bio = baseForm.bio;
     } else if (type === 'insights') {
